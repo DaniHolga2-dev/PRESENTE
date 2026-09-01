@@ -15,6 +15,9 @@ local_settings.py
 # Base de datos local
 db.sqlite3
 
+# Imagen de referencia proporcionada para el proyecto
+Presente_Retorika.png
+
 # Archivos temporales
 *.tmp
 *.temp
