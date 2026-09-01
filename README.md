@@ -86,6 +86,18 @@ Si se utiliza PowerShell:
 .\venv\Scripts\Activate.ps1
 ```
 
+En algunos equipos PowerShell puede bloquear la ejecución del script por la política de seguridad. Si ocurre, se puede habilitar temporalmente para esa terminal con:
+
+```powershell
+Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
+```
+
+Después se vuelve a activar el entorno virtual:
+
+```powershell
+.\venv\Scripts\Activate.ps1
+```
+
 Una vez activado, instalamos las dependencias:
 
 ```bash
