@@ -1,0 +1,133 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Soporte | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="pagina-acceso">
+
+    <div class="tarjeta-acceso tarjeta-registro">
+
+        <div class="icono-acceso">
+            🛠️
+        </div>
+
+        <h1>
+            Solicitud de asistencia
+        </h1>
+
+        <p class="subtitulo-acceso">
+            Utiliza este formulario si estabas en clase
+            pero no pudiste registrar tu asistencia.
+        </p>
+
+
+        {% if messages %}
+
+            {% for message in messages %}
+
+                <div class="mensaje-error">
+                    {{ message }}
+                </div>
+
+            {% endfor %}
+
+        {% endif %}
+
+
+        <form
+            method="POST"
+            class="formulario-acceso"
+        >
+
+            {% csrf_token %}
+
+
+            <div class="campo-formulario">
+
+                <label>
+                    Correo electrónico
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Tu correo registrado"
+                    required
+                >
+
+            </div>
+
+
+            <div class="campo-formulario">
+
+                <label>
+                    Clase
+                </label>
+
+                <select
+                    name="clase"
+                    required
+                >
+
+                    <option value="">
+                        Selecciona una clase
+                    </option>
+
+                    {% for clase in clases %}
+
+                        <option value="{{ clase.id }}">
+
+                            {{ clase.fecha|date:"d/m/Y" }}
+                            -
+                            {{ clase.grupo.asignatura }}
+                            -
+                            {{ clase.grupo.nombre }}
+
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="campo-formulario">
+
+                <label>
+                    ¿Qué ha ocurrido?
+                </label>
+
+                <textarea
+                    name="motivo"
+                    rows="5"
+                    placeholder="Ej. No tenía conexión WiFi y no pude abrir el QR."
+                    required
+                    style="
+                        width:100%;
+                        padding:14px;
+                        border:1px solid #d0d5dd;
+                        border-radius:8px;
+                        font-family:inherit;
+                        resize:vertical;
+                    "
+                ></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="boton-acceso boton-alumno"
+            >
+                Enviar solicitud
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+{% endblock %}

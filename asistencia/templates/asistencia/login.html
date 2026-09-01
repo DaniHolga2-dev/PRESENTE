@@ -1,0 +1,73 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}
+Iniciar sesión | PRESENTE
+{% endblock %}
+
+
+{% block content %}
+
+<section class="inicio">
+
+    <div class="inicio-contenido">
+
+        <p class="inicio-etiqueta">
+            ACCESO
+        </p>
+
+        <h1 style="font-size: 42px;">
+            Iniciar sesión
+        </h1>
+
+        <p class="inicio-descripcion">
+            Selecciona tu tipo de usuario.
+        </p>
+
+
+        <div
+            style="
+                display: flex;
+                justify-content: center;
+                gap: 25px;
+                flex-wrap: wrap;
+                margin-top: 45px;
+            "
+        >
+
+            <a
+                href="{% url 'login_profesor' %}"
+                class="boton-login"
+                style="
+                    text-decoration: none;
+                    background: #172033;
+                    color: white;
+                    padding: 16px 35px;
+                    border-radius: 8px;
+                    font-weight: 600;
+                "
+            >
+                Profesor
+            </a>
+
+
+            <a
+                href="{% url 'login_alumno' %}"
+                style="
+                    text-decoration: none;
+                    background: #168653;
+                    color: white;
+                    padding: 16px 35px;
+                    border-radius: 8px;
+                    font-weight: 600;
+                "
+            >
+                Alumno
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

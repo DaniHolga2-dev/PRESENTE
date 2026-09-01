@@ -1,0 +1,75 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Acceso profesor | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="pagina-acceso">
+
+    <div class="tarjeta-acceso">
+
+        <div class="icono-acceso">
+            👨‍🏫
+        </div>
+
+        <h1>Acceso profesor</h1>
+
+        <p class="subtitulo-acceso">
+            Introduce tus datos para acceder.
+        </p>
+
+        {% if messages %}
+            {% for message in messages %}
+                <div class="mensaje-error">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST" class="formulario-acceso">
+
+            {% csrf_token %}
+
+            <div class="campo-formulario">
+                <label for="username">
+                    Usuario
+                </label>
+
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Introduce tu usuario"
+                    required
+                >
+            </div>
+
+            <div class="campo-formulario">
+                <label for="password">
+                    Contraseña
+                </label>
+
+                <input
+                    type="password"
+                    id="password"
+                    name="password"
+                    placeholder="Introduce tu contraseña"
+                    required
+                >
+            </div>
+
+            <button type="submit" class="boton-acceso boton-alumno">
+                Entrar
+            </button>
+
+        </form>
+
+        <a href="{% url 'seleccionar_login' %}" class="volver-acceso">
+            ← Volver
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

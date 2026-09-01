@@ -1,0 +1,192 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}{{ grupo.asignatura }} | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div class="panel-contenedor">
+
+        <div style="margin-bottom:25px;">
+
+            <a
+                href="{% url 'panel_profesor' %}"
+                style="
+                    text-decoration:none;
+                    color:#168653;
+                    font-weight:600;
+                "
+            >
+                ← Volver a mis grupos
+            </a>
+
+        </div>
+
+
+        <div class="panel-cabecera">
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    GRUPO
+                </p>
+
+                <h1>
+                    {{ grupo.asignatura }}
+                </h1>
+
+                <p class="panel-subtitulo">
+                    {{ grupo.nombre }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel-grid">
+
+            <!-- ALUMNOS -->
+
+            <div class="panel-tarjeta">
+
+                <div class="panel-tarjeta-titulo">
+
+                    <h2>
+                        Alumnos
+                    </h2>
+
+                </div>
+
+
+                {% for alumno in alumnos %}
+
+                    <div style="
+                        padding:14px 0;
+                        border-bottom:1px solid #e5e7eb;
+                    ">
+
+                        <strong>
+                            {{ alumno.nombre }}
+                            {{ alumno.apellidos }}
+                        </strong>
+
+                        <div style="
+                            margin-top:4px;
+                            color:#667085;
+                            font-size:14px;
+                        ">
+                            {{ alumno.email }}
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <p style="color:#667085;">
+                        Todavía no hay alumnos registrados.
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- CLASES -->
+
+            <div class="panel-tarjeta">
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    margin-bottom:25px;
+                    padding-bottom:18px;
+                    border-bottom:1px solid #e5e7eb;
+                ">
+
+                    <h2>
+                        Clases
+                    </h2>
+
+                    <a
+                        href="{% url 'crear_clase' grupo.id %}"
+                        style="
+                            padding:10px 16px;
+                            border-radius:8px;
+                            background:#168653;
+                            color:white;
+                            text-decoration:none;
+                            font-weight:700;
+                            font-size:14px;
+                        "
+                    >
+                        + Clase
+                    </a>
+
+                </div>
+
+
+                {% for clase in clases %}
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        gap:15px;
+                        padding:16px 0;
+                        border-bottom:1px solid #e5e7eb;
+                    ">
+
+                        <div>
+
+                            <strong>
+                                {{ clase.fecha|date:"d/m/Y" }}
+                            </strong>
+
+                            <div style="
+                                margin-top:4px;
+                                color:#667085;
+                                font-size:14px;
+                            ">
+                                {{ clase.hora_inicio|time:"H:i" }}
+                            </div>
+
+                        </div>
+
+
+                        <a
+                            href="{% url 'gestionar_asistencia' clase.id %}"
+                            style="
+                                padding:8px 13px;
+                                border-radius:7px;
+                                background:#172033;
+                                color:white;
+                                text-decoration:none;
+                                font-size:13px;
+                                font-weight:700;
+                            "
+                        >
+                            Asistencia
+                        </a>
+
+                    </div>
+
+                {% empty %}
+
+                    <p style="color:#667085;">
+                        No hay clases programadas.
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,191 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Registro alumno | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="pagina-acceso">
+
+    <div class="tarjeta-acceso tarjeta-registro">
+
+        <div class="icono-acceso">
+            👤
+        </div>
+
+        <h1>Crear perfil</h1>
+
+        <p class="subtitulo-acceso">
+            Completa tus datos para registrarte.
+        </p>
+
+        {% if form.non_field_errors %}
+            <div class="mensaje-error">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+
+        <form
+            method="POST"
+            enctype="multipart/form-data"
+            class="formulario-acceso"
+        >
+
+            {% csrf_token %}
+
+            <div class="campo-formulario">
+                <label for="{{ form.nombre.id_for_label }}">
+                    Nombre
+                </label>
+
+                {{ form.nombre }}
+
+                {% if form.nombre.errors %}
+                    <div class="error-campo">
+                        {{ form.nombre.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="campo-formulario">
+                <label for="{{ form.apellidos.id_for_label }}">
+                    Apellidos
+                </label>
+
+                {{ form.apellidos }}
+
+                {% if form.apellidos.errors %}
+                    <div class="error-campo">
+                        {{ form.apellidos.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="campo-formulario">
+                <label for="{{ form.carrera.id_for_label }}">
+                    Carrera
+                </label>
+
+                {{ form.carrera }}
+
+                {% if form.carrera.errors %}
+                    <div class="error-campo">
+                        {{ form.carrera.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="campo-formulario">
+                <label for="{{ form.curso.id_for_label }}">
+                    Curso
+                </label>
+
+                {{ form.curso }}
+
+                {% if form.curso.errors %}
+                    <div class="error-campo">
+                        {{ form.curso.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="campo-formulario">
+                <label for="{{ form.grupo.id_for_label }}">
+                    Grupo
+                </label>
+
+                {{ form.grupo }}
+
+                {% if form.grupo.errors %}
+                    <div class="error-campo">
+                        {{ form.grupo.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="campo-formulario">
+                <label for="{{ form.email.id_for_label }}">
+                    Correo electrónico
+                </label>
+
+                {{ form.email }}
+
+                {% if form.email.errors %}
+                    <div class="error-campo">
+                        {{ form.email.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="campo-formulario">
+                <label for="{{ form.foto.id_for_label }}">
+                    Foto
+                </label>
+
+                {{ form.foto }}
+
+                {% if form.foto.errors %}
+                    <div class="error-campo">
+                        {{ form.foto.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="campo-formulario">
+                <label for="{{ form.password.id_for_label }}">
+                    Contraseña
+                </label>
+
+                {{ form.password }}
+
+                {% if form.password.errors %}
+                    <div class="error-campo">
+                        {{ form.password.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <div class="campo-formulario">
+                <label for="{{ form.password_confirmacion.id_for_label }}">
+                    Repetir contraseña
+                </label>
+
+                {{ form.password_confirmacion }}
+
+                {% if form.password_confirmacion.errors %}
+                    <div class="error-campo">
+                        {{ form.password_confirmacion.errors }}
+                    </div>
+                {% endif %}
+            </div>
+
+
+            <button
+                type="submit"
+                class="boton-acceso boton-alumno"
+            >
+                Crear cuenta
+            </button>
+
+        </form>
+
+
+        <a
+            href="{% url 'login_alumno' %}"
+            class="volver-acceso"
+        >
+            ← Volver
+        </a>
+
+    </div>
+
+</section>
+
+{% endblock %}

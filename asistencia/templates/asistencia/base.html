@@ -1,0 +1,391 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        {% block title %}PRESENTE{% endblock %}
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'asistencia/css/style.css' %}?v=6"
+    >
+
+</head>
+
+
+<body>
+
+<header class="header">
+
+    <nav class="navbar">
+
+        <!-- =====================================================
+             MARCA
+        ====================================================== -->
+
+        <div class="navbar-marca">
+
+            <a href="{% url 'inicio' %}">
+                PRESENTE
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             BOTÓN MENÚ MÓVIL
+        ====================================================== -->
+
+        <button
+            type="button"
+            class="menu-movil-boton"
+            id="menuMovilBoton"
+            aria-label="Abrir menú"
+            aria-expanded="false"
+            aria-controls="navbarMenu"
+        >
+
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </button>
+
+
+        <!-- =====================================================
+             MENÚ
+        ====================================================== -->
+
+        <div
+            class="navbar-menu"
+            id="navbarMenu"
+        >
+
+            <!-- =================================================
+                 INICIO
+            ================================================== -->
+
+            <a href="{% url 'inicio' %}">
+                Inicio
+            </a>
+
+
+            <!-- =================================================
+                 GRUPOS
+            ================================================== -->
+
+            {% if request.session.profesor_id %}
+
+                <a href="{% url 'panel_profesor' %}">
+                    Grupos
+                </a>
+
+            {% elif request.session.alumno_id %}
+
+                <a href="{% url 'grupo_alumno' %}">
+                    Mi grupo
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'seleccionar_login' %}">
+                    Grupos
+                </a>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 CLASES
+            ================================================== -->
+
+            {% if request.session.profesor_id %}
+
+                <a href="{% url 'clases_profesor' %}">
+                    Clases
+                </a>
+
+            {% elif request.session.alumno_id %}
+
+                <a href="{% url 'clases_alumno' %}">
+                    Clases
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'seleccionar_login' %}">
+                    Clases
+                </a>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 ASISTENCIA
+            ================================================== -->
+
+            {% if request.session.profesor_id %}
+
+                <a href="{% url 'control_asistencia' %}">
+                    Asistencia
+                </a>
+
+            {% elif request.session.alumno_id %}
+
+                <a href="{% url 'panel_alumno' %}">
+                    Asistencia
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'seleccionar_login' %}">
+                    Asistencia
+                </a>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 JUSTIFICACIONES
+            ================================================== -->
+
+            {% if request.session.profesor_id %}
+
+                <a href="{% url 'justificaciones_profesor' %}">
+                    Justificaciones
+                </a>
+
+            {% elif request.session.alumno_id %}
+
+                <a href="{% url 'justificaciones_alumno' %}">
+                    Justificaciones
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'seleccionar_login' %}">
+                    Justificaciones
+                </a>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 SOPORTE
+            ================================================== -->
+
+            {% if request.session.profesor_id %}
+
+                <a href="{% url 'soporte_profesor' %}">
+                    Soporte
+                </a>
+
+            {% else %}
+
+                <a href="{% url 'soporte' %}">
+                    Soporte
+                </a>
+
+            {% endif %}
+
+
+            <!-- =================================================
+                 SESIÓN
+            ================================================== -->
+
+            {% if request.session.profesor_id %}
+
+                <a
+                    href="{% url 'logout_profesor' %}"
+                    class="boton-login"
+                >
+                    Cerrar sesión
+                </a>
+
+            {% elif request.session.alumno_id %}
+
+                <a
+                    href="{% url 'logout_alumno' %}"
+                    class="boton-login"
+                >
+                    Cerrar sesión
+                </a>
+
+            {% else %}
+
+                <a
+                    href="{% url 'seleccionar_login' %}"
+                    class="boton-login"
+                >
+                    Iniciar sesión
+                </a>
+
+            {% endif %}
+
+        </div>
+
+    </nav>
+
+    <div class="linea-verde"></div>
+
+</header>
+
+
+<!-- =========================================================
+     CONTENIDO
+========================================================== -->
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+
+<!-- =========================================================
+     MENÚ MÓVIL
+========================================================== -->
+
+<script>
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+
+            const botonMenu =
+                document.getElementById(
+                    'menuMovilBoton'
+                );
+
+            const menu =
+                document.getElementById(
+                    'navbarMenu'
+                );
+
+
+            if (!botonMenu || !menu) {
+                return;
+            }
+
+
+            /*
+            ================================================
+            ABRIR / CERRAR MENÚ
+            ================================================
+            */
+
+            botonMenu.addEventListener(
+                'click',
+                function () {
+
+                    const menuAbierto =
+                        menu.classList.toggle(
+                            'menu-movil-abierto'
+                        );
+
+
+                    botonMenu.classList.toggle(
+                        'menu-movil-boton-activo',
+                        menuAbierto
+                    );
+
+
+                    botonMenu.setAttribute(
+                        'aria-expanded',
+                        menuAbierto
+                            ? 'true'
+                            : 'false'
+                    );
+
+                }
+            );
+
+
+            /*
+            ================================================
+            CERRAR AL PULSAR UNA OPCIÓN
+            ================================================
+            */
+
+            const enlaces =
+                menu.querySelectorAll('a');
+
+
+            enlaces.forEach(
+                function (enlace) {
+
+                    enlace.addEventListener(
+                        'click',
+                        function () {
+
+                            menu.classList.remove(
+                                'menu-movil-abierto'
+                            );
+
+                            botonMenu.classList.remove(
+                                'menu-movil-boton-activo'
+                            );
+
+                            botonMenu.setAttribute(
+                                'aria-expanded',
+                                'false'
+                            );
+
+                        }
+                    );
+
+                }
+            );
+
+
+            /*
+            ================================================
+            SI VOLVEMOS A PC, REINICIAMOS EL MENÚ
+            ================================================
+            */
+
+            window.addEventListener(
+                'resize',
+                function () {
+
+                    if (window.innerWidth > 768) {
+
+                        menu.classList.remove(
+                            'menu-movil-abierto'
+                        );
+
+                        botonMenu.classList.remove(
+                            'menu-movil-boton-activo'
+                        );
+
+                        botonMenu.setAttribute(
+                            'aria-expanded',
+                            'false'
+                        );
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,223 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Nueva clase | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div class="panel-contenedor">
+
+        <!-- VOLVER -->
+
+        <div style="margin-bottom:25px;">
+
+            <a
+                href="{% url 'detalle_grupo' grupo.id %}"
+                style="
+                    text-decoration:none;
+                    color:#168653;
+                    font-weight:600;
+                "
+            >
+                ← Volver al grupo
+            </a>
+
+        </div>
+
+
+        <!-- CABECERA -->
+
+        <div class="panel-cabecera">
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    NUEVA CLASE
+                </p>
+
+                <h1>
+                    Programar clase
+                </h1>
+
+                <p class="panel-subtitulo">
+                    {{ grupo.asignatura }}
+                    ·
+                    {{ grupo.nombre }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- FORMULARIO -->
+
+        <div
+            class="panel-tarjeta"
+            style="
+                max-width:650px;
+                margin:0 auto;
+            "
+        >
+
+            <div class="panel-tarjeta-titulo">
+
+                <h2>
+                    Datos de la clase
+                </h2>
+
+            </div>
+
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div
+                        style="
+                            padding:12px 15px;
+                            margin-bottom:20px;
+                            border-radius:8px;
+                            background:#fef3f2;
+                            color:#b42318;
+                            font-size:14px;
+                        "
+                    >
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+
+                <!-- FECHA -->
+
+                <div style="margin-bottom:22px;">
+
+                    <label
+                        for="fecha"
+                        style="
+                            display:block;
+                            margin-bottom:8px;
+                            font-weight:700;
+                            color:#344054;
+                        "
+                    >
+                        Fecha
+                    </label>
+
+                    <input
+                        type="date"
+                        id="fecha"
+                        name="fecha"
+                        required
+                        style="
+                            width:100%;
+                            padding:12px 14px;
+                            border:1px solid #d0d5dd;
+                            border-radius:8px;
+                            background:white;
+                            font-size:15px;
+                            outline:none;
+                        "
+                    >
+
+                </div>
+
+
+                <!-- HORA -->
+
+                <div style="margin-bottom:28px;">
+
+                    <label
+                        for="hora_inicio"
+                        style="
+                            display:block;
+                            margin-bottom:8px;
+                            font-weight:700;
+                            color:#344054;
+                        "
+                    >
+                        Hora de inicio
+                    </label>
+
+                    <input
+                        type="time"
+                        id="hora_inicio"
+                        name="hora_inicio"
+                        required
+                        style="
+                            width:100%;
+                            padding:12px 14px;
+                            border:1px solid #d0d5dd;
+                            border-radius:8px;
+                            background:white;
+                            font-size:15px;
+                            outline:none;
+                        "
+                    >
+
+                </div>
+
+
+                <!-- BOTONES -->
+
+                <div
+                    style="
+                        display:flex;
+                        justify-content:flex-end;
+                        gap:12px;
+                        flex-wrap:wrap;
+                    "
+                >
+
+                    <a
+                        href="{% url 'detalle_grupo' grupo.id %}"
+                        style="
+                            display:inline-block;
+                            padding:12px 20px;
+                            border-radius:8px;
+                            border:1px solid #d0d5dd;
+                            background:white;
+                            color:#344054;
+                            text-decoration:none;
+                            font-weight:700;
+                        "
+                    >
+                        Cancelar
+                    </a>
+
+
+                    <button
+                        type="submit"
+                        style="
+                            padding:12px 22px;
+                            border:none;
+                            border-radius:8px;
+                            background:#168653;
+                            color:white;
+                            font-weight:700;
+                            cursor:pointer;
+                        "
+                    >
+                        Programar clase
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

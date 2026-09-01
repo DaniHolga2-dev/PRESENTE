@@ -1,0 +1,262 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Nuevo grupo | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div
+        class="panel-contenedor"
+        style="max-width:760px;"
+    >
+
+        <!-- CABECERA -->
+
+        <div class="panel-cabecera">
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    ÁREA DEL PROFESOR
+                </p>
+
+                <h1>
+                    Nuevo grupo
+                </h1>
+
+                <p class="panel-subtitulo">
+                    Crea una nueva asignatura y configura su grupo.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- TARJETA PRINCIPAL -->
+
+        <div class="panel-tarjeta">
+
+            <!-- ICONO -->
+
+            <div style="
+                display:flex;
+                justify-content:center;
+                margin-bottom:20px;
+            ">
+
+                <div style="
+                    width:68px;
+                    height:68px;
+                    border-radius:50%;
+                    background:#e8f7ef;
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    font-size:28px;
+                    color:#168653;
+                ">
+                    👥
+                </div>
+
+            </div>
+
+
+            <!-- TÍTULO -->
+
+            <div style="
+                text-align:center;
+                margin-bottom:30px;
+            ">
+
+                <h2 style="
+                    margin:0 0 8px 0;
+                    color:#101828;
+                    font-size:24px;
+                ">
+                    Crear grupo
+                </h2>
+
+                <p style="
+                    margin:0;
+                    color:#667085;
+                    font-size:14px;
+                    line-height:1.5;
+                ">
+                    Introduce los datos básicos del nuevo grupo.
+                </p>
+
+            </div>
+
+
+            <!-- MENSAJES -->
+
+            {% if messages %}
+
+                {% for message in messages %}
+
+                    <div style="
+                        margin-bottom:20px;
+                        padding:12px 14px;
+                        border-radius:10px;
+                        background:#fff1f1;
+                        color:#b42318;
+                        font-size:13px;
+                        font-weight:600;
+                    ">
+                        {{ message }}
+                    </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+
+            <!-- FORMULARIO -->
+
+            <form
+                method="post"
+                style="width:100%;"
+            >
+
+                {% csrf_token %}
+
+
+                <!-- ASIGNATURA -->
+
+                <div style="
+                    margin-bottom:20px;
+                ">
+
+                    <label
+                        for="asignatura"
+                        style="
+                            display:block;
+                            margin-bottom:8px;
+                            color:#344054;
+                            font-size:14px;
+                            font-weight:700;
+                        "
+                    >
+                        Asignatura
+                    </label>
+
+                    <input
+                        type="text"
+                        id="asignatura"
+                        name="asignatura"
+                        placeholder="Ej. Desarrollo Web"
+                        required
+                        style="
+                            width:100%;
+                            min-height:50px;
+                            padding:0 14px;
+                            border:1px solid #d0d5dd;
+                            border-radius:10px;
+                            background:#ffffff;
+                            color:#101828;
+                            font-size:15px;
+                            outline:none;
+                        "
+                    >
+
+                </div>
+
+
+                <!-- GRUPO -->
+
+                <div style="
+                    margin-bottom:26px;
+                ">
+
+                    <label
+                        for="nombre"
+                        style="
+                            display:block;
+                            margin-bottom:8px;
+                            color:#344054;
+                            font-size:14px;
+                            font-weight:700;
+                        "
+                    >
+                        Grupo
+                    </label>
+
+                    <input
+                        type="text"
+                        id="nombre"
+                        name="nombre"
+                        placeholder="Ej. 2º DAW A"
+                        required
+                        style="
+                            width:100%;
+                            min-height:50px;
+                            padding:0 14px;
+                            border:1px solid #d0d5dd;
+                            border-radius:10px;
+                            background:#ffffff;
+                            color:#101828;
+                            font-size:15px;
+                            outline:none;
+                        "
+                    >
+
+                </div>
+
+
+                <!-- BOTÓN CREAR -->
+
+                <button
+                    type="submit"
+                    style="
+                        width:100%;
+                        min-height:50px;
+                        border:none;
+                        border-radius:10px;
+                        background:#168653;
+                        color:white;
+                        cursor:pointer;
+                        font-size:14px;
+                        font-weight:700;
+                        box-shadow:0 5px 12px rgba(22, 134, 83, 0.15);
+                    "
+                >
+                    + Crear grupo
+                </button>
+
+            </form>
+
+        </div>
+
+
+        <!-- VOLVER -->
+
+        <div style="
+            margin-top:20px;
+            text-align:center;
+        ">
+
+            <a
+                href="{% url 'panel_profesor' %}"
+                style="
+                    display:inline-flex;
+                    align-items:center;
+                    justify-content:center;
+                    gap:6px;
+                    color:#667085;
+                    text-decoration:none;
+                    font-size:13px;
+                    font-weight:600;
+                "
+            >
+                ← Volver a grupos
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

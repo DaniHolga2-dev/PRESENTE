@@ -1,0 +1,163 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Mis clases | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div class="panel-contenedor">
+
+        <div class="panel-cabecera">
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    ÁREA DEL ALUMNO
+                </p>
+
+                <h1>
+                    Mis clases
+                </h1>
+
+                <p class="panel-subtitulo">
+                    {{ alumno.grupo.asignatura }}
+                    ·
+                    {{ alumno.grupo.nombre }}
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel-tarjeta">
+
+            <div class="panel-tarjeta-titulo">
+
+                <h2>
+                    Clases del grupo
+                </h2>
+
+            </div>
+
+
+            {% for elemento in clases_con_estado %}
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:20px;
+                    padding:18px 0;
+                    border-bottom:1px solid #e5e7eb;
+                ">
+
+                    <div>
+
+                        <strong style="
+                            display:block;
+                            font-size:16px;
+                            margin-bottom:5px;
+                        ">
+                            {{ elemento.clase.fecha|date:"d/m/Y" }}
+                        </strong>
+
+                        <span style="
+                            color:#667085;
+                            font-size:14px;
+                        ">
+                            {{ elemento.clase.hora_inicio|time:"H:i" }}
+                        </span>
+
+                    </div>
+
+
+                    <div>
+
+                        {% if elemento.estado == 'presente' %}
+
+                            <span style="
+                                padding:7px 12px;
+                                border-radius:20px;
+                                background:#e3f5e9;
+                                color:#168653;
+                                font-size:13px;
+                                font-weight:700;
+                            ">
+                                Presente
+                            </span>
+
+                        {% elif elemento.estado == 'tarde' %}
+
+                            <span style="
+                                padding:7px 12px;
+                                border-radius:20px;
+                                background:#fff7e6;
+                                color:#b7791f;
+                                font-size:13px;
+                                font-weight:700;
+                            ">
+                                Tarde
+                            </span>
+
+                        {% elif elemento.estado == 'ausente' %}
+
+                            <span style="
+                                padding:7px 12px;
+                                border-radius:20px;
+                                background:#fff1f1;
+                                color:#b42318;
+                                font-size:13px;
+                                font-weight:700;
+                            ">
+                                Ausente
+                            </span>
+
+                        {% elif elemento.estado == 'abierta' %}
+
+                            <span style="
+                                padding:7px 12px;
+                                border-radius:20px;
+                                background:#eaf2ff;
+                                color:#175cd3;
+                                font-size:13px;
+                                font-weight:700;
+                            ">
+                                Asistencia abierta
+                            </span>
+
+                        {% else %}
+
+                            <span style="
+                                padding:7px 12px;
+                                border-radius:20px;
+                                background:#f2f4f7;
+                                color:#667085;
+                                font-size:13px;
+                                font-weight:700;
+                            ">
+                                Pendiente
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p style="color:#667085;">
+                    Todavía no hay clases programadas para tu grupo.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

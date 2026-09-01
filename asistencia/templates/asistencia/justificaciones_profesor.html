@@ -1,0 +1,210 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Justificaciones | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div class="panel-contenedor">
+
+        <div class="panel-cabecera">
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    JUSTIFICACIONES
+                </p>
+
+                <h1>
+                    Justificaciones de alumnos
+                </h1>
+
+                <p class="panel-subtitulo">
+                    {{ pendientes|length }} pendientes de revisión
+                </p>
+
+            </div>
+
+            <div class="fecha-panel">
+                {% now "d/m/Y" %}
+            </div>
+
+        </div>
+
+
+        <div class="panel-tarjeta">
+
+            {% for justificacion in justificaciones %}
+
+                <div style="
+                    padding:22px 0;
+                    border-bottom:1px solid #e5e7eb;
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        gap:30px;
+                    ">
+
+                        <div>
+
+                            <h3 style="margin-bottom:7px;">
+
+                                {{ justificacion.asistencia.alumno.nombre }}
+                                {{ justificacion.asistencia.alumno.apellidos }}
+
+                            </h3>
+
+                            <p style="
+                                color:#667085;
+                                margin-bottom:6px;
+                            ">
+
+                                {{ justificacion.asistencia.clase.fecha|date:"d/m/Y" }}
+                                ·
+                                {{ justificacion.asistencia.clase.grupo.asignatura }}
+
+                            </p>
+
+                            <p style="
+                                margin-top:14px;
+                                color:#344054;
+                            ">
+                                {{ justificacion.motivo }}
+                            </p>
+
+
+                            {% if justificacion.documento %}
+
+                                <a
+                                    href="{% url 'ver_documento_justificacion' justificacion.id %}"
+                                    target="_blank"
+                                    style="
+                                        display:inline-block;
+                                        margin-top:12px;
+                                        color:#168653;
+                                        text-decoration:none;
+                                        font-weight:700;
+                                        font-size:14px;
+                                    "
+                                >
+                                    Ver imagen adjunta
+                                </a>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div>
+
+                            {% if justificacion.estado == 'pendiente' %}
+
+                                <span style="
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#fff7e6;
+                                    color:#b7791f;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Pendiente
+                                </span>
+
+                            {% elif justificacion.estado == 'aprobada' %}
+
+                                <span style="
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#e3f5e9;
+                                    color:#168653;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Aprobada
+                                </span>
+
+                            {% else %}
+
+                                <span style="
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#fff1f1;
+                                    color:#b42318;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Rechazada
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    {% if justificacion.estado == 'pendiente' %}
+
+                        <div style="
+                            display:flex;
+                            gap:12px;
+                            margin-top:20px;
+                        ">
+
+                            <a
+                                href="{% url 'aprobar_justificacion' justificacion.id %}"
+                                style="
+                                    padding:10px 16px;
+                                    border-radius:8px;
+                                    background:#168653;
+                                    color:white;
+                                    text-decoration:none;
+                                    font-weight:700;
+                                    font-size:14px;
+                                "
+                            >
+                                Aprobar
+                            </a>
+
+
+                            <a
+                                href="{% url 'rechazar_justificacion' justificacion.id %}"
+                                style="
+                                    padding:10px 16px;
+                                    border-radius:8px;
+                                    background:#ffffff;
+                                    border:1px solid #d0d5dd;
+                                    color:#b42318;
+                                    text-decoration:none;
+                                    font-weight:700;
+                                    font-size:14px;
+                                "
+                            >
+                                Rechazar
+                            </a>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            {% empty %}
+
+                <p style="color:#667085;">
+                    No hay justificaciones enviadas.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

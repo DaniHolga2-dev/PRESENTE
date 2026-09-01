@@ -1,0 +1,1855 @@
+/* ==============================
+   CONFIGURACIÓN GENERAL
+================================ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    width: 100%;
+    min-height: 100vh;
+
+    font-family: Arial, Helvetica, sans-serif;
+
+    background-color: #f6f8fb;
+    color: #172033;
+
+    overflow-x: hidden;
+}
+
+
+/* ==============================
+   CABECERA
+================================ */
+
+.header {
+    width: 100%;
+
+    background-color: #ffffff;
+
+    position: relative;
+
+    z-index: 1000;
+}
+
+
+/* ==============================
+   BARRA DE NAVEGACIÓN
+================================ */
+
+.navbar {
+    width: 100%;
+    min-height: 78px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 8%;
+
+    background-color: #ffffff;
+}
+
+
+/* ==============================
+   MARCA
+================================ */
+
+.navbar-marca {
+    flex-shrink: 0;
+}
+
+.navbar-marca a {
+    text-decoration: none;
+
+    font-size: 22px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+
+    color: #172033;
+}
+
+
+/* ==============================
+   MENÚ
+================================ */
+
+.navbar-menu {
+    display: flex;
+    align-items: center;
+
+    gap: 26px;
+}
+
+.navbar-menu a {
+    text-decoration: none;
+
+    font-size: 15px;
+    font-weight: 500;
+
+    color: #3d4657;
+
+    transition: 0.2s;
+}
+
+.navbar-menu a:hover {
+    color: #168653;
+}
+
+
+/* ==============================
+   BOTÓN INICIAR / CERRAR SESIÓN
+================================ */
+
+.navbar-menu .boton-login {
+    padding: 11px 19px;
+
+    border-radius: 8px;
+
+    background-color: #172033;
+    color: #ffffff;
+
+    font-weight: 600;
+}
+
+.navbar-menu .boton-login:hover {
+    background-color: #168653;
+    color: #ffffff;
+}
+
+
+/* ==============================
+   BOTÓN MENÚ MÓVIL
+================================ */
+
+.menu-movil-boton {
+    display: none;
+
+    width: 44px;
+    height: 44px;
+
+    padding: 9px;
+
+    border: 0;
+    border-radius: 9px;
+
+    background-color: #f4f6f8;
+
+    cursor: pointer;
+
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    gap: 5px;
+
+    transition: 0.2s;
+}
+
+.menu-movil-boton:hover {
+    background-color: #eaf7ef;
+}
+
+.menu-movil-boton span {
+    display: block;
+
+    width: 22px;
+    height: 2px;
+
+    border-radius: 10px;
+
+    background-color: #172033;
+
+    transition:
+        transform 0.25s ease,
+        opacity 0.25s ease;
+}
+
+
+/* ==============================
+   FRANJA VERDE PASTEL
+================================ */
+
+.linea-verde {
+    width: 100%;
+    height: 42px;
+
+    background-color: #b7e4c7;
+}
+
+
+/* ==============================
+   PÁGINA DE INICIO
+================================ */
+
+.inicio {
+    min-height: calc(100vh - 120px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 60px 25px;
+}
+
+.inicio-contenido {
+    max-width: 900px;
+    width: 100%;
+
+    text-align: center;
+}
+
+.inicio-etiqueta {
+    margin-bottom: 16px;
+
+    color: #168653;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+}
+
+.inicio h1 {
+    margin-bottom: 20px;
+
+    font-size: 58px;
+    font-weight: 800;
+
+    letter-spacing: -1px;
+
+    color: #172033;
+}
+
+.inicio h1 span {
+    font-weight: 400;
+
+    color: #168653;
+}
+
+.inicio-descripcion {
+    max-width: 720px;
+
+    margin: 0 auto;
+
+    font-size: 19px;
+    line-height: 1.6;
+
+    color: #667085;
+}
+
+
+/* ==============================
+   PÁGINAS DE ACCESO
+================================ */
+
+.pagina-acceso {
+    min-height: calc(100vh - 120px);
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+
+    padding: 70px 20px;
+}
+
+
+/* ==============================
+   TARJETAS DE ACCESO
+================================ */
+
+.tarjeta-acceso {
+    width: 100%;
+    max-width: 440px;
+
+    padding: 42px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+
+    box-shadow:
+        0 15px 40px
+        rgba(23, 32, 51, 0.08);
+
+    text-align: center;
+}
+
+.tarjeta-registro {
+    max-width: 600px;
+}
+
+
+/* ==============================
+   ICONO ACCESO
+================================ */
+
+.icono-acceso {
+    width: 62px;
+    height: 62px;
+
+    margin: 0 auto 22px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #e3f5e9;
+
+    border-radius: 16px;
+
+    font-size: 27px;
+}
+
+
+/* ==============================
+   TÍTULOS ACCESO
+================================ */
+
+.tarjeta-acceso h1 {
+    margin-bottom: 10px;
+
+    font-size: 31px;
+
+    color: #172033;
+}
+
+.subtitulo-acceso {
+    margin-bottom: 32px;
+
+    font-size: 15px;
+    line-height: 1.5;
+
+    color: #667085;
+}
+
+
+/* ==============================
+   FORMULARIOS
+================================ */
+
+.formulario-acceso {
+    width: 100%;
+
+    text-align: left;
+}
+
+.campo-formulario {
+    margin-bottom: 22px;
+}
+
+.campo-formulario label {
+    display: block;
+
+    margin-bottom: 8px;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    color: #344054;
+}
+
+.campo-formulario input,
+.campo-formulario select,
+.campo-formulario textarea {
+    width: 100%;
+    max-width: 100%;
+
+    min-height: 48px;
+
+    padding: 0 14px;
+
+    border: 1px solid #d0d5dd;
+    border-radius: 8px;
+
+    background-color: #ffffff;
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+
+    outline: none;
+
+    transition: 0.2s;
+}
+
+.campo-formulario textarea {
+    min-height: 120px;
+
+    padding-top: 12px;
+    padding-bottom: 12px;
+
+    resize: vertical;
+}
+
+.campo-formulario input[type="file"] {
+    padding: 10px;
+}
+
+.campo-formulario input:focus,
+.campo-formulario select:focus,
+.campo-formulario textarea:focus {
+    border-color: #168653;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(22, 134, 83, 0.10);
+}
+
+
+/* ==============================
+   BOTONES ACCESO
+================================ */
+
+.boton-acceso {
+    width: 100%;
+    height: 48px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 15px;
+    font-weight: 700;
+
+    transition: 0.2s;
+}
+
+.boton-alumno {
+    background-color: #168653;
+    color: #ffffff;
+}
+
+.boton-alumno:hover {
+    background-color: #117244;
+}
+
+
+/* ==============================
+   REGISTRO
+================================ */
+
+.registro-acceso {
+    margin-top: 28px;
+    padding-top: 24px;
+
+    border-top: 1px solid #e5e7eb;
+}
+
+.registro-acceso p {
+    margin-bottom: 7px;
+
+    font-size: 14px;
+
+    color: #667085;
+}
+
+.registro-acceso a {
+    text-decoration: none;
+
+    color: #168653;
+
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.registro-acceso a:hover {
+    text-decoration: underline;
+}
+
+
+/* ==============================
+   VOLVER
+================================ */
+
+.volver-acceso {
+    display: inline-block;
+
+    margin-top: 25px;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    color: #667085;
+}
+
+.volver-acceso:hover {
+    color: #168653;
+}
+
+
+/* ==============================
+   ERRORES
+================================ */
+
+.mensaje-error,
+.error-campo {
+    margin-top: 8px;
+
+    color: #b42318;
+
+    font-size: 13px;
+}
+
+.mensaje-error {
+    margin-bottom: 22px;
+    padding: 12px 14px;
+
+    border-radius: 8px;
+
+    background-color: #fff1f1;
+
+    text-align: left;
+}
+
+
+/* =========================================================
+   PANEL DEL ALUMNO
+========================================================= */
+
+.panel-usuario {
+    min-height: calc(100vh - 120px);
+
+    padding: 55px 25px 80px;
+}
+
+.panel-contenedor {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+}
+
+
+/* ==============================
+   CABECERA PANEL
+================================ */
+
+.panel-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+
+    margin-bottom: 40px;
+}
+
+.panel-etiqueta {
+    margin-bottom: 8px;
+
+    color: #168653;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    letter-spacing: 1.5px;
+}
+
+.panel-cabecera h1 {
+    margin-bottom: 8px;
+
+    font-size: 38px;
+    font-weight: 800;
+
+    color: #172033;
+}
+
+.panel-subtitulo {
+    color: #667085;
+
+    font-size: 16px;
+}
+
+
+/* ==============================
+   FECHA
+================================ */
+
+.fecha-panel,
+.panel-fecha {
+    padding: 11px 18px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+
+    color: #667085;
+
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* ==============================
+   GRID PANEL
+================================ */
+
+.panel-grid {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 28px;
+}
+
+
+/* ==============================
+   TARJETA PANEL
+================================ */
+
+.panel-tarjeta {
+    padding: 32px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+
+    box-shadow:
+        0 12px 32px
+        rgba(23, 32, 51, 0.06);
+}
+
+.panel-tarjeta-titulo {
+    margin-bottom: 27px;
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.panel-tarjeta-titulo h2 {
+    font-size: 22px;
+
+    color: #172033;
+}
+
+
+/* ==============================
+   PERFIL
+================================ */
+
+.perfil-cabecera {
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+}
+
+.foto-perfil {
+    width: 78px;
+    height: 78px;
+
+    object-fit: cover;
+
+    border-radius: 50%;
+
+    border: 3px solid #e3f5e9;
+}
+
+.foto-sin-imagen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #e3f5e9;
+
+    color: #168653;
+
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.perfil-cabecera h3 {
+    margin-bottom: 5px;
+
+    font-size: 20px;
+}
+
+.perfil-cabecera p {
+    color: #667085;
+
+    font-size: 14px;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ==============================
+   DATOS
+================================ */
+
+.datos-perfil {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 18px;
+}
+
+.dato-perfil {
+    padding: 17px;
+
+    background-color: #f8fafc;
+
+    border-radius: 10px;
+}
+
+.dato-titulo {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #667085;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.6px;
+}
+
+.dato-valor {
+    display: block;
+
+    color: #172033;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* ==============================
+   GRUPO
+================================ */
+
+.grupo-destacado {
+    margin-bottom: 28px;
+    padding: 25px;
+
+    background-color: #eaf7ef;
+
+    border-radius: 12px;
+}
+
+.grupo-etiqueta {
+    display: block;
+
+    margin-bottom: 10px;
+
+    color: #168653;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 1px;
+}
+
+.grupo-destacado h3 {
+    margin-bottom: 7px;
+
+    font-size: 22px;
+}
+
+.grupo-destacado p {
+    color: #667085;
+}
+
+
+/* ==============================
+   PROFESOR
+================================ */
+
+.profesor-info {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+.profesor-info strong {
+    font-size: 16px;
+}
+
+.profesor-info span:last-child {
+    color: #667085;
+
+    font-size: 14px;
+
+    overflow-wrap: anywhere;
+}
+
+
+/* =========================================================
+   PANEL DEL PROFESOR
+========================================================= */
+
+.panel-profesor {
+    min-height: calc(100vh - 120px);
+
+    padding: 55px 25px 80px;
+
+    background-color: #f6f8fb;
+}
+
+.panel-profesor-contenedor {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+}
+
+
+/* ==============================
+   CABECERA PROFESOR
+================================ */
+
+.panel-profesor-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    gap: 30px;
+
+    margin-bottom: 38px;
+}
+
+.panel-profesor-cabecera h1 {
+    margin: 0 0 8px;
+
+    color: #172033;
+
+    font-size: 38px;
+    font-weight: 800;
+}
+
+
+/* ==============================
+   RESUMEN PROFESOR
+================================ */
+
+.profesor-resumen {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 30px;
+}
+
+.profesor-estadistica {
+    min-height: 100px;
+
+    padding: 21px 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    background-color: #ffffff;
+
+    border: 1px solid #edf0f4;
+    border-radius: 13px;
+
+    box-shadow:
+        0 5px 18px
+        rgba(23, 32, 51, 0.035);
+}
+
+.profesor-estadistica span {
+    margin-bottom: 8px;
+
+    color: #667085;
+
+    font-size: 12px;
+    font-weight: 800;
+
+    letter-spacing: 0.8px;
+}
+
+.profesor-estadistica strong {
+    color: #172033;
+
+    font-size: 21px;
+    font-weight: 800;
+}
+
+
+/* ==============================
+   SECCIÓN GRUPOS
+================================ */
+
+.profesor-seccion {
+    padding: 30px;
+
+    background-color: #ffffff;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 17px;
+
+    box-shadow:
+        0 12px 35px
+        rgba(23, 32, 51, 0.06);
+}
+
+.profesor-seccion-cabecera {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 25px;
+
+    padding-bottom: 24px;
+    margin-bottom: 24px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.profesor-seccion-cabecera h2 {
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 26px;
+    font-weight: 800;
+}
+
+
+/* ==============================
+   BOTÓN NUEVO GRUPO
+================================ */
+
+.boton-nuevo-grupo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 12px 18px;
+
+    background-color: #168653;
+
+    border-radius: 8px;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    transition: 0.2s;
+}
+
+.boton-nuevo-grupo:hover {
+    background-color: #117244;
+
+    transform: translateY(-1px);
+}
+
+
+/* ==============================
+   GRID DE GRUPOS
+================================ */
+
+.profesor-grid-grupos {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(300px, 1fr));
+
+    gap: 18px;
+}
+
+
+/* ==============================
+   TARJETA GRUPO
+================================ */
+
+.profesor-tarjeta-grupo {
+    min-height: 145px;
+
+    padding: 23px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    background-color: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 13px;
+
+    text-decoration: none;
+
+    transition: 0.2s;
+}
+
+.profesor-tarjeta-grupo:hover {
+    border-color: #b7e4c7;
+
+    background-color: #f2faf5;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 22px
+        rgba(23, 32, 51, 0.07);
+}
+
+.grupo-icono {
+    width: 54px;
+    height: 54px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #e3f5e9;
+
+    border-radius: 13px;
+
+    font-size: 23px;
+}
+
+.grupo-contenido {
+    flex: 1;
+
+    min-width: 0;
+}
+
+.grupo-contenido .grupo-etiqueta {
+    margin-bottom: 6px;
+}
+
+.grupo-contenido h3 {
+    margin: 0 0 7px;
+
+    color: #172033;
+
+    font-size: 19px;
+    font-weight: 800;
+
+    overflow-wrap: anywhere;
+}
+
+.grupo-contenido p {
+    margin: 0;
+
+    color: #667085;
+
+    font-size: 14px;
+
+    overflow-wrap: anywhere;
+}
+
+.grupo-flecha {
+    color: #168653;
+
+    font-size: 24px;
+
+    transition: 0.2s;
+}
+
+.profesor-tarjeta-grupo:hover .grupo-flecha {
+    transform: translateX(4px);
+}
+
+
+/* ==============================
+   SIN GRUPOS
+================================ */
+
+.profesor-sin-grupos {
+    padding: 55px 20px;
+
+    text-align: center;
+}
+
+.sin-grupos-icono {
+    width: 64px;
+    height: 64px;
+
+    margin: 0 auto 18px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: #e3f5e9;
+
+    border-radius: 16px;
+
+    font-size: 27px;
+}
+
+.profesor-sin-grupos h3 {
+    margin-bottom: 8px;
+
+    color: #172033;
+
+    font-size: 20px;
+}
+
+.profesor-sin-grupos p {
+    margin-bottom: 22px;
+
+    color: #667085;
+
+    font-size: 15px;
+}
+
+
+/* =========================================================
+   ELEMENTOS GENERALES QUE PUEDEN DESBORDAR
+========================================================= */
+
+img {
+    max-width: 100%;
+}
+
+canvas {
+    max-width: 100%;
+}
+
+table {
+    max-width: 100%;
+}
+
+input,
+select,
+textarea,
+button {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   VERSIÓN MÓVIL
+   SOLO SE ACTIVA A 768 PX O MENOS
+========================================================= */
+
+@media (max-width: 768px) {
+
+    /* =====================================================
+       GENERAL
+    ====================================================== */
+
+    body {
+        min-width: 0;
+
+        overflow-x: hidden;
+    }
+
+    main {
+        width: 100%;
+
+        overflow-x: hidden;
+    }
+
+
+    /* =====================================================
+       CABECERA
+    ====================================================== */
+
+    .header {
+        position: relative;
+    }
+
+    .navbar {
+        min-height: 68px;
+
+        padding: 0 18px;
+
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 15px;
+    }
+
+    .navbar-marca a {
+        font-size: 20px;
+    }
+
+
+    /* =====================================================
+       BOTÓN HAMBURGUESA
+    ====================================================== */
+
+    .menu-movil-boton {
+        display: flex;
+
+        flex-shrink: 0;
+    }
+
+
+    /* PRIMERA LÍNEA */
+
+    .menu-movil-boton-activo span:nth-child(1) {
+        transform:
+            translateY(7px)
+            rotate(45deg);
+    }
+
+
+    /* SEGUNDA LÍNEA */
+
+    .menu-movil-boton-activo span:nth-child(2) {
+        opacity: 0;
+    }
+
+
+    /* TERCERA LÍNEA */
+
+    .menu-movil-boton-activo span:nth-child(3) {
+        transform:
+            translateY(-7px)
+            rotate(-45deg);
+    }
+
+
+    /* =====================================================
+       MENÚ DESPLEGABLE
+    ====================================================== */
+
+    .navbar-menu {
+        display: none;
+
+        position: absolute;
+
+        top: 68px;
+        left: 0;
+
+        width: 100%;
+
+        padding: 12px 18px 20px;
+
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 4px;
+
+        background-color: #ffffff;
+
+        border-top: 1px solid #f0f1f3;
+        border-bottom: 1px solid #e5e7eb;
+
+        box-shadow:
+            0 15px 30px
+            rgba(23, 32, 51, 0.10);
+
+        z-index: 999;
+    }
+
+    .navbar-menu.menu-movil-abierto {
+        display: flex;
+    }
+
+    .navbar-menu a {
+        width: 100%;
+
+        padding: 13px 12px;
+
+        border-radius: 8px;
+
+        color: #344054;
+
+        font-size: 15px;
+        font-weight: 600;
+    }
+
+    .navbar-menu a:hover {
+        background-color: #f4faf6;
+
+        color: #168653;
+    }
+
+    .navbar-menu .boton-login {
+        margin-top: 8px;
+
+        padding: 13px 14px;
+
+        text-align: center;
+
+        background-color: #172033;
+
+        color: #ffffff;
+    }
+
+    .navbar-menu .boton-login:hover {
+        background-color: #168653;
+
+        color: #ffffff;
+    }
+
+
+    /* =====================================================
+       FRANJA VERDE
+    ====================================================== */
+
+    .linea-verde {
+        height: 22px;
+    }
+
+
+    /* =====================================================
+       INICIO
+    ====================================================== */
+
+    .inicio {
+        min-height:
+            calc(100vh - 90px);
+
+        padding: 50px 18px;
+    }
+
+    .inicio-contenido {
+        max-width: 100%;
+    }
+
+    .inicio-etiqueta {
+        margin-bottom: 13px;
+
+        font-size: 11px;
+
+        letter-spacing: 1.5px;
+    }
+
+    .inicio h1 {
+        margin-bottom: 18px;
+
+        font-size: 38px;
+        line-height: 1.08;
+
+        letter-spacing: -0.5px;
+    }
+
+    .inicio-descripcion {
+        max-width: 100%;
+
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+
+    /* =====================================================
+       LOGIN / REGISTRO
+    ====================================================== */
+
+    .pagina-acceso {
+        min-height:
+            calc(100vh - 90px);
+
+        padding: 30px 14px;
+    }
+
+    .tarjeta-acceso {
+        max-width: 100%;
+
+        padding: 28px 20px;
+
+        border-radius: 15px;
+
+        box-shadow:
+            0 8px 25px
+            rgba(23, 32, 51, 0.06);
+    }
+
+    .tarjeta-registro {
+        max-width: 100%;
+    }
+
+    .icono-acceso {
+        width: 55px;
+        height: 55px;
+
+        margin-bottom: 18px;
+
+        border-radius: 14px;
+
+        font-size: 24px;
+    }
+
+    .tarjeta-acceso h1 {
+        font-size: 27px;
+    }
+
+    .subtitulo-acceso {
+        margin-bottom: 26px;
+
+        font-size: 14px;
+    }
+
+    .campo-formulario {
+        margin-bottom: 18px;
+    }
+
+    .campo-formulario label {
+        font-size: 13px;
+    }
+
+    .campo-formulario input,
+    .campo-formulario select,
+    .campo-formulario textarea {
+        min-height: 48px;
+
+        font-size: 16px;
+    }
+
+    .boton-acceso {
+        min-height: 50px;
+
+        font-size: 15px;
+    }
+
+
+    /* =====================================================
+       PANEL GENERAL
+    ====================================================== */
+
+    .panel-usuario,
+    .panel-profesor {
+        min-height:
+            calc(100vh - 90px);
+
+        padding: 30px 14px 55px;
+    }
+
+    .panel-contenedor,
+    .panel-profesor-contenedor {
+        width: 100%;
+        max-width: 100%;
+    }
+
+
+    /* =====================================================
+       CABECERAS DE LOS PANELES
+    ====================================================== */
+
+    .panel-cabecera,
+    .panel-profesor-cabecera {
+        margin-bottom: 25px;
+
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 14px;
+    }
+
+    .panel-cabecera h1,
+    .panel-profesor-cabecera h1 {
+        margin-bottom: 6px;
+
+        font-size: 29px;
+        line-height: 1.15;
+    }
+
+    .panel-subtitulo {
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+    .panel-etiqueta {
+        font-size: 10px;
+
+        letter-spacing: 1.2px;
+    }
+
+    .fecha-panel,
+    .panel-fecha {
+        padding: 9px 13px;
+
+        font-size: 12px;
+    }
+
+
+    /* =====================================================
+       GRID PANEL
+    ====================================================== */
+
+    .panel-grid {
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+    }
+
+
+    /* =====================================================
+       TARJETAS
+    ====================================================== */
+
+    .panel-tarjeta {
+        width: 100%;
+
+        padding: 21px 17px;
+
+        border-radius: 14px;
+
+        overflow: hidden;
+    }
+
+    .panel-tarjeta-titulo {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+    }
+
+    .panel-tarjeta-titulo h2 {
+        font-size: 19px;
+    }
+
+
+    /* =====================================================
+       PERFIL
+    ====================================================== */
+
+    .perfil-cabecera {
+        align-items: center;
+
+        gap: 14px;
+
+        margin-bottom: 23px;
+    }
+
+    .foto-perfil {
+        width: 62px;
+        height: 62px;
+
+        flex-shrink: 0;
+    }
+
+    .perfil-cabecera h3 {
+        font-size: 17px;
+    }
+
+    .perfil-cabecera p {
+        font-size: 12px;
+
+        overflow-wrap: anywhere;
+    }
+
+
+    /* =====================================================
+       DATOS DEL PERFIL
+    ====================================================== */
+
+    .datos-perfil {
+        grid-template-columns: 1fr;
+
+        gap: 11px;
+    }
+
+    .dato-perfil {
+        padding: 14px;
+    }
+
+    .dato-titulo {
+        font-size: 10px;
+    }
+
+    .dato-valor {
+        font-size: 14px;
+    }
+
+
+    /* =====================================================
+       GRUPO DEL ALUMNO
+    ====================================================== */
+
+    .grupo-destacado {
+        margin-bottom: 20px;
+
+        padding: 18px;
+    }
+
+    .grupo-destacado h3 {
+        font-size: 19px;
+    }
+
+    .grupo-destacado p {
+        font-size: 13px;
+    }
+
+    .profesor-info strong {
+        font-size: 14px;
+    }
+
+    .profesor-info span:last-child {
+        font-size: 12px;
+    }
+
+
+    /* =====================================================
+       RESUMEN PROFESOR
+    ====================================================== */
+
+    .profesor-resumen {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+
+        margin-bottom: 20px;
+    }
+
+    .profesor-estadistica {
+        min-height: 86px;
+
+        padding: 17px 18px;
+    }
+
+    .profesor-estadistica span {
+        margin-bottom: 6px;
+
+        font-size: 10px;
+    }
+
+    .profesor-estadistica strong {
+        font-size: 19px;
+    }
+
+
+    /* =====================================================
+       SECCIÓN DEL PROFESOR
+    ====================================================== */
+
+    .profesor-seccion {
+        padding: 19px 15px;
+
+        border-radius: 14px;
+    }
+
+    .profesor-seccion-cabecera {
+        align-items: stretch;
+
+        flex-direction: column;
+
+        gap: 15px;
+
+        padding-bottom: 18px;
+        margin-bottom: 18px;
+    }
+
+    .profesor-seccion-cabecera h2 {
+        font-size: 21px;
+    }
+
+    .boton-nuevo-grupo {
+        width: 100%;
+
+        min-height: 47px;
+
+        padding: 12px 15px;
+    }
+
+
+    /* =====================================================
+       GRUPOS PROFESOR
+    ====================================================== */
+
+    .profesor-grid-grupos {
+        grid-template-columns: 1fr;
+
+        gap: 12px;
+    }
+
+    .profesor-tarjeta-grupo {
+        min-height: 0;
+
+        padding: 17px 14px;
+
+        gap: 13px;
+    }
+
+    .grupo-icono {
+        width: 46px;
+        height: 46px;
+
+        border-radius: 11px;
+
+        font-size: 20px;
+    }
+
+    .grupo-contenido h3 {
+        font-size: 16px;
+    }
+
+    .grupo-contenido p {
+        font-size: 12px;
+    }
+
+    .grupo-flecha {
+        font-size: 20px;
+    }
+
+    .profesor-sin-grupos {
+        padding: 35px 10px;
+    }
+
+
+    /* =====================================================
+       ELEMENTOS CON ESTILOS INLINE
+       DE LOS PANELES MODERNOS
+    ====================================================== */
+
+    .panel-contenedor > div {
+        max-width: 100%;
+    }
+
+
+    /*
+       Muchos bloques modernos de PRESENTE utilizan
+       display:grid directamente en el HTML.
+
+       En móvil obligamos a que las columnas puedan
+       reducirse correctamente.
+    */
+
+    .panel-tarjeta div {
+        min-width: 0;
+    }
+
+
+    /* =====================================================
+       IMÁGENES
+    ====================================================== */
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .foto-perfil {
+        height: 62px;
+    }
+
+
+    /* =====================================================
+       QR
+    ====================================================== */
+
+    img[src*="base64"],
+    img[alt*="QR"],
+    img[alt*="qr"],
+    img[alt*="Qr"] {
+        display: block;
+
+        width: 100%;
+        max-width: 280px;
+
+        height: auto;
+
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+
+    /* =====================================================
+       GRÁFICO
+    ====================================================== */
+
+    canvas {
+        width: 100% !important;
+
+        max-width: 100% !important;
+    }
+
+    #graficoAsistencia {
+        width: 100% !important;
+
+        max-width: 100% !important;
+    }
+
+
+    /* =====================================================
+       TABLAS
+    ====================================================== */
+
+    table {
+        width: 100%;
+    }
+
+
+    /*
+       Si una tabla tradicional no puede reducirse más,
+       permitimos desplazamiento horizontal únicamente
+       dentro de su contenedor.
+    */
+
+    .tabla-responsive,
+    .table-responsive {
+        width: 100%;
+
+        overflow-x: auto;
+
+        -webkit-overflow-scrolling: touch;
+    }
+
+
+    /* =====================================================
+       BOTONES Y ENLACES GRANDES
+    ====================================================== */
+
+    button,
+    input[type="submit"],
+    input[type="button"] {
+        max-width: 100%;
+    }
+
+
+    /* =====================================================
+       TEXTOS LARGOS
+    ====================================================== */
+
+    p,
+    span,
+    strong,
+    a,
+    h1,
+    h2,
+    h3,
+    h4 {
+        overflow-wrap: anywhere;
+    }
+
+
+    /* =====================================================
+       FORMULARIOS
+    ====================================================== */
+
+    form {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    input,
+    select,
+    textarea {
+        max-width: 100%;
+    }
+
+
+    /* =====================================================
+       FIN VERSIÓN MÓVIL
+    ====================================================== */
+
+}

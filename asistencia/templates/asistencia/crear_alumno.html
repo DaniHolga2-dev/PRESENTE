@@ -1,0 +1,148 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Nuevo alumno | PRESENTE{% endblock %}
+
+{% block content %}
+
+<div class="container py-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-7 col-lg-5">
+
+            <div class="access-card">
+
+                <h2 class="fw-bold mb-1">
+                    Nuevo alumno
+                </h2>
+
+                <p class="text-muted mb-4">
+                    {{ grupo.asignatura }} · {{ grupo.nombre }}
+                </p>
+
+
+                {% if error %}
+
+                    <div class="alert alert-danger">
+                        {{ error }}
+                    </div>
+
+                {% endif %}
+
+
+                <form method="POST">
+
+                    {% csrf_token %}
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Nombre
+                        </label>
+
+                        <input
+                            type="text"
+                            name="nombre"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Apellidos
+                        </label>
+
+                        <input
+                            type="text"
+                            name="apellidos"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Carrera
+                        </label>
+
+                        <input
+                            type="text"
+                            name="carrera"
+                            class="form-control"
+                            placeholder="Ej. Desarrollo de Aplicaciones Web"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-3">
+
+                        <label class="form-label">
+                            Curso
+                        </label>
+
+                        <input
+                            type="text"
+                            name="curso"
+                            class="form-control"
+                            placeholder="Ej. 2º"
+                            required
+                        >
+
+                    </div>
+
+
+                    <div class="mb-4">
+
+                        <label class="form-label">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control"
+                            required
+                        >
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-professor w-100"
+                    >
+                        Guardar alumno
+                    </button>
+
+                </form>
+
+
+                <div class="text-center mt-4">
+
+                    <a
+                        href="{% url 'detalle_grupo' grupo.id %}"
+                    >
+                        ← Volver al grupo
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

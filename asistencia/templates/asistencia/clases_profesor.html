@@ -1,0 +1,156 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Clases | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div class="panel-contenedor">
+
+        <div class="panel-cabecera">
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    ÁREA DEL PROFESOR
+                </p>
+
+                <h1>
+                    Clases
+                </h1>
+
+                <p class="panel-subtitulo">
+                    Consulta y gestiona las clases de tus grupos.
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="panel-tarjeta">
+
+            <div class="panel-tarjeta-titulo">
+
+                <h2>
+                    Clases programadas
+                </h2>
+
+            </div>
+
+
+            {% for clase in clases %}
+
+                <div style="
+                    display:flex;
+                    justify-content:space-between;
+                    align-items:center;
+                    gap:20px;
+                    padding:18px 0;
+                    border-bottom:1px solid #e5e7eb;
+                    flex-wrap:wrap;
+                ">
+
+                    <div>
+
+                        <strong style="
+                            display:block;
+                            font-size:16px;
+                            margin-bottom:5px;
+                        ">
+                            {{ clase.grupo.asignatura }}
+                        </strong>
+
+                        <span style="
+                            display:block;
+                            color:#667085;
+                            font-size:14px;
+                            margin-bottom:4px;
+                        ">
+                            {{ clase.grupo.nombre }}
+                        </span>
+
+                        <span style="
+                            color:#667085;
+                            font-size:14px;
+                        ">
+                            {{ clase.fecha|date:"d/m/Y" }}
+                            ·
+                            {{ clase.hora_inicio|time:"H:i" }}
+                        </span>
+
+                    </div>
+
+
+                    <div style="
+                        display:flex;
+                        align-items:center;
+                        gap:12px;
+                        flex-wrap:wrap;
+                    ">
+
+                        {% if clase.asistencia_abierta %}
+
+                            <span style="
+                                padding:7px 12px;
+                                border-radius:20px;
+                                background:#e3f5e9;
+                                color:#168653;
+                                font-size:13px;
+                                font-weight:700;
+                            ">
+                                Abierta
+                            </span>
+
+                        {% else %}
+
+                            <span style="
+                                padding:7px 12px;
+                                border-radius:20px;
+                                background:#f2f4f7;
+                                color:#667085;
+                                font-size:13px;
+                                font-weight:700;
+                            ">
+                                Cerrada
+                            </span>
+
+                        {% endif %}
+
+
+                        <a
+                            href="{% url 'gestionar_asistencia' clase.id %}"
+                            style="
+                                display:inline-block;
+                                padding:10px 16px;
+                                border-radius:8px;
+                                background:#168653;
+                                color:white;
+                                text-decoration:none;
+                                font-size:14px;
+                                font-weight:700;
+                            "
+                        >
+                            Gestionar asistencia
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <p style="color:#667085;">
+                    Todavía no tienes clases programadas.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

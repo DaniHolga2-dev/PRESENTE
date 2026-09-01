@@ -1,0 +1,190 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Soporte | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div class="panel-contenedor">
+
+        <div class="panel-cabecera">
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    SOPORTE
+                </p>
+
+                <h1>
+                    Solicitudes de asistencia
+                </h1>
+
+                <p class="panel-subtitulo">
+                    {{ pendientes|length }} pendientes
+                </p>
+
+            </div>
+
+            <div class="fecha-panel">
+                {% now "d/m/Y" %}
+            </div>
+
+        </div>
+
+
+        <div class="panel-tarjeta">
+
+            {% for solicitud in solicitudes %}
+
+                <div style="
+                    padding:22px 0;
+                    border-bottom:1px solid #e5e7eb;
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        gap:30px;
+                    ">
+
+                        <div>
+
+                            <h3 style="margin-bottom:7px;">
+
+                                {{ solicitud.alumno.nombre }}
+                                {{ solicitud.alumno.apellidos }}
+
+                            </h3>
+
+                            <p style="
+                                color:#667085;
+                                margin-bottom:6px;
+                            ">
+
+                                {{ solicitud.clase.fecha|date:"d/m/Y" }}
+                                ·
+                                {{ solicitud.clase.grupo.asignatura }}
+
+                            </p>
+
+                            <p style="
+                                margin-top:14px;
+                                color:#344054;
+                            ">
+                                {{ solicitud.motivo }}
+                            </p>
+
+                        </div>
+
+
+                        <div>
+
+                            {% if solicitud.estado == 'pendiente' %}
+
+                                <span style="
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#fff7e6;
+                                    color:#b7791f;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Pendiente
+                                </span>
+
+                            {% elif solicitud.estado == 'aprobada' %}
+
+                                <span style="
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#e3f5e9;
+                                    color:#168653;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Aprobada
+                                </span>
+
+                            {% else %}
+
+                                <span style="
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#fff1f1;
+                                    color:#b42318;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Rechazada
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+
+                    {% if solicitud.estado == 'pendiente' %}
+
+                        <div style="
+                            display:flex;
+                            gap:12px;
+                            margin-top:20px;
+                        ">
+
+                            <a
+                                href="{% url 'aprobar_soporte' solicitud.id %}"
+                                style="
+                                    padding:10px 16px;
+                                    border-radius:8px;
+                                    background:#168653;
+                                    color:white;
+                                    text-decoration:none;
+                                    font-weight:700;
+                                    font-size:14px;
+                                "
+                            >
+                                Confirmar asistencia
+                            </a>
+
+
+                            <a
+                                href="{% url 'rechazar_soporte' solicitud.id %}"
+                                style="
+                                    padding:10px 16px;
+                                    border-radius:8px;
+                                    background:#ffffff;
+                                    border:1px solid #d0d5dd;
+                                    color:#b42318;
+                                    text-decoration:none;
+                                    font-weight:700;
+                                    font-size:14px;
+                                "
+                            >
+                                Rechazar
+                            </a>
+
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+            {% empty %}
+
+                <p style="color:#667085;">
+                    No hay solicitudes de soporte.
+                </p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

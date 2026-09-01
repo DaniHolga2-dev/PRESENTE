@@ -1,0 +1,297 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Justificaciones | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div class="panel-contenedor">
+
+        <div class="panel-cabecera">
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    JUSTIFICACIONES
+                </p>
+
+                <h1>
+                    Justificar una falta
+                </h1>
+
+                <p class="panel-subtitulo">
+                    Envía la documentación necesaria al profesor.
+                </p>
+
+            </div>
+
+            <div class="fecha-panel">
+                {% now "d/m/Y" %}
+            </div>
+
+        </div>
+
+
+        <div class="panel-grid">
+
+            <!-- FORMULARIO -->
+
+            <div class="panel-tarjeta">
+
+                <div class="panel-tarjeta-titulo">
+                    <h2>Nueva justificación</h2>
+                </div>
+
+
+                {% if messages %}
+
+                    {% for message in messages %}
+
+                        <div class="mensaje-error">
+                            {{ message }}
+                        </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+
+                {% if ausencias_disponibles %}
+
+                    <form
+                        method="POST"
+                        enctype="multipart/form-data"
+                        class="formulario-acceso"
+                    >
+
+                        {% csrf_token %}
+
+
+                        <div class="campo-formulario">
+
+                            <label>
+                                Falta que quieres justificar
+                            </label>
+
+                            <select
+                                name="asistencia"
+                                required
+                            >
+
+                                <option value="">
+                                    Selecciona una falta
+                                </option>
+
+                                {% for asistencia in ausencias_disponibles %}
+
+                                    <option value="{{ asistencia.id }}">
+
+                                        {{ asistencia.clase.fecha|date:"d/m/Y" }}
+                                        -
+                                        {{ asistencia.clase.grupo.asignatura }}
+
+                                    </option>
+
+                                {% endfor %}
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="campo-formulario">
+
+                            <label>
+                                Motivo
+                            </label>
+
+                            <textarea
+                                name="motivo"
+                                rows="5"
+                                placeholder="Ej. Cita médica."
+                                required
+                                style="
+                                    width:100%;
+                                    padding:14px;
+                                    border:1px solid #d0d5dd;
+                                    border-radius:8px;
+                                    font-family:inherit;
+                                    resize:vertical;
+                                "
+                            ></textarea>
+
+                        </div>
+
+
+                        <div class="campo-formulario">
+
+                            <label>
+                                Justificante
+                            </label>
+
+                            <input
+                                type="file"
+                                name="documento"
+                                accept="image/*"
+                            >
+
+                            <p style="
+                                margin-top:8px;
+                                color:#667085;
+                                font-size:13px;
+                            ">
+                                Opcional. Puedes adjuntar, por ejemplo,
+                                una cita médica o administrativa.
+                                Máximo 5 MB.
+                            </p>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="boton-acceso boton-alumno"
+                        >
+                            Enviar justificación
+                        </button>
+
+                    </form>
+
+
+                {% else %}
+
+                    <p style="color:#667085;">
+                        No tienes faltas pendientes de justificar.
+                    </p>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- HISTORIAL -->
+
+            <div class="panel-tarjeta">
+
+                <div class="panel-tarjeta-titulo">
+                    <h2>Mis justificaciones</h2>
+                </div>
+
+
+                {% for justificacion in justificaciones %}
+
+                    <div style="
+                        padding:16px 0;
+                        border-bottom:1px solid #e5e7eb;
+                    ">
+
+                        <div style="
+                            display:flex;
+                            justify-content:space-between;
+                            gap:20px;
+                        ">
+
+                            <div>
+
+                                <strong>
+                                    {{ justificacion.asistencia.clase.fecha|date:"d/m/Y" }}
+                                </strong>
+
+                                <p style="
+                                    margin-top:5px;
+                                    color:#667085;
+                                    font-size:14px;
+                                ">
+                                    {{ justificacion.motivo }}
+                                </p>
+
+                            </div>
+
+
+                            {% if justificacion.estado == 'pendiente' %}
+
+                                <span style="
+                                    height:max-content;
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#fff7e6;
+                                    color:#b7791f;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Pendiente
+                                </span>
+
+                            {% elif justificacion.estado == 'aprobada' %}
+
+                                <span style="
+                                    height:max-content;
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#e3f5e9;
+                                    color:#168653;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Aprobada
+                                </span>
+
+                            {% else %}
+
+                                <span style="
+                                    height:max-content;
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#fff1f1;
+                                    color:#b42318;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Rechazada
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        {% if justificacion.documento %}
+
+                            <a
+                                href="{% url 'ver_documento_justificacion' justificacion.id %}"
+                                target="_blank"
+                                style="
+                                    display:inline-block;
+                                    margin-top:12px;
+                                    color:#168653;
+                                    text-decoration:none;
+                                    font-size:14px;
+                                    font-weight:700;
+                                "
+                            >
+                                Ver justificante
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+
+                {% empty %}
+
+                    <p style="color:#667085;">
+                        Todavía no has enviado ninguna justificación.
+                    </p>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

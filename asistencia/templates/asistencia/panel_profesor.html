@@ -1,0 +1,482 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Mis grupos | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div
+        class="panel-contenedor"
+        style="max-width:1100px;"
+    >
+
+        <!-- CABECERA -->
+
+        <div
+            class="panel-cabecera"
+            style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:25px;
+                flex-wrap:wrap;
+            "
+        >
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    ÁREA DEL PROFESOR
+                </p>
+
+                <h1>
+                    Mis grupos
+                </h1>
+
+                <p class="panel-subtitulo">
+                    Gestiona tus asignaturas y grupos de clase.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'crear_grupo' %}"
+                style="
+                    display:inline-flex;
+                    align-items:center;
+                    justify-content:center;
+                    gap:8px;
+                    padding:11px 18px;
+                    border-radius:10px;
+                    background:#168653;
+                    color:white;
+                    text-decoration:none;
+                    font-size:14px;
+                    font-weight:700;
+                    box-shadow:0 4px 10px rgba(22, 134, 83, 0.18);
+                "
+            >
+                <span style="
+                    font-size:20px;
+                    line-height:1;
+                ">
+                    +
+                </span>
+
+                Nuevo grupo
+
+            </a>
+
+        </div>
+
+
+        <!-- INFORMACIÓN DEL PROFESOR -->
+
+        <div
+            class="panel-tarjeta"
+            style="margin-bottom:22px;"
+        >
+
+            <div class="panel-tarjeta-titulo">
+
+                <h2>
+                    Profesor
+                </h2>
+
+            </div>
+
+
+            <div style="
+                display:flex;
+                align-items:center;
+                justify-content:space-between;
+                gap:20px;
+                flex-wrap:wrap;
+                margin-top:22px;
+                padding:22px;
+                border:1px solid #e5e7eb;
+                border-radius:14px;
+                background:#fafafa;
+            ">
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    gap:18px;
+                ">
+
+                    <div style="
+                        width:68px;
+                        height:68px;
+                        border-radius:50%;
+                        background:#eef2f6;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        color:#475467;
+                        font-size:24px;
+                        font-weight:700;
+                        flex-shrink:0;
+                    ">
+                        {{ profesor.nombre|first }}
+                    </div>
+
+
+                    <div>
+
+                        <h3 style="
+                            margin:0 0 6px 0;
+                            color:#101828;
+                            font-size:18px;
+                        ">
+                            {{ profesor.nombre }}
+                            {{ profesor.apellidos }}
+                        </h3>
+
+                        <p style="
+                            margin:0;
+                            color:#667085;
+                            font-size:14px;
+                        ">
+                            {{ profesor.email }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div style="
+                    padding:8px 14px;
+                    border-radius:999px;
+                    background:#e8f7ef;
+                    color:#168653;
+                    font-size:12px;
+                    font-weight:700;
+                ">
+                    PROFESOR
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- RESUMEN -->
+
+        <div
+            style="
+                display:grid;
+                grid-template-columns:repeat(auto-fit, minmax(220px, 1fr));
+                gap:20px;
+                margin-bottom:22px;
+            "
+        >
+
+            <div style="
+                padding:20px;
+                background:white;
+                border:1px solid #e5e7eb;
+                border-radius:14px;
+                box-shadow:0 4px 12px rgba(16, 24, 40, 0.04);
+            ">
+
+                <p style="
+                    margin:0 0 8px 0;
+                    color:#667085;
+                    font-size:12px;
+                    font-weight:700;
+                ">
+                    GRUPOS ACTIVOS
+                </p>
+
+                <strong style="
+                    display:block;
+                    font-size:28px;
+                    color:#101828;
+                ">
+                    {{ grupos|length }}
+                </strong>
+
+            </div>
+
+
+            <div style="
+                padding:20px;
+                background:white;
+                border:1px solid #e5e7eb;
+                border-radius:14px;
+                box-shadow:0 4px 12px rgba(16, 24, 40, 0.04);
+            ">
+
+                <p style="
+                    margin:0 0 8px 0;
+                    color:#667085;
+                    font-size:12px;
+                    font-weight:700;
+                ">
+                    PROFESOR
+                </p>
+
+                <strong style="
+                    display:block;
+                    font-size:16px;
+                    color:#101828;
+                ">
+                    {{ profesor.nombre }}
+                    {{ profesor.apellidos }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- LISTADO DE GRUPOS -->
+
+        <div class="panel-tarjeta">
+
+            <div
+                class="panel-tarjeta-titulo"
+                style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:15px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <h2>
+                    Grupos
+                </h2>
+
+
+                <span style="
+                    padding:6px 12px;
+                    border-radius:999px;
+                    background:#f2f4f7;
+                    color:#475467;
+                    font-size:12px;
+                    font-weight:700;
+                ">
+                    {{ grupos|length }}
+                    {% if grupos|length == 1 %}
+                        grupo
+                    {% else %}
+                        grupos
+                    {% endif %}
+                </span>
+
+            </div>
+
+
+            {% if grupos %}
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+                    gap:20px;
+                    margin-top:22px;
+                ">
+
+                    {% for grupo in grupos %}
+
+                        <div style="
+                            display:flex;
+                            flex-direction:column;
+                            justify-content:space-between;
+                            min-height:210px;
+                            padding:22px;
+                            border:1px solid #e5e7eb;
+                            border-radius:14px;
+                            background:#fafafa;
+                        ">
+
+                            <div>
+
+                                <div style="
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:space-between;
+                                    gap:15px;
+                                    margin-bottom:20px;
+                                ">
+
+                                    <div style="
+                                        width:48px;
+                                        height:48px;
+                                        border-radius:12px;
+                                        background:#e8f7ef;
+                                        display:flex;
+                                        align-items:center;
+                                        justify-content:center;
+                                        color:#168653;
+                                        font-size:20px;
+                                        font-weight:800;
+                                    ">
+                                        {{ grupo.asignatura|first }}
+                                    </div>
+
+
+                                    <span style="
+                                        padding:6px 11px;
+                                        border-radius:999px;
+                                        background:white;
+                                        border:1px solid #e5e7eb;
+                                        color:#667085;
+                                        font-size:11px;
+                                        font-weight:700;
+                                    ">
+                                        {{ grupo.nombre }}
+                                    </span>
+
+                                </div>
+
+
+                                <p style="
+                                    margin:0 0 6px 0;
+                                    color:#667085;
+                                    font-size:11px;
+                                    font-weight:700;
+                                ">
+                                    ASIGNATURA
+                                </p>
+
+
+                                <h3 style="
+                                    margin:0 0 8px 0;
+                                    color:#101828;
+                                    font-size:18px;
+                                    line-height:1.3;
+                                ">
+                                    {{ grupo.asignatura }}
+                                </h3>
+
+
+                                <p style="
+                                    margin:0;
+                                    color:#667085;
+                                    font-size:13px;
+                                ">
+                                    Grupo {{ grupo.nombre }}
+                                </p>
+
+                            </div>
+
+
+                            <div style="
+                                margin-top:22px;
+                                padding-top:18px;
+                                border-top:1px solid #e5e7eb;
+                            ">
+
+                                <a
+                                    href="{% url 'detalle_grupo' grupo.id %}"
+                                    style="
+                                        display:flex;
+                                        align-items:center;
+                                        justify-content:center;
+                                        width:100%;
+                                        box-sizing:border-box;
+                                        padding:10px 14px;
+                                        border-radius:9px;
+                                        background:#168653;
+                                        color:white;
+                                        text-decoration:none;
+                                        font-size:13px;
+                                        font-weight:700;
+                                    "
+                                >
+                                    Ver grupo
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+            {% else %}
+
+                <div style="
+                    margin-top:22px;
+                    padding:45px 25px;
+                    border:1px dashed #d0d5dd;
+                    border-radius:14px;
+                    background:#fafafa;
+                    text-align:center;
+                ">
+
+                    <div style="
+                        width:60px;
+                        height:60px;
+                        margin:0 auto 16px auto;
+                        border-radius:50%;
+                        background:#e8f7ef;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        color:#168653;
+                        font-size:28px;
+                        font-weight:700;
+                    ">
+                        +
+                    </div>
+
+
+                    <h3 style="
+                        margin:0 0 8px 0;
+                        color:#101828;
+                        font-size:18px;
+                    ">
+                        Todavía no tienes grupos
+                    </h3>
+
+
+                    <p style="
+                        max-width:430px;
+                        margin:0 auto 20px auto;
+                        color:#667085;
+                        font-size:14px;
+                        line-height:1.5;
+                    ">
+                        Crea tu primer grupo para comenzar a organizar
+                        las clases y gestionar la asistencia de tus alumnos.
+                    </p>
+
+
+                    <a
+                        href="{% url 'crear_grupo' %}"
+                        style="
+                            display:inline-flex;
+                            align-items:center;
+                            justify-content:center;
+                            padding:10px 17px;
+                            border-radius:9px;
+                            background:#168653;
+                            color:white;
+                            text-decoration:none;
+                            font-size:13px;
+                            font-weight:700;
+                        "
+                    >
+                        Crear primer grupo
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

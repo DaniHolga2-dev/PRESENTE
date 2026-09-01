@@ -1,0 +1,1438 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Mi panel | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div
+        class="panel-contenedor"
+        style="max-width:1180px;"
+    >
+
+        <!-- =====================================================
+             CABECERA
+        ====================================================== -->
+
+        <div
+            class="panel-cabecera"
+            style="
+                display:flex;
+                align-items:flex-end;
+                justify-content:space-between;
+                gap:25px;
+                flex-wrap:wrap;
+                margin-bottom:28px;
+            "
+        >
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    ÁREA DEL ALUMNO
+                </p>
+
+                <h1>
+                    Hola, {{ alumno.nombre }}
+                </h1>
+
+                <p class="panel-subtitulo">
+
+                    {% if alumno.grupo %}
+
+                        {{ alumno.grupo.asignatura }}
+                        ·
+                        {{ alumno.grupo.nombre }}
+
+                    {% else %}
+
+                        Sin grupo asignado
+
+                    {% endif %}
+
+                </p>
+
+            </div>
+
+
+            <div style="
+                padding:10px 15px;
+                border-radius:10px;
+                background:white;
+                border:1px solid #e5e7eb;
+                color:#475467;
+                font-size:13px;
+                font-weight:700;
+                box-shadow:0 4px 12px rgba(16, 24, 40, 0.04);
+            ">
+                {% now "d/m/Y" %}
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             RESUMEN DE ASISTENCIA
+        ====================================================== -->
+
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(190px, 1fr));
+            gap:18px;
+            margin-bottom:26px;
+        ">
+
+            <!-- ASISTENCIA GLOBAL -->
+
+            <div style="
+                padding:22px;
+                border-radius:16px;
+                background:linear-gradient(135deg, #168653, #22a86b);
+                color:white;
+                box-shadow:0 10px 24px rgba(22, 134, 83, 0.18);
+            ">
+
+                <p style="
+                    margin:0 0 10px 0;
+                    font-size:12px;
+                    font-weight:700;
+                    opacity:.88;
+                ">
+                    ASISTENCIA GLOBAL
+                </p>
+
+                <div style="
+                    display:flex;
+                    align-items:flex-end;
+                    gap:7px;
+                ">
+
+                    <strong style="
+                        font-size:34px;
+                        line-height:1;
+                    ">
+                        {{ porcentaje_asistencia }}%
+                    </strong>
+
+                    <span style="
+                        font-size:12px;
+                        opacity:.85;
+                        margin-bottom:4px;
+                    ">
+                        del total
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- PRESENTES -->
+
+            <div style="
+                padding:22px;
+                border-radius:16px;
+                background:#f4fbf7;
+                border:1px solid #d7ebdf;
+            ">
+
+                <p style="
+                    margin:0 0 10px 0;
+                    font-size:12px;
+                    font-weight:700;
+                    color:#168653;
+                ">
+                    ✅ PRESENTES
+                </p>
+
+                <strong style="
+                    display:block;
+                    font-size:30px;
+                    color:#168653;
+                ">
+                    {{ total_presentes }}
+                </strong>
+
+            </div>
+
+
+            <!-- RETRASOS -->
+
+            <div style="
+                padding:22px;
+                border-radius:16px;
+                background:#fffaf0;
+                border:1px solid #f1dfb3;
+            ">
+
+                <p style="
+                    margin:0 0 10px 0;
+                    font-size:12px;
+                    font-weight:700;
+                    color:#b7791f;
+                ">
+                    🕒 RETRASOS
+                </p>
+
+                <strong style="
+                    display:block;
+                    font-size:30px;
+                    color:#b7791f;
+                ">
+                    {{ total_tardes }}
+                </strong>
+
+            </div>
+
+
+            <!-- AUSENCIAS -->
+
+            <div style="
+                padding:22px;
+                border-radius:16px;
+                background:#fff5f5;
+                border:1px solid #f0d1cf;
+            ">
+
+                <p style="
+                    margin:0 0 10px 0;
+                    font-size:12px;
+                    font-weight:700;
+                    color:#b42318;
+                ">
+                    ❌ AUSENCIAS
+                </p>
+
+                <strong style="
+                    display:block;
+                    font-size:30px;
+                    color:#b42318;
+                ">
+                    {{ total_ausencias }}
+                </strong>
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             GRÁFICO DE EVOLUCIÓN
+        ====================================================== -->
+
+        <div
+            class="panel-tarjeta"
+            style="margin-bottom:24px;"
+        >
+
+            <div style="
+                display:flex;
+                align-items:flex-start;
+                justify-content:space-between;
+                gap:20px;
+                flex-wrap:wrap;
+                padding-bottom:18px;
+                border-bottom:1px solid #eaecf0;
+            ">
+
+                <div>
+
+                    <p style="
+                        margin:0 0 5px 0;
+                        color:#168653;
+                        font-size:11px;
+                        font-weight:800;
+                        letter-spacing:.05em;
+                    ">
+                        SEGUIMIENTO
+                    </p>
+
+                    <h2 style="
+                        margin:0 0 6px 0;
+                        color:#101828;
+                        font-size:21px;
+                    ">
+                        Evolución de mi asistencia
+                    </h2>
+
+                    <p style="
+                        margin:0;
+                        color:#667085;
+                        font-size:13px;
+                    ">
+                        Porcentaje acumulado de asistencia a lo largo de las clases.
+                    </p>
+
+                </div>
+
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    gap:8px;
+                    padding:7px 11px;
+                    border-radius:999px;
+                    background:#eef8f3;
+                    color:#168653;
+                    font-size:11px;
+                    font-weight:700;
+                ">
+
+                    <span style="
+                        width:8px;
+                        height:8px;
+                        border-radius:50%;
+                        background:#168653;
+                        display:inline-block;
+                    ">
+                    </span>
+
+                    Evolución
+
+                </div>
+
+            </div>
+
+
+            {% if total_registros > 0 %}
+
+                <div style="
+                    position:relative;
+                    width:100%;
+                    height:320px;
+                    margin-top:24px;
+                ">
+
+                    <canvas id="graficoAsistencia"></canvas>
+
+                </div>
+
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:center;
+                    gap:22px;
+                    flex-wrap:wrap;
+                    margin-top:15px;
+                    padding-top:17px;
+                    border-top:1px solid #f0f1f3;
+                ">
+
+                    <span style="
+                        color:#667085;
+                        font-size:12px;
+                    ">
+                        ✅ Presente = asistencia
+                    </span>
+
+                    <span style="
+                        color:#667085;
+                        font-size:12px;
+                    ">
+                        🕒 Retraso = asistencia
+                    </span>
+
+                    <span style="
+                        color:#667085;
+                        font-size:12px;
+                    ">
+                        ❌ Ausencia = reduce el porcentaje
+                    </span>
+
+                </div>
+
+            {% else %}
+
+                <div style="
+                    padding:45px 20px;
+                    margin-top:22px;
+                    border:1px dashed #d0d5dd;
+                    border-radius:14px;
+                    background:#fafafa;
+                    text-align:center;
+                ">
+
+                    <div style="
+                        width:60px;
+                        height:60px;
+                        margin:0 auto 14px auto;
+                        border-radius:50%;
+                        background:#eef8f3;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        font-size:27px;
+                    ">
+                        📈
+                    </div>
+
+                    <strong style="
+                        display:block;
+                        margin-bottom:7px;
+                        color:#101828;
+                        font-size:15px;
+                    ">
+                        Aún no hay datos suficientes
+                    </strong>
+
+                    <span style="
+                        color:#667085;
+                        font-size:13px;
+                    ">
+                        El gráfico comenzará a formarse cuando tengas registros de asistencia.
+                    </span>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- =====================================================
+             PERFIL + GRUPO
+        ====================================================== -->
+
+        <div style="
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(360px, 1fr));
+            gap:22px;
+            margin-bottom:24px;
+        ">
+
+
+            <!-- MI PERFIL -->
+
+            <div class="panel-tarjeta">
+
+                <div class="panel-tarjeta-titulo">
+
+                    <h2>
+                        Mi perfil
+                    </h2>
+
+                </div>
+
+
+                <div style="
+                    display:flex;
+                    align-items:center;
+                    gap:18px;
+                    margin-top:22px;
+                    margin-bottom:24px;
+                    padding:20px;
+                    border:1px solid #e5e7eb;
+                    border-radius:14px;
+                    background:#fafafa;
+                ">
+
+                    {% if alumno.foto %}
+
+                        <img
+                            src="{{ alumno.foto.url }}"
+                            alt="Foto de {{ alumno.nombre }}"
+                            style="
+                                width:72px;
+                                height:72px;
+                                border-radius:50%;
+                                object-fit:cover;
+                                border:3px solid #f2f4f7;
+                                flex-shrink:0;
+                            "
+                        >
+
+                    {% else %}
+
+                        <div style="
+                            width:72px;
+                            height:72px;
+                            border-radius:50%;
+                            background:#e3f5e9;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            color:#168653;
+                            font-size:22px;
+                            font-weight:800;
+                            flex-shrink:0;
+                        ">
+                            {{ alumno.nombre|first }}
+                            {{ alumno.apellidos|first }}
+                        </div>
+
+                    {% endif %}
+
+
+                    <div style="min-width:0;">
+
+                        <h3 style="
+                            margin:0 0 6px 0;
+                            color:#101828;
+                            font-size:18px;
+                        ">
+                            {{ alumno.nombre }}
+                            {{ alumno.apellidos }}
+                        </h3>
+
+                        <p style="
+                            margin:0;
+                            color:#667085;
+                            font-size:13px;
+                            word-break:break-word;
+                        ">
+                            {{ alumno.email }}
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div style="
+                    display:grid;
+                    grid-template-columns:repeat(2, 1fr);
+                    gap:14px;
+                ">
+
+                    <div style="
+                        padding:17px;
+                        border-radius:12px;
+                        background:#f8f9fb;
+                        border:1px solid #eaecf0;
+                    ">
+
+                        <p style="
+                            margin:0 0 6px 0;
+                            color:#667085;
+                            font-size:11px;
+                            font-weight:700;
+                        ">
+                            CARRERA
+                        </p>
+
+                        <strong style="
+                            color:#101828;
+                            font-size:14px;
+                        ">
+                            {{ alumno.carrera }}
+                        </strong>
+
+                    </div>
+
+
+                    <div style="
+                        padding:17px;
+                        border-radius:12px;
+                        background:#f8f9fb;
+                        border:1px solid #eaecf0;
+                    ">
+
+                        <p style="
+                            margin:0 0 6px 0;
+                            color:#667085;
+                            font-size:11px;
+                            font-weight:700;
+                        ">
+                            CURSO
+                        </p>
+
+                        <strong style="
+                            color:#101828;
+                            font-size:14px;
+                        ">
+                            {{ alumno.curso }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- MI GRUPO -->
+
+            <div class="panel-tarjeta">
+
+                <div
+                    class="panel-tarjeta-titulo"
+                    style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                        gap:15px;
+                    "
+                >
+
+                    <h2>
+                        Mi grupo
+                    </h2>
+
+
+                    {% if alumno.grupo %}
+
+                        <span style="
+                            padding:6px 11px;
+                            border-radius:999px;
+                            background:#e8f7ef;
+                            color:#168653;
+                            font-size:11px;
+                            font-weight:700;
+                        ">
+                            {{ alumno.grupo.nombre }}
+                        </span>
+
+                    {% endif %}
+
+                </div>
+
+
+                {% if alumno.grupo %}
+
+                    <div style="
+                        margin-top:22px;
+                        padding:22px;
+                        border-radius:14px;
+                        background:#f3fbf6;
+                        border:1px solid #d7ebdf;
+                    ">
+
+                        <p style="
+                            margin:0 0 7px 0;
+                            color:#168653;
+                            font-size:11px;
+                            font-weight:800;
+                        ">
+                            ASIGNATURA
+                        </p>
+
+                        <h3 style="
+                            margin:0 0 8px 0;
+                            color:#101828;
+                            font-size:20px;
+                            line-height:1.3;
+                        ">
+                            {{ alumno.grupo.asignatura }}
+                        </h3>
+
+                        <p style="
+                            margin:0;
+                            color:#667085;
+                            font-size:13px;
+                        ">
+                            Grupo {{ alumno.grupo.nombre }}
+                        </p>
+
+                    </div>
+
+
+                    <div style="
+                        margin-top:18px;
+                        padding:18px;
+                        border:1px solid #e5e7eb;
+                        border-radius:12px;
+                        background:#fafafa;
+                    ">
+
+                        <p style="
+                            margin:0 0 7px 0;
+                            color:#667085;
+                            font-size:11px;
+                            font-weight:700;
+                        ">
+                            PROFESOR
+                        </p>
+
+                        <strong style="
+                            display:block;
+                            margin-bottom:5px;
+                            color:#101828;
+                            font-size:14px;
+                        ">
+                            {{ alumno.grupo.profesor.nombre }}
+                            {{ alumno.grupo.profesor.apellidos }}
+                        </strong>
+
+                        <a
+                            href="mailto:{{ alumno.grupo.profesor.email }}"
+                            style="
+                                color:#168653;
+                                text-decoration:none;
+                                font-size:13px;
+                                font-weight:600;
+                            "
+                        >
+                            {{ alumno.grupo.profesor.email }}
+                        </a>
+
+                    </div>
+
+
+                    <a
+                        href="{% url 'grupo_alumno' %}"
+                        style="
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            width:100%;
+                            box-sizing:border-box;
+                            margin-top:18px;
+                            padding:11px 16px;
+                            border-radius:9px;
+                            background:#168653;
+                            color:white;
+                            text-decoration:none;
+                            font-size:13px;
+                            font-weight:700;
+                        "
+                    >
+                        Ver mi grupo
+                    </a>
+
+                {% else %}
+
+                    <div style="
+                        margin-top:22px;
+                        padding:35px 20px;
+                        border:1px dashed #d0d5dd;
+                        border-radius:14px;
+                        background:#fafafa;
+                        text-align:center;
+                    ">
+
+                        <div style="
+                            width:58px;
+                            height:58px;
+                            margin:0 auto 14px auto;
+                            border-radius:50%;
+                            background:#f2f4f7;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:25px;
+                        ">
+                            👥
+                        </div>
+
+                        <strong style="
+                            display:block;
+                            margin-bottom:6px;
+                            color:#101828;
+                        ">
+                            Sin grupo asignado
+                        </strong>
+
+                        <span style="
+                            color:#667085;
+                            font-size:13px;
+                        ">
+                            Todavía no perteneces a ningún grupo.
+                        </span>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             HISTORIAL
+        ====================================================== -->
+
+        <div
+            class="panel-tarjeta"
+            style="margin-bottom:24px;"
+        >
+
+            <div
+                class="panel-tarjeta-titulo"
+                style="
+                    display:flex;
+                    align-items:center;
+                    justify-content:space-between;
+                    gap:15px;
+                    flex-wrap:wrap;
+                "
+            >
+
+                <div>
+
+                    <h2 style="margin-bottom:4px;">
+                        Historial de asistencia
+                    </h2>
+
+                    <p style="
+                        margin:0;
+                        color:#667085;
+                        font-size:12px;
+                    ">
+                        Consulta tus últimos registros de clase.
+                    </p>
+
+                </div>
+
+
+                <span style="
+                    padding:6px 11px;
+                    border-radius:999px;
+                    background:#f2f4f7;
+                    color:#475467;
+                    font-size:11px;
+                    font-weight:700;
+                ">
+                    {{ total_registros }} registros
+                </span>
+
+            </div>
+
+
+            <div style="margin-top:18px;">
+
+                {% for asistencia in asistencias %}
+
+                    <div style="
+                        display:grid;
+                        grid-template-columns:minmax(240px, 2fr) minmax(120px, 1fr) minmax(130px, 1fr);
+                        gap:20px;
+                        align-items:center;
+                        padding:17px 4px;
+                        border-bottom:1px solid #eaecf0;
+                    ">
+
+                        <!-- CLASE -->
+
+                        <div>
+
+                            <strong style="
+                                display:block;
+                                margin-bottom:5px;
+                                color:#101828;
+                                font-size:14px;
+                            ">
+                                {{ asistencia.clase.grupo.asignatura }}
+                            </strong>
+
+                            <span style="
+                                color:#667085;
+                                font-size:12px;
+                            ">
+                                Grupo {{ asistencia.clase.grupo.nombre }}
+                            </span>
+
+                        </div>
+
+
+                        <!-- FECHA -->
+
+                        <div>
+
+                            <span style="
+                                display:block;
+                                margin-bottom:4px;
+                                color:#98a2b3;
+                                font-size:10px;
+                                font-weight:700;
+                            ">
+                                FECHA
+                            </span>
+
+                            <strong style="
+                                color:#475467;
+                                font-size:13px;
+                            ">
+                                {{ asistencia.clase.fecha|date:"d/m/Y" }}
+                            </strong>
+
+                        </div>
+
+
+                        <!-- ESTADO -->
+
+                        <div style="
+                            display:flex;
+                            justify-content:flex-end;
+                        ">
+
+                            {% if asistencia.estado == 'presente' %}
+
+                                <span style="
+                                    display:inline-flex;
+                                    align-items:center;
+                                    gap:6px;
+                                    min-width:105px;
+                                    justify-content:center;
+                                    padding:7px 12px;
+                                    border-radius:999px;
+                                    background:#e3f5e9;
+                                    color:#168653;
+                                    font-size:12px;
+                                    font-weight:700;
+                                ">
+                                    ✅ Presente
+                                </span>
+
+
+                            {% elif asistencia.estado == 'tarde' %}
+
+                                <span style="
+                                    display:inline-flex;
+                                    align-items:center;
+                                    gap:6px;
+                                    min-width:105px;
+                                    justify-content:center;
+                                    padding:7px 12px;
+                                    border-radius:999px;
+                                    background:#fff7e6;
+                                    color:#b7791f;
+                                    font-size:12px;
+                                    font-weight:700;
+                                ">
+                                    🕒 Tarde
+                                </span>
+
+
+                            {% elif asistencia.estado == 'ausente' %}
+
+                                <span style="
+                                    display:inline-flex;
+                                    align-items:center;
+                                    gap:6px;
+                                    min-width:105px;
+                                    justify-content:center;
+                                    padding:7px 12px;
+                                    border-radius:999px;
+                                    background:#fff1f1;
+                                    color:#b42318;
+                                    font-size:12px;
+                                    font-weight:700;
+                                ">
+                                    ❌ Ausente
+                                </span>
+
+
+                            {% else %}
+
+                                <span style="
+                                    display:inline-flex;
+                                    align-items:center;
+                                    gap:6px;
+                                    min-width:105px;
+                                    justify-content:center;
+                                    padding:7px 12px;
+                                    border-radius:999px;
+                                    background:#f2f4f7;
+                                    color:#667085;
+                                    font-size:12px;
+                                    font-weight:700;
+                                ">
+                                    ⏳ Pendiente
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div style="
+                        padding:40px 20px;
+                        text-align:center;
+                        border:1px dashed #d0d5dd;
+                        border-radius:14px;
+                        background:#fafafa;
+                    ">
+
+                        <div style="
+                            width:58px;
+                            height:58px;
+                            margin:0 auto 14px auto;
+                            border-radius:50%;
+                            background:#eef8f3;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size:25px;
+                        ">
+                            📊
+                        </div>
+
+                        <strong style="
+                            display:block;
+                            color:#101828;
+                            margin-bottom:6px;
+                        ">
+                            Todavía no tienes registros
+                        </strong>
+
+                        <span style="
+                            color:#667085;
+                            font-size:13px;
+                        ">
+                            Tus asistencias aparecerán aquí cuando empiecen las clases.
+                        </span>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             JUSTIFICACIONES PENDIENTES
+        ====================================================== -->
+
+        {% if justificaciones_pendientes %}
+
+            <div class="panel-tarjeta">
+
+                <div
+                    class="panel-tarjeta-titulo"
+                    style="
+                        display:flex;
+                        align-items:center;
+                        justify-content:space-between;
+                        gap:15px;
+                        flex-wrap:wrap;
+                    "
+                >
+
+                    <h2>
+                        Justificaciones pendientes
+                    </h2>
+
+                    <span style="
+                        padding:6px 11px;
+                        border-radius:999px;
+                        background:#fff7e6;
+                        color:#b7791f;
+                        font-size:11px;
+                        font-weight:700;
+                    ">
+                        En revisión
+                    </span>
+
+                </div>
+
+
+                <div style="margin-top:18px;">
+
+                    {% for justificacion in justificaciones_pendientes %}
+
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            justify-content:space-between;
+                            gap:20px;
+                            padding:16px 4px;
+                            border-bottom:1px solid #eaecf0;
+                        ">
+
+                            <div>
+
+                                <strong style="
+                                    display:block;
+                                    margin-bottom:4px;
+                                    color:#101828;
+                                    font-size:14px;
+                                ">
+                                    {{ justificacion.asistencia.clase.grupo.asignatura }}
+                                </strong>
+
+                                <span style="
+                                    color:#667085;
+                                    font-size:12px;
+                                ">
+                                    {{ justificacion.asistencia.clase.fecha|date:"d/m/Y" }}
+                                </span>
+
+                            </div>
+
+
+                            <span style="
+                                display:inline-flex;
+                                align-items:center;
+                                gap:6px;
+                                padding:7px 12px;
+                                border-radius:999px;
+                                background:#fff7e6;
+                                color:#b7791f;
+                                font-size:12px;
+                                font-weight:700;
+                            ">
+                                ⏳ Pendiente
+                            </span>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <a
+                    href="{% url 'justificaciones_alumno' %}"
+                    style="
+                        display:inline-flex;
+                        margin-top:18px;
+                        color:#168653;
+                        text-decoration:none;
+                        font-size:13px;
+                        font-weight:700;
+                    "
+                >
+                    Ver justificaciones →
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     DATOS DEL GRÁFICO
+========================================================== -->
+
+{{ grafico_fechas|json_script:"grafico-fechas" }}
+{{ grafico_porcentajes|json_script:"grafico-porcentajes" }}
+
+
+<!-- =========================================================
+     CHART.JS
+========================================================== -->
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+
+            const canvas =
+                document.getElementById(
+                    'graficoAsistencia'
+                );
+
+            if (!canvas) {
+                return;
+            }
+
+
+            let fechas =
+                JSON.parse(
+                    document.getElementById(
+                        'grafico-fechas'
+                    ).textContent
+                );
+
+
+            let porcentajes =
+                JSON.parse(
+                    document.getElementById(
+                        'grafico-porcentajes'
+                    ).textContent
+                );
+
+
+            /*
+            Los datos llegan desde Django como JSON.
+            Si por cualquier motivo llegan como texto JSON,
+            los convertimos de nuevo en arrays.
+            */
+
+            if (typeof fechas === 'string') {
+
+                try {
+                    fechas = JSON.parse(fechas);
+                } catch (error) {
+                    fechas = [];
+                }
+
+            }
+
+
+            if (typeof porcentajes === 'string') {
+
+                try {
+                    porcentajes =
+                        JSON.parse(porcentajes);
+                } catch (error) {
+                    porcentajes = [];
+                }
+
+            }
+
+
+            const contexto =
+                canvas.getContext('2d');
+
+
+            const degradado =
+                contexto.createLinearGradient(
+                    0,
+                    0,
+                    0,
+                    300
+                );
+
+            degradado.addColorStop(
+                0,
+                'rgba(22, 134, 83, 0.22)'
+            );
+
+            degradado.addColorStop(
+                1,
+                'rgba(22, 134, 83, 0.01)'
+            );
+
+
+            new Chart(
+                contexto,
+                {
+
+                    type: 'line',
+
+                    data: {
+
+                        labels: fechas,
+
+                        datasets: [
+
+                            {
+
+                                label:
+                                    'Asistencia',
+
+                                data:
+                                    porcentajes,
+
+                                borderColor:
+                                    '#168653',
+
+                                backgroundColor:
+                                    degradado,
+
+                                pointBackgroundColor:
+                                    '#ffffff',
+
+                                pointBorderColor:
+                                    '#168653',
+
+                                pointBorderWidth:
+                                    3,
+
+                                pointRadius:
+                                    5,
+
+                                pointHoverRadius:
+                                    7,
+
+                                pointHoverBackgroundColor:
+                                    '#168653',
+
+                                pointHoverBorderColor:
+                                    '#ffffff',
+
+                                pointHoverBorderWidth:
+                                    3,
+
+                                borderWidth:
+                                    3,
+
+                                tension:
+                                    0.35,
+
+                                fill:
+                                    true
+
+                            }
+
+                        ]
+
+                    },
+
+
+                    options: {
+
+                        responsive:
+                            true,
+
+                        maintainAspectRatio:
+                            false,
+
+
+                        interaction: {
+
+                            intersect:
+                                false,
+
+                            mode:
+                                'index'
+
+                        },
+
+
+                        plugins: {
+
+                            legend: {
+                                display:
+                                    false
+                            },
+
+
+                            tooltip: {
+
+                                displayColors:
+                                    false,
+
+                                backgroundColor:
+                                    '#101828',
+
+                                titleColor:
+                                    '#ffffff',
+
+                                bodyColor:
+                                    '#ffffff',
+
+                                padding:
+                                    12,
+
+                                cornerRadius:
+                                    8,
+
+                                callbacks: {
+
+                                    label:
+                                        function (
+                                            contexto
+                                        ) {
+
+                                            return (
+                                                'Asistencia: ' +
+                                                contexto.parsed.y +
+                                                '%'
+                                            );
+
+                                        }
+
+                                }
+
+                            }
+
+                        },
+
+
+                        scales: {
+
+                            y: {
+
+                                beginAtZero:
+                                    true,
+
+                                min:
+                                    0,
+
+                                max:
+                                    100,
+
+                                ticks: {
+
+                                    stepSize:
+                                        20,
+
+                                    color:
+                                        '#98a2b3',
+
+                                    callback:
+                                        function (
+                                            valor
+                                        ) {
+
+                                            return (
+                                                valor +
+                                                '%'
+                                            );
+
+                                        }
+
+                                },
+
+                                grid: {
+
+                                    color:
+                                        '#f0f1f3'
+
+                                },
+
+                                border: {
+
+                                    display:
+                                        false
+
+                                }
+
+                            },
+
+
+                            x: {
+
+                                ticks: {
+
+                                    color:
+                                        '#667085',
+
+                                    maxRotation:
+                                        0,
+
+                                    autoSkip:
+                                        true,
+
+                                    maxTicksLimit:
+                                        10
+
+                                },
+
+                                grid: {
+
+                                    display:
+                                        false
+
+                                },
+
+                                border: {
+
+                                    color:
+                                        '#eaecf0'
+
+                                }
+
+                            }
+
+                        }
+
+                    }
+
+                }
+            );
+
+        }
+    );
+
+</script>
+
+{% endblock %}
