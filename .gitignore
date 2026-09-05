@@ -12,6 +12,9 @@ __pycache__/
 *.log
 local_settings.py
 
+# Archivos estáticos generados
+staticfiles/
+
 # Base de datos local
 db.sqlite3
 
