@@ -15,8 +15,10 @@ local_settings.py
 # Archivos estáticos generados
 staticfiles/
 
-# Base de datos local
-db.sqlite3
+# Base de datos de demostración
+# db.sqlite3 se incluye intencionadamente en GitHub
+# porque contiene únicamente usuarios y datos ficticios
+# preparados para la demostración de PRESENTE.
 
 # Imagen de referencia proporcionada para el proyecto
 Presente_Retorika.png
