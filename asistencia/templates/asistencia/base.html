@@ -72,18 +72,14 @@
             id="navbarMenu"
         >
 
-            <!-- =================================================
-                 INICIO
-            ================================================== -->
+            <!-- INICIO -->
 
             <a href="{% url 'inicio' %}">
                 Inicio
             </a>
 
 
-            <!-- =================================================
-                 GRUPOS
-            ================================================== -->
+            <!-- GRUPOS -->
 
             {% if request.session.profesor_id %}
 
@@ -106,9 +102,7 @@
             {% endif %}
 
 
-            <!-- =================================================
-                 CLASES
-            ================================================== -->
+            <!-- CLASES -->
 
             {% if request.session.profesor_id %}
 
@@ -131,9 +125,7 @@
             {% endif %}
 
 
-            <!-- =================================================
-                 ASISTENCIA
-            ================================================== -->
+            <!-- ASISTENCIA -->
 
             {% if request.session.profesor_id %}
 
@@ -156,9 +148,7 @@
             {% endif %}
 
 
-            <!-- =================================================
-                 JUSTIFICACIONES
-            ================================================== -->
+            <!-- JUSTIFICACIONES -->
 
             {% if request.session.profesor_id %}
 
@@ -181,9 +171,7 @@
             {% endif %}
 
 
-            <!-- =================================================
-                 SOPORTE
-            ================================================== -->
+            <!-- SOPORTE -->
 
             {% if request.session.profesor_id %}
 
@@ -201,10 +189,329 @@
 
 
             <!-- =================================================
-                 SESIÓN
+                 PROFESOR
             ================================================== -->
 
             {% if request.session.profesor_id %}
+
+
+                <!-- =============================================
+                     CAMPANA DE NOTIFICACIONES
+                ============================================== -->
+
+                <div
+                    style="
+                        position:relative;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                    "
+                >
+
+                    <button
+                        type="button"
+                        id="botonNotificacionesGlobal"
+                        aria-label="Notificaciones"
+                        style="
+                            width:40px;
+                            height:40px;
+                            padding:0;
+                            border:1px solid #E5E7EB;
+                            border-radius:9px;
+                            background:#FFFFFF;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            cursor:pointer;
+                            position:relative;
+                        "
+                    >
+
+                        <!-- CAMPANA SVG -->
+
+                        <svg
+                            width="21"
+                            height="21"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#101828"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                        </svg>
+
+
+                        {% if justificaciones_pendientes > 0 %}
+
+                            <span
+                                style="
+                                    position:absolute;
+                                    top:-6px;
+                                    right:-6px;
+
+                                    min-width:19px;
+                                    height:19px;
+
+                                    padding:0 5px;
+
+                                    box-sizing:border-box;
+
+                                    border-radius:999px;
+
+                                    background:#FF3AA7;
+                                    color:#FFFFFF;
+
+                                    border:2px solid #FFFFFF;
+
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+
+                                    font-size:10px;
+                                    line-height:1;
+                                    font-weight:800;
+                                "
+                            >
+                                {{ justificaciones_pendientes }}
+                            </span>
+
+                        {% endif %}
+
+                    </button>
+
+
+                    <!-- =========================================
+                         PANEL NOTIFICACIONES
+                    ========================================== -->
+
+                    <div
+                        id="panelNotificacionesGlobal"
+                        style="
+                            display:none;
+
+                            position:absolute;
+
+                            top:50px;
+                            right:0;
+
+                            width:310px;
+
+                            padding:10px;
+
+                            background:#FFFFFF;
+
+                            border:1px solid #E5E7EB;
+                            border-radius:14px;
+
+                            box-shadow:
+                                0 14px 35px
+                                rgba(16, 24, 40, 0.14);
+
+                            z-index:1000;
+                        "
+                    >
+
+                        <div
+                            style="
+                                padding:8px 10px 12px;
+                                border-bottom:1px solid #EAECF0;
+                            "
+                        >
+
+                            <strong
+                                style="
+                                    color:#101828;
+                                    font-size:14px;
+                                "
+                            >
+                                Notificaciones
+                            </strong>
+
+                        </div>
+
+
+                        {% if justificaciones_pendientes > 0 %}
+
+                            <a
+                                href="{% url 'justificaciones_profesor' %}"
+                                style="
+                                    display:flex;
+                                    align-items:center;
+                                    gap:12px;
+
+                                    padding:14px 10px;
+
+                                    text-decoration:none;
+                                    border-radius:10px;
+                                "
+                            >
+
+                                <!-- ICONO DOCUMENTO -->
+
+                                <div
+                                    style="
+                                        width:40px;
+                                        height:40px;
+
+                                        flex-shrink:0;
+
+                                        display:flex;
+                                        align-items:center;
+                                        justify-content:center;
+
+                                        background:#EEF6FF;
+                                        border-radius:10px;
+                                    "
+                                >
+
+                                    <svg
+                                        width="21"
+                                        height="21"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#156FE7"
+                                        stroke-width="1.8"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                        aria-hidden="true"
+                                    >
+                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                        <polyline points="14 2 14 8 20 8"></polyline>
+                                        <line x1="8" y1="13" x2="16" y2="13"></line>
+                                        <line x1="8" y1="17" x2="16" y2="17"></line>
+                                    </svg>
+
+                                </div>
+
+
+                                <div>
+
+                                    <strong
+                                        style="
+                                            display:block;
+                                            margin-bottom:4px;
+
+                                            color:#101828;
+
+                                            font-size:12px;
+                                        "
+                                    >
+                                        Justificaciones pendientes
+                                    </strong>
+
+
+                                    <span
+                                        style="
+                                            display:block;
+
+                                            color:#667085;
+
+                                            font-size:11px;
+                                            line-height:1.4;
+                                        "
+                                    >
+
+                                        {% if justificaciones_pendientes == 1 %}
+
+                                            Tienes 1 justificación pendiente de revisión.
+
+                                        {% else %}
+
+                                            Tienes {{ justificaciones_pendientes }}
+                                            justificaciones pendientes de revisión.
+
+                                        {% endif %}
+
+                                    </span>
+
+                                </div>
+
+                            </a>
+
+
+                            <a
+                                href="{% url 'justificaciones_profesor' %}"
+                                style="
+                                    display:block;
+
+                                    margin:4px 10px 6px;
+                                    padding:9px 12px;
+
+                                    border-radius:8px;
+
+                                    background:#156FE7;
+                                    color:#FFFFFF;
+
+                                    text-decoration:none;
+                                    text-align:center;
+
+                                    font-size:11px;
+                                    font-weight:700;
+                                "
+                            >
+                                Ver justificaciones
+                            </a>
+
+
+                        {% else %}
+
+                            <div
+                                style="
+                                    padding:24px 12px;
+                                    text-align:center;
+                                "
+                            >
+
+                                <!-- CAMPANA VACÍA -->
+
+                                <svg
+                                    width="25"
+                                    height="25"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#98A2B3"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    style="
+                                        display:block;
+                                        margin:0 auto 9px;
+                                    "
+                                    aria-hidden="true"
+                                >
+                                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                                </svg>
+
+
+                                <p
+                                    style="
+                                        margin:0;
+
+                                        color:#667085;
+
+                                        font-size:12px;
+                                    "
+                                >
+                                    No tienes justificaciones pendientes.
+                                </p>
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+                <!-- =============================================
+                     CERRAR SESIÓN
+                ============================================== -->
 
                 <a
                     href="{% url 'logout_profesor' %}"
@@ -212,6 +519,7 @@
                 >
                     Cerrar sesión
                 </a>
+
 
             {% elif request.session.alumno_id %}
 
@@ -221,6 +529,7 @@
                 >
                     Cerrar sesión
                 </a>
+
 
             {% else %}
 
@@ -255,36 +564,31 @@
 
 
 <!-- =========================================================
-     MENÚ MÓVIL
+     JAVASCRIPT
 ========================================================== -->
 
 <script>
 
-    document.addEventListener(
-        'DOMContentLoaded',
-        function () {
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
 
-            const botonMenu =
-                document.getElementById(
-                    'menuMovilBoton'
-                );
+        /* =====================================================
+           MENÚ MÓVIL
+        ====================================================== */
 
-            const menu =
-                document.getElementById(
-                    'navbarMenu'
-                );
+        const botonMenu =
+            document.getElementById(
+                'menuMovilBoton'
+            );
+
+        const menu =
+            document.getElementById(
+                'navbarMenu'
+            );
 
 
-            if (!botonMenu || !menu) {
-                return;
-            }
-
-
-            /*
-            ================================================
-            ABRIR / CERRAR MENÚ
-            ================================================
-            */
+        if (botonMenu && menu) {
 
             botonMenu.addEventListener(
                 'click',
@@ -312,12 +616,6 @@
                 }
             );
 
-
-            /*
-            ================================================
-            CERRAR AL PULSAR UNA OPCIÓN
-            ================================================
-            */
 
             const enlaces =
                 menu.querySelectorAll('a');
@@ -350,12 +648,6 @@
             );
 
 
-            /*
-            ================================================
-            SI VOLVEMOS A PC, REINICIAMOS EL MENÚ
-            ================================================
-            */
-
             window.addEventListener(
                 'resize',
                 function () {
@@ -381,7 +673,78 @@
             );
 
         }
-    );
+
+
+        /* =====================================================
+           NOTIFICACIONES
+        ====================================================== */
+
+        const botonNotificaciones =
+            document.getElementById(
+                'botonNotificacionesGlobal'
+            );
+
+        const panelNotificaciones =
+            document.getElementById(
+                'panelNotificacionesGlobal'
+            );
+
+
+        if (
+            botonNotificaciones &&
+            panelNotificaciones
+        ) {
+
+            botonNotificaciones.addEventListener(
+                'click',
+                function (evento) {
+
+                    evento.stopPropagation();
+
+
+                    if (
+                        panelNotificaciones.style.display ===
+                        'block'
+                    ) {
+
+                        panelNotificaciones.style.display =
+                            'none';
+
+                    } else {
+
+                        panelNotificaciones.style.display =
+                            'block';
+
+                    }
+
+                }
+            );
+
+
+            panelNotificaciones.addEventListener(
+                'click',
+                function (evento) {
+
+                    evento.stopPropagation();
+
+                }
+            );
+
+
+            document.addEventListener(
+                'click',
+                function () {
+
+                    panelNotificaciones.style.display =
+                        'none';
+
+                }
+            );
+
+        }
+
+    }
+);
 
 </script>
 

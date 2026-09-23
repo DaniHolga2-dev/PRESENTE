@@ -67,9 +67,9 @@
 
                 <div style="
                     padding:18px;
-                    border:1px solid #e5e7eb;
+                    border:1px solid #E5E7EB;
                     border-radius:12px;
-                    background:#fafafa;
+                    background:#FAFAFA;
                 ">
 
                     <p style="
@@ -95,9 +95,9 @@
 
                 <div style="
                     padding:18px;
-                    border:1px solid #e5e7eb;
+                    border:1px solid #E5E7EB;
                     border-radius:12px;
-                    background:#fafafa;
+                    background:#FAFAFA;
                 ">
 
                     <p style="
@@ -123,9 +123,9 @@
 
                 <div style="
                     padding:18px;
-                    border:1px solid #e5e7eb;
+                    border:1px solid #E5E7EB;
                     border-radius:12px;
-                    background:#fafafa;
+                    background:#FAFAFA;
                 ">
 
                     <p style="
@@ -151,9 +151,9 @@
 
                 <div style="
                     padding:18px;
-                    border:1px solid #e5e7eb;
+                    border:1px solid #E5E7EB;
                     border-radius:12px;
-                    background:#fafafa;
+                    background:#FAFAFA;
                 ">
 
                     <p style="
@@ -173,12 +173,19 @@
                             gap:7px;
                             padding:6px 11px;
                             border-radius:999px;
-                            background:#e3f5e9;
-                            color:#168653;
+                            background:#E3F5E9;
+                            color:#03D26E;
                             font-size:13px;
                             font-weight:700;
                         ">
-                            ● Abierta
+                            <i
+                                data-lucide="circle-check"
+                                style="
+                                    width:15px;
+                                    height:15px;
+                                "
+                            ></i>
+                            Abierta
                         </span>
 
                     {% else %}
@@ -189,12 +196,19 @@
                             gap:7px;
                             padding:6px 11px;
                             border-radius:999px;
-                            background:#f2f4f7;
+                            background:#F2F4F7;
                             color:#667085;
                             font-size:13px;
                             font-weight:700;
                         ">
-                            ● Cerrada
+                            <i
+                                data-lucide="circle"
+                                style="
+                                    width:13px;
+                                    height:13px;
+                                "
+                            ></i>
+                            Cerrada
                         </span>
 
                     {% endif %}
@@ -236,9 +250,9 @@
                     <div style="
                         margin-top:22px;
                         padding:22px;
-                        border:1px solid #b7e4ca;
+                        border:1px solid #B7E4CA;
                         border-radius:14px;
-                        background:#f3fbf6;
+                        background:#F3FBF6;
                     ">
 
                         <div style="
@@ -251,14 +265,23 @@
                             <div style="
                                 width:48px;
                                 height:48px;
+                                flex-shrink:0;
                                 border-radius:50%;
-                                background:#e3f5e9;
+                                background:#E3F5E9;
+                                color:#03D26E;
                                 display:flex;
                                 align-items:center;
                                 justify-content:center;
-                                font-size:22px;
                             ">
-                                🟢
+
+                                <i
+                                    data-lucide="circle-check"
+                                    style="
+                                        width:23px;
+                                        height:23px;
+                                    "
+                                ></i>
+
                             </div>
 
 
@@ -291,18 +314,29 @@
                                 display:flex;
                                 align-items:center;
                                 justify-content:center;
+                                gap:8px;
                                 width:100%;
                                 box-sizing:border-box;
                                 padding:11px 16px;
                                 border-radius:9px;
-                                background:#b42318;
-                                color:white;
+                                background:#B42318;
+                                color:#FFFFFF;
                                 text-decoration:none;
                                 font-size:14px;
                                 font-weight:700;
                             "
                         >
+
+                            <i
+                                data-lucide="lock"
+                                style="
+                                    width:16px;
+                                    height:16px;
+                                "
+                            ></i>
+
                             Cerrar asistencia
+
                         </a>
 
                     </div>
@@ -313,9 +347,9 @@
                     <div style="
                         margin-top:22px;
                         padding:22px;
-                        border:1px solid #e5e7eb;
+                        border:1px solid #E5E7EB;
                         border-radius:14px;
-                        background:#fafafa;
+                        background:#FAFAFA;
                     ">
 
                         <div style="
@@ -328,14 +362,23 @@
                             <div style="
                                 width:48px;
                                 height:48px;
+                                flex-shrink:0;
                                 border-radius:50%;
-                                background:#f2f4f7;
+                                background:#EDF5FF;
+                                color:#156FE7;
                                 display:flex;
                                 align-items:center;
                                 justify-content:center;
-                                font-size:22px;
                             ">
-                                🔒
+
+                                <i
+                                    data-lucide="lock"
+                                    style="
+                                        width:22px;
+                                        height:22px;
+                                    "
+                                ></i>
+
                             </div>
 
 
@@ -368,18 +411,29 @@
                                 display:flex;
                                 align-items:center;
                                 justify-content:center;
+                                gap:8px;
                                 width:100%;
                                 box-sizing:border-box;
                                 padding:11px 16px;
                                 border-radius:9px;
-                                background:#168653;
-                                color:white;
+                                background:#156FE7;
+                                color:#FFFFFF;
                                 text-decoration:none;
                                 font-size:14px;
                                 font-weight:700;
                             "
                         >
+
+                            <i
+                                data-lucide="qr-code"
+                                style="
+                                    width:16px;
+                                    height:16px;
+                                "
+                            ></i>
+
                             Abrir asistencia
+
                         </a>
 
                     </div>
@@ -389,7 +443,7 @@
             </div>
 
 
-            <!-- QR -->
+            <!-- CÓDIGO QR -->
 
             <div class="panel-tarjeta">
 
@@ -402,33 +456,37 @@
                 </div>
 
 
-                {% if clase.asistencia_abierta and qr_base64 %}
+                {% if clase.asistencia_abierta %}
 
                     <div style="
-                        display:flex;
-                        flex-direction:column;
-                        align-items:center;
-                        justify-content:center;
-                        text-align:center;
                         margin-top:22px;
+                        text-align:center;
                     ">
 
-                        <div style="
-                            padding:18px;
-                            background:white;
-                            border:1px solid #e5e7eb;
-                            border-radius:16px;
-                            box-shadow:0 4px 15px rgba(16, 24, 40, 0.06);
-                        ">
+                        <div
+                            id="qr-contenedor"
+                            style="
+                                display:inline-flex;
+                                align-items:center;
+                                justify-content:center;
+                                min-height:260px;
+                                min-width:260px;
+                                padding:18px;
+                                border:1px dashed #D0D5DD;
+                                border-radius:14px;
+                                background:#FFFFFF;
+                            "
+                        >
 
                             <img
-                                id="qr-asistencia"
-                                src="data:image/png;base64,{{ qr_base64 }}"
+                                id="qr-imagen"
+                                src="{% url 'qr_clase' clase.id %}"
                                 alt="Código QR de asistencia"
                                 style="
                                     display:block;
-                                    width:220px;
-                                    height:220px;
+                                    width:240px;
+                                    max-width:100%;
+                                    height:auto;
                                 "
                             >
 
@@ -436,18 +494,7 @@
 
 
                         <p style="
-                            margin:16px 0 5px 0;
-                            color:#101828;
-                            font-size:14px;
-                            font-weight:700;
-                        ">
-                            Escanea para registrar asistencia
-                        </p>
-
-
-                        <p style="
-                            margin:0;
-                            max-width:300px;
+                            margin:16px 0 0 0;
                             color:#667085;
                             font-size:12px;
                             line-height:1.5;
@@ -461,15 +508,31 @@
                             id="estado-qr"
                             style="
                                 margin-top:13px;
+                                display:inline-flex;
+                                align-items:center;
+                                justify-content:center;
+                                gap:6px;
                                 padding:6px 11px;
                                 border-radius:999px;
-                                background:#e8f7ef;
-                                color:#168653;
+                                background:#E8F7EF;
+                                color:#03D26E;
                                 font-size:11px;
                                 font-weight:700;
                             "
                         >
-                            ● QR ACTIVO
+
+                            <i
+                                data-lucide="refresh-cw"
+                                style="
+                                    width:13px;
+                                    height:13px;
+                                "
+                            ></i>
+
+                            <span id="estado-qr-texto">
+                                QR ACTIVO
+                            </span>
+
                         </div>
 
                     </div>
@@ -477,47 +540,53 @@
                 {% else %}
 
                     <div style="
+                        margin-top:22px;
+                        min-height:290px;
                         display:flex;
                         flex-direction:column;
                         align-items:center;
                         justify-content:center;
-                        min-height:300px;
                         text-align:center;
-                        margin-top:22px;
                         padding:25px;
-                        border:1px dashed #d0d5dd;
+                        border:1px dashed #D0D5DD;
                         border-radius:14px;
-                        background:#fafafa;
-                        box-sizing:border-box;
+                        background:#FAFAFA;
                     ">
 
                         <div style="
-                            width:64px;
-                            height:64px;
+                            width:58px;
+                            height:58px;
                             border-radius:50%;
-                            background:#f2f4f7;
+                            background:#EDF5FF;
+                            color:#156FE7;
                             display:flex;
                             align-items:center;
                             justify-content:center;
-                            font-size:28px;
-                            margin-bottom:14px;
+                            margin-bottom:15px;
                         ">
-                            📱
+
+                            <i
+                                data-lucide="qr-code"
+                                style="
+                                    width:27px;
+                                    height:27px;
+                                "
+                            ></i>
+
                         </div>
 
-
                         <strong style="
+                            display:block;
                             color:#101828;
+                            font-size:15px;
                             margin-bottom:7px;
                         ">
                             QR no disponible
                         </strong>
 
-
                         <span style="
                             color:#667085;
-                            font-size:13px;
-                            max-width:280px;
+                            font-size:12px;
                             line-height:1.5;
                         ">
                             El código aparecerá automáticamente
@@ -553,11 +622,10 @@
 
             <div style="
                 display:grid;
-                grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));
+                grid-template-columns:repeat(auto-fit, minmax(190px, 1fr));
                 gap:14px;
-                margin-top:20px;
+                margin-top:22px;
             ">
-
 
                 <!-- PRESENTE -->
 
@@ -567,19 +635,35 @@
                     gap:12px;
                     padding:14px;
                     border-radius:12px;
-                    background:#f3fbf6;
-                    border:1px solid #d1eadb;
+                    background:#F3FBF6;
+                    border:1px solid #D1EADB;
                 ">
 
-                    <span style="font-size:25px;">
-                        ✅
+                    <span style="
+                        width:34px;
+                        height:34px;
+                        flex-shrink:0;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        color:#03D26E;
+                    ">
+
+                        <i
+                            data-lucide="square-check-big"
+                            style="
+                                width:23px;
+                                height:23px;
+                            "
+                        ></i>
+
                     </span>
 
                     <div>
 
                         <strong style="
                             display:block;
-                            color:#168653;
+                            color:#03D26E;
                             font-size:13px;
                         ">
                             Presente
@@ -605,19 +689,35 @@
                     gap:12px;
                     padding:14px;
                     border-radius:12px;
-                    background:#fffaf0;
-                    border:1px solid #f4dfae;
+                    background:#FFF0F8;
+                    border:1px solid #FFD0E9;
                 ">
 
-                    <span style="font-size:25px;">
-                        🕒
+                    <span style="
+                        width:34px;
+                        height:34px;
+                        flex-shrink:0;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        color:#FF3AA7;
+                    ">
+
+                        <i
+                            data-lucide="clock-3"
+                            style="
+                                width:23px;
+                                height:23px;
+                            "
+                        ></i>
+
                     </span>
 
                     <div>
 
                         <strong style="
                             display:block;
-                            color:#b7791f;
+                            color:#FF3AA7;
                             font-size:13px;
                         ">
                             Tarde
@@ -643,19 +743,35 @@
                     gap:12px;
                     padding:14px;
                     border-radius:12px;
-                    background:#fff6f5;
-                    border:1px solid #f1d0cd;
+                    background:#FFF6F5;
+                    border:1px solid #F1D0CD;
                 ">
 
-                    <span style="font-size:25px;">
-                        ❌
+                    <span style="
+                        width:34px;
+                        height:34px;
+                        flex-shrink:0;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        color:#B42318;
+                    ">
+
+                        <i
+                            data-lucide="x"
+                            style="
+                                width:25px;
+                                height:25px;
+                            "
+                        ></i>
+
                     </span>
 
                     <div>
 
                         <strong style="
                             display:block;
-                            color:#b42318;
+                            color:#B42318;
                             font-size:13px;
                         ">
                             Ausente
@@ -681,12 +797,28 @@
                     gap:12px;
                     padding:14px;
                     border-radius:12px;
-                    background:#f8f9fb;
-                    border:1px solid #e5e7eb;
+                    background:#F8F9FB;
+                    border:1px solid #E5E7EB;
                 ">
 
-                    <span style="font-size:25px;">
-                        ⏳
+                    <span style="
+                        width:34px;
+                        height:34px;
+                        flex-shrink:0;
+                        display:flex;
+                        align-items:center;
+                        justify-content:center;
+                        color:#667085;
+                    ">
+
+                        <i
+                            data-lucide="hourglass"
+                            style="
+                                width:22px;
+                                height:22px;
+                            "
+                        ></i>
+
                     </span>
 
                     <div>
@@ -740,7 +872,7 @@
                 <span style="
                     padding:6px 12px;
                     border-radius:999px;
-                    background:#f2f4f7;
+                    background:#F2F4F7;
                     color:#475467;
                     font-size:12px;
                     font-weight:700;
@@ -759,7 +891,7 @@
                     justify-content:space-between;
                     gap:20px;
                     padding:17px 4px;
-                    border-bottom:1px solid #eaecf0;
+                    border-bottom:1px solid #EAECF0;
                 ">
 
 
@@ -782,7 +914,7 @@
                                     height:48px;
                                     border-radius:50%;
                                     object-fit:cover;
-                                    border:2px solid #f2f4f7;
+                                    border:2px solid #F2F4F7;
                                     flex-shrink:0;
                                 "
                             >
@@ -793,7 +925,7 @@
                                 width:48px;
                                 height:48px;
                                 border-radius:50%;
-                                background:#f2f4f7;
+                                background:#F2F4F7;
                                 display:flex;
                                 align-items:center;
                                 justify-content:center;
@@ -854,7 +986,7 @@
                         {% else %}
 
                             <span style="
-                                color:#98a2b3;
+                                color:#98A2B3;
                                 font-size:12px;
                             ">
                                 —
@@ -873,12 +1005,22 @@
                                 justify-content:center;
                                 padding:7px 12px;
                                 border-radius:999px;
-                                background:#e3f5e9;
-                                color:#168653;
+                                background:#E3F5E9;
+                                color:#03D26E;
                                 font-size:12px;
                                 font-weight:700;
                             ">
-                                ✅ Presente
+
+                                <i
+                                    data-lucide="square-check-big"
+                                    style="
+                                        width:15px;
+                                        height:15px;
+                                    "
+                                ></i>
+
+                                Presente
+
                             </span>
 
 
@@ -892,12 +1034,22 @@
                                 justify-content:center;
                                 padding:7px 12px;
                                 border-radius:999px;
-                                background:#fff7e6;
-                                color:#b7791f;
+                                background:#FFF0F8;
+                                color:#FF3AA7;
                                 font-size:12px;
                                 font-weight:700;
                             ">
-                                🕒 Tarde
+
+                                <i
+                                    data-lucide="clock-3"
+                                    style="
+                                        width:15px;
+                                        height:15px;
+                                    "
+                                ></i>
+
+                                Tarde
+
                             </span>
 
 
@@ -911,12 +1063,22 @@
                                 justify-content:center;
                                 padding:7px 12px;
                                 border-radius:999px;
-                                background:#fff1f1;
-                                color:#b42318;
+                                background:#FFF1F1;
+                                color:#B42318;
                                 font-size:12px;
                                 font-weight:700;
                             ">
-                                ❌ Ausente
+
+                                <i
+                                    data-lucide="x"
+                                    style="
+                                        width:16px;
+                                        height:16px;
+                                    "
+                                ></i>
+
+                                Ausente
+
                             </span>
 
 
@@ -930,12 +1092,22 @@
                                 justify-content:center;
                                 padding:7px 12px;
                                 border-radius:999px;
-                                background:#f2f4f7;
+                                background:#F2F4F7;
                                 color:#667085;
                                 font-size:12px;
                                 font-weight:700;
                             ">
-                                ⏳ Pendiente
+
+                                <i
+                                    data-lucide="hourglass"
+                                    style="
+                                        width:15px;
+                                        height:15px;
+                                    "
+                                ></i>
+
+                                Pendiente
+
                             </span>
 
                         {% endif %}
@@ -949,11 +1121,11 @@
 
                 <div style="
                     margin-top:22px;
-                    padding:40px 25px;
-                    border:1px dashed #d0d5dd;
-                    border-radius:14px;
-                    background:#fafafa;
+                    padding:40px 20px;
                     text-align:center;
+                    border:1px dashed #D0D5DD;
+                    border-radius:14px;
+                    background:#FAFAFA;
                 ">
 
                     <div style="
@@ -961,26 +1133,35 @@
                         height:58px;
                         margin:0 auto 15px auto;
                         border-radius:50%;
-                        background:#f2f4f7;
+                        background:#EDF5FF;
+                        color:#156FE7;
                         display:flex;
                         align-items:center;
                         justify-content:center;
-                        font-size:25px;
                     ">
-                        ⏳
+
+                        <i
+                            data-lucide="users"
+                            style="
+                                width:26px;
+                                height:26px;
+                            "
+                        ></i>
+
                     </div>
 
                     <strong style="
                         display:block;
-                        color:#101828;
                         margin-bottom:7px;
+                        color:#101828;
+                        font-size:15px;
                     ">
                         Todavía no hay registros
                     </strong>
 
                     <span style="
                         color:#667085;
-                        font-size:13px;
+                        font-size:12px;
                     ">
                         Los alumnos aparecerán aquí cuando registren su asistencia.
                     </span>
@@ -992,22 +1173,37 @@
         </div>
 
 
-        <!-- VOLVER -->
+        <!-- =====================================================
+             VOLVER
+        ====================================================== -->
 
         <div style="
-            margin-top:22px;
+            margin-top:20px;
         ">
 
             <a
                 href="{% url 'clases_profesor' %}"
                 style="
+                    display:inline-flex;
+                    align-items:center;
+                    gap:6px;
                     color:#667085;
                     text-decoration:none;
                     font-size:13px;
                     font-weight:600;
                 "
             >
-                ← Volver a clases
+
+                <i
+                    data-lucide="arrow-left"
+                    style="
+                        width:15px;
+                        height:15px;
+                    "
+                ></i>
+
+                Volver a clases
+
             </a>
 
         </div>
@@ -1017,86 +1213,71 @@
 </section>
 
 
+<!-- =========================================================
+     ACTUALIZACIÓN AUTOMÁTICA DEL QR
+========================================================== -->
+
 {% if clase.asistencia_abierta %}
 
 <script>
 
-    const renovarQrUrl =
-        "{% url 'renovar_qr' clase.id %}";
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
 
-    const qrImagen =
-        document.getElementById('qr-asistencia');
+            const qrImagen =
+                document.getElementById(
+                    'qr-imagen'
+                );
 
-    const estadoQr =
-        document.getElementById('estado-qr');
+            const estadoQrTexto =
+                document.getElementById(
+                    'estado-qr-texto'
+                );
 
 
-    async function renovarQr() {
+            if (!qrImagen) {
+                return;
+            }
 
-        try {
 
-            const respuesta = await fetch(
-                renovarQrUrl,
-                {
-                    cache: 'no-store'
+            function actualizarQr() {
+
+                const nuevaUrl =
+                    "{% url 'qr_clase' clase.id %}"
+                    + "?t="
+                    + new Date().getTime();
+
+                qrImagen.src =
+                    nuevaUrl;
+
+
+                if (estadoQrTexto) {
+
+                    estadoQrTexto.textContent =
+                        "QR ACTUALIZADO";
+
+                    setTimeout(
+                        function () {
+
+                            estadoQrTexto.textContent =
+                                "QR ACTIVO";
+
+                        },
+                        1200
+                    );
+
                 }
+
+            }
+
+
+            setInterval(
+                actualizarQr,
+                10000
             );
 
-            const datos = await respuesta.json();
-
-
-            if (datos.ok) {
-
-                if (qrImagen) {
-
-                    qrImagen.src =
-                        'data:image/png;base64,' +
-                        datos.qr_base64;
-
-                }
-
-
-                if (estadoQr) {
-
-                    estadoQr.innerHTML =
-                        '● QR ACTIVO';
-
-                }
-
-            }
-
-            else if (datos.cerrada) {
-
-                window.location.reload();
-
-            }
-
         }
-
-        catch (error) {
-
-            if (estadoQr) {
-
-                estadoQr.innerHTML =
-                    '● RECONECTANDO...';
-
-            }
-
-        }
-
-    }
-
-
-    /*
-        El QR del servidor es válido durante 10 segundos.
-
-        Lo renovamos cada 8 segundos para que el código
-        que aparece en pantalla siempre sea válido.
-    */
-
-    setInterval(
-        renovarQr,
-        8000
     );
 
 </script>

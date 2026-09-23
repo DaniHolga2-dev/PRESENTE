@@ -702,6 +702,15 @@ def control_asistencia(request):
 
         porcentaje_global = 0
 
+    # =====================================================
+    # JUSTIFICACIONES PENDIENTES
+    # =====================================================
+
+    justificaciones_pendientes = Justificacion.objects.filter(
+        asistencia__clase__grupo__profesor=profesor,
+        estado='pendiente'
+    ).count()
+
     return render(
         request,
         'asistencia/control_asistencia.html',
@@ -726,6 +735,9 @@ def control_asistencia(request):
 
             'porcentaje_global':
                 porcentaje_global,
+
+            'justificaciones_pendientes':
+                justificaciones_pendientes,
         }
     )
 

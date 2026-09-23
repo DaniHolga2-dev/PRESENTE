@@ -58,6 +58,7 @@
                             display:block;
                             font-size:16px;
                             margin-bottom:5px;
+                            color:#101828;
                         ">
                             {{ clase.grupo.asignatura }}
                         </strong>
@@ -95,8 +96,8 @@
                             <span style="
                                 padding:7px 12px;
                                 border-radius:20px;
-                                background:#e3f5e9;
-                                color:#168653;
+                                background:#E8FFF3;
+                                color:#03A957;
                                 font-size:13px;
                                 font-weight:700;
                             ">
@@ -125,11 +126,26 @@
                                 display:inline-block;
                                 padding:10px 16px;
                                 border-radius:8px;
-                                background:#168653;
-                                color:white;
+                                background:#156FE7;
+                                color:#FFFFFF;
                                 text-decoration:none;
                                 font-size:14px;
                                 font-weight:700;
+                                box-shadow:0 4px 10px rgba(21,111,231,0.18);
+                                transition:
+                                    background-color 0.2s ease,
+                                    transform 0.2s ease,
+                                    box-shadow 0.2s ease;
+                            "
+                            onmouseover="
+                                this.style.backgroundColor='#105CB1';
+                                this.style.transform='translateY(-1px)';
+                                this.style.boxShadow='0 6px 14px rgba(16,92,177,0.22)';
+                            "
+                            onmouseout="
+                                this.style.backgroundColor='#156FE7';
+                                this.style.transform='translateY(0)';
+                                this.style.boxShadow='0 4px 10px rgba(21,111,231,0.18)';
                             "
                         >
                             Gestionar asistencia
