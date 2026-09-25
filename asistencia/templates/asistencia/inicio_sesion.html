@@ -1,0 +1,872 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}
+Inicio | PRESENTE
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+    /* =========================================================
+       INICIO CON SESIÓN
+    ========================================================== */
+
+    .inicio-sesion {
+        min-height: calc(100vh - 82px);
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        padding: 55px 25px 70px;
+
+        background:
+            linear-gradient(
+                135deg,
+                #ffffff 0%,
+                #f8fbff 55%,
+                #f3f8ff 100%
+            );
+    }
+
+
+    .inicio-sesion-contenedor {
+        width: 100%;
+        max-width: 1050px;
+
+        text-align: center;
+    }
+
+
+    /* =========================================================
+       LOGO
+    ========================================================== */
+
+    .inicio-sesion-marca {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 20px;
+
+        margin-bottom: 42px;
+    }
+
+
+    .inicio-logo-simbolo {
+        position: relative;
+
+        width: 82px;
+        height: 82px;
+
+        flex-shrink: 0;
+    }
+
+
+    .inicio-logo-esquina {
+        position: absolute;
+
+        width: 27px;
+        height: 27px;
+    }
+
+
+    .inicio-logo-esquina.azul {
+        top: 0;
+        left: 0;
+
+        border-top: 7px solid #176df5;
+        border-left: 7px solid #176df5;
+
+        border-radius: 9px 0 0 0;
+    }
+
+
+    .inicio-logo-esquina.verde {
+        top: 0;
+        right: 0;
+
+        border-top: 7px solid #00c86f;
+        border-right: 7px solid #00c86f;
+
+        border-radius: 0 9px 0 0;
+    }
+
+
+    .inicio-logo-esquina.rosa {
+        bottom: 0;
+        left: 0;
+
+        border-bottom: 7px solid #ff2f8b;
+        border-left: 7px solid #ff2f8b;
+
+        border-radius: 0 0 0 9px;
+    }
+
+
+    .inicio-logo-esquina.verde-oscuro {
+        bottom: 0;
+        right: 0;
+
+        border-bottom: 7px solid #15966e;
+        border-right: 7px solid #15966e;
+
+        border-radius: 0 0 9px 0;
+    }
+
+
+    .inicio-logo-check {
+        position: absolute;
+
+        left: 50%;
+        top: 48%;
+
+        width: 38px;
+        height: 21px;
+
+        border-left: 8px solid #102348;
+        border-bottom: 8px solid #102348;
+
+        transform:
+            translate(-50%, -50%)
+            rotate(-45deg);
+
+        border-radius: 2px;
+    }
+
+
+    .inicio-marca-texto {
+        text-align: left;
+    }
+
+
+    .inicio-marca-texto h1 {
+        margin: 0;
+
+        color: #102348;
+
+        font-size: 44px;
+        line-height: 1;
+
+        font-weight: 900;
+
+        letter-spacing: 1px;
+    }
+
+
+    .inicio-marca-texto p {
+        margin: 7px 0 0;
+
+        color: #102348;
+
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+
+    .inicio-marca-texto strong {
+        color: #176df5;
+
+        font-weight: 900;
+    }
+
+
+    /* =========================================================
+       CONTENIDO PRINCIPAL
+    ========================================================== */
+
+    .inicio-sesion-etiqueta {
+        margin: 0 0 14px;
+
+        color: #176df5;
+
+        font-size: 12px;
+        font-weight: 800;
+
+        letter-spacing: 3px;
+    }
+
+
+    .inicio-lineas {
+        width: 180px;
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 7px;
+
+        margin:
+            0
+            auto
+            28px;
+    }
+
+
+    .inicio-lineas span {
+        display: block;
+
+        height: 4px;
+
+        border-radius: 999px;
+    }
+
+
+    .inicio-lineas span:nth-child(1) {
+        background: #176df5;
+    }
+
+
+    .inicio-lineas span:nth-child(2) {
+        background: #00c86f;
+    }
+
+
+    .inicio-lineas span:nth-child(3) {
+        background: #ff2f8b;
+    }
+
+
+    .inicio-lineas span:nth-child(4) {
+        background: #15966e;
+    }
+
+
+    .inicio-sesion-titulo {
+        max-width: 720px;
+
+        margin:
+            0
+            auto;
+
+        color: #102348;
+
+        font-size: 46px;
+        line-height: 1.12;
+
+        font-weight: 900;
+
+        letter-spacing: -1.3px;
+    }
+
+
+    .inicio-sesion-descripcion {
+        max-width: 610px;
+
+        margin:
+            19px
+            auto
+            0;
+
+        color: #71809a;
+
+        font-size: 17px;
+        line-height: 1.7;
+    }
+
+
+    /* =========================================================
+       BOTÓN PANEL
+    ========================================================== */
+
+    .inicio-sesion-acciones {
+        margin-top: 32px;
+    }
+
+
+    .boton-mi-panel {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+
+        gap: 10px;
+
+        min-width: 180px;
+
+        padding: 14px 25px;
+
+        border-radius: 9px;
+
+        background: #176df5;
+
+        color: #ffffff;
+
+        text-decoration: none;
+
+        font-size: 14px;
+        font-weight: 800;
+
+        box-shadow:
+            0 7px 18px
+            rgba(23, 109, 245, 0.20);
+
+        transition:
+            background .2s ease,
+            transform .2s ease,
+            box-shadow .2s ease;
+    }
+
+
+    .boton-mi-panel:hover {
+        background: #105fd8;
+
+        transform: translateY(-2px);
+
+        box-shadow:
+            0 10px 23px
+            rgba(23, 109, 245, 0.26);
+    }
+
+
+    .boton-mi-panel svg {
+        width: 17px;
+        height: 17px;
+
+        fill: none;
+
+        stroke: currentColor;
+
+        stroke-width: 2;
+
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+
+    /* =========================================================
+       CARACTERÍSTICAS
+    ========================================================== */
+
+    .inicio-caracteristicas {
+        max-width: 850px;
+
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+
+        gap: 16px;
+
+        margin:
+            52px
+            auto
+            0;
+    }
+
+
+    .inicio-caracteristica {
+        min-height: 145px;
+
+        padding: 24px 16px;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        background: rgba(255, 255, 255, 0.82);
+
+        border: 1px solid #e2e9f2;
+
+        border-radius: 14px;
+
+        box-shadow:
+            0 9px 24px
+            rgba(16, 35, 72, 0.045);
+    }
+
+
+    .inicio-caracteristica-icono {
+        width: 43px;
+        height: 43px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        margin-bottom: 12px;
+
+        border-radius: 11px;
+    }
+
+
+    .inicio-caracteristica-icono svg {
+        width: 22px;
+        height: 22px;
+
+        fill: none;
+
+        stroke: currentColor;
+
+        stroke-width: 1.9;
+
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+
+    .inicio-caracteristica-icono.azul {
+        color: #176df5;
+        background: #edf5ff;
+    }
+
+
+    .inicio-caracteristica-icono.verde {
+        color: #15966e;
+        background: #ebf9f4;
+    }
+
+
+    .inicio-caracteristica-icono.rosa {
+        color: #ff2f8b;
+        background: #fff0f7;
+    }
+
+
+    .inicio-caracteristica-icono.oscuro {
+        color: #102348;
+        background: #eef1f6;
+    }
+
+
+    .inicio-caracteristica strong {
+        color: #102348;
+
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+
+    .inicio-caracteristica span {
+        margin-top: 5px;
+
+        color: #7c899d;
+
+        font-size: 12px;
+        line-height: 1.4;
+    }
+
+
+    /* =========================================================
+       MÓVIL
+    ========================================================== */
+
+    @media (max-width: 768px) {
+
+        .inicio-sesion {
+            min-height: calc(100vh - 70px);
+
+            align-items: flex-start;
+
+            padding:
+                45px
+                18px
+                50px;
+        }
+
+
+        .inicio-sesion-marca {
+            gap: 15px;
+
+            margin-bottom: 35px;
+        }
+
+
+        .inicio-logo-simbolo {
+            width: 64px;
+            height: 64px;
+        }
+
+
+        .inicio-logo-esquina {
+            width: 21px;
+            height: 21px;
+        }
+
+
+        .inicio-logo-esquina.azul {
+            border-top-width: 6px;
+            border-left-width: 6px;
+        }
+
+
+        .inicio-logo-esquina.verde {
+            border-top-width: 6px;
+            border-right-width: 6px;
+        }
+
+
+        .inicio-logo-esquina.rosa {
+            border-bottom-width: 6px;
+            border-left-width: 6px;
+        }
+
+
+        .inicio-logo-esquina.verde-oscuro {
+            border-bottom-width: 6px;
+            border-right-width: 6px;
+        }
+
+
+        .inicio-logo-check {
+            width: 30px;
+            height: 17px;
+
+            border-left-width: 6px;
+            border-bottom-width: 6px;
+        }
+
+
+        .inicio-marca-texto h1 {
+            font-size: 32px;
+        }
+
+
+        .inicio-marca-texto p {
+            font-size: 14px;
+        }
+
+
+        .inicio-sesion-etiqueta {
+            font-size: 10px;
+
+            letter-spacing: 2.4px;
+        }
+
+
+        .inicio-sesion-titulo {
+            font-size: 34px;
+
+            letter-spacing: -0.8px;
+        }
+
+
+        .inicio-sesion-descripcion {
+            font-size: 15px;
+
+            line-height: 1.6;
+        }
+
+
+        .inicio-caracteristicas {
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 12px;
+
+            margin-top: 42px;
+        }
+
+
+        .inicio-caracteristica {
+            min-height: 130px;
+
+            padding: 20px 10px;
+        }
+
+    }
+
+
+    @media (max-width: 420px) {
+
+        .inicio-caracteristicas {
+            grid-template-columns: 1fr;
+        }
+
+
+        .inicio-caracteristica {
+            min-height: 115px;
+        }
+
+    }
+
+</style>
+
+
+<section class="inicio-sesion">
+
+    <div class="inicio-sesion-contenedor">
+
+
+        <!-- =====================================================
+             IDENTIDAD PRESENTE
+        ====================================================== -->
+
+        <div class="inicio-sesion-marca">
+
+
+            <div class="inicio-logo-simbolo">
+
+                <span class="inicio-logo-esquina azul"></span>
+
+                <span class="inicio-logo-esquina verde"></span>
+
+                <span class="inicio-logo-esquina rosa"></span>
+
+                <span class="inicio-logo-esquina verde-oscuro"></span>
+
+                <span class="inicio-logo-check"></span>
+
+            </div>
+
+
+            <div class="inicio-marca-texto">
+
+                <h1>
+                    PRESENTE
+                </h1>
+
+                <p>
+                    by <strong>RETORIKA</strong>
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- =====================================================
+             TEXTO PRINCIPAL
+        ====================================================== -->
+
+        <p class="inicio-sesion-etiqueta">
+            CONTROL DE ASISTENCIA
+        </p>
+
+
+        <div class="inicio-lineas">
+
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+
+        </div>
+
+
+        {% if request.session.profesor_id %}
+
+            <h2 class="inicio-sesion-titulo">
+                Gestiona tus clases desde un único lugar
+            </h2>
+
+            <p class="inicio-sesion-descripcion">
+                Organiza tus grupos, controla la asistencia de tus alumnos
+                y consulta todos los registros de forma rápida y sencilla.
+            </p>
+
+        {% elif request.session.alumno_id %}
+
+            <h2 class="inicio-sesion-titulo">
+                Tu asistencia, siempre a mano
+            </h2>
+
+            <p class="inicio-sesion-descripcion">
+                Consulta tus clases, revisa tu asistencia y accede
+                fácilmente a toda la información de tu grupo.
+            </p>
+
+        {% endif %}
+
+
+        <!-- =====================================================
+             IR AL PANEL
+        ====================================================== -->
+
+        <div class="inicio-sesion-acciones">
+
+
+            {% if request.session.profesor_id %}
+
+                <a
+                    href="{% url 'panel_profesor' %}"
+                    class="boton-mi-panel"
+                >
+
+                    Ir a mi panel
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="M5 12h14"></path>
+
+                        <path d="M13 6l6 6-6 6"></path>
+
+                    </svg>
+
+                </a>
+
+
+            {% elif request.session.alumno_id %}
+
+                <a
+                    href="{% url 'panel_alumno' %}"
+                    class="boton-mi-panel"
+                >
+
+                    Ir a mi panel
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="M5 12h14"></path>
+
+                        <path d="M13 6l6 6-6 6"></path>
+
+                    </svg>
+
+                </a>
+
+            {% endif %}
+
+
+        </div>
+
+
+        <!-- =====================================================
+             CARACTERÍSTICAS
+        ====================================================== -->
+
+        <div class="inicio-caracteristicas">
+
+
+            <!-- RÁPIDO -->
+
+            <div class="inicio-caracteristica">
+
+                <div class="inicio-caracteristica-icono azul">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="9"
+                        ></circle>
+
+                        <path
+                            d="M8 12l2.5 2.5L16 9"
+                        ></path>
+
+                    </svg>
+
+                </div>
+
+                <strong>
+                    Rápido
+                </strong>
+
+                <span>
+                    Registra la asistencia en segundos
+                </span>
+
+            </div>
+
+
+            <!-- SEGURO -->
+
+            <div class="inicio-caracteristica">
+
+                <div class="inicio-caracteristica-icono oscuro">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M12 3l7 3v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3z"
+                        ></path>
+
+                        <path
+                            d="M9 12l2 2 4-4"
+                        ></path>
+
+                    </svg>
+
+                </div>
+
+                <strong>
+                    Seguro
+                </strong>
+
+                <span>
+                    Control mediante códigos QR
+                </span>
+
+            </div>
+
+
+            <!-- INTUITIVO -->
+
+            <div class="inicio-caracteristica">
+
+                <div class="inicio-caracteristica-icono rosa">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="9"
+                        ></circle>
+
+                        <path
+                            d="M8 14s1.5 2 4 2 4-2 4-2"
+                        ></path>
+
+                        <path d="M9 9h.01"></path>
+
+                        <path d="M15 9h.01"></path>
+
+                    </svg>
+
+                </div>
+
+                <strong>
+                    Intuitivo
+                </strong>
+
+                <span>
+                    Diseñado para utilizarse fácilmente
+                </span>
+
+            </div>
+
+
+            <!-- COMPLETO -->
+
+            <div class="inicio-caracteristica">
+
+                <div class="inicio-caracteristica-icono verde">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"
+                        ></path>
+
+                        <path d="M7 8h10"></path>
+
+                        <path d="M7 12h10"></path>
+
+                        <path d="M7 16h6"></path>
+
+                    </svg>
+
+                </div>
+
+                <strong>
+                    Completo
+                </strong>
+
+                <span>
+                    Clases, históricos y justificaciones
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+</section>
+
+{% endblock %}

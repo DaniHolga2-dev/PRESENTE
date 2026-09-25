@@ -1,110 +1,622 @@
-{% extends 'asistencia/base.html' %}
+<!DOCTYPE html>
+<html lang="es">
 
-{% block title %}
-Iniciar sesión | PRESENTE
-{% endblock %}
+<head>
 
+    <meta charset="UTF-8">
 
-{% block content %}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-<section class="inicio">
+    <title>Iniciar sesión | PRESENTE</title>
 
-    <div class="inicio-contenido">
+    <style>
 
-        <p class="inicio-etiqueta">
-            ACCESO
-        </p>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-        <h1 style="
-            font-size: 42px;
-            color: #101828;
-        ">
-            Iniciar sesión
-        </h1>
+        html,
+        body {
+            min-height: 100%;
+        }
 
-        <p class="inicio-descripcion">
-            Selecciona tu tipo de usuario.
-        </p>
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
 
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff 0%,
+                    #f8fbff 55%,
+                    #f3f8ff 100%
+                );
 
-        <div
-            style="
-                display: flex;
-                justify-content: center;
-                gap: 25px;
-                flex-wrap: wrap;
-                margin-top: 45px;
-            "
-        >
-
-            <!-- PROFESOR -->
-
-            <a
-                href="{% url 'login_profesor' %}"
-                class="boton-login"
-                style="
-                    text-decoration: none;
-                    background: #105CB1;
-                    color: #FFFFFF;
-                    padding: 16px 35px;
-                    border-radius: 8px;
-                    font-weight: 600;
-                    box-shadow: 0 5px 12px rgba(16, 92, 177, 0.18);
-                    transition:
-                        background-color 0.2s ease,
-                        transform 0.2s ease,
-                        box-shadow 0.2s ease;
-                "
-                onmouseover="
-                    this.style.backgroundColor='#0D4D96';
-                    this.style.transform='translateY(-1px)';
-                    this.style.boxShadow='0 7px 16px rgba(16, 92, 177, 0.22)';
-                "
-                onmouseout="
-                    this.style.backgroundColor='#105CB1';
-                    this.style.transform='translateY(0)';
-                    this.style.boxShadow='0 5px 12px rgba(16, 92, 177, 0.18)';
-                "
-            >
-                Profesor
-            </a>
+            color: #102348;
+        }
 
 
-            <!-- ALUMNO -->
+        /* ==================================================
+           PÁGINA
+        ================================================== */
 
-            <a
-                href="{% url 'login_alumno' %}"
-                style="
-                    text-decoration: none;
-                    background: #156FE7;
-                    color: #FFFFFF;
-                    padding: 16px 35px;
-                    border-radius: 8px;
-                    font-weight: 600;
-                    box-shadow: 0 5px 12px rgba(21, 111, 231, 0.18);
-                    transition:
-                        background-color 0.2s ease,
-                        transform 0.2s ease,
-                        box-shadow 0.2s ease;
-                "
-                onmouseover="
-                    this.style.backgroundColor='#105CB1';
-                    this.style.transform='translateY(-1px)';
-                    this.style.boxShadow='0 7px 16px rgba(16, 92, 177, 0.22)';
-                "
-                onmouseout="
-                    this.style.backgroundColor='#156FE7';
-                    this.style.transform='translateY(0)';
-                    this.style.boxShadow='0 5px 12px rgba(21, 111, 231, 0.18)';
-                "
-            >
-                Alumno
-            </a>
+        .pagina-acceso {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 45px 25px;
+        }
+
+
+        .acceso-contenedor {
+            width: 100%;
+            max-width: 600px;
+
+            text-align: center;
+        }
+
+
+        /* ==================================================
+           MARCA
+        ================================================== */
+
+        .marca {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 18px;
+
+            margin-bottom: 42px;
+        }
+
+
+        .logo-simbolo {
+            width: 72px;
+            height: 72px;
+
+            position: relative;
+
+            flex-shrink: 0;
+        }
+
+
+        .esquina {
+            position: absolute;
+
+            width: 24px;
+            height: 24px;
+        }
+
+
+        .esquina-1 {
+            top: 0;
+            left: 0;
+
+            border-top: 6px solid #176df5;
+            border-left: 6px solid #176df5;
+
+            border-radius: 8px 0 0 0;
+        }
+
+
+        .esquina-2 {
+            top: 0;
+            right: 0;
+
+            border-top: 6px solid #00c86f;
+            border-right: 6px solid #00c86f;
+
+            border-radius: 0 8px 0 0;
+        }
+
+
+        .esquina-3 {
+            bottom: 0;
+            left: 0;
+
+            border-bottom: 6px solid #ff2f8b;
+            border-left: 6px solid #ff2f8b;
+
+            border-radius: 0 0 0 8px;
+        }
+
+
+        .esquina-4 {
+            bottom: 0;
+            right: 0;
+
+            border-bottom: 6px solid #15966e;
+            border-right: 6px solid #15966e;
+
+            border-radius: 0 0 8px 0;
+        }
+
+
+        .check {
+            position: absolute;
+
+            left: 50%;
+            top: 48%;
+
+            width: 33px;
+            height: 18px;
+
+            border-left: 7px solid #102348;
+            border-bottom: 7px solid #102348;
+
+            transform:
+                translate(-50%, -50%)
+                rotate(-45deg);
+
+            border-radius: 2px;
+        }
+
+
+        .marca-texto {
+            text-align: left;
+        }
+
+
+        .marca-texto h1 {
+            font-size: 37px;
+            line-height: 1;
+
+            letter-spacing: 1px;
+
+            font-weight: 900;
+
+            color: #102348;
+        }
+
+
+        .marca-texto p {
+            margin-top: 5px;
+
+            font-size: 17px;
+
+            font-weight: 600;
+
+            color: #102348;
+        }
+
+
+        .marca-texto strong {
+            color: #176df5;
+
+            font-weight: 900;
+        }
+
+
+        /* ==================================================
+           TARJETA
+        ================================================== */
+
+        .tarjeta-acceso {
+            background: #ffffff;
+
+            border: 1px solid #e1e8f0;
+
+            border-radius: 18px;
+
+            padding: 42px 45px;
+
+            box-shadow:
+                0 18px 50px
+                rgba(16, 35, 72, 0.08);
+        }
+
+
+        .etiqueta {
+            color: #176df5;
+
+            font-size: 12px;
+
+            font-weight: 800;
+
+            letter-spacing: 3px;
+
+            margin-bottom: 12px;
+        }
+
+
+        .tarjeta-acceso h2 {
+            font-size: 34px;
+
+            color: #102348;
+
+            font-weight: 850;
+        }
+
+
+        .descripcion {
+            margin-top: 10px;
+
+            color: #71809a;
+
+            font-size: 15px;
+        }
+
+
+        /* ==================================================
+           OPCIONES
+        ================================================== */
+
+        .opciones {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, 1fr);
+
+            gap: 18px;
+
+            margin-top: 35px;
+        }
+
+
+        .opcion {
+            min-height: 160px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding: 25px 20px;
+
+            border: 1px solid #dce5f0;
+
+            border-radius: 14px;
+
+            background: #ffffff;
+
+            color: #102348;
+
+            text-decoration: none;
+
+            transition:
+                transform .2s ease,
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
+
+
+        .opcion:hover {
+            transform: translateY(-3px);
+
+            border-color: #176df5;
+
+            background: #f8fbff;
+
+            box-shadow:
+                0 12px 25px
+                rgba(23, 109, 245, 0.10);
+        }
+
+
+        .opcion-icono {
+            width: 58px;
+            height: 58px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 15px;
+
+            border-radius: 13px;
+
+            background: #edf5ff;
+
+            color: #176df5;
+        }
+
+
+        .opcion-icono svg {
+            width: 31px;
+            height: 31px;
+
+            fill: none;
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+
+        .opcion h3 {
+            font-size: 18px;
+
+            font-weight: 800;
+        }
+
+
+        .opcion p {
+            margin-top: 5px;
+
+            font-size: 13px;
+
+            color: #71809a;
+        }
+
+
+        /* ==================================================
+           VOLVER
+        ================================================== */
+
+        .volver {
+            display: inline-block;
+
+            margin-top: 27px;
+
+            color: #60708d;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: color .2s ease;
+        }
+
+
+        .volver:hover {
+            color: #176df5;
+        }
+
+
+        /* ==================================================
+           MÓVIL
+        ================================================== */
+
+        @media (max-width: 600px) {
+
+            .pagina-acceso {
+                align-items: flex-start;
+
+                padding:
+                    35px
+                    18px;
+            }
+
+
+            .marca {
+                margin-bottom: 30px;
+            }
+
+
+            .logo-simbolo {
+                width: 60px;
+                height: 60px;
+            }
+
+
+            .esquina {
+                width: 20px;
+                height: 20px;
+            }
+
+
+            .check {
+                width: 28px;
+                height: 15px;
+
+                border-left-width: 6px;
+                border-bottom-width: 6px;
+            }
+
+
+            .marca-texto h1 {
+                font-size: 30px;
+            }
+
+
+            .marca-texto p {
+                font-size: 15px;
+            }
+
+
+            .tarjeta-acceso {
+                padding:
+                    35px
+                    20px;
+            }
+
+
+            .tarjeta-acceso h2 {
+                font-size: 29px;
+            }
+
+
+            .opciones {
+                grid-template-columns: 1fr;
+            }
+
+
+            .opcion {
+                min-height: 135px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<main class="pagina-acceso">
+
+    <div class="acceso-contenedor">
+
+
+        <!-- MARCA PRESENTE -->
+
+        <div class="marca">
+
+            <div class="logo-simbolo">
+
+                <span class="esquina esquina-1"></span>
+                <span class="esquina esquina-2"></span>
+                <span class="esquina esquina-3"></span>
+                <span class="esquina esquina-4"></span>
+
+                <span class="check"></span>
+
+            </div>
+
+
+            <div class="marca-texto">
+
+                <h1>
+                    PRESENTE
+                </h1>
+
+                <p>
+                    by <strong>RETORIKA</strong>
+                </p>
+
+            </div>
 
         </div>
 
+
+        <!-- TARJETA -->
+
+        <section class="tarjeta-acceso">
+
+            <p class="etiqueta">
+                ACCESO
+            </p>
+
+            <h2>
+                Iniciar sesión
+            </h2>
+
+            <p class="descripcion">
+                Selecciona tu tipo de usuario.
+            </p>
+
+
+            <div class="opciones">
+
+
+                <!-- PROFESOR -->
+
+                <a
+                    href="{% url 'login_profesor' %}"
+                    class="opcion"
+                >
+
+                    <div class="opcion-icono">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <circle
+                                cx="12"
+                                cy="7"
+                                r="3"
+                            ></circle>
+
+                            <path
+                                d="M6 20v-2a6 6 0 0112 0v2"
+                            ></path>
+
+                            <path
+                                d="M17 6h4"
+                            ></path>
+
+                            <path
+                                d="M19 4v4"
+                            ></path>
+
+                        </svg>
+
+                    </div>
+
+                    <h3>
+                        Profesor
+                    </h3>
+
+                    <p>
+                        Gestionar clases y asistencia
+                    </p>
+
+                </a>
+
+
+                <!-- ALUMNO -->
+
+                <a
+                    href="{% url 'login_alumno' %}"
+                    class="opcion"
+                >
+
+                    <div class="opcion-icono">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path
+                                d="M3 9l9-5 9 5-9 5-9-5z"
+                            ></path>
+
+                            <path
+                                d="M7 12v4c3 2 7 2 10 0v-4"
+                            ></path>
+
+                            <path
+                                d="M21 9v6"
+                            ></path>
+
+                        </svg>
+
+                    </div>
+
+                    <h3>
+                        Alumno
+                    </h3>
+
+                    <p>
+                        Consultar y registrar asistencia
+                    </p>
+
+                </a>
+
+            </div>
+
+
+            <a
+                href="{% url 'inicio' %}"
+                class="volver"
+            >
+                ← Volver al inicio
+            </a>
+
+        </section>
+
     </div>
 
-</section>
+</main>
 
-{% endblock %}
+
+</body>
+
+</html>

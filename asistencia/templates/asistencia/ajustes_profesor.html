@@ -1,0 +1,847 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}
+Ajustes | PRESENTE
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+    /* =========================================================
+       AJUSTES
+    ========================================================== */
+
+    .pagina-ajustes {
+        min-height: 100vh;
+        padding: 42px 48px 70px;
+        background: #f7f9fc;
+    }
+
+
+    .ajustes-contenedor {
+        width: 100%;
+        max-width: 1050px;
+        margin: 0 auto;
+    }
+
+
+    /* =========================================================
+       CABECERA
+    ========================================================== */
+
+    .ajustes-cabecera {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        gap: 25px;
+
+        margin-bottom: 32px;
+    }
+
+
+    .ajustes-etiqueta {
+        margin: 0 0 8px;
+
+        color: #176df5;
+
+        font-size: 11px;
+        font-weight: 800;
+
+        letter-spacing: 2px;
+    }
+
+
+    .ajustes-cabecera h1 {
+        margin: 0;
+
+        color: #102348;
+
+        font-size: 31px;
+        line-height: 1.2;
+        font-weight: 850;
+
+        letter-spacing: -.6px;
+    }
+
+
+    .ajustes-subtitulo {
+        margin: 9px 0 0;
+
+        color: #7a8799;
+
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+
+    .ajustes-fecha {
+        padding: 9px 13px;
+
+        border: 1px solid #e1e7ef;
+        border-radius: 8px;
+
+        background: #ffffff;
+
+        color: #667085;
+
+        font-size: 12px;
+        font-weight: 650;
+
+        white-space: nowrap;
+    }
+
+
+    /* =========================================================
+       GRID
+    ========================================================== */
+
+    .ajustes-grid {
+        display: grid;
+
+        grid-template-columns:
+            1fr 1.5fr;
+
+        gap: 20px;
+
+        align-items: start;
+    }
+
+
+    /* =========================================================
+       TARJETAS
+    ========================================================== */
+
+    .ajustes-tarjeta {
+        padding: 27px;
+
+        background: #ffffff;
+
+        border: 1px solid #e3e8ef;
+        border-radius: 13px;
+
+        box-shadow:
+            0 5px 18px
+            rgba(16, 35, 72, .035);
+    }
+
+
+    .ajustes-tarjeta-titulo {
+        margin-bottom: 24px;
+    }
+
+
+    .ajustes-tarjeta-titulo h2 {
+        margin: 0;
+
+        color: #102348;
+
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+
+    .ajustes-tarjeta-titulo p {
+        margin: 6px 0 0;
+
+        color: #98a2b3;
+
+        font-size: 12px;
+        line-height: 1.5;
+    }
+
+
+    /* =========================================================
+       PERFIL
+    ========================================================== */
+
+    .ajustes-perfil {
+        text-align: center;
+    }
+
+
+    .ajustes-foto {
+        width: 92px;
+        height: 92px;
+
+        margin: 5px auto 17px;
+
+        overflow: hidden;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background: #edf5ff;
+
+        color: #176df5;
+
+        font-size: 30px;
+        font-weight: 800;
+
+        border: 4px solid #ffffff;
+
+        box-shadow:
+            0 0 0 1px #dce5f0,
+            0 6px 18px rgba(16, 35, 72, .08);
+    }
+
+
+    .ajustes-foto img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+
+
+    .ajustes-perfil h2 {
+        margin: 0;
+
+        color: #102348;
+
+        font-size: 19px;
+        font-weight: 800;
+    }
+
+
+    .ajustes-perfil-email {
+        margin: 7px 0 0;
+
+        color: #7a8799;
+
+        font-size: 13px;
+
+        word-break: break-word;
+    }
+
+
+    .ajustes-rol {
+        display: inline-flex;
+        align-items: center;
+
+        margin-top: 17px;
+
+        padding: 6px 11px;
+
+        border-radius: 999px;
+
+        background: #edf5ff;
+
+        color: #176df5;
+
+        font-size: 11px;
+        font-weight: 750;
+    }
+
+
+    /* =========================================================
+       INFORMACIÓN
+    ========================================================== */
+
+    .ajustes-datos {
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .ajustes-dato {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 25px;
+
+        padding: 17px 0;
+
+        border-bottom: 1px solid #edf0f4;
+    }
+
+
+    .ajustes-dato:first-child {
+        padding-top: 0;
+    }
+
+
+    .ajustes-dato:last-child {
+        padding-bottom: 0;
+
+        border-bottom: 0;
+    }
+
+
+    .ajustes-dato-izquierda {
+        display: flex;
+        align-items: center;
+
+        gap: 13px;
+    }
+
+
+    .ajustes-dato-icono {
+        width: 36px;
+        height: 36px;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 9px;
+
+        background: #edf5ff;
+
+        color: #176df5;
+    }
+
+
+    .ajustes-dato-icono svg {
+        width: 18px;
+        height: 18px;
+
+        fill: none;
+
+        stroke: currentColor;
+
+        stroke-width: 1.8;
+
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+
+    .ajustes-dato-texto span {
+        display: block;
+
+        margin-bottom: 4px;
+
+        color: #98a2b3;
+
+        font-size: 11px;
+        font-weight: 650;
+    }
+
+
+    .ajustes-dato-texto strong {
+        display: block;
+
+        color: #344054;
+
+        font-size: 13px;
+        font-weight: 750;
+    }
+
+
+    /* =========================================================
+       SESIÓN
+    ========================================================== */
+
+    .ajustes-sesion {
+        grid-column: 1 / -1;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 30px;
+    }
+
+
+    .ajustes-sesion-info {
+        display: flex;
+        align-items: center;
+
+        gap: 14px;
+    }
+
+
+    .ajustes-sesion-icono {
+        width: 41px;
+        height: 41px;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 10px;
+
+        background: #fff1f0;
+
+        color: #d92d20;
+    }
+
+
+    .ajustes-sesion-icono svg {
+        width: 19px;
+        height: 19px;
+
+        fill: none;
+
+        stroke: currentColor;
+
+        stroke-width: 1.8;
+
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+
+    .ajustes-sesion-texto h2 {
+        margin: 0 0 5px;
+
+        color: #102348;
+
+        font-size: 14px;
+        font-weight: 800;
+    }
+
+
+    .ajustes-sesion-texto p {
+        margin: 0;
+
+        color: #98a2b3;
+
+        font-size: 12px;
+    }
+
+
+    .ajustes-cerrar-sesion {
+        flex-shrink: 0;
+
+        padding: 10px 16px;
+
+        border: 1px solid #f3c7c3;
+        border-radius: 8px;
+
+        background: #ffffff;
+
+        color: #d92d20;
+
+        text-decoration: none;
+
+        font-size: 12px;
+        font-weight: 750;
+
+        transition:
+            background .2s ease,
+            border-color .2s ease;
+    }
+
+
+    .ajustes-cerrar-sesion:hover {
+        background: #fff5f4;
+        border-color: #e99a94;
+    }
+
+
+    /* =========================================================
+       MÓVIL
+    ========================================================== */
+
+    @media (max-width: 768px) {
+
+        .pagina-ajustes {
+            padding:
+                25px
+                17px
+                50px;
+        }
+
+
+        .ajustes-cabecera {
+            flex-direction: column;
+        }
+
+
+        .ajustes-cabecera h1 {
+            font-size: 26px;
+        }
+
+
+        .ajustes-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .ajustes-sesion {
+            grid-column: auto;
+
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+
+        .ajustes-cerrar-sesion {
+            width: 100%;
+
+            box-sizing: border-box;
+
+            text-align: center;
+        }
+
+    }
+
+
+    @media (max-width: 430px) {
+
+        .ajustes-tarjeta {
+            padding: 21px;
+        }
+
+
+        .ajustes-dato {
+            align-items: flex-start;
+        }
+
+    }
+
+</style>
+
+
+<section class="pagina-ajustes">
+
+    <div class="ajustes-contenedor">
+
+
+        <!-- =====================================================
+             CABECERA
+        ====================================================== -->
+
+        <div class="ajustes-cabecera">
+
+            <div>
+
+                <p class="ajustes-etiqueta">
+                    AJUSTES
+                </p>
+
+                <h1>
+                    Configuración
+                </h1>
+
+                <p class="ajustes-subtitulo">
+                    Consulta la información asociada a tu cuenta.
+                </p>
+
+            </div>
+
+
+            <div class="ajustes-fecha">
+                {% now "d/m/Y" %}
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             CONTENIDO
+        ====================================================== -->
+
+        <div class="ajustes-grid">
+
+
+            <!-- PERFIL -->
+
+            <div class="ajustes-tarjeta ajustes-perfil">
+
+                <div class="ajustes-foto">
+
+                    {% if profesor.foto %}
+
+                        <img
+                            src="{{ profesor.foto.url }}"
+                            alt="Foto de {{ profesor.nombre }}"
+                        >
+
+                    {% else %}
+
+                        {{ profesor.nombre|first|upper }}
+
+                    {% endif %}
+
+                </div>
+
+
+                <h2>
+                    {{ profesor.nombre }}
+                    {{ profesor.apellidos }}
+                </h2>
+
+
+                <p class="ajustes-perfil-email">
+                    {{ profesor.email }}
+                </p>
+
+
+                <span class="ajustes-rol">
+                    Profesor
+                </span>
+
+            </div>
+
+
+            <!-- INFORMACIÓN PERSONAL -->
+
+            <div class="ajustes-tarjeta">
+
+                <div class="ajustes-tarjeta-titulo">
+
+                    <h2>
+                        Información personal
+                    </h2>
+
+                    <p>
+                        Datos asociados a tu perfil de profesor.
+                    </p>
+
+                </div>
+
+
+                <div class="ajustes-datos">
+
+
+                    <!-- NOMBRE -->
+
+                    <div class="ajustes-dato">
+
+                        <div class="ajustes-dato-izquierda">
+
+                            <div class="ajustes-dato-icono">
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <circle
+                                        cx="12"
+                                        cy="8"
+                                        r="4"
+                                    ></circle>
+
+                                    <path
+                                        d="M4 21a8 8 0 0 1 16 0"
+                                    ></path>
+
+                                </svg>
+
+                            </div>
+
+
+                            <div class="ajustes-dato-texto">
+
+                                <span>
+                                    Nombre
+                                </span>
+
+                                <strong>
+                                    {{ profesor.nombre }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- APELLIDOS -->
+
+                    <div class="ajustes-dato">
+
+                        <div class="ajustes-dato-izquierda">
+
+                            <div class="ajustes-dato-icono">
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <circle
+                                        cx="12"
+                                        cy="8"
+                                        r="4"
+                                    ></circle>
+
+                                    <path
+                                        d="M4 21a8 8 0 0 1 16 0"
+                                    ></path>
+
+                                </svg>
+
+                            </div>
+
+
+                            <div class="ajustes-dato-texto">
+
+                                <span>
+                                    Apellidos
+                                </span>
+
+                                <strong>
+                                    {{ profesor.apellidos }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- CORREO -->
+
+                    <div class="ajustes-dato">
+
+                        <div class="ajustes-dato-izquierda">
+
+                            <div class="ajustes-dato-icono">
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <rect
+                                        x="3"
+                                        y="5"
+                                        width="18"
+                                        height="14"
+                                        rx="2"
+                                    ></rect>
+
+                                    <path
+                                        d="m3 7 9 6 9-6"
+                                    ></path>
+
+                                </svg>
+
+                            </div>
+
+
+                            <div class="ajustes-dato-texto">
+
+                                <span>
+                                    Correo electrónico
+                                </span>
+
+                                <strong>
+                                    {{ profesor.email }}
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- TIPO DE CUENTA -->
+
+                    <div class="ajustes-dato">
+
+                        <div class="ajustes-dato-izquierda">
+
+                            <div class="ajustes-dato-icono">
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <path
+                                        d="M4 4h16v16H4z"
+                                    ></path>
+
+                                    <path
+                                        d="M8 9h8"
+                                    ></path>
+
+                                    <path
+                                        d="M8 13h5"
+                                    ></path>
+
+                                </svg>
+
+                            </div>
+
+
+                            <div class="ajustes-dato-texto">
+
+                                <span>
+                                    Tipo de cuenta
+                                </span>
+
+                                <strong>
+                                    Profesor
+                                </strong>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CERRAR SESIÓN
+            ================================================== -->
+
+            <div class="ajustes-tarjeta ajustes-sesion">
+
+                <div class="ajustes-sesion-info">
+
+                    <div class="ajustes-sesion-icono">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <path
+                                d="M10 17l5-5-5-5"
+                            ></path>
+
+                            <path
+                                d="M15 12H3"
+                            ></path>
+
+                            <path
+                                d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"
+                            ></path>
+
+                        </svg>
+
+                    </div>
+
+
+                    <div class="ajustes-sesion-texto">
+
+                        <h2>
+                            Cerrar sesión
+                        </h2>
+
+                        <p>
+                            Sal de tu cuenta de profesor en este dispositivo.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="{% url 'logout_profesor' %}"
+                    class="ajustes-cerrar-sesion"
+                >
+                    Cerrar sesión
+                </a>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

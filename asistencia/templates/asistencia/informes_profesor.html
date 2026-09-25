@@ -1,0 +1,1295 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}
+Informes | PRESENTE
+{% endblock %}
+
+
+{% block content %}
+
+<style>
+
+    /* =========================================================
+       PÁGINA DE INFORMES
+    ========================================================== */
+
+    .pagina-informes {
+        min-height: 100vh;
+        padding: 42px 48px 70px;
+        background: #f7f9fc;
+    }
+
+
+    .informes-contenedor {
+        width: 100%;
+        max-width: 1150px;
+        margin: 0 auto;
+    }
+
+
+    /* =========================================================
+       CABECERA
+    ========================================================== */
+
+    .informes-cabecera {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+
+        gap: 25px;
+
+        margin-bottom: 32px;
+    }
+
+
+    .informes-etiqueta {
+        margin: 0 0 8px;
+
+        color: #176df5;
+
+        font-size: 11px;
+        font-weight: 800;
+
+        letter-spacing: 2px;
+    }
+
+
+    .informes-cabecera h1 {
+        margin: 0;
+
+        color: #102348;
+
+        font-size: 31px;
+        line-height: 1.2;
+        font-weight: 850;
+
+        letter-spacing: -.6px;
+    }
+
+
+    .informes-subtitulo {
+        margin: 9px 0 0;
+
+        color: #7a8799;
+
+        font-size: 14px;
+        line-height: 1.5;
+    }
+
+
+    .informes-fecha {
+        padding: 9px 13px;
+
+        border: 1px solid #e1e7ef;
+        border-radius: 8px;
+
+        background: #ffffff;
+
+        color: #667085;
+
+        font-size: 12px;
+        font-weight: 650;
+
+        white-space: nowrap;
+    }
+
+
+    /* =========================================================
+       TARJETAS SUPERIORES
+    ========================================================== */
+
+    .informes-resumen {
+        display: grid;
+
+        grid-template-columns:
+            repeat(4, 1fr);
+
+        gap: 17px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .informe-resumen-tarjeta {
+        position: relative;
+
+        min-height: 118px;
+
+        padding: 21px;
+
+        box-sizing: border-box;
+
+        overflow: hidden;
+
+        background: #ffffff;
+
+        border: 1px solid #e3e8ef;
+        border-radius: 12px;
+
+        box-shadow:
+            0 5px 18px
+            rgba(16, 35, 72, .035);
+    }
+
+
+    .informe-resumen-superior {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 15px;
+
+        margin-bottom: 15px;
+    }
+
+
+    .informe-resumen-titulo {
+        color: #7a8799;
+
+        font-size: 11px;
+        font-weight: 700;
+    }
+
+
+    .informe-resumen-icono {
+        width: 34px;
+        height: 34px;
+
+        flex-shrink: 0;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 9px;
+
+        background: #edf5ff;
+
+        color: #176df5;
+    }
+
+
+    .informe-resumen-icono svg {
+        width: 17px;
+        height: 17px;
+
+        fill: none;
+
+        stroke: currentColor;
+
+        stroke-width: 1.8;
+
+        stroke-linecap: round;
+        stroke-linejoin: round;
+    }
+
+
+    .informe-resumen-valor {
+        margin: 0;
+
+        color: #102348;
+
+        font-size: 27px;
+        line-height: 1;
+
+        font-weight: 850;
+    }
+
+
+    .informe-resumen-texto {
+        margin: 7px 0 0;
+
+        color: #98a2b3;
+
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+
+    /* =========================================================
+       CONTENIDO PRINCIPAL
+    ========================================================== */
+
+    .informes-grid {
+        display: grid;
+
+        grid-template-columns:
+            1.35fr .85fr;
+
+        gap: 20px;
+
+        align-items: start;
+    }
+
+
+    .informes-tarjeta {
+        padding: 26px;
+
+        box-sizing: border-box;
+
+        background: #ffffff;
+
+        border: 1px solid #e3e8ef;
+        border-radius: 12px;
+
+        box-shadow:
+            0 5px 18px
+            rgba(16, 35, 72, .035);
+    }
+
+
+    .informes-tarjeta-cabecera {
+        margin-bottom: 27px;
+    }
+
+
+    .informes-tarjeta-cabecera h2 {
+        margin: 0;
+
+        color: #102348;
+
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+
+    .informes-tarjeta-cabecera p {
+        margin: 6px 0 0;
+
+        color: #98a2b3;
+
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+
+    /* =========================================================
+       DISTRIBUCIÓN DE ASISTENCIA
+    ========================================================== */
+
+    .distribucion-lista {
+        display: flex;
+        flex-direction: column;
+
+        gap: 25px;
+    }
+
+
+    .distribucion-item {
+        width: 100%;
+    }
+
+
+    .distribucion-superior {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        gap: 20px;
+
+        margin-bottom: 9px;
+    }
+
+
+    .distribucion-nombre {
+        display: flex;
+        align-items: center;
+
+        gap: 9px;
+
+        color: #475467;
+
+        font-size: 12px;
+        font-weight: 700;
+    }
+
+
+    .distribucion-punto {
+        width: 8px;
+        height: 8px;
+
+        flex-shrink: 0;
+
+        border-radius: 50%;
+    }
+
+
+    .distribucion-punto.presente {
+        background: #176df5;
+    }
+
+
+    .distribucion-punto.tarde {
+        background: #64a4ff;
+    }
+
+
+    .distribucion-punto.ausente {
+        background: #a9c9f5;
+    }
+
+
+    .distribucion-datos {
+        display: flex;
+        align-items: center;
+
+        gap: 10px;
+    }
+
+
+    .distribucion-total {
+        color: #98a2b3;
+
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+
+    .distribucion-porcentaje {
+        min-width: 47px;
+
+        color: #102348;
+
+        font-size: 12px;
+        font-weight: 800;
+
+        text-align: right;
+    }
+
+
+    .distribucion-barra {
+        position: relative;
+
+        width: 100%;
+        height: 7px;
+
+        overflow: hidden;
+
+        border-radius: 999px;
+
+        background: #edf2f8;
+    }
+
+
+    .distribucion-progreso {
+        height: 100%;
+
+        border-radius: inherit;
+
+        transform-origin: left center;
+    }
+
+
+    .distribucion-progreso.presente {
+        background: #176df5;
+    }
+
+
+    .distribucion-progreso.tarde {
+        background: #64a4ff;
+    }
+
+
+    .distribucion-progreso.ausente {
+        background: #a9c9f5;
+    }
+
+
+    /*
+       Las anchuras no se escriben directamente con
+       style="width: {{ variable }}%".
+
+       Las aplicaremos mediante JavaScript usando atributos
+       data-porcentaje para evitar los avisos del editor CSS.
+    */
+
+
+    /* =========================================================
+       PORCENTAJE GLOBAL
+    ========================================================== */
+
+    .porcentaje-global {
+        text-align: center;
+    }
+
+
+    .porcentaje-circulo {
+        position: relative;
+
+        width: 180px;
+        height: 180px;
+
+        margin: 10px auto 24px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        border-radius: 50%;
+
+        background:
+            conic-gradient(
+                #176df5 0deg,
+                #176df5 var(--angulo-asistencia),
+                #edf2f8 var(--angulo-asistencia),
+                #edf2f8 360deg
+            );
+    }
+
+
+    .porcentaje-circulo::after {
+        content: "";
+
+        position: absolute;
+
+        width: 142px;
+        height: 142px;
+
+        border-radius: 50%;
+
+        background: #ffffff;
+    }
+
+
+    .porcentaje-circulo-contenido {
+        position: relative;
+
+        z-index: 2;
+    }
+
+
+    .porcentaje-circulo-valor {
+        display: block;
+
+        color: #102348;
+
+        font-size: 33px;
+        line-height: 1;
+
+        font-weight: 850;
+    }
+
+
+    .porcentaje-circulo-texto {
+        display: block;
+
+        margin-top: 7px;
+
+        color: #98a2b3;
+
+        font-size: 10px;
+        font-weight: 650;
+    }
+
+
+    .porcentaje-explicacion {
+        max-width: 250px;
+
+        margin: 0 auto;
+
+        color: #7a8799;
+
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+
+    .porcentaje-explicacion strong {
+        color: #176df5;
+    }
+
+
+    /* =========================================================
+       INFORMACIÓN INFERIOR
+    ========================================================== */
+
+    .informes-detalle {
+        grid-column: 1 / -1;
+
+        display: grid;
+
+        grid-template-columns:
+            repeat(3, 1fr);
+
+        gap: 0;
+
+        padding: 0;
+    }
+
+
+    .informe-detalle-item {
+        padding: 23px 26px;
+
+        border-right: 1px solid #edf0f4;
+    }
+
+
+    .informe-detalle-item:last-child {
+        border-right: 0;
+    }
+
+
+    .informe-detalle-etiqueta {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: #98a2b3;
+
+        font-size: 10px;
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: .7px;
+    }
+
+
+    .informe-detalle-valor {
+        color: #102348;
+
+        font-size: 17px;
+        font-weight: 800;
+    }
+
+
+    .informe-detalle-descripcion {
+        margin: 5px 0 0;
+
+        color: #98a2b3;
+
+        font-size: 10px;
+        line-height: 1.4;
+    }
+
+
+    /* =========================================================
+       MÓVIL
+    ========================================================== */
+
+    @media (max-width: 768px) {
+
+        .pagina-informes {
+            padding:
+                25px
+                17px
+                50px;
+        }
+
+
+        .informes-cabecera {
+            flex-direction: column;
+        }
+
+
+        .informes-cabecera h1 {
+            font-size: 26px;
+        }
+
+
+        .informes-resumen {
+            grid-template-columns:
+                repeat(2, 1fr);
+        }
+
+
+        .informes-grid {
+            grid-template-columns: 1fr;
+        }
+
+
+        .informes-detalle {
+            grid-column: auto;
+
+            grid-template-columns: 1fr;
+        }
+
+
+        .informe-detalle-item {
+            border-right: 0;
+
+            border-bottom:
+                1px solid #edf0f4;
+        }
+
+
+        .informe-detalle-item:last-child {
+            border-bottom: 0;
+        }
+
+    }
+
+
+    @media (max-width: 430px) {
+
+        .informes-resumen {
+            grid-template-columns: 1fr;
+        }
+
+
+        .informes-tarjeta {
+            padding: 21px;
+        }
+
+
+        .porcentaje-circulo {
+            width: 160px;
+            height: 160px;
+        }
+
+
+        .porcentaje-circulo::after {
+            width: 126px;
+            height: 126px;
+        }
+
+    }
+
+</style>
+
+
+<section class="pagina-informes">
+
+    <div class="informes-contenedor">
+
+
+        <!-- =====================================================
+             CABECERA
+        ====================================================== -->
+
+        <div class="informes-cabecera">
+
+            <div>
+
+                <p class="informes-etiqueta">
+                    INFORMES
+                </p>
+
+                <h1>
+                    Resumen de asistencia
+                </h1>
+
+                <p class="informes-subtitulo">
+                    Consulta los datos generales de tus grupos y clases.
+                </p>
+
+            </div>
+
+
+            <div class="informes-fecha">
+                {% now "d/m/Y" %}
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             RESUMEN SUPERIOR
+        ====================================================== -->
+
+        <div class="informes-resumen">
+
+
+            <!-- GRUPOS -->
+
+            <div class="informe-resumen-tarjeta">
+
+                <div class="informe-resumen-superior">
+
+                    <span class="informe-resumen-titulo">
+                        Grupos
+                    </span>
+
+
+                    <div class="informe-resumen-icono">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <circle
+                                cx="9"
+                                cy="8"
+                                r="3"
+                            ></circle>
+
+                            <path
+                                d="M3 20v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2"
+                            ></path>
+
+                            <path
+                                d="M16 5.5a3 3 0 0 1 0 5.5"
+                            ></path>
+
+                            <path
+                                d="M17 14a5 5 0 0 1 4 4.9V20"
+                            ></path>
+
+                        </svg>
+
+                    </div>
+
+                </div>
+
+
+                <p class="informe-resumen-valor">
+                    {{ total_grupos|default:"0" }}
+                </p>
+
+                <p class="informe-resumen-texto">
+                    Grupos gestionados
+                </p>
+
+            </div>
+
+
+            <!-- ALUMNOS -->
+
+            <div class="informe-resumen-tarjeta">
+
+                <div class="informe-resumen-superior">
+
+                    <span class="informe-resumen-titulo">
+                        Alumnos
+                    </span>
+
+
+                    <div class="informe-resumen-icono">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <circle
+                                cx="12"
+                                cy="8"
+                                r="4"
+                            ></circle>
+
+                            <path
+                                d="M4 21a8 8 0 0 1 16 0"
+                            ></path>
+
+                        </svg>
+
+                    </div>
+
+                </div>
+
+
+                <p class="informe-resumen-valor">
+                    {{ total_alumnos|default:"0" }}
+                </p>
+
+                <p class="informe-resumen-texto">
+                    Alumnos registrados
+                </p>
+
+            </div>
+
+
+            <!-- REGISTROS -->
+
+            <div class="informe-resumen-tarjeta">
+
+                <div class="informe-resumen-superior">
+
+                    <span class="informe-resumen-titulo">
+                        Registros
+                    </span>
+
+
+                    <div class="informe-resumen-icono">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <rect
+                                x="4"
+                                y="3"
+                                width="16"
+                                height="18"
+                                rx="2"
+                            ></rect>
+
+                            <path d="M8 8h8"></path>
+
+                            <path d="M8 12h8"></path>
+
+                            <path d="M8 16h5"></path>
+
+                        </svg>
+
+                    </div>
+
+                </div>
+
+
+                <p class="informe-resumen-valor">
+                    {{ total_registros|default:"0" }}
+                </p>
+
+                <p class="informe-resumen-texto">
+                    Asistencias registradas
+                </p>
+
+            </div>
+
+
+            <!-- ASISTENCIA GLOBAL -->
+
+            <div class="informe-resumen-tarjeta">
+
+                <div class="informe-resumen-superior">
+
+                    <span class="informe-resumen-titulo">
+                        Asistencia
+                    </span>
+
+
+                    <div class="informe-resumen-icono">
+
+                        <svg viewBox="0 0 24 24">
+
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="9"
+                            ></circle>
+
+                            <path
+                                d="m8 12 2.5 2.5L16.5 9"
+                            ></path>
+
+                        </svg>
+
+                    </div>
+
+                </div>
+
+
+                <p class="informe-resumen-valor">
+                    {{ porcentaje_global|default:"0" }}%
+                </p>
+
+                <p class="informe-resumen-texto">
+                    Presentes y retrasos
+                </p>
+
+            </div>
+
+        </div>
+                <!-- =====================================================
+             CONTENIDO PRINCIPAL
+        ====================================================== -->
+
+        <div class="informes-grid">
+
+
+            <!-- =================================================
+                 DISTRIBUCIÓN
+            ================================================== -->
+
+            <div class="informes-tarjeta">
+
+                <div class="informes-tarjeta-cabecera">
+
+                    <h2>
+                        Distribución de asistencia
+                    </h2>
+
+                    <p>
+                        Resumen de todos los registros realizados.
+                    </p>
+
+                </div>
+
+
+                <div class="distribucion-lista">
+
+
+                    <!-- PRESENTES -->
+
+                    <div class="distribucion-item">
+
+                        <div class="distribucion-superior">
+
+                            <div class="distribucion-nombre">
+
+                                <span
+                                    class="distribucion-punto presente"
+                                ></span>
+
+                                Presentes
+
+                            </div>
+
+
+                            <div class="distribucion-datos">
+
+                                <span class="distribucion-total">
+                                    {{ total_presentes|default:"0" }}
+                                    registros
+                                </span>
+
+                                <span class="distribucion-porcentaje">
+                                    {{ porcentaje_presentes|default:"0" }}%
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="distribucion-barra">
+
+                            <div
+                                class="distribucion-progreso presente"
+                                data-porcentaje="{{ porcentaje_presentes|default:'0' }}"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RETRASOS -->
+
+                    <div class="distribucion-item">
+
+                        <div class="distribucion-superior">
+
+                            <div class="distribucion-nombre">
+
+                                <span
+                                    class="distribucion-punto tarde"
+                                ></span>
+
+                                Retrasos
+
+                            </div>
+
+
+                            <div class="distribucion-datos">
+
+                                <span class="distribucion-total">
+                                    {{ total_tardes|default:"0" }}
+                                    registros
+                                </span>
+
+                                <span class="distribucion-porcentaje">
+                                    {{ porcentaje_tardes|default:"0" }}%
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="distribucion-barra">
+
+                            <div
+                                class="distribucion-progreso tarde"
+                                data-porcentaje="{{ porcentaje_tardes|default:'0' }}"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- AUSENCIAS -->
+
+                    <div class="distribucion-item">
+
+                        <div class="distribucion-superior">
+
+                            <div class="distribucion-nombre">
+
+                                <span
+                                    class="distribucion-punto ausente"
+                                ></span>
+
+                                Ausencias
+
+                            </div>
+
+
+                            <div class="distribucion-datos">
+
+                                <span class="distribucion-total">
+                                    {{ total_ausentes|default:"0" }}
+                                    registros
+                                </span>
+
+                                <span class="distribucion-porcentaje">
+                                    {{ porcentaje_ausentes|default:"0" }}%
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="distribucion-barra">
+
+                            <div
+                                class="distribucion-progreso ausente"
+                                data-porcentaje="{{ porcentaje_ausentes|default:'0' }}"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 PORCENTAJE GLOBAL
+            ================================================== -->
+
+            <div class="informes-tarjeta porcentaje-global">
+
+                <div class="informes-tarjeta-cabecera">
+
+                    <h2>
+                        Asistencia global
+                    </h2>
+
+                    <p>
+                        Porcentaje acumulado de asistencia.
+                    </p>
+
+                </div>
+
+
+                <div
+                    class="porcentaje-circulo"
+                    id="porcentaje-circulo"
+                    data-porcentaje="{{ porcentaje_global|default:'0' }}"
+                >
+
+                    <div class="porcentaje-circulo-contenido">
+
+                        <span class="porcentaje-circulo-valor">
+                            {{ porcentaje_global|default:"0" }}%
+                        </span>
+
+                        <span class="porcentaje-circulo-texto">
+                            ASISTENCIA
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <p class="porcentaje-explicacion">
+
+                    El porcentaje incluye como asistencia válida
+                    tanto los registros
+
+                    <strong>
+                        presentes
+                    </strong>
+
+                    como los
+
+                    <strong>
+                        retrasos
+                    </strong>.
+
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 RESUMEN INFERIOR
+            ================================================== -->
+
+            <div class="informes-tarjeta informes-detalle">
+
+
+                <!-- PRESENTES -->
+
+                <div class="informe-detalle-item">
+
+                    <span class="informe-detalle-etiqueta">
+                        Presentes
+                    </span>
+
+                    <span class="informe-detalle-valor">
+                        {{ total_presentes|default:"0" }}
+                    </span>
+
+                    <p class="informe-detalle-descripcion">
+                        Registros realizados dentro de los
+                        primeros 10 minutos de clase.
+                    </p>
+
+                </div>
+
+
+                <!-- RETRASOS -->
+
+                <div class="informe-detalle-item">
+
+                    <span class="informe-detalle-etiqueta">
+                        Retrasos
+                    </span>
+
+                    <span class="informe-detalle-valor">
+                        {{ total_tardes|default:"0" }}
+                    </span>
+
+                    <p class="informe-detalle-descripcion">
+                        Registros realizados después de los
+                        primeros 10 minutos.
+                    </p>
+
+                </div>
+
+
+                <!-- AUSENCIAS -->
+
+                <div class="informe-detalle-item">
+
+                    <span class="informe-detalle-etiqueta">
+                        Ausencias
+                    </span>
+
+                    <span class="informe-detalle-valor">
+                        {{ total_ausentes|default:"0" }}
+                    </span>
+
+                    <p class="informe-detalle-descripcion">
+                        Alumnos sin registro de asistencia
+                        al cerrar la clase.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =============================================================
+     DATOS PARA JAVASCRIPT
+
+     Usamos atributos data-porcentaje para evitar introducir
+     variables de Django directamente dentro de propiedades CSS.
+============================================================== -->
+
+<script>
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+
+
+            /* =====================================================
+               BARRAS DE PORCENTAJE
+            ====================================================== */
+
+            const barras =
+                document.querySelectorAll(
+                    '.distribucion-progreso[data-porcentaje]'
+                );
+
+
+            barras.forEach(
+                function (barra) {
+
+                    let porcentaje =
+                        parseFloat(
+                            barra.dataset.porcentaje
+                        );
+
+
+                    if (
+                        Number.isNaN(porcentaje)
+                    ) {
+
+                        porcentaje = 0;
+
+                    }
+
+
+                    porcentaje =
+                        Math.max(
+                            0,
+                            Math.min(
+                                porcentaje,
+                                100
+                            )
+                        );
+
+
+                    barra.style.width =
+                        porcentaje + '%';
+
+                }
+            );
+
+
+            /* =====================================================
+               CÍRCULO DE ASISTENCIA
+            ====================================================== */
+
+            const circulo =
+                document.getElementById(
+                    'porcentaje-circulo'
+                );
+
+
+            if (circulo) {
+
+                let porcentaje =
+                    parseFloat(
+                        circulo.dataset.porcentaje
+                    );
+
+
+                if (
+                    Number.isNaN(porcentaje)
+                ) {
+
+                    porcentaje = 0;
+
+                }
+
+
+                porcentaje =
+                    Math.max(
+                        0,
+                        Math.min(
+                            porcentaje,
+                            100
+                        )
+                    );
+
+
+                const angulo =
+                    (
+                        porcentaje /
+                        100
+                    ) * 360;
+
+
+                circulo.style.setProperty(
+                    '--angulo-asistencia',
+                    angulo + 'deg'
+                );
+
+            }
+
+        }
+    );
+
+</script>
+
+{% endblock %}

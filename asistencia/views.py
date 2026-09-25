@@ -54,6 +54,16 @@ def generar_qr_base64(url):
 
 def inicio(request):
 
+    if (
+        request.session.get('profesor_id') or
+        request.session.get('alumno_id')
+    ):
+
+        return render(
+            request,
+            'asistencia/inicio_sesion.html'
+        )
+
     return render(
         request,
         'asistencia/inicio.html'
@@ -131,7 +141,9 @@ def login_profesor(request):
 
 def panel_profesor(request):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
         return redirect('seleccionar_login')
@@ -157,7 +169,9 @@ def panel_profesor(request):
 
 def crear_grupo(request):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
         return redirect('seleccionar_login')
@@ -169,8 +183,13 @@ def crear_grupo(request):
 
     if request.method == 'POST':
 
-        nombre = request.POST.get('nombre')
-        asignatura = request.POST.get('asignatura')
+        nombre = request.POST.get(
+            'nombre'
+        )
+
+        asignatura = request.POST.get(
+            'asignatura'
+        )
 
         if nombre and asignatura:
 
@@ -180,7 +199,9 @@ def crear_grupo(request):
                 profesor=profesor
             )
 
-            return redirect('panel_profesor')
+            return redirect(
+                'panel_profesor'
+            )
 
         messages.error(
             request,
@@ -198,7 +219,9 @@ def crear_grupo(request):
 
 def detalle_grupo(request, grupo_id):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
         return redirect('seleccionar_login')
@@ -236,7 +259,9 @@ def detalle_grupo(request, grupo_id):
 
 def crear_clase(request, grupo_id):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
         return redirect('seleccionar_login')
@@ -249,8 +274,13 @@ def crear_clase(request, grupo_id):
 
     if request.method == 'POST':
 
-        fecha = request.POST.get('fecha')
-        hora_inicio = request.POST.get('hora_inicio')
+        fecha = request.POST.get(
+            'fecha'
+        )
+
+        hora_inicio = request.POST.get(
+            'hora_inicio'
+        )
 
         if fecha and hora_inicio:
 
@@ -285,7 +315,9 @@ def crear_clase(request, grupo_id):
 
 def gestionar_asistencia(request, clase_id):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
         return redirect('seleccionar_login')
@@ -324,21 +356,28 @@ def gestionar_asistencia(request, clase_id):
 
         if asistencia:
 
-            registros.append({
-                'alumno': alumno,
-                'estado': asistencia.estado,
-                'hora_registro': asistencia.hora_registro,
-            })
+            registros.append(
+                {
+                    'alumno': alumno,
+                    'estado': asistencia.estado,
+                    'hora_registro':
+                        asistencia.hora_registro,
+                }
+            )
 
         else:
 
-            registros.append({
-                'alumno': alumno,
-                'estado': 'pendiente',
-                'hora_registro': None,
-            })
+            registros.append(
+                {
+                    'alumno': alumno,
+                    'estado': 'pendiente',
+                    'hora_registro': None,
+                }
+            )
 
-    total_alumnos = len(registros)
+    total_alumnos = len(
+        registros
+    )
 
     total_presentes = sum(
         1
@@ -372,7 +411,10 @@ def gestionar_asistencia(request, clase_id):
         if not clase.token_qr_generado_en:
 
             clase.token_qr = uuid.uuid4()
-            clase.token_qr_generado_en = timezone.now()
+
+            clase.token_qr_generado_en = (
+                timezone.now()
+            )
 
             clase.save(
                 update_fields=[
@@ -398,18 +440,29 @@ def gestionar_asistencia(request, clase_id):
             'qr_base64': qr_base64,
             'url_qr': url_qr,
 
-            'total_alumnos': total_alumnos,
-            'total_presentes': total_presentes,
-            'total_tardes': total_tardes,
-            'total_ausentes': total_ausentes,
-            'total_pendientes': total_pendientes,
+            'total_alumnos':
+                total_alumnos,
+
+            'total_presentes':
+                total_presentes,
+
+            'total_tardes':
+                total_tardes,
+
+            'total_ausentes':
+                total_ausentes,
+
+            'total_pendientes':
+                total_pendientes,
         }
     )
 
 
 def abrir_asistencia(request, clase_id):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
         return redirect('seleccionar_login')
@@ -421,7 +474,11 @@ def abrir_asistencia(request, clase_id):
     )
 
     clase.token_qr = uuid.uuid4()
-    clase.token_qr_generado_en = timezone.now()
+
+    clase.token_qr_generado_en = (
+        timezone.now()
+    )
+
     clase.asistencia_abierta = True
 
     clase.save()
@@ -434,7 +491,9 @@ def abrir_asistencia(request, clase_id):
 
 def renovar_qr(request, clase_id):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
 
@@ -462,7 +521,10 @@ def renovar_qr(request, clase_id):
         )
 
     clase.token_qr = uuid.uuid4()
-    clase.token_qr_generado_en = timezone.now()
+
+    clase.token_qr_generado_en = (
+        timezone.now()
+    )
 
     clase.save(
         update_fields=[
@@ -490,7 +552,9 @@ def renovar_qr(request, clase_id):
 
 def cerrar_asistencia(request, clase_id):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
         return redirect('seleccionar_login')
@@ -529,8 +593,6 @@ def cerrar_asistencia(request, clase_id):
         'gestionar_asistencia',
         clase_id=clase.id
     )
-
-
 # =========================================================
 # PROFESOR - CONTROL GENERAL DE ASISTENCIA
 # =========================================================
@@ -713,7 +775,7 @@ def control_asistencia(request):
 
 
     # =====================================================
-    # QR DE LAS CLASES QUE YA ESTÉN ABIERTAS
+    # QR DE LAS CLASES ABIERTAS
     # =====================================================
 
     clases_hoy_datos = []
@@ -727,7 +789,10 @@ def control_asistencia(request):
             if not clase.token_qr_generado_en:
 
                 clase.token_qr = uuid.uuid4()
-                clase.token_qr_generado_en = timezone.now()
+
+                clase.token_qr_generado_en = (
+                    timezone.now()
+                )
 
                 clase.save(
                     update_fields=[
@@ -744,10 +809,12 @@ def control_asistencia(request):
                 url_qr
             )
 
-        clases_hoy_datos.append({
-            'clase': clase,
-            'qr_base64': qr_base64,
-        })
+        clases_hoy_datos.append(
+            {
+                'clase': clase,
+                'qr_base64': qr_base64,
+            }
+        )
 
 
     # =====================================================
@@ -839,25 +906,225 @@ def registros_asistencia(request):
             'registros': registros,
         }
     )
+
+
+# =========================================================
+# PROFESOR - INFORMES
+# =========================================================
+
+def informes_profesor(request):
+
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
+
+    if not profesor_id:
+        return redirect(
+            'seleccionar_login'
+        )
+
+    profesor = get_object_or_404(
+        Profesor,
+        id=profesor_id
+    )
+
+
+    # =====================================================
+    # GRUPOS DEL PROFESOR
+    # =====================================================
+
+    grupos = Grupo.objects.filter(
+        profesor=profesor
+    )
+
+    total_grupos = grupos.count()
+
+
+    # =====================================================
+    # ALUMNOS DEL PROFESOR
+    # =====================================================
+
+    alumnos = Alumno.objects.filter(
+        grupo__profesor=profesor
+    ).distinct()
+
+    total_alumnos = alumnos.count()
+
+
+    # =====================================================
+    # REGISTROS DE ASISTENCIA
+    # =====================================================
+
+    asistencias = Asistencia.objects.filter(
+        clase__grupo__profesor=profesor
+    )
+
+    total_registros = asistencias.count()
+
+    total_presentes = asistencias.filter(
+        estado='presente'
+    ).count()
+
+    total_tardes = asistencias.filter(
+        estado='tarde'
+    ).count()
+
+    total_ausentes = asistencias.filter(
+        estado='ausente'
+    ).count()
+
+
+    # =====================================================
+    # PORCENTAJES
+    # =====================================================
+
+    if total_registros > 0:
+
+        porcentaje_presentes = round(
+            (
+                total_presentes /
+                total_registros
+            ) * 100,
+            1
+        )
+
+        porcentaje_tardes = round(
+            (
+                total_tardes /
+                total_registros
+            ) * 100,
+            1
+        )
+
+        porcentaje_ausentes = round(
+            (
+                total_ausentes /
+                total_registros
+            ) * 100,
+            1
+        )
+
+        # Presente + tarde cuentan como asistencia.
+
+        porcentaje_global = round(
+            (
+                (
+                    total_presentes +
+                    total_tardes
+                ) /
+                total_registros
+            ) * 100,
+            1
+        )
+
+    else:
+
+        porcentaje_presentes = 0
+        porcentaje_tardes = 0
+        porcentaje_ausentes = 0
+        porcentaje_global = 0
+
+
+    # =====================================================
+    # RENDER
+    # =====================================================
+
+    return render(
+        request,
+        'asistencia/informes_profesor.html',
+        {
+            'profesor':
+                profesor,
+
+            'total_grupos':
+                total_grupos,
+
+            'total_alumnos':
+                total_alumnos,
+
+            'total_registros':
+                total_registros,
+
+            'total_presentes':
+                total_presentes,
+
+            'total_tardes':
+                total_tardes,
+
+            'total_ausentes':
+                total_ausentes,
+
+            'porcentaje_presentes':
+                porcentaje_presentes,
+
+            'porcentaje_tardes':
+                porcentaje_tardes,
+
+            'porcentaje_ausentes':
+                porcentaje_ausentes,
+
+            'porcentaje_global':
+                porcentaje_global,
+        }
+    )
+
+
+# =========================================================
+# PROFESOR - AJUSTES
+# =========================================================
+
+def ajustes_profesor(request):
+
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
+
+    if not profesor_id:
+        return redirect(
+            'seleccionar_login'
+        )
+
+    profesor = get_object_or_404(
+        Profesor,
+        id=profesor_id
+    )
+
+    return render(
+        request,
+        'asistencia/ajustes_profesor.html',
+        {
+            'profesor': profesor,
+        }
+    )
+
+
 # =========================================================
 # PROFESOR - SOPORTE
 # =========================================================
 
 def soporte_profesor(request):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
-        return redirect('seleccionar_login')
+        return redirect(
+            'seleccionar_login'
+        )
 
-    solicitudes = SolicitudSoporte.objects.filter(
-        clase__grupo__profesor_id=profesor_id
-    ).select_related(
-        'alumno',
-        'clase',
-        'clase__grupo'
-    ).order_by(
-        '-fecha_solicitud'
+    solicitudes = (
+        SolicitudSoporte.objects.filter(
+            clase__grupo__profesor_id=profesor_id
+        )
+        .select_related(
+            'alumno',
+            'clase',
+            'clase__grupo'
+        )
+        .order_by(
+            '-fecha_solicitud'
+        )
     )
 
     pendientes = solicitudes.filter(
@@ -868,18 +1135,25 @@ def soporte_profesor(request):
         request,
         'asistencia/soporte_profesor.html',
         {
-            'solicitudes': solicitudes,
-            'pendientes': pendientes,
+            'solicitudes':
+                solicitudes,
+
+            'pendientes':
+                pendientes,
         }
     )
 
 
 def aprobar_soporte(request, solicitud_id):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
-        return redirect('seleccionar_login')
+        return redirect(
+            'seleccionar_login'
+        )
 
     solicitud = get_object_or_404(
         SolicitudSoporte,
@@ -887,20 +1161,24 @@ def aprobar_soporte(request, solicitud_id):
         clase__grupo__profesor_id=profesor_id
     )
 
-    asistencia, creada = Asistencia.objects.get_or_create(
-        alumno=solicitud.alumno,
-        clase=solicitud.clase,
-        defaults={
-            'estado': 'presente'
-        }
+    asistencia, creada = (
+        Asistencia.objects.get_or_create(
+            alumno=solicitud.alumno,
+            clase=solicitud.clase,
+            defaults={
+                'estado': 'presente'
+            }
+        )
     )
 
     if not creada:
 
         asistencia.estado = 'presente'
+
         asistencia.save()
 
     solicitud.estado = 'aprobada'
+
     solicitud.save()
 
     messages.success(
@@ -908,15 +1186,21 @@ def aprobar_soporte(request, solicitud_id):
         'La asistencia ha sido confirmada.'
     )
 
-    return redirect('soporte_profesor')
+    return redirect(
+        'soporte_profesor'
+    )
 
 
 def rechazar_soporte(request, solicitud_id):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
-        return redirect('seleccionar_login')
+        return redirect(
+            'seleccionar_login'
+        )
 
     solicitud = get_object_or_404(
         SolicitudSoporte,
@@ -925,6 +1209,7 @@ def rechazar_soporte(request, solicitud_id):
     )
 
     solicitud.estado = 'rechazada'
+
     solicitud.save()
 
     messages.success(
@@ -932,7 +1217,9 @@ def rechazar_soporte(request, solicitud_id):
         'La solicitud ha sido rechazada.'
     )
 
-    return redirect('soporte_profesor')
+    return redirect(
+        'soporte_profesor'
+    )
 
 
 # =========================================================
@@ -941,20 +1228,29 @@ def rechazar_soporte(request, solicitud_id):
 
 def justificaciones_profesor(request):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
-        return redirect('seleccionar_login')
+        return redirect(
+            'seleccionar_login'
+        )
 
-    justificaciones = Justificacion.objects.filter(
-        asistencia__clase__grupo__profesor_id=profesor_id
-    ).select_related(
-        'asistencia',
-        'asistencia__alumno',
-        'asistencia__clase',
-        'asistencia__clase__grupo'
-    ).order_by(
-        '-fecha_solicitud'
+    justificaciones = (
+        Justificacion.objects.filter(
+            asistencia__clase__grupo__profesor_id=
+                profesor_id
+        )
+        .select_related(
+            'asistencia',
+            'asistencia__alumno',
+            'asistencia__clase',
+            'asistencia__clase__grupo'
+        )
+        .order_by(
+            '-fecha_solicitud'
+        )
     )
 
     pendientes = justificaciones.filter(
@@ -965,26 +1261,38 @@ def justificaciones_profesor(request):
         request,
         'asistencia/justificaciones_profesor.html',
         {
-            'justificaciones': justificaciones,
-            'pendientes': pendientes,
+            'justificaciones':
+                justificaciones,
+
+            'pendientes':
+                pendientes,
         }
     )
 
 
-def aprobar_justificacion(request, justificacion_id):
+def aprobar_justificacion(
+    request,
+    justificacion_id
+):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
-        return redirect('seleccionar_login')
+        return redirect(
+            'seleccionar_login'
+        )
 
     justificacion = get_object_or_404(
         Justificacion,
         id=justificacion_id,
-        asistencia__clase__grupo__profesor_id=profesor_id
+        asistencia__clase__grupo__profesor_id=
+            profesor_id
     )
 
     justificacion.estado = 'aprobada'
+
     justificacion.save()
 
     messages.success(
@@ -997,20 +1305,29 @@ def aprobar_justificacion(request, justificacion_id):
     )
 
 
-def rechazar_justificacion(request, justificacion_id):
+def rechazar_justificacion(
+    request,
+    justificacion_id
+):
 
-    profesor_id = request.session.get('profesor_id')
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
 
     if not profesor_id:
-        return redirect('seleccionar_login')
+        return redirect(
+            'seleccionar_login'
+        )
 
     justificacion = get_object_or_404(
         Justificacion,
         id=justificacion_id,
-        asistencia__clase__grupo__profesor_id=profesor_id
+        asistencia__clase__grupo__profesor_id=
+            profesor_id
     )
 
     justificacion.estado = 'rechazada'
+
     justificacion.save()
 
     messages.success(
@@ -1045,7 +1362,8 @@ def ver_documento_justificacion(
 
     if (
         alumno_id and
-        justificacion.asistencia.alumno_id == alumno_id
+        justificacion.asistencia.alumno_id ==
+        alumno_id
     ):
 
         autorizado = True
@@ -1089,9 +1407,9 @@ def logout_profesor(request):
         None
     )
 
-    return redirect('inicio')
-
-
+    return redirect(
+        'inicio'
+    )
 # =========================================================
 # ALUMNO
 # =========================================================
@@ -1124,7 +1442,9 @@ def login_alumno(request):
                     None
                 )
 
-                return redirect('panel_alumno')
+                return redirect(
+                    'panel_alumno'
+                )
 
             messages.error(
                 request,
@@ -1160,14 +1480,18 @@ def registro_alumno(request):
 
             alumno = form.save()
 
-            request.session['alumno_id'] = alumno.id
+            request.session['alumno_id'] = (
+                alumno.id
+            )
 
             request.session.pop(
                 'profesor_id',
                 None
             )
 
-            return redirect('panel_alumno')
+            return redirect(
+                'panel_alumno'
+            )
 
     else:
 
@@ -1193,7 +1517,9 @@ def clases_profesor(request):
     )
 
     if not profesor_id:
-        return redirect('seleccionar_login')
+        return redirect(
+            'seleccionar_login'
+        )
 
     profesor = get_object_or_404(
         Profesor,
@@ -1226,7 +1552,9 @@ def clases_alumno(request):
     )
 
     if not alumno_id:
-        return redirect('seleccionar_login')
+        return redirect(
+            'seleccionar_login'
+        )
 
     alumno = get_object_or_404(
         Alumno,
@@ -1267,18 +1595,24 @@ def clases_alumno(request):
         elif clase.asistencia_abierta:
 
             estado = 'abierta'
-            estado_texto = 'Asistencia abierta'
+
+            estado_texto = (
+                'Asistencia abierta'
+            )
 
         else:
 
             estado = 'pendiente'
+
             estado_texto = 'Pendiente'
 
-        clases_con_estado.append({
-            'clase': clase,
-            'estado': estado,
-            'estado_texto': estado_texto,
-        })
+        clases_con_estado.append(
+            {
+                'clase': clase,
+                'estado': estado,
+                'estado_texto': estado_texto,
+            }
+        )
 
     return render(
         request,
@@ -1290,6 +1624,8 @@ def clases_alumno(request):
                 clases_con_estado,
         }
     )
+
+
 # =========================================================
 # FICHAJE QR
 # =========================================================
@@ -1307,7 +1643,9 @@ def registrar_asistencia(request, token):
             'Debes iniciar sesión como alumno para registrar la asistencia.'
         )
 
-        return redirect('login_alumno')
+        return redirect(
+            'login_alumno'
+        )
 
     alumno = get_object_or_404(
         Alumno,
@@ -1325,7 +1663,9 @@ def registrar_asistencia(request, token):
             'Este código QR ha caducado.'
         )
 
-        return redirect('panel_alumno')
+        return redirect(
+            'panel_alumno'
+        )
 
     if alumno.grupo_id != clase.grupo_id:
 
@@ -1334,7 +1674,9 @@ def registrar_asistencia(request, token):
             'Este código QR no pertenece a tu grupo.'
         )
 
-        return redirect('panel_alumno')
+        return redirect(
+            'panel_alumno'
+        )
 
     if not clase.asistencia_abierta:
 
@@ -1343,7 +1685,9 @@ def registrar_asistencia(request, token):
             'La asistencia de esta clase está cerrada.'
         )
 
-        return redirect('panel_alumno')
+        return redirect(
+            'panel_alumno'
+        )
 
     if not clase.token_qr_generado_en:
 
@@ -1352,7 +1696,9 @@ def registrar_asistencia(request, token):
             'Este código QR ha caducado.'
         )
 
-        return redirect('panel_alumno')
+        return redirect(
+            'panel_alumno'
+        )
 
     tiempo_transcurrido = (
         timezone.now() -
@@ -1366,7 +1712,9 @@ def registrar_asistencia(request, token):
             'Este código QR ha caducado. Escanea el código actual.'
         )
 
-        return redirect('panel_alumno')
+        return redirect(
+            'panel_alumno'
+        )
 
     asistencia_existente = (
         Asistencia.objects.filter(
@@ -1382,7 +1730,9 @@ def registrar_asistencia(request, token):
             'Tu asistencia ya estaba registrada.'
         )
 
-        return redirect('panel_alumno')
+        return redirect(
+            'panel_alumno'
+        )
 
     ahora = timezone.localtime()
 
@@ -1419,7 +1769,9 @@ def registrar_asistencia(request, token):
         'Asistencia registrada correctamente.'
     )
 
-    return redirect('panel_alumno')
+    return redirect(
+        'panel_alumno'
+    )
 
 
 # =========================================================
@@ -1437,11 +1789,23 @@ def soporte(request):
 
     if request.method == 'POST':
 
-        email = request.POST.get('email')
-        clase_id = request.POST.get('clase')
-        motivo = request.POST.get('motivo')
+        email = request.POST.get(
+            'email'
+        )
 
-        if not email or not clase_id or not motivo:
+        clase_id = request.POST.get(
+            'clase'
+        )
+
+        motivo = request.POST.get(
+            'motivo'
+        )
+
+        if (
+            not email or
+            not clase_id or
+            not motivo
+        ):
 
             messages.error(
                 request,
@@ -1505,7 +1869,9 @@ def soporte(request):
                             'La solicitud ha sido enviada al profesor.'
                         )
 
-                        return redirect('soporte')
+                        return redirect(
+                            'soporte'
+                        )
 
     return render(
         request,
@@ -1527,7 +1893,10 @@ def justificaciones_alumno(request):
     )
 
     if not alumno_id:
-        return redirect('seleccionar_login')
+
+        return redirect(
+            'seleccionar_login'
+        )
 
     alumno = get_object_or_404(
         Alumno,
@@ -1618,7 +1987,8 @@ def justificaciones_alumno(request):
 
         elif (
             documento and
-            documento.size > 5 * 1024 * 1024
+            documento.size >
+            5 * 1024 * 1024
         ):
 
             messages.error(
@@ -1647,7 +2017,8 @@ def justificaciones_alumno(request):
         request,
         'asistencia/justificaciones_alumno.html',
         {
-            'alumno': alumno,
+            'alumno':
+                alumno,
 
             'ausencias_disponibles':
                 ausencias_disponibles,
@@ -1669,7 +2040,10 @@ def panel_alumno(request):
     )
 
     if not alumno_id:
-        return redirect('seleccionar_login')
+
+        return redirect(
+            'seleccionar_login'
+        )
 
     alumno = get_object_or_404(
         Alumno,
@@ -1712,13 +2086,21 @@ def panel_alumno(request):
         )
     )
 
-    total_registros = asistencias.count()
+    total_registros = (
+        asistencias.count()
+    )
 
-    total_presentes = presentes.count()
+    total_presentes = (
+        presentes.count()
+    )
 
-    total_tardes = tardes.count()
+    total_tardes = (
+        tardes.count()
+    )
 
-    total_ausencias = ausencias.count()
+    total_ausencias = (
+        ausencias.count()
+    )
 
     total_asistencias = (
         total_presentes +
@@ -1756,9 +2138,11 @@ def panel_alumno(request):
     )
 
     grafico_fechas = []
+
     grafico_porcentajes = []
 
     clases_acumuladas = 0
+
     asistencias_acumuladas = 0
 
     for asistencia in asistencias_cronologicas:
@@ -1791,8 +2175,8 @@ def panel_alumno(request):
         )
 
 
-    # Convertimos los datos a JSON para que posteriormente
-    # JavaScript pueda utilizarlos directamente en el gráfico.
+    # Convertimos los datos a JSON para que
+    # JavaScript pueda utilizarlos en el gráfico.
 
     grafico_fechas_json = json.dumps(
         grafico_fechas
@@ -1807,11 +2191,20 @@ def panel_alumno(request):
         request,
         'asistencia/panel_alumno.html',
         {
-            'alumno': alumno,
-            'asistencias': asistencias,
-            'presentes': presentes,
-            'tardes': tardes,
-            'ausencias': ausencias,
+            'alumno':
+                alumno,
+
+            'asistencias':
+                asistencias,
+
+            'presentes':
+                presentes,
+
+            'tardes':
+                tardes,
+
+            'ausencias':
+                ausencias,
 
             'justificaciones_pendientes':
                 justificaciones_pendientes,
@@ -1830,8 +2223,6 @@ def panel_alumno(request):
 
             'porcentaje_asistencia':
                 porcentaje_asistencia,
-
-            # DATOS DEL GRÁFICO
 
             'grafico_fechas':
                 grafico_fechas_json,
@@ -1853,7 +2244,10 @@ def grupo_alumno(request):
     )
 
     if not alumno_id:
-        return redirect('seleccionar_login')
+
+        return redirect(
+            'seleccionar_login'
+        )
 
     alumno = get_object_or_404(
         Alumno,
@@ -1869,7 +2263,9 @@ def grupo_alumno(request):
             'Actualmente no perteneces a ningún grupo.'
         )
 
-        return redirect('panel_alumno')
+        return redirect(
+            'panel_alumno'
+        )
 
     profesor = grupo.profesor
 
@@ -1899,4 +2295,6 @@ def logout_alumno(request):
         None
     )
 
-    return redirect('inicio')
+    return redirect(
+        'inicio'
+    )

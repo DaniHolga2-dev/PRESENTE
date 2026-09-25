@@ -1,191 +1,997 @@
-{% extends 'asistencia/base.html' %}
+<!DOCTYPE html>
+<html lang="es">
 
-{% block title %}Registro alumno | PRESENTE{% endblock %}
+<head>
 
-{% block content %}
+    <meta charset="UTF-8">
 
-<section class="pagina-acceso">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <div class="tarjeta-acceso tarjeta-registro">
+    <title>Registro alumno | PRESENTE</title>
 
-        <div class="icono-acceso">
-            👤
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff 0%,
+                    #f8fbff 55%,
+                    #f3f8ff 100%
+                );
+
+            color: #102348;
+        }
+
+
+        /* ==================================================
+           PÁGINA
+        ================================================== */
+
+        .pagina-registro {
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 42px 25px 55px;
+        }
+
+
+        .registro-contenedor {
+            width: 100%;
+            max-width: 720px;
+        }
+
+
+        /* ==================================================
+           MARCA PRESENTE
+        ================================================== */
+
+        .marca {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 18px;
+
+            margin-bottom: 32px;
+        }
+
+
+        .logo-simbolo {
+            width: 68px;
+            height: 68px;
+
+            position: relative;
+
+            flex-shrink: 0;
+        }
+
+
+        .esquina {
+            position: absolute;
+
+            width: 23px;
+            height: 23px;
+        }
+
+
+        .esquina-1 {
+            top: 0;
+            left: 0;
+
+            border-top: 6px solid #176df5;
+            border-left: 6px solid #176df5;
+
+            border-radius: 8px 0 0 0;
+        }
+
+
+        .esquina-2 {
+            top: 0;
+            right: 0;
+
+            border-top: 6px solid #00c86f;
+            border-right: 6px solid #00c86f;
+
+            border-radius: 0 8px 0 0;
+        }
+
+
+        .esquina-3 {
+            bottom: 0;
+            left: 0;
+
+            border-bottom: 6px solid #ff2f8b;
+            border-left: 6px solid #ff2f8b;
+
+            border-radius: 0 0 0 8px;
+        }
+
+
+        .esquina-4 {
+            bottom: 0;
+            right: 0;
+
+            border-bottom: 6px solid #15966e;
+            border-right: 6px solid #15966e;
+
+            border-radius: 0 0 8px 0;
+        }
+
+
+        .check {
+            position: absolute;
+
+            left: 50%;
+            top: 48%;
+
+            width: 31px;
+            height: 17px;
+
+            border-left: 7px solid #102348;
+            border-bottom: 7px solid #102348;
+
+            transform:
+                translate(-50%, -50%)
+                rotate(-45deg);
+
+            border-radius: 2px;
+        }
+
+
+        .marca-texto {
+            text-align: left;
+        }
+
+
+        .marca-texto h1 {
+            font-size: 35px;
+
+            line-height: 1;
+
+            letter-spacing: 1px;
+
+            font-weight: 900;
+
+            color: #102348;
+        }
+
+
+        .marca-texto p {
+            margin-top: 5px;
+
+            font-size: 16px;
+
+            font-weight: 600;
+
+            color: #102348;
+        }
+
+
+        .marca-texto strong {
+            color: #176df5;
+
+            font-weight: 900;
+        }
+
+
+        /* ==================================================
+           TARJETA
+        ================================================== */
+
+        .tarjeta-registro {
+            width: 100%;
+
+            background: #ffffff;
+
+            border: 1px solid #e1e8f0;
+
+            border-radius: 18px;
+
+            padding: 38px 44px;
+
+            box-shadow:
+                0 18px 50px
+                rgba(16, 35, 72, 0.08);
+        }
+
+
+        /* ==================================================
+           CABECERA
+        ================================================== */
+
+        .cabecera-registro {
+            text-align: center;
+
+            margin-bottom: 32px;
+        }
+
+
+        .icono-acceso {
+            width: 62px;
+            height: 62px;
+
+            margin:
+                0
+                auto
+                17px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 15px;
+
+            background: #edf5ff;
+
+            color: #176df5;
+        }
+
+
+        .icono-acceso svg {
+            width: 34px;
+            height: 34px;
+
+            fill: none;
+
+            stroke: currentColor;
+
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+
+        .etiqueta {
+            margin-bottom: 8px;
+
+            color: #176df5;
+
+            font-size: 11px;
+
+            font-weight: 800;
+
+            letter-spacing: 2.5px;
+        }
+
+
+        .cabecera-registro h2 {
+            color: #102348;
+
+            font-size: 31px;
+
+            font-weight: 850;
+        }
+
+
+        .subtitulo-acceso {
+            margin-top: 8px;
+
+            color: #71809a;
+
+            font-size: 14px;
+        }
+
+
+        /* ==================================================
+           FORMULARIO
+        ================================================== */
+
+        .formulario-acceso {
+            width: 100%;
+        }
+
+
+        .formulario-grid {
+            display: grid;
+
+            grid-template-columns:
+                repeat(2, minmax(0, 1fr));
+
+            column-gap: 20px;
+            row-gap: 18px;
+        }
+
+
+        .campo-formulario {
+            min-width: 0;
+        }
+
+
+        .campo-completo {
+            grid-column: 1 / -1;
+        }
+
+
+        .campo-formulario label {
+            display: block;
+
+            margin-bottom: 8px;
+
+            color: #102348;
+
+            font-size: 13px;
+
+            font-weight: 700;
+        }
+
+
+        /* INPUTS GENERADOS POR DJANGO */
+
+        .campo-formulario input,
+        .campo-formulario select {
+            width: 100%;
+            height: 48px;
+
+            padding:
+                0
+                14px;
+
+            background: #f8fbff;
+
+            border: 1px solid #d7e1ee;
+
+            border-radius: 9px;
+
+            color: #102348;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            outline: none;
+
+            transition:
+                border-color .2s ease,
+                box-shadow .2s ease,
+                background .2s ease;
+        }
+
+
+        .campo-formulario input::placeholder {
+            color: #9aa7ba;
+        }
+
+
+        .campo-formulario input:focus,
+        .campo-formulario select:focus {
+            background: #ffffff;
+
+            border-color: #176df5;
+
+            box-shadow:
+                0 0 0 3px
+                rgba(23, 109, 245, 0.10);
+        }
+
+
+        /* ==================================================
+           ARCHIVO / FOTO
+        ================================================== */
+
+        .campo-formulario input[type="file"] {
+            height: auto;
+
+            min-height: 48px;
+
+            padding: 8px;
+
+            background: #f8fbff;
+        }
+
+
+        .campo-formulario input[type="file"]::file-selector-button {
+            margin-right: 12px;
+
+            padding: 8px 13px;
+
+            border: none;
+
+            border-radius: 7px;
+
+            background: #e8f1ff;
+
+            color: #176df5;
+
+            font-family: inherit;
+
+            font-weight: 700;
+
+            cursor: pointer;
+
+            transition:
+                background .2s ease;
+        }
+
+
+        .campo-formulario input[type="file"]::file-selector-button:hover {
+            background: #dbeaff;
+        }
+
+
+        /* ==================================================
+           ERRORES
+        ================================================== */
+
+        .mensaje-error {
+            margin-bottom: 24px;
+
+            padding: 13px 15px;
+
+            background: #fff1f3;
+
+            border: 1px solid #ffc6d7;
+
+            border-radius: 9px;
+
+            color: #c51e52;
+
+            font-size: 13px;
+        }
+
+
+        .mensaje-error ul,
+        .error-campo ul {
+            list-style: none;
+
+            margin: 0;
+            padding: 0;
+        }
+
+
+        .error-campo {
+            margin-top: 6px;
+
+            color: #d92d5f;
+
+            font-size: 12px;
+
+            font-weight: 600;
+        }
+
+
+        /* ==================================================
+           BOTÓN
+        ================================================== */
+
+        .zona-boton {
+            margin-top: 26px;
+        }
+
+
+        .boton-acceso {
+            width: 100%;
+            height: 50px;
+
+            border: none;
+
+            border-radius: 9px;
+
+            background: #176df5;
+
+            color: #ffffff;
+
+            font-family: inherit;
+
+            font-size: 14px;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            box-shadow:
+                0 6px 15px
+                rgba(23, 109, 245, 0.18);
+
+            transition:
+                background .2s ease,
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .boton-acceso:hover {
+            background: #105fd8;
+
+            transform: translateY(-1px);
+
+            box-shadow:
+                0 8px 19px
+                rgba(23, 109, 245, 0.24);
+        }
+
+
+        .boton-acceso:active {
+            transform: translateY(0);
+        }
+
+
+        /* ==================================================
+           VOLVER
+        ================================================== */
+
+        .zona-volver {
+            margin-top: 24px;
+
+            text-align: center;
+        }
+
+
+        .volver-acceso {
+            display: inline-block;
+
+            color: #60708d;
+
+            text-decoration: none;
+
+            font-size: 14px;
+
+            font-weight: 600;
+
+            transition: color .2s ease;
+        }
+
+
+        .volver-acceso:hover {
+            color: #176df5;
+        }
+
+
+        /* ==================================================
+           MÓVIL
+        ================================================== */
+
+        @media (max-width: 600px) {
+
+            .pagina-registro {
+                align-items: flex-start;
+
+                padding:
+                    30px
+                    16px
+                    40px;
+            }
+
+
+            .marca {
+                margin-bottom: 27px;
+            }
+
+
+            .logo-simbolo {
+                width: 58px;
+                height: 58px;
+            }
+
+
+            .esquina {
+                width: 19px;
+                height: 19px;
+            }
+
+
+            .check {
+                width: 27px;
+                height: 15px;
+
+                border-left-width: 6px;
+                border-bottom-width: 6px;
+            }
+
+
+            .marca-texto h1 {
+                font-size: 29px;
+            }
+
+
+            .marca-texto p {
+                font-size: 14px;
+            }
+
+
+            .tarjeta-registro {
+                padding:
+                    31px
+                    21px;
+            }
+
+
+            .cabecera-registro h2 {
+                font-size: 27px;
+            }
+
+
+            .formulario-grid {
+                grid-template-columns: 1fr;
+
+                gap: 17px;
+            }
+
+
+            .campo-completo {
+                grid-column: auto;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<main class="pagina-registro">
+
+    <div class="registro-contenedor">
+
+
+        <!-- ==================================================
+             MARCA
+        =================================================== -->
+
+        <div class="marca">
+
+            <div class="logo-simbolo">
+
+                <span class="esquina esquina-1"></span>
+                <span class="esquina esquina-2"></span>
+                <span class="esquina esquina-3"></span>
+                <span class="esquina esquina-4"></span>
+
+                <span class="check"></span>
+
+            </div>
+
+
+            <div class="marca-texto">
+
+                <h1>
+                    PRESENTE
+                </h1>
+
+                <p>
+                    by <strong>RETORIKA</strong>
+                </p>
+
+            </div>
+
         </div>
 
-        <h1>Crear perfil</h1>
 
-        <p class="subtitulo-acceso">
-            Completa tus datos para registrarte.
-        </p>
+        <!-- ==================================================
+             TARJETA
+        =================================================== -->
 
-        {% if form.non_field_errors %}
-            <div class="mensaje-error">
-                {{ form.non_field_errors }}
-            </div>
-        {% endif %}
-
-        <form
-            method="POST"
-            enctype="multipart/form-data"
-            class="formulario-acceso"
-        >
-
-            {% csrf_token %}
-
-            <div class="campo-formulario">
-                <label for="{{ form.nombre.id_for_label }}">
-                    Nombre
-                </label>
-
-                {{ form.nombre }}
-
-                {% if form.nombre.errors %}
-                    <div class="error-campo">
-                        {{ form.nombre.errors }}
-                    </div>
-                {% endif %}
-            </div>
+        <section class="tarjeta-registro">
 
 
-            <div class="campo-formulario">
-                <label for="{{ form.apellidos.id_for_label }}">
-                    Apellidos
-                </label>
+            <!-- CABECERA -->
 
-                {{ form.apellidos }}
+            <div class="cabecera-registro">
 
-                {% if form.apellidos.errors %}
-                    <div class="error-campo">
-                        {{ form.apellidos.errors }}
-                    </div>
-                {% endif %}
+                <div class="icono-acceso">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle
+                            cx="12"
+                            cy="8"
+                            r="4"
+                        ></circle>
+
+                        <path
+                            d="M4.5 20c.8-4 3.3-6 7.5-6s6.7 2 7.5 6"
+                        ></path>
+
+                    </svg>
+
+                </div>
+
+
+                <p class="etiqueta">
+                    NUEVO ALUMNO
+                </p>
+
+
+                <h2>
+                    Crear perfil
+                </h2>
+
+
+                <p class="subtitulo-acceso">
+                    Completa tus datos para registrarte.
+                </p>
+
             </div>
 
 
-            <div class="campo-formulario">
-                <label for="{{ form.carrera.id_for_label }}">
-                    Carrera
-                </label>
+            <!-- ==================================================
+                 ERRORES GENERALES
+            =================================================== -->
 
-                {{ form.carrera }}
+            {% if form.non_field_errors %}
 
-                {% if form.carrera.errors %}
-                    <div class="error-campo">
-                        {{ form.carrera.errors }}
-                    </div>
-                {% endif %}
-            </div>
+                <div class="mensaje-error">
+                    {{ form.non_field_errors }}
+                </div>
+
+            {% endif %}
 
 
-            <div class="campo-formulario">
-                <label for="{{ form.curso.id_for_label }}">
-                    Curso
-                </label>
+            <!-- ==================================================
+                 FORMULARIO
+            =================================================== -->
 
-                {{ form.curso }}
-
-                {% if form.curso.errors %}
-                    <div class="error-campo">
-                        {{ form.curso.errors }}
-                    </div>
-                {% endif %}
-            </div>
-
-
-            <div class="campo-formulario">
-                <label for="{{ form.grupo.id_for_label }}">
-                    Grupo
-                </label>
-
-                {{ form.grupo }}
-
-                {% if form.grupo.errors %}
-                    <div class="error-campo">
-                        {{ form.grupo.errors }}
-                    </div>
-                {% endif %}
-            </div>
-
-
-            <div class="campo-formulario">
-                <label for="{{ form.email.id_for_label }}">
-                    Correo electrónico
-                </label>
-
-                {{ form.email }}
-
-                {% if form.email.errors %}
-                    <div class="error-campo">
-                        {{ form.email.errors }}
-                    </div>
-                {% endif %}
-            </div>
-
-
-            <div class="campo-formulario">
-                <label for="{{ form.foto.id_for_label }}">
-                    Foto
-                </label>
-
-                {{ form.foto }}
-
-                {% if form.foto.errors %}
-                    <div class="error-campo">
-                        {{ form.foto.errors }}
-                    </div>
-                {% endif %}
-            </div>
-
-
-            <div class="campo-formulario">
-                <label for="{{ form.password.id_for_label }}">
-                    Contraseña
-                </label>
-
-                {{ form.password }}
-
-                {% if form.password.errors %}
-                    <div class="error-campo">
-                        {{ form.password.errors }}
-                    </div>
-                {% endif %}
-            </div>
-
-
-            <div class="campo-formulario">
-                <label for="{{ form.password_confirmacion.id_for_label }}">
-                    Repetir contraseña
-                </label>
-
-                {{ form.password_confirmacion }}
-
-                {% if form.password_confirmacion.errors %}
-                    <div class="error-campo">
-                        {{ form.password_confirmacion.errors }}
-                    </div>
-                {% endif %}
-            </div>
-
-
-            <button
-                type="submit"
-                class="boton-acceso boton-alumno"
+            <form
+                method="POST"
+                enctype="multipart/form-data"
+                class="formulario-acceso"
             >
-                Crear cuenta
-            </button>
 
-        </form>
+                {% csrf_token %}
 
 
-        <a
-            href="{% url 'login_alumno' %}"
-            class="volver-acceso"
-        >
-            ← Volver
-        </a>
+                <div class="formulario-grid">
+
+
+                    <!-- NOMBRE -->
+
+                    <div class="campo-formulario">
+
+                        <label for="{{ form.nombre.id_for_label }}">
+                            Nombre
+                        </label>
+
+                        {{ form.nombre }}
+
+                        {% if form.nombre.errors %}
+
+                            <div class="error-campo">
+                                {{ form.nombre.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- APELLIDOS -->
+
+                    <div class="campo-formulario">
+
+                        <label for="{{ form.apellidos.id_for_label }}">
+                            Apellidos
+                        </label>
+
+                        {{ form.apellidos }}
+
+                        {% if form.apellidos.errors %}
+
+                            <div class="error-campo">
+                                {{ form.apellidos.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- CARRERA -->
+
+                    <div class="campo-formulario">
+
+                        <label for="{{ form.carrera.id_for_label }}">
+                            Carrera
+                        </label>
+
+                        {{ form.carrera }}
+
+                        {% if form.carrera.errors %}
+
+                            <div class="error-campo">
+                                {{ form.carrera.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- CURSO -->
+
+                    <div class="campo-formulario">
+
+                        <label for="{{ form.curso.id_for_label }}">
+                            Curso
+                        </label>
+
+                        {{ form.curso }}
+
+                        {% if form.curso.errors %}
+
+                            <div class="error-campo">
+                                {{ form.curso.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- GRUPO -->
+
+                    <div class="campo-formulario">
+
+                        <label for="{{ form.grupo.id_for_label }}">
+                            Grupo
+                        </label>
+
+                        {{ form.grupo }}
+
+                        {% if form.grupo.errors %}
+
+                            <div class="error-campo">
+                                {{ form.grupo.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="campo-formulario">
+
+                        <label for="{{ form.email.id_for_label }}">
+                            Correo electrónico
+                        </label>
+
+                        {{ form.email }}
+
+                        {% if form.email.errors %}
+
+                            <div class="error-campo">
+                                {{ form.email.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- FOTO -->
+
+                    <div class="campo-formulario campo-completo">
+
+                        <label for="{{ form.foto.id_for_label }}">
+                            Foto de perfil
+                        </label>
+
+                        {{ form.foto }}
+
+                        {% if form.foto.errors %}
+
+                            <div class="error-campo">
+                                {{ form.foto.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- CONTRASEÑA -->
+
+                    <div class="campo-formulario">
+
+                        <label for="{{ form.password.id_for_label }}">
+                            Contraseña
+                        </label>
+
+                        {{ form.password }}
+
+                        {% if form.password.errors %}
+
+                            <div class="error-campo">
+                                {{ form.password.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- REPETIR CONTRASEÑA -->
+
+                    <div class="campo-formulario">
+
+                        <label for="{{ form.password_confirmacion.id_for_label }}">
+                            Repetir contraseña
+                        </label>
+
+                        {{ form.password_confirmacion }}
+
+                        {% if form.password_confirmacion.errors %}
+
+                            <div class="error-campo">
+                                {{ form.password_confirmacion.errors }}
+                            </div>
+
+                        {% endif %}
+
+                    </div>
+
+
+                </div>
+
+
+                <!-- BOTÓN -->
+
+                <div class="zona-boton">
+
+                    <button
+                        type="submit"
+                        class="boton-acceso"
+                    >
+                        Crear cuenta
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <!-- ==================================================
+                 VOLVER
+            =================================================== -->
+
+            <div class="zona-volver">
+
+                <a
+                    href="{% url 'login_alumno' %}"
+                    class="volver-acceso"
+                >
+                    ← Volver al acceso
+                </a>
+
+            </div>
+
+
+        </section>
 
     </div>
 
-</section>
+</main>
 
-{% endblock %}
+
+</body>
+
+</html>

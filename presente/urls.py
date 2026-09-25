@@ -122,6 +122,28 @@ urlpatterns = [
 
 
     # =====================================================
+    # INFORMES PROFESOR
+    # =====================================================
+
+    path(
+        'profesor/informes/',
+        views.informes_profesor,
+        name='informes_profesor'
+    ),
+
+
+    # =====================================================
+    # AJUSTES PROFESOR
+    # =====================================================
+
+    path(
+        'profesor/ajustes/',
+        views.ajustes_profesor,
+        name='ajustes_profesor'
+    ),
+
+
+    # =====================================================
     # SOPORTE PROFESOR
     # =====================================================
 

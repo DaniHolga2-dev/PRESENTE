@@ -18,544 +18,1104 @@
 
     <link
         rel="stylesheet"
-        href="{% static 'asistencia/css/style.css' %}?v=6"
+        href="{% static 'asistencia/css/style.css' %}?v=20"
     >
+
+
+    <style>
+
+        /* =========================================================
+           BASE
+        ========================================================== */
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100%;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #101828;
+        }
+
+        a {
+            color: inherit;
+        }
+
+
+        /* =========================================================
+           LAYOUT PROFESOR
+        ========================================================== */
+
+        .layout-profesor {
+            display: flex;
+            width: 100%;
+            min-height: 100vh;
+            background: #f5f7fb;
+        }
+
+        .contenido-profesor {
+            width: calc(100% - 245px);
+            min-width: 0;
+            margin-left: 245px;
+            min-height: 100vh;
+        }
+
+        .main-profesor {
+            width: 100%;
+            min-height: 100vh;
+        }
+
+
+        /* =========================================================
+           SIDEBAR PROFESOR
+        ========================================================== */
+
+        .sidebar-profesor {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+
+            z-index: 1000;
+
+            width: 245px;
+            height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+
+            padding: 25px 17px 20px;
+
+            overflow-y: auto;
+
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    180deg,
+                    #071f43 0%,
+                    #082b5d 100%
+                );
+
+            box-shadow:
+                5px 0 24px
+                rgba(6, 31, 67, 0.08);
+        }
+
+
+        /* =========================================================
+           MARCA
+        ========================================================== */
+
+        .sidebar-marca {
+            padding: 2px 7px 27px;
+        }
+
+        .sidebar-marca-enlace {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+
+            text-decoration: none;
+        }
+
+        .sidebar-logo {
+            position: relative;
+
+            width: 42px;
+            height: 42px;
+
+            flex-shrink: 0;
+        }
+
+        .sidebar-logo-esquina {
+            position: absolute;
+
+            width: 14px;
+            height: 14px;
+
+            border-style: solid;
+            border-width: 4px;
+        }
+
+        .sidebar-logo-esquina.azul {
+            top: 0;
+            left: 0;
+
+            border-color:
+                #1476ff
+                transparent
+                transparent
+                #1476ff;
+
+            border-radius: 8px 0 0 0;
+        }
+
+        .sidebar-logo-esquina.verde {
+            top: 0;
+            right: 0;
+
+            border-color:
+                #00c978
+                #00c978
+                transparent
+                transparent;
+
+            border-radius: 0 8px 0 0;
+        }
+
+        .sidebar-logo-esquina.rosa {
+            bottom: 0;
+            left: 0;
+
+            border-color:
+                transparent
+                transparent
+                #ff2d86
+                #ff2d86;
+
+            border-radius: 0 0 0 8px;
+        }
+
+        .sidebar-logo-esquina.verde-oscuro {
+            right: 0;
+            bottom: 0;
+
+            border-color:
+                transparent
+                #36b987
+                #36b987
+                transparent;
+
+            border-radius: 0 0 8px 0;
+        }
+
+        .sidebar-logo-check {
+            position: absolute;
+
+            top: 12px;
+            left: 12px;
+
+            width: 18px;
+            height: 10px;
+
+            border-left: 4px solid #ffffff;
+            border-bottom: 4px solid #ffffff;
+
+            transform: rotate(-45deg);
+        }
+
+        .sidebar-marca-texto {
+            display: flex;
+            flex-direction: column;
+
+            min-width: 0;
+        }
+
+        .sidebar-marca-texto strong {
+            color: #ffffff;
+
+            font-size: 17px;
+            line-height: 1.15;
+            font-weight: 850;
+
+            letter-spacing: 0.5px;
+        }
+
+        .sidebar-marca-texto span {
+            margin-top: 3px;
+
+            color: #d5e1f2;
+
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .sidebar-marca-texto b {
+            color: #ffffff;
+        }
+
+
+        /* =========================================================
+           NAVEGACIÓN SIDEBAR
+        ========================================================== */
+
+        .sidebar-navegacion {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+
+            flex: 1;
+        }
+
+        .sidebar-seccion {
+            margin: 0 11px 10px;
+
+            color: #6f8bae;
+
+            font-size: 9px;
+            font-weight: 800;
+
+            letter-spacing: 1.5px;
+        }
+
+        .sidebar-enlace {
+            position: relative;
+
+            width: 100%;
+            min-height: 47px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 13px;
+
+            padding: 0 14px;
+
+            border-radius: 8px;
+
+            color: #dce6f4;
+
+            font-size: 13px;
+            font-weight: 650;
+
+            text-decoration: none;
+
+            transition:
+                background-color 0.18s ease,
+                color 0.18s ease,
+                transform 0.18s ease;
+        }
+
+        .sidebar-enlace:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .sidebar-enlace.activo {
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #176df5,
+                    #075cff
+                );
+
+            box-shadow:
+                0 7px 18px
+                rgba(0, 94, 255, 0.23);
+        }
+
+        .sidebar-icono {
+            width: 21px;
+            height: 21px;
+
+            flex-shrink: 0;
+
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.8;
+
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .sidebar-contador {
+            min-width: 21px;
+            height: 21px;
+
+            margin-left: auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 0 6px;
+
+            border-radius: 999px;
+
+            background: #ff2d86;
+            color: #ffffff;
+
+            font-size: 10px;
+            font-weight: 800;
+        }
+
+
+        /* =========================================================
+           PIE DEL SIDEBAR
+        ========================================================== */
+
+        .sidebar-pie {
+            margin-top: 25px;
+            padding-top: 17px;
+
+            border-top:
+                1px solid
+                rgba(255, 255, 255, 0.09);
+        }
+
+        .sidebar-usuario {
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 8px 7px 14px;
+        }
+
+        .sidebar-avatar {
+            width: 39px;
+            height: 39px;
+
+            flex-shrink: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            overflow: hidden;
+
+            border:
+                2px solid
+                rgba(255, 255, 255, 0.22);
+
+            border-radius: 50%;
+
+            background: #176df5;
+
+            color: #ffffff;
+
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .sidebar-avatar img {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+        }
+
+        .sidebar-usuario-info {
+            min-width: 0;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-usuario-info strong {
+            overflow: hidden;
+
+            color: #ffffff;
+
+            font-size: 11px;
+            line-height: 1.3;
+            font-weight: 750;
+
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .sidebar-usuario-info span {
+            margin-top: 3px;
+
+            color: #8fa6c3;
+
+            font-size: 9px;
+            font-weight: 600;
+        }
+
+        .sidebar-logout {
+            width: 100%;
+            min-height: 41px;
+
+            display: flex;
+            align-items: center;
+
+            gap: 11px;
+
+            padding: 0 12px;
+
+            border-radius: 7px;
+
+            color: #aebed2;
+
+            font-size: 11px;
+            font-weight: 650;
+
+            text-decoration: none;
+
+            transition:
+                color 0.18s ease,
+                background-color 0.18s ease;
+        }
+
+        .sidebar-logout:hover {
+            color: #ffffff;
+            background: rgba(255, 255, 255, 0.07);
+        }
+
+        .sidebar-logout .sidebar-icono {
+            width: 18px;
+            height: 18px;
+        }
+
+
+        /* =========================================================
+           BOTÓN SIDEBAR MÓVIL
+        ========================================================== */
+
+        .sidebar-movil-boton {
+            display: none;
+        }
+
+        .sidebar-overlay {
+            display: none;
+        }
+
+
+        /* =========================================================
+           RESPONSIVE PROFESOR
+        ========================================================== */
+
+        @media (max-width: 768px) {
+
+            .contenido-profesor {
+                width: 100%;
+                margin-left: 0;
+            }
+
+            .sidebar-profesor {
+                width: 245px;
+
+                transform: translateX(-105%);
+
+                transition:
+                    transform 0.25s ease;
+            }
+
+            .sidebar-profesor.abierta {
+                transform: translateX(0);
+            }
+
+            .sidebar-movil-boton {
+                position: fixed;
+
+                top: 14px;
+                left: 14px;
+
+                z-index: 1200;
+
+                width: 42px;
+                height: 42px;
+
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                padding: 0;
+
+                border: 1px solid #dfe6ef;
+                border-radius: 9px;
+
+                background: #ffffff;
+                color: #102348;
+
+                cursor: pointer;
+
+                box-shadow:
+                    0 4px 15px
+                    rgba(16, 35, 72, 0.1);
+            }
+
+            .sidebar-movil-boton svg {
+                width: 21px;
+                height: 21px;
+
+                fill: none;
+                stroke: currentColor;
+                stroke-width: 2;
+
+                stroke-linecap: round;
+            }
+
+            .sidebar-overlay {
+                position: fixed;
+
+                inset: 0;
+
+                z-index: 900;
+
+                background:
+                    rgba(5, 20, 42, 0.48);
+            }
+
+            .sidebar-overlay.visible {
+                display: block;
+            }
+
+        }
+
+    </style>
 
 </head>
 
 
 <body>
+    {% if request.session.profesor_id and request.resolver_match.url_name != 'inicio' %}
 
-<header class="header">
+    <!-- =========================================================
+         BOTÓN MENÚ MÓVIL
+    ========================================================== -->
 
-    <nav class="navbar">
+    <button
+        type="button"
+        class="sidebar-movil-boton"
+        id="abrir-sidebar"
+        aria-label="Abrir menú"
+    >
+        <svg viewBox="0 0 24 24">
+            <path d="M4 6h16"></path>
+            <path d="M4 12h16"></path>
+            <path d="M4 18h16"></path>
+        </svg>
+    </button>
+
+
+    <div
+        class="sidebar-overlay"
+        id="sidebar-overlay"
+    ></div>
+
+
+    <!-- =========================================================
+         LAYOUT PROFESOR
+    ========================================================== -->
+
+    <div class="layout-profesor">
+
 
         <!-- =====================================================
-             MARCA
+             SIDEBAR PROFESOR
         ====================================================== -->
 
-        <div class="navbar-marca">
-
-            <a href="{% url 'inicio' %}">
-                PRESENTE
-            </a>
-
-        </div>
-
-
-        <!-- =====================================================
-             BOTÓN MENÚ MÓVIL
-        ====================================================== -->
-
-        <button
-            type="button"
-            class="menu-movil-boton"
-            id="menuMovilBoton"
-            aria-label="Abrir menú"
-            aria-expanded="false"
-            aria-controls="navbarMenu"
+        <aside
+            class="sidebar-profesor"
+            id="sidebar-profesor"
         >
-
-            <span></span>
-            <span></span>
-            <span></span>
-
-        </button>
-
-
-        <!-- =====================================================
-             MENÚ
-        ====================================================== -->
-
-        <div
-            class="navbar-menu"
-            id="navbarMenu"
-        >
-
-            <!-- INICIO -->
-
-            <a href="{% url 'inicio' %}">
-                Inicio
-            </a>
-
-
-            <!-- GRUPOS -->
-
-            {% if request.session.profesor_id %}
-
-                <a href="{% url 'panel_profesor' %}">
-                    Grupos
-                </a>
-
-            {% elif request.session.alumno_id %}
-
-                <a href="{% url 'grupo_alumno' %}">
-                    Mi grupo
-                </a>
-
-            {% else %}
-
-                <a href="{% url 'seleccionar_login' %}">
-                    Grupos
-                </a>
-
-            {% endif %}
-
-
-            <!-- CLASES -->
-
-            {% if request.session.profesor_id %}
-
-                <a href="{% url 'clases_profesor' %}">
-                    Clases
-                </a>
-
-            {% elif request.session.alumno_id %}
-
-                <a href="{% url 'clases_alumno' %}">
-                    Clases
-                </a>
-
-            {% else %}
-
-                <a href="{% url 'seleccionar_login' %}">
-                    Clases
-                </a>
-
-            {% endif %}
-
-
-            <!-- ASISTENCIA -->
-
-            {% if request.session.profesor_id %}
-
-                <a href="{% url 'control_asistencia' %}">
-                    Asistencia
-                </a>
-
-            {% elif request.session.alumno_id %}
-
-                <a href="{% url 'panel_alumno' %}">
-                    Asistencia
-                </a>
-
-            {% else %}
-
-                <a href="{% url 'seleccionar_login' %}">
-                    Asistencia
-                </a>
-
-            {% endif %}
-
-
-            <!-- JUSTIFICACIONES -->
-
-            {% if request.session.profesor_id %}
-
-                <a href="{% url 'justificaciones_profesor' %}">
-                    Justificaciones
-                </a>
-
-            {% elif request.session.alumno_id %}
-
-                <a href="{% url 'justificaciones_alumno' %}">
-                    Justificaciones
-                </a>
-
-            {% else %}
-
-                <a href="{% url 'seleccionar_login' %}">
-                    Justificaciones
-                </a>
-
-            {% endif %}
-
-
-            <!-- SOPORTE -->
-
-            {% if request.session.profesor_id %}
-
-                <a href="{% url 'soporte_profesor' %}">
-                    Soporte
-                </a>
-
-            {% else %}
-
-                <a href="{% url 'soporte' %}">
-                    Soporte
-                </a>
-
-            {% endif %}
 
 
             <!-- =================================================
-                 PROFESOR
+                 LOGO
             ================================================== -->
 
-            {% if request.session.profesor_id %}
+            <div class="sidebar-marca">
 
-
-                <!-- =============================================
-                     CAMPANA DE NOTIFICACIONES
-                ============================================== -->
-
-                <div
-                    style="
-                        position:relative;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                    "
+                <a
+                    href="{% url 'inicio' %}"
+                    class="sidebar-marca-enlace"
                 >
 
-                    <button
-                        type="button"
-                        id="botonNotificacionesGlobal"
-                        aria-label="Notificaciones"
-                        style="
-                            width:40px;
-                            height:40px;
-                            padding:0;
-                            border:1px solid #E5E7EB;
-                            border-radius:9px;
-                            background:#FFFFFF;
-                            display:flex;
-                            align-items:center;
-                            justify-content:center;
-                            cursor:pointer;
-                            position:relative;
-                        "
+                    <div class="sidebar-logo">
+
+                        <span class="sidebar-logo-esquina azul"></span>
+                        <span class="sidebar-logo-esquina verde"></span>
+                        <span class="sidebar-logo-esquina rosa"></span>
+                        <span class="sidebar-logo-esquina verde-oscuro"></span>
+
+                        <span class="sidebar-logo-check"></span>
+
+                    </div>
+
+
+                    <div class="sidebar-marca-texto">
+
+                        <strong>
+                            PRESENTE
+                        </strong>
+
+                        <span>
+                            by <b>RETORIKA</b>
+                        </span>
+
+                    </div>
+
+                </a>
+
+            </div>
+
+
+            <!-- =================================================
+                 MENÚ
+            ================================================== -->
+
+            <nav class="sidebar-navegacion">
+
+                <p class="sidebar-seccion">
+                    MENÚ
+                </p>
+
+
+                <!-- =================================================
+                     INICIO
+                ================================================== -->
+
+                <a
+                    href="{% url 'inicio' %}"
+                    class="sidebar-enlace"
+                >
+
+                    <svg
+                        class="sidebar-icono"
+                        viewBox="0 0 24 24"
                     >
+                        <path d="M3 11.5L12 4l9 7.5"></path>
+                        <path d="M5 10.5V20h14v-9.5"></path>
+                        <path d="M9 20v-6h6v6"></path>
+                    </svg>
 
-                        <!-- CAMPANA SVG -->
+                    <span>
+                        Inicio
+                    </span>
 
-                        <svg
-                            width="21"
-                            height="21"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#101828"
-                            stroke-width="1.8"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            aria-hidden="true"
-                        >
-                            <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-                            <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                        </svg>
+                </a>
 
 
-                        {% if justificaciones_pendientes > 0 %}
+                <!-- =================================================
+                     GRUPOS
+                ================================================== -->
 
-                            <span
-                                style="
-                                    position:absolute;
-                                    top:-6px;
-                                    right:-6px;
+                <a
+                    href="{% url 'panel_profesor' %}"
+                    class="sidebar-enlace {% if request.resolver_match.url_name == 'panel_profesor' or request.resolver_match.url_name == 'crear_grupo' or request.resolver_match.url_name == 'detalle_grupo' %}activo{% endif %}"
+                >
 
-                                    min-width:19px;
-                                    height:19px;
+                    <svg
+                        class="sidebar-icono"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle
+                            cx="9"
+                            cy="8"
+                            r="3"
+                        ></circle>
 
-                                    padding:0 5px;
+                        <path
+                            d="M3 20v-2a5 5 0 0 1 5-5h2a5 5 0 0 1 5 5v2"
+                        ></path>
 
-                                    box-sizing:border-box;
+                        <path
+                            d="M16 5.5a3 3 0 0 1 0 5.5"
+                        ></path>
 
-                                    border-radius:999px;
+                        <path
+                            d="M17 14a5 5 0 0 1 4 4.9V20"
+                        ></path>
+                    </svg>
 
-                                    background:#FF3AA7;
-                                    color:#FFFFFF;
+                    <span>
+                        Grupos
+                    </span>
 
-                                    border:2px solid #FFFFFF;
+                </a>
 
-                                    display:flex;
-                                    align-items:center;
-                                    justify-content:center;
 
-                                    font-size:10px;
-                                    line-height:1;
-                                    font-weight:800;
-                                "
-                            >
-                                {{ justificaciones_pendientes }}
+                <!-- =================================================
+                     CLASES
+                ================================================== -->
+
+                <a
+                    href="{% url 'clases_profesor' %}"
+                    class="sidebar-enlace {% if request.resolver_match.url_name == 'clases_profesor' or request.resolver_match.url_name == 'crear_clase' or request.resolver_match.url_name == 'gestionar_asistencia' %}activo{% endif %}"
+                >
+
+                    <svg
+                        class="sidebar-icono"
+                        viewBox="0 0 24 24"
+                    >
+                        <rect
+                            x="3"
+                            y="5"
+                            width="18"
+                            height="16"
+                            rx="2"
+                        ></rect>
+
+                        <path d="M7 3v4"></path>
+                        <path d="M17 3v4"></path>
+                        <path d="M3 10h18"></path>
+                        <path d="M8 14h3"></path>
+                        <path d="M8 17h6"></path>
+                    </svg>
+
+                    <span>
+                        Clases
+                    </span>
+
+                </a>
+
+
+                <!-- =================================================
+                     ASISTENCIA
+                ================================================== -->
+
+                <a
+                    href="{% url 'control_asistencia' %}"
+                    class="sidebar-enlace {% if request.resolver_match.url_name == 'control_asistencia' or request.resolver_match.url_name == 'registros_asistencia' %}activo{% endif %}"
+                >
+
+                    <svg
+                        class="sidebar-icono"
+                        viewBox="0 0 24 24"
+                    >
+                        <rect
+                            x="4"
+                            y="4"
+                            width="16"
+                            height="17"
+                            rx="2"
+                        ></rect>
+
+                        <path d="M9 4V2"></path>
+                        <path d="M15 4V2"></path>
+                        <path d="M8 12l2.5 2.5L16 9"></path>
+                    </svg>
+
+                    <span>
+                        Asistencia
+                    </span>
+
+                </a>
+
+
+                <!-- =================================================
+                     JUSTIFICACIONES
+                ================================================== -->
+
+                <a
+                    href="{% url 'justificaciones_profesor' %}"
+                    class="sidebar-enlace {% if request.resolver_match.url_name == 'justificaciones_profesor' or request.resolver_match.url_name == 'aprobar_justificacion' or request.resolver_match.url_name == 'rechazar_justificacion' %}activo{% endif %}"
+                >
+
+                    <svg
+                        class="sidebar-icono"
+                        viewBox="0 0 24 24"
+                    >
+                        <rect
+                            x="4"
+                            y="4"
+                            width="16"
+                            height="17"
+                            rx="2"
+                        ></rect>
+
+                        <path d="M9 4V2"></path>
+                        <path d="M15 4V2"></path>
+                        <path d="M8 12l2.5 2.5L16 9"></path>
+                    </svg>
+
+                    <span>
+                        Justificaciones
+                    </span>
+
+
+                    {% if justificaciones_pendientes_global %}
+
+                        {% if justificaciones_pendientes_global > 0 %}
+
+                            <span class="sidebar-contador">
+                                {{ justificaciones_pendientes_global }}
                             </span>
 
                         {% endif %}
 
-                    </button>
+                    {% endif %}
+
+                </a>
 
 
-                    <!-- =========================================
-                         PANEL NOTIFICACIONES
-                    ========================================== -->
+                <!-- =================================================
+                     INFORMES
+                ================================================== -->
 
-                    <div
-                        id="panelNotificacionesGlobal"
-                        style="
-                            display:none;
+                <a
+                    href="{% url 'informes_profesor' %}"
+                    class="sidebar-enlace {% if request.resolver_match.url_name == 'informes_profesor' %}activo{% endif %}"
+                >
 
-                            position:absolute;
-
-                            top:50px;
-                            right:0;
-
-                            width:310px;
-
-                            padding:10px;
-
-                            background:#FFFFFF;
-
-                            border:1px solid #E5E7EB;
-                            border-radius:14px;
-
-                            box-shadow:
-                                0 14px 35px
-                                rgba(16, 24, 40, 0.14);
-
-                            z-index:1000;
-                        "
+                    <svg
+                        class="sidebar-icono"
+                        viewBox="0 0 24 24"
                     >
+                        <path d="M4 20V10"></path>
+                        <path d="M10 20V4"></path>
+                        <path d="M16 20v-7"></path>
+                        <path d="M22 20H2"></path>
+                    </svg>
 
-                        <div
-                            style="
-                                padding:8px 10px 12px;
-                                border-bottom:1px solid #EAECF0;
-                            "
-                        >
+                    <span>
+                        Informes
+                    </span>
 
-                            <strong
-                                style="
-                                    color:#101828;
-                                    font-size:14px;
-                                "
+                </a>
+
+
+                <!-- =================================================
+                     SOPORTE
+                ================================================== -->
+
+                <a
+                    href="{% url 'soporte_profesor' %}"
+                    class="sidebar-enlace {% if request.resolver_match.url_name == 'soporte_profesor' or request.resolver_match.url_name == 'aprobar_soporte' or request.resolver_match.url_name == 'rechazar_soporte' %}activo{% endif %}"
+                >
+
+                    <svg
+                        class="sidebar-icono"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="9"
+                        ></circle>
+
+                        <path
+                            d="M9.7 9a2.5 2.5 0 1 1 4.3 1.7c-1 .8-2 1.3-2 2.8"
+                        ></path>
+
+                        <path d="M12 17h.01"></path>
+                    </svg>
+
+                    <span>
+                        Soporte
+                    </span>
+
+                </a>
+
+
+                <!-- =================================================
+                     AJUSTES
+                ================================================== -->
+
+                <a
+                    href="{% url 'ajustes_profesor' %}"
+                    class="sidebar-enlace {% if request.resolver_match.url_name == 'ajustes_profesor' %}activo{% endif %}"
+                >
+
+                    <svg
+                        class="sidebar-icono"
+                        viewBox="0 0 24 24"
+                    >
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="3"
+                        ></circle>
+
+                        <path
+                            d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-2.83 2.83-.06-.06A1.7 1.7 0 0 0 15 19.4a1.7 1.7 0 0 0-1 .6 1.7 1.7 0 0 0-.4 1.1V21H9.6v-.1a1.7 1.7 0 0 0-1.1-1.6 1.7 1.7 0 0 0-1.88.34l-.06.06-2.83-2.83.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-.6-1 1.7 1.7 0 0 0-1.1-.4H3V9.6h.1A1.7 1.7 0 0 0 4.7 8.5a1.7 1.7 0 0 0-.34-1.88l-.06-.06 2.83-2.83.06.06A1.7 1.7 0 0 0 9 4.6a1.7 1.7 0 0 0 1-.6 1.7 1.7 0 0 0 .4-1.1V3h4v.1A1.7 1.7 0 0 0 15.5 4.7a1.7 1.7 0 0 0 1.88-.34l.06-.06 2.83 2.83-.06.06A1.7 1.7 0 0 0 19.4 9c.15.38.36.72.6 1 .3.32.7.5 1.1.5h.1v4h-.1c-.44 0-.84.18-1.1.5-.24.28-.45.62-.6 1z"
+                        ></path>
+                    </svg>
+
+                    <span>
+                        Ajustes
+                    </span>
+
+                </a>
+
+            </nav>
+
+
+            <!-- =================================================
+                 PERFIL DEL PROFESOR
+            ================================================== -->
+
+            <div class="sidebar-pie">
+
+                <div class="sidebar-usuario">
+
+                    <div class="sidebar-avatar">
+
+                        {% if profesor.foto %}
+
+                            <img
+                                src="{{ profesor.foto.url }}"
+                                alt="{{ profesor.nombre }}"
                             >
-                                Notificaciones
-                            </strong>
-
-                        </div>
-
-
-                        {% if justificaciones_pendientes > 0 %}
-
-                            <a
-                                href="{% url 'justificaciones_profesor' %}"
-                                style="
-                                    display:flex;
-                                    align-items:center;
-                                    gap:12px;
-
-                                    padding:14px 10px;
-
-                                    text-decoration:none;
-                                    border-radius:10px;
-                                "
-                            >
-
-                                <!-- ICONO DOCUMENTO -->
-
-                                <div
-                                    style="
-                                        width:40px;
-                                        height:40px;
-
-                                        flex-shrink:0;
-
-                                        display:flex;
-                                        align-items:center;
-                                        justify-content:center;
-
-                                        background:#EEF6FF;
-                                        border-radius:10px;
-                                    "
-                                >
-
-                                    <svg
-                                        width="21"
-                                        height="21"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="#156FE7"
-                                        stroke-width="1.8"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        aria-hidden="true"
-                                    >
-                                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                                        <polyline points="14 2 14 8 20 8"></polyline>
-                                        <line x1="8" y1="13" x2="16" y2="13"></line>
-                                        <line x1="8" y1="17" x2="16" y2="17"></line>
-                                    </svg>
-
-                                </div>
-
-
-                                <div>
-
-                                    <strong
-                                        style="
-                                            display:block;
-                                            margin-bottom:4px;
-
-                                            color:#101828;
-
-                                            font-size:12px;
-                                        "
-                                    >
-                                        Justificaciones pendientes
-                                    </strong>
-
-
-                                    <span
-                                        style="
-                                            display:block;
-
-                                            color:#667085;
-
-                                            font-size:11px;
-                                            line-height:1.4;
-                                        "
-                                    >
-
-                                        {% if justificaciones_pendientes == 1 %}
-
-                                            Tienes 1 justificación pendiente de revisión.
-
-                                        {% else %}
-
-                                            Tienes {{ justificaciones_pendientes }}
-                                            justificaciones pendientes de revisión.
-
-                                        {% endif %}
-
-                                    </span>
-
-                                </div>
-
-                            </a>
-
-
-                            <a
-                                href="{% url 'justificaciones_profesor' %}"
-                                style="
-                                    display:block;
-
-                                    margin:4px 10px 6px;
-                                    padding:9px 12px;
-
-                                    border-radius:8px;
-
-                                    background:#156FE7;
-                                    color:#FFFFFF;
-
-                                    text-decoration:none;
-                                    text-align:center;
-
-                                    font-size:11px;
-                                    font-weight:700;
-                                "
-                            >
-                                Ver justificaciones
-                            </a>
-
 
                         {% else %}
 
-                            <div
-                                style="
-                                    padding:24px 12px;
-                                    text-align:center;
-                                "
-                            >
-
-                                <!-- CAMPANA VACÍA -->
-
-                                <svg
-                                    width="25"
-                                    height="25"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="#98A2B3"
-                                    stroke-width="1.8"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    style="
-                                        display:block;
-                                        margin:0 auto 9px;
-                                    "
-                                    aria-hidden="true"
-                                >
-                                    <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-                                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                                </svg>
-
-
-                                <p
-                                    style="
-                                        margin:0;
-
-                                        color:#667085;
-
-                                        font-size:12px;
-                                    "
-                                >
-                                    No tienes justificaciones pendientes.
-                                </p>
-
-                            </div>
+                            {{ profesor.nombre|first|upper }}
 
                         {% endif %}
+
+                    </div>
+
+
+                    <div class="sidebar-usuario-info">
+
+                        <strong>
+                            {{ profesor.nombre }}
+                            {{ profesor.apellidos }}
+                        </strong>
+
+                        <span>
+                            Profesor
+                        </span>
 
                     </div>
 
                 </div>
 
 
-                <!-- =============================================
-                     CERRAR SESIÓN
-                ============================================== -->
-
                 <a
                     href="{% url 'logout_profesor' %}"
-                    class="boton-login"
+                    class="sidebar-logout"
                 >
-                    Cerrar sesión
+
+                    <svg
+                        class="sidebar-icono"
+                        viewBox="0 0 24 24"
+                    >
+                        <path d="M10 17l5-5-5-5"></path>
+                        <path d="M15 12H3"></path>
+                        <path d="M14 3h5a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-5"></path>
+                    </svg>
+
+                    <span>
+                        Cerrar sesión
+                    </span>
+
+                </a>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================================
+             CONTENIDO DEL PROFESOR
+        ====================================================== -->
+
+        <div class="contenido-profesor">
+
+{% else %}
+
+    <!--
+        Si NO estamos dentro de una página interna del profesor,
+        en la siguiente parte se construirá la cabecera normal.
+    -->
+
+{% endif %}
+{% if not request.session.profesor_id or request.resolver_match.url_name == 'inicio' %}
+
+    <!-- =========================================================
+         CABECERA NORMAL
+         Inicio, login y zona del alumno
+    ========================================================== -->
+
+    <header class="header">
+
+        <nav class="navbar">
+
+            <a
+                href="{% url 'inicio' %}"
+                class="logo"
+            >
+                PRESENTE
+            </a>
+
+
+            <div class="nav-links">
+
+                <a href="{% url 'inicio' %}">
+                    Inicio
                 </a>
 
 
-            {% elif request.session.alumno_id %}
+                {% if request.session.alumno_id %}
 
-                <a
-                    href="{% url 'logout_alumno' %}"
-                    class="boton-login"
-                >
-                    Cerrar sesión
-                </a>
+                    <a href="{% url 'grupo_alumno' %}">
+                        Grupo
+                    </a>
 
+                    <a href="{% url 'clases_alumno' %}">
+                        Clases
+                    </a>
 
-            {% else %}
+                    <a href="{% url 'justificaciones_alumno' %}">
+                        Justificaciones
+                    </a>
 
-                <a
-                    href="{% url 'seleccionar_login' %}"
-                    class="boton-login"
-                >
-                    Iniciar sesión
-                </a>
+                    <a href="{% url 'soporte' %}">
+                        Soporte
+                    </a>
 
-            {% endif %}
+                    <a
+                        href="{% url 'logout_alumno' %}"
+                        class="boton-login-nav"
+                    >
+                        Cerrar sesión
+                    </a>
 
-        </div>
+                {% elif request.session.profesor_id %}
 
-    </nav>
+                    <!--
+                        En Inicio el profesor no necesita el menú completo.
+                        Dejamos únicamente la posibilidad de cerrar sesión.
+                    -->
 
-    <div class="linea-verde"></div>
+                    <a
+                        href="{% url 'logout_profesor' %}"
+                        class="boton-login-nav"
+                    >
+                        Cerrar sesión
+                    </a>
 
-</header>
+                {% else %}
+
+                    <a
+                        href="{% url 'seleccionar_login' %}"
+                        class="boton-login-nav"
+                    >
+                        Iniciar sesión
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </nav>
+
+        <div class="linea-verde"></div>
+
+    </header>
+
+{% endif %}
 
 
 <!-- =========================================================
-     CONTENIDO
+     CONTENIDO PRINCIPAL
 ========================================================== -->
 
-<main>
+<main
+    {% if request.session.profesor_id and request.resolver_match.url_name != 'inicio' %}
+        class="main-profesor"
+    {% else %}
+        class="main-normal"
+    {% endif %}
+>
 
     {% block content %}
     {% endblock %}
@@ -564,7 +1124,20 @@
 
 
 <!-- =========================================================
-     JAVASCRIPT
+     CIERRE DEL LAYOUT DEL PROFESOR
+========================================================== -->
+
+{% if request.session.profesor_id and request.resolver_match.url_name != 'inicio' %}
+
+        </div>
+
+    </div>
+
+{% endif %}
+
+
+<!-- =========================================================
+     JAVASCRIPT SIDEBAR MÓVIL
 ========================================================== -->
 
 <script>
@@ -573,52 +1146,46 @@ document.addEventListener(
     'DOMContentLoaded',
     function () {
 
-        /* =====================================================
-           MENÚ MÓVIL
-        ====================================================== */
+        const botonAbrir =
+            document.getElementById('abrir-sidebar');
 
-        const botonMenu =
-            document.getElementById(
-                'menuMovilBoton'
-            );
+        const sidebar =
+            document.getElementById('sidebar-profesor');
 
-        const menu =
-            document.getElementById(
-                'navbarMenu'
-            );
+        const overlay =
+            document.getElementById('sidebar-overlay');
 
 
-        if (botonMenu && menu) {
+        if (
+            botonAbrir &&
+            sidebar &&
+            overlay
+        ) {
 
-            botonMenu.addEventListener(
+            botonAbrir.addEventListener(
                 'click',
                 function () {
 
-                    const menuAbierto =
-                        menu.classList.toggle(
-                            'menu-movil-abierto'
-                        );
+                    sidebar.classList.add('abierto');
+                    overlay.classList.add('activo');
+
+                }
+            );
 
 
-                    botonMenu.classList.toggle(
-                        'menu-movil-boton-activo',
-                        menuAbierto
-                    );
+            overlay.addEventListener(
+                'click',
+                function () {
 
-
-                    botonMenu.setAttribute(
-                        'aria-expanded',
-                        menuAbierto
-                            ? 'true'
-                            : 'false'
-                    );
+                    sidebar.classList.remove('abierto');
+                    overlay.classList.remove('activo');
 
                 }
             );
 
 
             const enlaces =
-                menu.querySelectorAll('a');
+                sidebar.querySelectorAll('.sidebar-enlace');
 
 
             enlaces.forEach(
@@ -628,115 +1195,11 @@ document.addEventListener(
                         'click',
                         function () {
 
-                            menu.classList.remove(
-                                'menu-movil-abierto'
-                            );
-
-                            botonMenu.classList.remove(
-                                'menu-movil-boton-activo'
-                            );
-
-                            botonMenu.setAttribute(
-                                'aria-expanded',
-                                'false'
-                            );
+                            sidebar.classList.remove('abierto');
+                            overlay.classList.remove('activo');
 
                         }
                     );
-
-                }
-            );
-
-
-            window.addEventListener(
-                'resize',
-                function () {
-
-                    if (window.innerWidth > 768) {
-
-                        menu.classList.remove(
-                            'menu-movil-abierto'
-                        );
-
-                        botonMenu.classList.remove(
-                            'menu-movil-boton-activo'
-                        );
-
-                        botonMenu.setAttribute(
-                            'aria-expanded',
-                            'false'
-                        );
-
-                    }
-
-                }
-            );
-
-        }
-
-
-        /* =====================================================
-           NOTIFICACIONES
-        ====================================================== */
-
-        const botonNotificaciones =
-            document.getElementById(
-                'botonNotificacionesGlobal'
-            );
-
-        const panelNotificaciones =
-            document.getElementById(
-                'panelNotificacionesGlobal'
-            );
-
-
-        if (
-            botonNotificaciones &&
-            panelNotificaciones
-        ) {
-
-            botonNotificaciones.addEventListener(
-                'click',
-                function (evento) {
-
-                    evento.stopPropagation();
-
-
-                    if (
-                        panelNotificaciones.style.display ===
-                        'block'
-                    ) {
-
-                        panelNotificaciones.style.display =
-                            'none';
-
-                    } else {
-
-                        panelNotificaciones.style.display =
-                            'block';
-
-                    }
-
-                }
-            );
-
-
-            panelNotificaciones.addEventListener(
-                'click',
-                function (evento) {
-
-                    evento.stopPropagation();
-
-                }
-            );
-
-
-            document.addEventListener(
-                'click',
-                function () {
-
-                    panelNotificaciones.style.display =
-                        'none';
 
                 }
             );

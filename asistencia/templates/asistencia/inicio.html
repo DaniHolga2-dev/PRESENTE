@@ -1,29 +1,801 @@
-{% extends 'asistencia/base.html' %}
+{% load static %}
 
-{% block title %}
-Inicio | PRESENTE
-{% endblock %}
+<!DOCTYPE html>
+<html lang="es">
 
-{% block content %}
+<head>
 
-<section class="inicio">
+    <meta charset="UTF-8">
 
-    <div class="inicio-contenido">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-        <p class="inicio-etiqueta">
+    <title>PRESENTE | Control de asistencia</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html,
+        body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family:
+                Inter,
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                sans-serif;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff 0%,
+                    #f8fbff 55%,
+                    #f3f8ff 100%
+                );
+
+            color: #0f1f3d;
+        }
+
+
+        /* ==================================================
+           PORTADA
+        ================================================== */
+
+        .landing {
+
+            min-height: 100vh;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 50px 30px;
+        }
+
+
+        .landing-contenido {
+
+            width: 100%;
+            max-width: 760px;
+
+            text-align: center;
+        }
+
+
+        /* ==================================================
+           LOGO
+        ================================================== */
+
+        .marca {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 25px;
+
+            margin-bottom: 32px;
+        }
+
+
+        .logo-simbolo {
+
+            width: 105px;
+            height: 105px;
+
+            position: relative;
+
+            flex-shrink: 0;
+        }
+
+
+        .esquina {
+
+            position: absolute;
+
+            width: 34px;
+            height: 34px;
+        }
+
+
+        .esquina-1 {
+
+            top: 0;
+            left: 0;
+
+            border-top: 8px solid #176df5;
+            border-left: 8px solid #176df5;
+
+            border-radius: 11px 0 0 0;
+        }
+
+
+        .esquina-2 {
+
+            top: 0;
+            right: 0;
+
+            border-top: 8px solid #00c86f;
+            border-right: 8px solid #00c86f;
+
+            border-radius: 0 11px 0 0;
+        }
+
+
+        .esquina-3 {
+
+            bottom: 0;
+            left: 0;
+
+            border-bottom: 8px solid #ff2f8b;
+            border-left: 8px solid #ff2f8b;
+
+            border-radius: 0 0 0 11px;
+        }
+
+
+        .esquina-4 {
+
+            bottom: 0;
+            right: 0;
+
+            border-bottom: 8px solid #15966e;
+            border-right: 8px solid #15966e;
+
+            border-radius: 0 0 11px 0;
+        }
+
+
+        .check {
+
+            position: absolute;
+
+            left: 50%;
+            top: 48%;
+
+            width: 47px;
+            height: 25px;
+
+            border-left: 9px solid #102348;
+            border-bottom: 9px solid #102348;
+
+            transform:
+                translate(-50%, -50%)
+                rotate(-45deg);
+
+            border-radius: 3px;
+        }
+
+
+        /* ==================================================
+           NOMBRE
+        ================================================== */
+
+        .marca-texto {
+            text-align: left;
+        }
+
+
+        .marca-texto h1 {
+
+            font-size: 54px;
+            line-height: 1;
+
+            letter-spacing: 1px;
+
+            font-weight: 900;
+
+            color: #102348;
+        }
+
+
+        .marca-texto p {
+
+            margin-top: 8px;
+
+            font-size: 24px;
+
+            font-weight: 600;
+
+            color: #102348;
+        }
+
+
+        .marca-texto p strong {
+
+            color: #176df5;
+
+            font-weight: 900;
+        }
+
+
+        /* ==================================================
+           CONTROL DE ASISTENCIA
+        ================================================== */
+
+        .subtitulo {
+
+            margin-top: 18px;
+
+            font-size: 18px;
+
+            font-weight: 800;
+
+            letter-spacing: 5px;
+
+            color: #102348;
+        }
+
+
+        .lineas {
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            gap: 10px;
+
+            margin: 25px auto 30px;
+        }
+
+
+        .linea {
+
+            display: block;
+
+            height: 4px;
+
+            border-radius: 20px;
+        }
+
+
+        .linea.azul {
+            width: 50px;
+            background: #176df5;
+        }
+
+
+        .linea.oscura {
+            width: 50px;
+            background: #102348;
+        }
+
+
+        .linea.rosa {
+            width: 50px;
+            background: #ff2f8b;
+        }
+
+
+        .linea.verde {
+            width: 32px;
+            background: #00c86f;
+        }
+
+
+        /* ==================================================
+           MENSAJE PRINCIPAL
+        ================================================== */
+
+        .mensaje {
+
+            margin-top: 5px;
+
+            font-size: 30px;
+
+            font-weight: 800;
+
+            color: #102348;
+        }
+
+
+        .mensaje span {
+            color: #00c86f;
+        }
+
+
+        .descripcion {
+
+            max-width: 520px;
+
+            margin:
+                16px
+                auto
+                0;
+
+            font-size: 18px;
+            line-height: 1.55;
+
+            color: #60708d;
+        }
+
+
+        /* ==================================================
+           CARACTERÍSTICAS
+        ================================================== */
+
+        .caracteristicas {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 25px;
+
+            margin-top: 55px;
+        }
+
+
+        .caracteristica {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            text-align: center;
+        }
+
+
+        .caracteristica-icono {
+
+            width: 58px;
+            height: 58px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-bottom: 13px;
+        }
+
+
+        .caracteristica-icono svg {
+
+            width: 48px;
+            height: 48px;
+
+            fill: none;
+
+            stroke-width: 2;
+
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+
+        .icono-azul svg {
+            stroke: #176df5;
+        }
+
+
+        .icono-oscuro svg {
+            stroke: #102348;
+        }
+
+
+        .icono-rosa svg {
+            stroke: #ff2f8b;
+        }
+
+
+        .icono-verde svg {
+            stroke: #00c86f;
+        }
+
+
+        .caracteristica h3 {
+
+            font-size: 16px;
+
+            font-weight: 800;
+
+            color: #102348;
+        }
+
+
+        .caracteristica p {
+
+            margin-top: 7px;
+
+            font-size: 13px;
+
+            color: #71809a;
+        }
+
+
+        /* ==================================================
+           BOTÓN
+        ================================================== */
+
+        .boton-entrar {
+
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            margin-top: 48px;
+
+            min-width: 220px;
+
+            padding: 15px 30px;
+
+            background: #176df5;
+
+            color: #ffffff;
+
+            border-radius: 9px;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: 800;
+
+            box-shadow:
+                0 10px 25px
+                rgba(23, 109, 245, 0.18);
+
+            transition:
+                transform .2s ease,
+                box-shadow .2s ease;
+        }
+
+
+        .boton-entrar:hover {
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 14px 30px
+                rgba(23, 109, 245, 0.25);
+        }
+
+
+        /* ==================================================
+           MÓVIL
+        ================================================== */
+
+        @media (max-width: 700px) {
+
+            .landing {
+
+                align-items: flex-start;
+
+                padding:
+                    45px
+                    20px;
+            }
+
+
+            .marca {
+
+                flex-direction: column;
+
+                gap: 20px;
+
+                margin-bottom: 28px;
+            }
+
+
+            .logo-simbolo {
+
+                width: 90px;
+                height: 90px;
+            }
+
+
+            .marca-texto {
+
+                text-align: center;
+            }
+
+
+            .marca-texto h1 {
+
+                font-size: 39px;
+            }
+
+
+            .marca-texto p {
+
+                font-size: 20px;
+            }
+
+
+            .subtitulo {
+
+                font-size: 14px;
+
+                letter-spacing: 3px;
+            }
+
+
+            .mensaje {
+
+                font-size: 25px;
+            }
+
+
+            .descripcion {
+
+                font-size: 16px;
+            }
+
+
+            .caracteristicas {
+
+                grid-template-columns:
+                    repeat(2, 1fr);
+
+                gap:
+                    35px
+                    15px;
+
+                margin-top: 45px;
+            }
+
+
+            .boton-entrar {
+
+                width: 100%;
+
+                margin-top: 42px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<main class="landing">
+
+    <div class="landing-contenido">
+
+
+        <!-- LOGO -->
+
+        <div class="marca">
+
+            <div class="logo-simbolo">
+
+                <span class="esquina esquina-1"></span>
+                <span class="esquina esquina-2"></span>
+                <span class="esquina esquina-3"></span>
+                <span class="esquina esquina-4"></span>
+
+                <span class="check"></span>
+
+            </div>
+
+
+            <div class="marca-texto">
+
+                <h1>
+                    PRESENTE
+                </h1>
+
+                <p>
+                    by <strong>RETORIKA</strong>
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUBTÍTULO -->
+
+        <p class="subtitulo">
             CONTROL DE ASISTENCIA
         </p>
 
-        <h1>
-            PRESENTE <span>by Retorika</span>
-        </h1>
 
-        <p class="inicio-descripcion">
-            Gestiona la asistencia a clase de forma rápida, sencilla y segura mediante códigos QR.
+        <!-- LÍNEAS DE IDENTIDAD -->
+
+        <div class="lineas">
+
+            <span class="linea azul"></span>
+            <span class="linea oscura"></span>
+            <span class="linea rosa"></span>
+            <span class="linea verde"></span>
+
+        </div>
+
+
+        <!-- MENSAJE -->
+
+        <h2 class="mensaje">
+            Pasar lista nunca fue
+            <span>tan fácil.</span>
+        </h2>
+
+
+        <p class="descripcion">
+            Control de asistencia por QR para clases
+            rápidas, seguras y fiables.
         </p>
+
+
+        <!-- CARACTERÍSTICAS -->
+
+        <div class="caracteristicas">
+
+
+            <!-- RÁPIDO -->
+
+            <div class="caracteristica">
+
+                <div class="caracteristica-icono icono-azul">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path d="M12 3L5 6v5c0 4.8 2.9 8.2 7 10 4.1-1.8 7-5.2 7-10V6l-7-3z"></path>
+
+                        <path d="M9 12l2 2 4-4"></path>
+
+                    </svg>
+
+                </div>
+
+                <h3>
+                    Rápido
+                </h3>
+
+                <p>
+                    En segundos
+                </p>
+
+            </div>
+
+
+            <!-- SEGURO -->
+
+            <div class="caracteristica">
+
+                <div class="caracteristica-icono icono-oscuro">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <rect
+                            x="5"
+                            y="10"
+                            width="14"
+                            height="11"
+                            rx="2"
+                        ></rect>
+
+                        <path d="M8 10V7a4 4 0 018 0v3"></path>
+
+                        <path d="M12 14v3"></path>
+
+                    </svg>
+
+                </div>
+
+                <h3>
+                    Seguro
+                </h3>
+
+                <p>
+                    Antifraude
+                </p>
+
+            </div>
+
+
+            <!-- INTUITIVO -->
+
+            <div class="caracteristica">
+
+                <div class="caracteristica-icono icono-rosa">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <circle
+                            cx="12"
+                            cy="12"
+                            r="9"
+                        ></circle>
+
+                        <path d="M8.5 10h.01"></path>
+
+                        <path d="M15.5 10h.01"></path>
+
+                        <path d="M8.5 14c1 1.4 2.1 2 3.5 2s2.5-.6 3.5-2"></path>
+
+                    </svg>
+
+                </div>
+
+                <h3>
+                    Intuitivo
+                </h3>
+
+                <p>
+                    Fácil de usar
+                </p>
+
+            </div>
+
+
+            <!-- COMPLETO -->
+
+            <div class="caracteristica">
+
+                <div class="caracteristica-icono icono-verde">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <rect
+                            x="3"
+                            y="14"
+                            width="4"
+                            height="7"
+                        ></rect>
+
+                        <rect
+                            x="10"
+                            y="9"
+                            width="4"
+                            height="12"
+                        ></rect>
+
+                        <rect
+                            x="17"
+                            y="4"
+                            width="4"
+                            height="17"
+                        ></rect>
+
+                    </svg>
+
+                </div>
+
+                <h3>
+                    Completo
+                </h3>
+
+                <p>
+                    Histórico y reportes
+                </p>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- ACCESO -->
+
+        <a
+            href="{% url 'seleccionar_login' %}"
+            class="boton-entrar"
+        >
+            Iniciar sesión
+        </a>
+
 
     </div>
 
-</section>
+</main>
 
-{% endblock %}
+
+</body>
+
+</html>
