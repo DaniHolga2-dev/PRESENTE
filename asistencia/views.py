@@ -556,8 +556,6 @@ def control_asistencia(request):
         'nombre'
     )
 
-    grupos_con_datos = []
-
     total_alumnos_global = 0
     total_registros_global = 0
     total_presentes_global = 0
@@ -568,120 +566,35 @@ def control_asistencia(request):
 
         alumnos = Alumno.objects.filter(
             grupo=grupo
-        ).order_by(
-            'apellidos',
-            'nombre'
         )
 
-        clases = Clase.objects.filter(
-            grupo=grupo
+        total_alumnos_global += alumnos.count()
+
+        asistencias = Asistencia.objects.filter(
+            clase__grupo=grupo
         )
 
-        total_clases_grupo = clases.count()
+        presentes = asistencias.filter(
+            estado='presente'
+        ).count()
 
-        alumnos_con_datos = []
+        tardes = asistencias.filter(
+            estado='tarde'
+        ).count()
 
-        presentes_grupo = 0
-        tardes_grupo = 0
-        ausentes_grupo = 0
-        registros_grupo = 0
+        ausentes = asistencias.filter(
+            estado='ausente'
+        ).count()
 
-        for alumno in alumnos:
+        total_presentes_global += presentes
+        total_tardes_global += tardes
+        total_ausentes_global += ausentes
 
-            asistencias = Asistencia.objects.filter(
-                alumno=alumno,
-                clase__grupo=grupo
-            )
-
-            presentes = asistencias.filter(
-                estado='presente'
-            ).count()
-
-            tardes = asistencias.filter(
-                estado='tarde'
-            ).count()
-
-            ausentes = asistencias.filter(
-                estado='ausente'
-            ).count()
-
-            total_registros = (
-                presentes +
-                tardes +
-                ausentes
-            )
-
-            asistencias_validas = (
-                presentes +
-                tardes
-            )
-
-            if total_registros > 0:
-
-                porcentaje = round(
-                    (
-                        asistencias_validas /
-                        total_registros
-                    ) * 100,
-                    1
-                )
-
-            else:
-
-                porcentaje = 0
-
-            alumnos_con_datos.append({
-                'alumno': alumno,
-                'presentes': presentes,
-                'tardes': tardes,
-                'ausentes': ausentes,
-                'total_registros': total_registros,
-                'porcentaje': porcentaje,
-            })
-
-            presentes_grupo += presentes
-            tardes_grupo += tardes
-            ausentes_grupo += ausentes
-            registros_grupo += total_registros
-
-        asistencias_validas_grupo = (
-            presentes_grupo +
-            tardes_grupo
+        total_registros_global += (
+            presentes +
+            tardes +
+            ausentes
         )
-
-        if registros_grupo > 0:
-
-            porcentaje_grupo = round(
-                (
-                    asistencias_validas_grupo /
-                    registros_grupo
-                ) * 100,
-                1
-            )
-
-        else:
-
-            porcentaje_grupo = 0
-
-        total_alumnos_grupo = alumnos.count()
-
-        grupos_con_datos.append({
-            'grupo': grupo,
-            'alumnos': alumnos_con_datos,
-            'total_alumnos': total_alumnos_grupo,
-            'total_clases': total_clases_grupo,
-            'presentes': presentes_grupo,
-            'tardes': tardes_grupo,
-            'ausentes': ausentes_grupo,
-            'total_registros': registros_grupo,
-            'porcentaje': porcentaje_grupo,
-        })
-
-        total_alumnos_global += total_alumnos_grupo
-        total_registros_global += registros_grupo
-        total_presentes_global += presentes_grupo
-        total_tardes_global += tardes_grupo
-        total_ausentes_global += ausentes_grupo
 
     asistencias_validas_global = (
         total_presentes_global +
@@ -702,24 +615,156 @@ def control_asistencia(request):
 
         porcentaje_global = 0
 
+
     # =====================================================
     # JUSTIFICACIONES PENDIENTES
     # =====================================================
 
-    justificaciones_pendientes = Justificacion.objects.filter(
-        asistencia__clase__grupo__profesor=profesor,
-        estado='pendiente'
-    ).count()
+    justificaciones_pendientes = (
+        Justificacion.objects.filter(
+            asistencia__clase__grupo__profesor=profesor,
+            estado='pendiente'
+        ).count()
+    )
+
+
+    # =====================================================
+    # ÚLTIMOS REGISTROS
+    # =====================================================
+
+    ultimos_registros = (
+        Asistencia.objects.filter(
+            clase__grupo__profesor=profesor,
+            estado__in=[
+                'presente',
+                'tarde'
+            ]
+        )
+        .select_related(
+            'alumno',
+            'clase',
+            'clase__grupo'
+        )
+        .exclude(
+            hora_registro__isnull=True
+        )
+        .order_by(
+            '-clase__fecha',
+            '-hora_registro'
+        )[:5]
+    )
+
+
+    # =====================================================
+    # PRÓXIMAS CLASES
+    # =====================================================
+
+    hoy = timezone.localdate()
+    ahora = timezone.localtime()
+
+    proximas_clases_query = (
+        Clase.objects.filter(
+            grupo__profesor=profesor,
+            fecha__gte=hoy
+        )
+        .select_related(
+            'grupo'
+        )
+        .order_by(
+            'fecha',
+            'hora_inicio'
+        )
+    )
+
+    proximas_clases = []
+
+    for clase in proximas_clases_query:
+
+        if (
+            clase.fecha == hoy and
+            clase.hora_inicio < ahora.time()
+        ):
+            continue
+
+        proximas_clases.append(
+            clase
+        )
+
+        if len(proximas_clases) == 3:
+            break
+
+
+    # =====================================================
+    # CLASES DE HOY
+    # =====================================================
+
+    clases_hoy = (
+        Clase.objects.filter(
+            grupo__profesor=profesor,
+            fecha=hoy
+        )
+        .select_related(
+            'grupo'
+        )
+        .order_by(
+            'hora_inicio'
+        )
+    )
+
+
+    # =====================================================
+    # QR DE LAS CLASES QUE YA ESTÉN ABIERTAS
+    # =====================================================
+
+    clases_hoy_datos = []
+
+    for clase in clases_hoy:
+
+        qr_base64 = None
+
+        if clase.asistencia_abierta:
+
+            if not clase.token_qr_generado_en:
+
+                clase.token_qr = uuid.uuid4()
+                clase.token_qr_generado_en = timezone.now()
+
+                clase.save(
+                    update_fields=[
+                        'token_qr',
+                        'token_qr_generado_en'
+                    ]
+                )
+
+            url_qr = request.build_absolute_uri(
+                f'/asistencia/registrar/{clase.token_qr}/'
+            )
+
+            qr_base64 = generar_qr_base64(
+                url_qr
+            )
+
+        clases_hoy_datos.append({
+            'clase': clase,
+            'qr_base64': qr_base64,
+        })
+
+
+    # =====================================================
+    # RENDER
+    # =====================================================
 
     return render(
         request,
         'asistencia/control_asistencia.html',
         {
             'profesor': profesor,
-            'grupos_con_datos': grupos_con_datos,
 
-            'total_grupos': grupos.count(),
-            'total_alumnos': total_alumnos_global,
+            'total_grupos':
+                grupos.count(),
+
+            'total_alumnos':
+                total_alumnos_global,
 
             'total_presentes':
                 total_presentes_global,
@@ -738,10 +783,62 @@ def control_asistencia(request):
 
             'justificaciones_pendientes':
                 justificaciones_pendientes,
+
+            'ultimos_registros':
+                ultimos_registros,
+
+            'proximas_clases':
+                proximas_clases,
+
+            'clases_hoy':
+                clases_hoy_datos,
         }
     )
 
 
+# =========================================================
+# PROFESOR - TODOS LOS REGISTROS DE ASISTENCIA
+# =========================================================
+
+def registros_asistencia(request):
+
+    profesor_id = request.session.get(
+        'profesor_id'
+    )
+
+    if not profesor_id:
+        return redirect(
+            'seleccionar_login'
+        )
+
+    profesor = get_object_or_404(
+        Profesor,
+        id=profesor_id
+    )
+
+    registros = (
+        Asistencia.objects.filter(
+            clase__grupo__profesor=profesor
+        )
+        .select_related(
+            'alumno',
+            'clase',
+            'clase__grupo'
+        )
+        .order_by(
+            '-clase__fecha',
+            '-hora_registro'
+        )
+    )
+
+    return render(
+        request,
+        'asistencia/registros_asistencia.html',
+        {
+            'profesor': profesor,
+            'registros': registros,
+        }
+    )
 # =========================================================
 # PROFESOR - SOPORTE
 # =========================================================
@@ -1162,6 +1259,7 @@ def clases_alumno(request):
         if asistencia:
 
             estado = asistencia.estado
+
             estado_texto = (
                 asistencia.get_estado_display()
             )
@@ -1187,12 +1285,11 @@ def clases_alumno(request):
         'asistencia/clases_alumno.html',
         {
             'alumno': alumno,
+
             'clases_con_estado':
                 clases_con_estado,
         }
     )
-
-
 # =========================================================
 # FICHAJE QR
 # =========================================================

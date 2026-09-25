@@ -6,29 +6,15 @@
 
 <section class="panel-usuario">
 
-    <div
-        class="panel-contenedor"
-        style="max-width:1180px;"
-    >
+    <div class="panel-contenedor" style="max-width:1180px;">
 
         <!-- =====================================================
              CABECERA
         ====================================================== -->
 
-        <div
-            class="panel-cabecera"
-            style="
-                display:flex;
-                align-items:flex-end;
-                justify-content:space-between;
-                gap:25px;
-                flex-wrap:wrap;
-                margin-bottom:28px;
-            "
-        >
+        <div class="cabecera-control">
 
             <div>
-
                 <p class="panel-etiqueta">
                     ÁREA DEL PROFESOR
                 </p>
@@ -40,31 +26,12 @@
                 <p class="panel-subtitulo">
                     Consulta el seguimiento general de tus alumnos y grupos.
                 </p>
-
             </div>
 
 
-            <!-- =================================================
-                 FECHA ACTUAL
-            ================================================== -->
+            <!-- FECHA -->
 
-            <div
-                style="
-                    display:flex;
-                    align-items:center;
-                    gap:10px;
-                    padding:10px 15px;
-                    border:1px solid #E5E7EB;
-                    border-radius:9px;
-                    background:#FFFFFF;
-                    color:#101828;
-                    font-size:12px;
-                    font-weight:600;
-                    box-shadow:0 2px 6px rgba(16,24,40,0.03);
-                "
-            >
-
-                <!-- CALENDARIO AZUL -->
+            <div class="fecha-actual">
 
                 <svg
                     width="18"
@@ -75,39 +42,12 @@
                     stroke-width="2"
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    aria-hidden="true"
                 >
-                    <rect
-                        x="3"
-                        y="5"
-                        width="18"
-                        height="16"
-                        rx="2"
-                    ></rect>
-
-                    <line
-                        x1="16"
-                        y1="3"
-                        x2="16"
-                        y2="7"
-                    ></line>
-
-                    <line
-                        x1="8"
-                        y1="3"
-                        x2="8"
-                        y2="7"
-                    ></line>
-
-                    <line
-                        x1="3"
-                        y1="11"
-                        x2="21"
-                        y2="11"
-                    ></line>
-
+                    <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                    <line x1="16" y1="3" x2="16" y2="7"></line>
+                    <line x1="8" y1="3" x2="8" y2="7"></line>
+                    <line x1="3" y1="11" x2="21" y2="11"></line>
                 </svg>
-
 
                 <span id="fechaActual">
                     {% now "d/m/Y" %}
@@ -119,119 +59,37 @@
 
 
         <!-- =====================================================
-             RESUMEN GENERAL
+             RESUMEN SUPERIOR
         ====================================================== -->
 
-        <div
-            class="resumen-asistencia"
-            style="
-                display:grid;
-                grid-template-columns:repeat(4, minmax(150px, 1fr));
-                gap:18px;
-                margin-bottom:26px;
-            "
-        >
+        <div class="resumen-asistencia">
 
+            <!-- GRÁFICA -->
 
-            <!-- =================================================
-                 ASISTENCIA SEMANAL
-            ================================================== -->
+            <div class="tarjeta-semanal">
 
-            <div
-                class="tarjeta-semanal"
-                style="
-                    grid-column:span 2;
-                    grid-row:span 2;
-                    padding:20px 22px;
-                    border-radius:16px;
-                    background:#FFFFFF;
-                    border:1px solid #E5E7EB;
-                    box-shadow:0 6px 18px rgba(16,24,40,0.05);
-                "
-            >
+                <div class="cabecera-semanal">
 
-                <div
-                    style="
-                        display:flex;
-                        align-items:center;
-                        justify-content:space-between;
-                        gap:15px;
-                        margin-bottom:20px;
-                    "
-                >
-
-                    <strong
-                        style="
-                            color:#101828;
-                            font-size:14px;
-                            font-weight:700;
-                        "
-                    >
+                    <strong>
                         Asistencia semanal (promedio)
                     </strong>
 
-
-                    <span
-                        style="
-                            display:inline-flex;
-                            align-items:center;
-                            gap:6px;
-                            padding:7px 10px;
-                            border:1px solid #E5E7EB;
-                            border-radius:8px;
-                            color:#475467;
-                            font-size:10px;
-                            font-weight:600;
-                            background:#FFFFFF;
-                        "
-                    >
+                    <span>
                         Esta semana
-
-                        <span style="font-size:9px;">
-                           ⌄
-                        </span>
-
                     </span>
 
                 </div>
 
 
-                <div
-                    class="contenido-semanal"
-                    style="
-                        display:grid;
-                        grid-template-columns:minmax(220px,1.7fr) minmax(130px,1fr);
-                        align-items:center;
-                    "
-                >
+                <div class="contenido-semanal">
 
-                    <!-- GRÁFICA -->
+                    <div class="grafica-semanal">
 
-                    <div
-                        class="grafica-semanal"
-                        style="
-                            padding-right:24px;
-                            border-right:1px solid #EAECF0;
-                        "
-                    >
-
-                        <div
-                            style="
-                                position:relative;
-                                height:105px;
-                                margin:0 8px;
-                            "
-                        >
+                        <div class="grafica-svg">
 
                             <svg
                                 viewBox="0 0 300 100"
                                 preserveAspectRatio="none"
-                                style="
-                                    display:block;
-                                    width:100%;
-                                    height:100%;
-                                    overflow:visible;
-                                "
                             >
 
                                 <polyline
@@ -243,14 +101,12 @@
                                     stroke-linejoin="round"
                                 ></polyline>
 
-
                                 <circle
                                     cx="10"
                                     cy="78"
                                     r="5"
                                     fill="#156FE7"
                                 ></circle>
-
 
                                 <circle
                                     cx="75"
@@ -261,7 +117,6 @@
                                     stroke-width="3"
                                 ></circle>
 
-
                                 <circle
                                     cx="140"
                                     cy="48"
@@ -271,7 +126,6 @@
                                     stroke-width="3"
                                 ></circle>
 
-
                                 <circle
                                     cx="205"
                                     cy="64"
@@ -280,7 +134,6 @@
                                     stroke="#156FE7"
                                     stroke-width="3"
                                 ></circle>
-
 
                                 <circle
                                     cx="290"
@@ -294,100 +147,26 @@
                         </div>
 
 
-                        <div
-                            style="
-                                display:flex;
-                                align-items:center;
-                                justify-content:space-between;
-                                padding:7px 3px 0;
-                                color:#667085;
-                                font-size:10px;
-                                font-weight:500;
-                            "
-                        >
-
+                        <div class="dias-grafica">
                             <span>Lun</span>
                             <span>Mar</span>
                             <span>Mié</span>
                             <span>Jue</span>
                             <span>Vie</span>
-
                         </div>
 
                     </div>
 
 
-                    <!-- PROMEDIO -->
+                    <div class="promedio-semanal">
 
-                    <div
-                        class="promedio-semanal"
-                        style="
-                            display:flex;
-                            flex-direction:column;
-                            align-items:center;
-                            justify-content:center;
-                            text-align:center;
-                            padding-left:24px;
-                        "
-                    >
-
-                        <strong
-                            style="
-                                display:block;
-                                margin-bottom:6px;
-                                color:#03D26E;
-                                font-size:38px;
-                                line-height:1;
-                                font-weight:700;
-                            "
-                        >
+                        <strong>
                             {{ porcentaje_global }}%
                         </strong>
 
-
-                        <span
-                            style="
-                                display:block;
-                                margin-bottom:21px;
-                                color:#667085;
-                                font-size:11px;
-                                font-weight:500;
-                            "
-                        >
+                        <span>
                             Promedio general
                         </span>
-
-
-                        <div
-                            style="
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                gap:4px;
-                                font-size:10px;
-                            "
-                        >
-
-                            <span
-                                style="
-                                    color:#03D26E;
-                                    font-weight:700;
-                                "
-                            >
-                                ↑ 6%
-                            </span>
-
-
-                            <span
-                                style="
-                                    color:#667085;
-                                    font-weight:500;
-                                "
-                            >
-                                vs semana pasada
-                            </span>
-
-                        </div>
 
                     </div>
 
@@ -396,398 +175,134 @@
             </div>
 
 
-            <!-- =================================================
-                 PRESENTES
-            ================================================== -->
+            <!-- PRESENTES -->
 
-            <div
-                class="tarjeta-resumen"
-                style="
-                    padding:20px;
-                    border-radius:16px;
-                    background:#F0FFF7;
-                    border:1px solid #C9F4DE;
-                    display:flex;
-                    align-items:center;
-                    gap:15px;
-                "
-            >
+            <div class="tarjeta-resumen tarjeta-presentes">
 
-                <!-- ICONO USUARIOS VERDE -->
-
-                <div
-                    style="
-                        width:50px;
-                        height:50px;
-                        flex-shrink:0;
-                        border-radius:11px;
-                        background:#E7FAF0;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                    "
+                <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#03C26E"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                 >
-
-                    <svg
-                        width="31"
-                        height="31"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#03C26E"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-
-                        <circle
-                            cx="9"
-                            cy="7"
-                            r="4"
-                        ></circle>
-
-                        <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-
-                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-
-                    </svg>
-
-                </div>
-
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
 
                 <div>
-
-                    <strong
-                        style="
-                            display:block;
-                            margin-bottom:4px;
-                            color:#101828;
-                            font-size:30px;
-                            line-height:1;
-                        "
-                    >
+                    <strong class="numero-resumen">
                         {{ total_presentes }}
                     </strong>
 
-
-                    <span
-                        style="
-                            display:block;
-                            color:#101828;
-                            font-size:12px;
-                            font-weight:700;
-                        "
-                    >
+                    <span class="texto-resumen">
                         Presentes hoy
                     </span>
-
                 </div>
 
             </div>
 
 
-            <!-- =================================================
-                 RETRASOS
-            ================================================== -->
+            <!-- RETRASOS -->
 
-            <div
-                class="tarjeta-resumen"
-                style="
-                    padding:20px;
-                    border-radius:16px;
-                    background:#FFF0F8;
-                    border:1px solid #FFD0E9;
-                    display:flex;
-                    align-items:center;
-                    gap:15px;
-                "
-            >
+            <div class="tarjeta-resumen tarjeta-retrasos">
 
-                <!-- RELOJ ROSA -->
-
-                <div
-                    style="
-                        width:50px;
-                        height:50px;
-                        flex-shrink:0;
-                        border-radius:11px;
-                        background:#FFE5F3;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                    "
+                <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#FF3AA7"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                 >
-
-                    <svg
-                        width="31"
-                        height="31"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#FF3AA7"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-
-                        <circle
-                            cx="12"
-                            cy="12"
-                            r="9"
-                        ></circle>
-
-                        <polyline
-                            points="12 7 12 12 15 14"
-                        ></polyline>
-
-                    </svg>
-
-                </div>
-
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <polyline points="12 7 12 12 15 14"></polyline>
+                </svg>
 
                 <div>
-
-                    <strong
-                        style="
-                            display:block;
-                            margin-bottom:4px;
-                            color:#101828;
-                            font-size:30px;
-                            line-height:1;
-                        "
-                    >
+                    <strong class="numero-resumen">
                         {{ total_tardes }}
                     </strong>
 
-
-                    <span
-                        style="
-                            display:block;
-                            color:#101828;
-                            font-size:12px;
-                            font-weight:700;
-                        "
-                    >
-                        Tarde hoy
+                    <span class="texto-resumen">
+                        Retrasos hoy
                     </span>
-
                 </div>
 
             </div>
 
 
-            <!-- =================================================
-                 AUSENCIAS
-            ================================================== -->
+            <!-- AUSENCIAS -->
 
-            <div
-                class="tarjeta-resumen"
-                style="
-                    padding:20px;
-                    border-radius:16px;
-                    background:#F8F9FB;
-                    border:1px solid #E4E7EC;
-                    display:flex;
-                    align-items:center;
-                    gap:15px;
-                "
-            >
+            <div class="tarjeta-resumen tarjeta-ausencias">
 
-                <!-- USUARIO CON X GRIS -->
-
-                <div
-                    style="
-                        width:50px;
-                        height:50px;
-                        flex-shrink:0;
-                        border-radius:11px;
-                        background:#F1F3F5;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                    "
+                <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#667085"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                 >
-
-                    <svg
-                        width="31"
-                        height="31"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#667085"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-
-                        <path d="M15 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-
-                        <circle
-                            cx="8"
-                            cy="7"
-                            r="4"
-                        ></circle>
-
-                        <line
-                            x1="18"
-                            y1="8"
-                            x2="23"
-                            y2="13"
-                        ></line>
-
-                        <line
-                            x1="23"
-                            y1="8"
-                            x2="18"
-                            y2="13"
-                        ></line>
-
-                    </svg>
-
-                </div>
-
+                    <path d="M15 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8" cy="7" r="4"></circle>
+                    <line x1="18" y1="8" x2="23" y2="13"></line>
+                    <line x1="23" y1="8" x2="18" y2="13"></line>
+                </svg>
 
                 <div>
-
-                    <strong
-                        style="
-                            display:block;
-                            margin-bottom:4px;
-                            color:#101828;
-                            font-size:30px;
-                            line-height:1;
-                        "
-                    >
+                    <strong class="numero-resumen">
                         {{ total_ausentes }}
                     </strong>
 
-
-                    <span
-                        style="
-                            display:block;
-                            color:#101828;
-                            font-size:12px;
-                            font-weight:700;
-                        "
-                    >
+                    <span class="texto-resumen">
                         Ausentes hoy
                     </span>
-
                 </div>
 
             </div>
 
 
-            <!-- =================================================
-                 JUSTIFICACIONES
-            ================================================== -->
+            <!-- JUSTIFICACIONES -->
 
-            <div
-                class="tarjeta-resumen"
-                style="
-                    padding:20px;
-                    border-radius:16px;
-                    background:#EEF6FF;
-                    border:1px solid #CFE3FF;
-                    display:flex;
-                    align-items:center;
-                    gap:15px;
-                "
-            >
+            <div class="tarjeta-resumen tarjeta-justificaciones">
 
-                <!-- DOCUMENTO AZUL -->
-
-                <div
-                    style="
-                        width:50px;
-                        height:50px;
-                        flex-shrink:0;
-                        border-radius:11px;
-                        background:#E4F0FF;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                    "
+                <svg
+                    width="32"
+                    height="32"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#156FE7"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
                 >
-
-                    <svg
-                        width="31"
-                        height="31"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#156FE7"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        aria-hidden="true"
-                    >
-
-                        <path
-                            d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                        ></path>
-
-                        <polyline
-                            points="14 2 14 8 20 8"
-                        ></polyline>
-
-                        <line
-                            x1="8"
-                            y1="13"
-                            x2="16"
-                            y2="13"
-                        ></line>
-
-                        <line
-                            x1="8"
-                            y1="17"
-                            x2="16"
-                            y2="17"
-                        ></line>
-
-                    </svg>
-
-                </div>
-
+                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                    <polyline points="14 2 14 8 20 8"></polyline>
+                </svg>
 
                 <div>
 
-                    <strong
-                        style="
-                            display:block;
-                            margin-bottom:4px;
-                            color:#101828;
-                            font-size:30px;
-                            line-height:1;
-                        "
-                    >
+                    <strong class="numero-resumen">
                         {{ justificaciones_pendientes }}
                     </strong>
 
-
-                    <span
-                        style="
-                            display:block;
-                            margin-bottom:6px;
-                            color:#101828;
-                            font-size:12px;
-                            font-weight:700;
-                            line-height:1.3;
-                        "
-                    >
+                    <span class="texto-resumen">
                         Justificaciones pendientes
                     </span>
 
-
                     <a
                         href="{% url 'justificaciones_profesor' %}"
-                        style="
-                            color:#156FE7;
-                            font-size:11px;
-                            font-weight:700;
-                            text-decoration:none;
-                        "
+                        class="enlace-azul enlace-justificaciones"
                     >
                         Ver justificantes →
                     </a>
@@ -800,544 +315,479 @@
 
 
         <!-- =====================================================
-             GRUPOS
+             ÚLTIMOS REGISTROS + PRÓXIMAS CLASES
         ====================================================== -->
 
-        {% for bloque in grupos_con_datos %}
+        <div class="bloque-doble">
 
-            <div
-                class="panel-tarjeta"
-                style="
-                    margin-bottom:24px;
-                    overflow:hidden;
-                "
-            >
+            <!-- ÚLTIMOS REGISTROS -->
 
-                <!-- CABECERA GRUPO -->
+            <div class="tarjeta-principal">
 
-                <div
-                    style="
-                        display:flex;
-                        align-items:center;
-                        justify-content:space-between;
-                        gap:20px;
-                        flex-wrap:wrap;
-                        padding-bottom:20px;
-                        border-bottom:1px solid #EAECF0;
-                    "
-                >
+                <div class="cabecera-tarjeta">
 
                     <div>
-
-                        <p
-                            style="
-                                margin:0 0 5px 0;
-                                color:#156FE7;
-                                font-size:11px;
-                                font-weight:800;
-                                letter-spacing:.04em;
-                            "
-                        >
-                            {{ bloque.grupo.nombre }}
-                        </p>
-
-
-                        <h2
-                            style="
-                                margin:0 0 5px 0;
-                                color:#101828;
-                                font-size:21px;
-                            "
-                        >
-                            {{ bloque.grupo.asignatura }}
+                        <h2>
+                            Últimos registros
                         </h2>
 
-
-                        <p
-                            style="
-                                margin:0;
-                                color:#667085;
-                                font-size:13px;
-                            "
-                        >
-                            {{ bloque.total_alumnos }} alumnos
-                            ·
-                            {{ bloque.total_clases }} clases
+                        <p>
+                            Últimas asistencias registradas
                         </p>
-
                     </div>
 
-
-                    <!-- RESUMEN GRUPO -->
-
-                    <div
-                        style="
-                            display:flex;
-                            align-items:center;
-                            gap:12px;
-                            flex-wrap:wrap;
-                        "
+                    <a
+                        href="{% url 'registros_asistencia' %}"
+                        class="enlace-azul"
                     >
-
-                        <!-- PRESENTES -->
-
-                        <span
-                            style="
-                                padding:7px 11px;
-                                border-radius:999px;
-                                background:#E8FFF3;
-                                color:#03D26E;
-                                font-size:12px;
-                                font-weight:700;
-                                display:inline-flex;
-                                align-items:center;
-                                gap:6px;
-                            "
-                        >
-
-                            <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <rect
-                                    x="3"
-                                    y="3"
-                                    width="18"
-                                    height="18"
-                                    rx="2"
-                                ></rect>
-
-                                <polyline
-                                    points="9 11 12 14 17 9"
-                                ></polyline>
-                            </svg>
-
-                            {{ bloque.presentes }}
-
-                        </span>
-
-
-                        <!-- RETRASOS -->
-
-                        <span
-                            style="
-                                padding:7px 11px;
-                                border-radius:999px;
-                                background:#FFF0F8;
-                                color:#FF3AA7;
-                                font-size:12px;
-                                font-weight:700;
-                                display:inline-flex;
-                                align-items:center;
-                                gap:6px;
-                            "
-                        >
-
-                            <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <circle
-                                    cx="12"
-                                    cy="12"
-                                    r="9"
-                                ></circle>
-
-                                <polyline
-                                    points="12 7 12 12 15 14"
-                                ></polyline>
-                            </svg>
-
-                            {{ bloque.tardes }}
-
-                        </span>
-
-
-                        <!-- AUSENCIAS -->
-
-                        <span
-                            style="
-                                padding:7px 11px;
-                                border-radius:999px;
-                                background:#FFF1F1;
-                                color:#B42318;
-                                font-size:12px;
-                                font-weight:700;
-                                display:inline-flex;
-                                align-items:center;
-                                gap:6px;
-                            "
-                        >
-
-                            <svg
-                                width="14"
-                                height="14"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                            >
-                                <line
-                                    x1="6"
-                                    y1="6"
-                                    x2="18"
-                                    y2="18"
-                                ></line>
-
-                                <line
-                                    x1="18"
-                                    y1="6"
-                                    x2="6"
-                                    y2="18"
-                                ></line>
-                            </svg>
-
-                            {{ bloque.ausentes }}
-
-                        </span>
-
-
-                        <!-- PORCENTAJE -->
-
-                        <span
-                            style="
-                                padding:8px 13px;
-                                border-radius:999px;
-                                background:#101828;
-                                color:#FFFFFF;
-                                font-size:12px;
-                                font-weight:800;
-                            "
-                        >
-                            {{ bloque.porcentaje }}%
-                        </span>
-
-                    </div>
+                        Ver todos →
+                    </a>
 
                 </div>
 
 
-                <!-- =================================================
-                     ALUMNOS
-                ================================================== -->
+                {% for registro in ultimos_registros %}
 
-                <div style="margin-top:6px;">
+                    <div class="registro">
 
-                    {% for dato in bloque.alumnos %}
+                        <div class="registro-alumno">
 
-                        <div
-                            class="fila-alumno"
-                            style="
-                                display:grid;
-                                grid-template-columns:minmax(220px,2fr) repeat(4,minmax(90px,1fr));
-                                gap:14px;
-                                align-items:center;
-                                padding:17px 4px;
-                                border-bottom:1px solid #F0F1F3;
-                            "
-                        >
+                            {% if registro.alumno.foto %}
 
-                            <!-- PERFIL -->
+                                <img
+                                    src="{{ registro.alumno.foto.url }}"
+                                    alt="{{ registro.alumno.nombre }}"
+                                >
 
-                            <div
-                                style="
-                                    display:flex;
-                                    align-items:center;
-                                    gap:13px;
-                                    min-width:0;
-                                "
+                            {% else %}
+
+                                <div class="avatar">
+                                    {{ registro.alumno.nombre|first }}
+                                </div>
+
+                            {% endif %}
+
+
+                            <div class="datos-registro">
+
+                                <strong>
+                                    {{ registro.alumno.nombre }}
+                                    {{ registro.alumno.apellidos }}
+                                </strong>
+
+                                <span>
+                                    {{ registro.clase.grupo.asignatura }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <span class="hora-registro">
+
+                            {% if registro.hora_registro %}
+                                {{ registro.hora_registro|time:"H:i" }}
+                            {% else %}
+                                —
+                            {% endif %}
+
+                        </span>
+
+
+                        {% if registro.estado == 'presente' %}
+
+                            <span class="estado estado-presente">
+                                ● Presente
+                            </span>
+
+                        {% elif registro.estado == 'tarde' %}
+
+                            <span class="estado estado-tarde">
+                                ● Tarde
+                            </span>
+
+                        {% elif registro.estado == 'ausente' %}
+
+                            <span class="estado estado-ausente">
+                                ● Ausente
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="vacio">
+                        Todavía no hay registros de asistencia.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <!-- PRÓXIMAS CLASES -->
+
+            <div class="tarjeta-principal">
+
+                <div class="cabecera-tarjeta">
+
+                    <div>
+                        <h2>
+                            Próximas clases
+                        </h2>
+
+                        <p>
+                            Clases programadas
+                        </p>
+                    </div>
+
+                    <a
+                        href="{% url 'clases_profesor' %}"
+                        class="enlace-azul"
+                    >
+                        Ver calendario →
+                    </a>
+
+                </div>
+
+
+                {% for clase in proximas_clases %}
+
+                    <div class="proxima-clase">
+
+                        <div class="fecha-clase">
+
+                            <span>
+                                {{ clase.fecha|date:"D" }}
+                            </span>
+
+                            <strong>
+                                {{ clase.fecha|date:"d" }}
+                            </strong>
+
+                        </div>
+
+
+                        <div class="datos-clase">
+
+                            <strong>
+                                {{ clase.grupo.asignatura }}
+                            </strong>
+
+                            <span>
+                                {{ clase.grupo.nombre }}
+                            </span>
+
+                        </div>
+
+
+                        <div class="hora-clase">
+
+                            <svg
+                                width="15"
+                                height="15"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
                             >
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <polyline points="12 7 12 12 15 14"></polyline>
+                            </svg>
 
-                                {% if dato.alumno.foto %}
+                            {{ clase.hora_inicio|time:"H:i" }}
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <div class="vacio">
+                        No hay próximas clases programadas.
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             ASISTENCIA DE HOY
+        ====================================================== -->
+
+        <div class="tarjeta-asistencia-hoy">
+
+            <div class="cabecera-asistencia-hoy">
+
+                <div>
+                    <h2>
+                        Asistencia de hoy
+                    </h2>
+
+                    <p>
+                        Abre la asistencia de la clase y permite a los alumnos
+                        registrar su entrada mediante código QR.
+                    </p>
+                </div>
+
+
+                <div class="icono-qr">
+
+                    <svg
+                        width="25"
+                        height="25"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="#156FE7"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    >
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
+                        <path d="M14 14h3v3h-3z"></path>
+                        <path d="M18 14h3"></path>
+                        <path d="M21 14v3"></path>
+                        <path d="M14 21h3"></path>
+                        <path d="M17 18h4v3"></path>
+                    </svg>
+
+                </div>
+
+            </div>
+
+
+            {% for item in clases_hoy %}
+
+                <div class="clase-hoy">
+
+                    <!-- INFORMACIÓN DE LA CLASE -->
+
+                    <div class="informacion-clase-hoy">
+
+                        <div class="icono-clase">
+
+                            <svg
+                                width="23"
+                                height="23"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#156FE7"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                                <line x1="16" y1="3" x2="16" y2="7"></line>
+                                <line x1="8" y1="3" x2="8" y2="7"></line>
+                                <line x1="3" y1="11" x2="21" y2="11"></line>
+                            </svg>
+
+                        </div>
+
+
+                        <div>
+
+                            <span class="etiqueta-hoy">
+                                CLASE DE HOY
+                            </span>
+
+                            <h3>
+                                {{ item.clase.grupo.asignatura }}
+                            </h3>
+
+                            <p>
+                                {{ item.clase.grupo.nombre }}
+                                ·
+                                {{ item.clase.hora_inicio|time:"H:i" }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ASISTENCIA ABIERTA -->
+
+                    {% if item.clase.asistencia_abierta %}
+
+                        <div class="zona-qr">
+
+                            <div class="qr-contenedor">
+
+                                {% if item.qr_base64 %}
 
                                     <img
-                                        src="{{ dato.alumno.foto.url }}"
-                                        alt="Foto de {{ dato.alumno.nombre }}"
-                                        style="
-                                            width:46px;
-                                            height:46px;
-                                            border-radius:50%;
-                                            object-fit:cover;
-                                            border:2px solid #F2F4F7;
-                                            flex-shrink:0;
-                                        "
+                                        id="qr-{{ item.clase.id }}"
+                                        class="qr-dinamico"
+                                        data-renovar-url="{% url 'renovar_qr' item.clase.id %}"
+                                        src="data:image/png;base64,{{ item.qr_base64 }}"
+                                        alt="Código QR de asistencia"
                                     >
-
-                                {% else %}
-
-                                    <div
-                                        style="
-                                            width:46px;
-                                            height:46px;
-                                            border-radius:50%;
-                                            background:#F2F4F7;
-                                            display:flex;
-                                            align-items:center;
-                                            justify-content:center;
-                                            color:#475467;
-                                            font-weight:700;
-                                            flex-shrink:0;
-                                        "
-                                    >
-                                        {{ dato.alumno.nombre|first }}
-                                    </div>
 
                                 {% endif %}
 
 
-                                <div style="min-width:0;">
+                                <div class="qr-info">
 
-                                    <strong
-                                        style="
-                                            display:block;
-                                            color:#101828;
-                                            font-size:14px;
-                                            margin-bottom:3px;
-                                        "
-                                    >
-                                        {{ dato.alumno.nombre }}
-                                        {{ dato.alumno.apellidos }}
-                                    </strong>
-
-
-                                    <span
-                                        style="
-                                            color:#667085;
-                                            font-size:12px;
-                                        "
-                                    >
-                                        {{ dato.alumno.email }}
+                                    <span class="estado-abierta">
+                                        <span></span>
+                                        Clase activa
                                     </span>
 
-                                </div>
-
-                            </div>
-
-
-                            <!-- PRESENTES -->
-
-                            <div style="text-align:center;">
-
-                                <span
-                                    style="
-                                        display:block;
-                                        font-size:11px;
-                                        color:#98A2B3;
-                                        margin-bottom:3px;
-                                    "
-                                >
-                                    Presentes
-                                </span>
-
-
-                                <strong
-                                    style="
-                                        color:#03D26E;
-                                        font-size:15px;
-                                    "
-                                >
-                                    ✓ {{ dato.presentes }}
-                                </strong>
-
-                            </div>
-
-
-                            <!-- RETRASOS -->
-
-                            <div style="text-align:center;">
-
-                                <span
-                                    style="
-                                        display:block;
-                                        font-size:11px;
-                                        color:#98A2B3;
-                                        margin-bottom:3px;
-                                    "
-                                >
-                                    Retrasos
-                                </span>
-
-
-                                <strong
-                                    style="
-                                        color:#FF3AA7;
-                                        font-size:15px;
-                                    "
-                                >
-                                    ◷ {{ dato.tardes }}
-                                </strong>
-
-                            </div>
-
-
-                            <!-- AUSENCIAS -->
-
-                            <div style="text-align:center;">
-
-                                <span
-                                    style="
-                                        display:block;
-                                        font-size:11px;
-                                        color:#98A2B3;
-                                        margin-bottom:3px;
-                                    "
-                                >
-                                    Ausencias
-                                </span>
-
-
-                                <strong
-                                    style="
-                                        color:#B42318;
-                                        font-size:15px;
-                                    "
-                                >
-                                    × {{ dato.ausentes }}
-                                </strong>
-
-                            </div>
-
-
-                            <!-- ASISTENCIA -->
-
-                            <div style="text-align:right;">
-
-                                <span
-                                    style="
-                                        display:block;
-                                        font-size:11px;
-                                        color:#98A2B3;
-                                        margin-bottom:6px;
-                                    "
-                                >
-                                    Asistencia
-                                </span>
-
-
-                                <div
-                                    style="
-                                        display:flex;
-                                        align-items:center;
-                                        justify-content:flex-end;
-                                        gap:8px;
-                                    "
-                                >
-
-                                    <div
-                                        style="
-                                            width:70px;
-                                            height:7px;
-                                            background:#EAECF0;
-                                            border-radius:999px;
-                                            overflow:hidden;
-                                        "
-                                    >
-
-                                        <div
-                                            class="barra-asistencia"
-                                            data-porcentaje="{{ dato.porcentaje }}"
-                                            style="
-                                                width:0;
-                                                height:100%;
-                                                background:#156FE7;
-                                                border-radius:999px;
-                                            "
-                                        ></div>
-
-                                    </div>
-
-
-                                    <strong
-                                        style="
-                                            min-width:48px;
-                                            color:#101828;
-                                            font-size:14px;
-                                        "
-                                    >
-                                        {{ dato.porcentaje }}%
+                                    <strong>
+                                        Escanea el QR para registrar tu asistencia
                                     </strong>
 
+                                    <small>
+                                        QR dinámico. El código se renueva
+                                        automáticamente cada 10 segundos.
+                                    </small>
+
+                                    <div class="contador-qr">
+                                        <span class="punto-contador"></span>
+                                        <span class="contador-texto">
+                                            00:10
+                                        </span>
+                                    </div>
+
                                 </div>
+
+                            </div>
+
+
+                            <div class="acciones-asistencia">
+
+                                <a
+                                    href="{% url 'gestionar_asistencia' item.clase.id %}"
+                                    class="boton-secundario"
+                                >
+                                    Ver asistencia
+                                </a>
+
+                                <a
+                                    href="{% url 'cerrar_asistencia' item.clase.id %}"
+                                    class="boton-cerrar"
+                                >
+                                    Cerrar asistencia
+                                </a>
 
                             </div>
 
                         </div>
 
 
-                    {% empty %}
+                    <!-- ASISTENCIA CERRADA -->
 
-                        <div
-                            style="
-                                padding:28px 10px 6px;
-                                text-align:center;
-                                color:#667085;
-                                font-size:13px;
-                            "
-                        >
-                            Este grupo todavía no tiene alumnos.
+                    {% else %}
+
+                        <div class="zona-abrir">
+
+                            <div>
+
+                                <span class="estado-cerrada">
+                                    Asistencia cerrada
+                                </span>
+
+                                <p>
+                                    Abre la asistencia para generar el código QR
+                                    de esta clase.
+                                </p>
+
+                            </div>
+
+
+                            <a
+                                href="{% url 'abrir_asistencia' item.clase.id %}"
+                                class="boton-abrir"
+                            >
+
+                                <svg
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <rect x="3" y="3" width="7" height="7"></rect>
+                                    <rect x="14" y="3" width="7" height="7"></rect>
+                                    <rect x="3" y="14" width="7" height="7"></rect>
+                                    <path d="M14 14h3v3h-3z"></path>
+                                    <path d="M18 14h3"></path>
+                                    <path d="M21 14v3"></path>
+                                    <path d="M14 21h3"></path>
+                                    <path d="M17 18h4v3"></path>
+                                </svg>
+
+                                Abrir asistencia
+
+                            </a>
+
                         </div>
 
-                    {% endfor %}
+                    {% endif %}
 
                 </div>
 
-            </div>
+            {% empty %}
 
+                <!-- NO HAY CLASES HOY -->
 
-        {% empty %}
+                <div class="sin-clases-hoy">
 
-            <!-- =================================================
-                 SIN GRUPOS
-            ================================================== -->
+                    <div class="sin-clases-icono">
 
-            <div class="panel-tarjeta">
+                        <svg
+                            width="28"
+                            height="28"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#98A2B3"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                            <line x1="16" y1="3" x2="16" y2="7"></line>
+                            <line x1="8" y1="3" x2="8" y2="7"></line>
+                            <line x1="3" y1="11" x2="21" y2="11"></line>
+                        </svg>
 
-                <div
-                    style="
-                        text-align:center;
-                        padding:45px 20px;
-                    "
-                >
+                    </div>
 
-                    <h3
-                        style="
-                            margin:0 0 8px;
-                            color:#101828;
-                        "
-                    >
-                        Todavía no hay datos de asistencia
-                    </h3>
+                    <strong>
+                        No hay clases programadas para hoy
+                    </strong>
 
-
-                    <p
-                        style="
-                            margin:0;
-                            color:#667085;
-                            font-size:13px;
-                        "
-                    >
-                        Cuando tengas grupos, clases y registros de alumnos,
-                        aparecerán aquí automáticamente.
+                    <p>
+                        Cuando tengas una clase programada para hoy,
+                        podrás abrir la asistencia desde aquí.
                     </p>
 
+                    <a
+                        href="{% url 'clases_profesor' %}"
+                        class="enlace-azul"
+                    >
+                        Ver calendario →
+                    </a>
+
                 </div>
 
-            </div>
+            {% endfor %}
 
-        {% endfor %}
+        </div>
 
     </div>
 
@@ -1345,51 +795,792 @@
 
 
 <!-- =========================================================
-     RESPONSIVE
+     CSS
 ========================================================== -->
 
 <style>
 
+    .cabecera-control {
+        display:flex;
+        align-items:flex-end;
+        justify-content:space-between;
+        gap:25px;
+        flex-wrap:wrap;
+        margin-bottom:28px;
+    }
+
+    .fecha-actual {
+        display:flex;
+        align-items:center;
+        gap:10px;
+        padding:10px 15px;
+        border:1px solid #E5E7EB;
+        border-radius:9px;
+        background:#FFFFFF;
+        color:#101828;
+        font-size:12px;
+        font-weight:600;
+        box-shadow:0 2px 6px rgba(16,24,40,.03);
+    }
+
+
+    /* =====================================================
+       RESUMEN
+    ====================================================== */
+
+    .resumen-asistencia {
+        display:grid;
+        grid-template-columns:repeat(4,minmax(150px,1fr));
+        gap:18px;
+        margin-bottom:26px;
+    }
+
+    .tarjeta-semanal {
+        grid-column:span 2;
+        grid-row:span 2;
+        padding:20px 22px;
+        border-radius:16px;
+        background:#FFFFFF;
+        border:1px solid #E5E7EB;
+        box-shadow:0 6px 18px rgba(16,24,40,.05);
+    }
+
+    .cabecera-semanal {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:15px;
+        margin-bottom:20px;
+    }
+
+    .cabecera-semanal strong {
+        color:#101828;
+        font-size:14px;
+        font-weight:700;
+    }
+
+    .cabecera-semanal > span {
+        padding:7px 10px;
+        border:1px solid #E5E7EB;
+        border-radius:8px;
+        color:#475467;
+        font-size:10px;
+        font-weight:600;
+    }
+
+    .contenido-semanal {
+        display:grid;
+        grid-template-columns:minmax(220px,1.7fr) minmax(130px,1fr);
+        align-items:center;
+    }
+
+    .grafica-semanal {
+        padding-right:24px;
+        border-right:1px solid #EAECF0;
+    }
+
+    .grafica-svg {
+        position:relative;
+        height:105px;
+        margin:0 8px;
+    }
+
+    .grafica-svg svg {
+        width:100%;
+        height:100%;
+        overflow:visible;
+    }
+
+    .dias-grafica {
+        display:flex;
+        justify-content:space-between;
+        padding-top:7px;
+        color:#667085;
+        font-size:10px;
+    }
+
+    .promedio-semanal {
+        text-align:center;
+        padding-left:24px;
+    }
+
+    .promedio-semanal strong {
+        display:block;
+        margin-bottom:6px;
+        color:#03D26E;
+        font-size:38px;
+        line-height:1;
+    }
+
+    .promedio-semanal span {
+        display:block;
+        color:#667085;
+        font-size:11px;
+    }
+
+
+    /* =====================================================
+       TARJETAS SUPERIORES
+    ====================================================== */
+
+    .tarjeta-resumen {
+        min-height:92px;
+        padding:20px;
+        border-radius:16px;
+        display:flex;
+        align-items:center;
+        gap:15px;
+        box-sizing:border-box;
+    }
+
+    .tarjeta-presentes {
+        background:#F0FFF7;
+        border:1px solid #C9F4DE;
+    }
+
+    .tarjeta-retrasos {
+        background:#FFF0F8;
+        border:1px solid #FFD0E9;
+    }
+
+    .tarjeta-ausencias {
+        background:#F8F9FB;
+        border:1px solid #E4E7EC;
+    }
+
+    .tarjeta-justificaciones {
+        background:#EEF6FF;
+        border:1px solid #CFE3FF;
+    }
+
+    .numero-resumen {
+        display:block;
+        margin-bottom:4px;
+        color:#101828;
+        font-size:30px;
+        line-height:1;
+    }
+
+    .texto-resumen {
+        display:block;
+        color:#101828;
+        font-size:12px;
+        font-weight:700;
+    }
+
+    .enlace-justificaciones {
+        display:block;
+        margin-top:7px;
+    }
+
+
+    /* =====================================================
+       BLOQUE DOBLE
+    ====================================================== */
+
+    .bloque-doble {
+        display:grid;
+        grid-template-columns:minmax(0,1.55fr) minmax(320px,.85fr);
+        gap:20px;
+        margin-bottom:24px;
+    }
+
+    .tarjeta-principal {
+        background:#FFFFFF;
+        border:1px solid #E5E7EB;
+        border-radius:16px;
+        box-shadow:0 5px 16px rgba(16,24,40,.04);
+        overflow:hidden;
+    }
+
+    .cabecera-tarjeta {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:20px;
+        padding:20px 22px 17px;
+        border-bottom:1px solid #EAECF0;
+    }
+
+    .cabecera-tarjeta h2 {
+        margin:0 0 4px;
+        color:#101828;
+        font-size:16px;
+    }
+
+    .cabecera-tarjeta p {
+        margin:0;
+        color:#667085;
+        font-size:11px;
+    }
+
+    .enlace-azul {
+        color:#156FE7;
+        font-size:11px;
+        font-weight:700;
+        text-decoration:none;
+        white-space:nowrap;
+    }
+
+    .enlace-azul:hover {
+        text-decoration:underline;
+    }
+
+
+    /* =====================================================
+       REGISTROS
+    ====================================================== */
+
+    .registro {
+        display:grid;
+        grid-template-columns:minmax(220px,1fr) 65px 90px;
+        gap:15px;
+        align-items:center;
+        padding:14px 22px;
+        border-bottom:1px solid #F0F1F3;
+    }
+
+    .registro:last-child {
+        border-bottom:none;
+    }
+
+    .registro-alumno {
+        display:flex;
+        align-items:center;
+        gap:11px;
+        min-width:0;
+    }
+
+    .registro-alumno img,
+    .avatar {
+        width:38px;
+        height:38px;
+        border-radius:50%;
+        flex-shrink:0;
+    }
+
+    .registro-alumno img {
+        object-fit:cover;
+    }
+
+    .avatar {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        background:#EEF2F6;
+        color:#475467;
+        font-size:13px;
+        font-weight:700;
+    }
+
+    .datos-registro {
+        min-width:0;
+    }
+
+    .registro-alumno strong {
+        display:block;
+        margin-bottom:3px;
+        color:#101828;
+        font-size:12px;
+    }
+
+    .registro-alumno span {
+        display:block;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+        color:#98A2B3;
+        font-size:10px;
+    }
+
+    .hora-registro {
+        color:#475467;
+        font-size:11px;
+        font-weight:600;
+    }
+
+    .estado {
+        display:inline-flex;
+        justify-content:center;
+        padding:6px 9px;
+        border-radius:999px;
+        font-size:10px;
+        font-weight:700;
+    }
+
+    .estado-presente {
+        background:#ECFDF3;
+        color:#039855;
+    }
+
+    .estado-tarde {
+        background:#FFF0F8;
+        color:#E82A91;
+    }
+
+    .estado-ausente {
+        background:#F2F4F7;
+        color:#667085;
+    }
+
+
+    /* =====================================================
+       PRÓXIMAS CLASES
+    ====================================================== */
+
+    .proxima-clase {
+        display:flex;
+        align-items:center;
+        gap:14px;
+        padding:15px 20px;
+        border-bottom:1px solid #F0F1F3;
+    }
+
+    .proxima-clase:last-child {
+        border-bottom:none;
+    }
+
+    .fecha-clase {
+        width:48px;
+        flex-shrink:0;
+        text-align:center;
+        padding:8px 4px;
+        border-radius:10px;
+        background:#EEF6FF;
+    }
+
+    .fecha-clase span {
+        display:block;
+        margin-bottom:2px;
+        color:#156FE7;
+        font-size:9px;
+        font-weight:800;
+        text-transform:uppercase;
+    }
+
+    .fecha-clase strong {
+        display:block;
+        color:#101828;
+        font-size:19px;
+        line-height:1;
+    }
+
+    .datos-clase {
+        flex:1;
+        min-width:0;
+    }
+
+    .datos-clase strong {
+        display:block;
+        margin-bottom:4px;
+        color:#101828;
+        font-size:12px;
+    }
+
+    .datos-clase span {
+        color:#667085;
+        font-size:10px;
+    }
+
+    .hora-clase {
+        display:flex;
+        align-items:center;
+        gap:5px;
+        color:#475467;
+        font-size:11px;
+        font-weight:600;
+    }
+
+    .vacio {
+        padding:40px 20px;
+        text-align:center;
+        color:#98A2B3;
+        font-size:12px;
+    }
+
+
+    /* =====================================================
+       ASISTENCIA DE HOY
+    ====================================================== */
+
+    .tarjeta-asistencia-hoy {
+        margin-bottom:30px;
+        background:#FFFFFF;
+        border:1px solid #E5E7EB;
+        border-radius:16px;
+        box-shadow:0 5px 16px rgba(16,24,40,.04);
+        overflow:hidden;
+    }
+
+    .cabecera-asistencia-hoy {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:20px;
+        padding:21px 23px;
+        border-bottom:1px solid #EAECF0;
+    }
+
+    .cabecera-asistencia-hoy h2 {
+        margin:0 0 5px;
+        color:#101828;
+        font-size:17px;
+    }
+
+    .cabecera-asistencia-hoy p {
+        margin:0;
+        color:#667085;
+        font-size:11px;
+    }
+
+    .icono-qr {
+        width:43px;
+        height:43px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:11px;
+        background:#EEF6FF;
+        flex-shrink:0;
+    }
+
+    .clase-hoy {
+        padding:22px 23px;
+        border-bottom:1px solid #EAECF0;
+    }
+
+    .clase-hoy:last-child {
+        border-bottom:none;
+    }
+
+    .informacion-clase-hoy {
+        display:flex;
+        align-items:center;
+        gap:14px;
+        margin-bottom:20px;
+    }
+
+    .icono-clase {
+        width:46px;
+        height:46px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:11px;
+        background:#EEF6FF;
+        flex-shrink:0;
+    }
+
+    .etiqueta-hoy {
+        display:block;
+        margin-bottom:3px;
+        color:#156FE7;
+        font-size:9px;
+        font-weight:800;
+        letter-spacing:.06em;
+    }
+
+    .informacion-clase-hoy h3 {
+        margin:0 0 4px;
+        color:#101828;
+        font-size:16px;
+    }
+
+    .informacion-clase-hoy p {
+        margin:0;
+        color:#667085;
+        font-size:11px;
+    }
+
+
+    /* =====================================================
+       QR
+    ====================================================== */
+
+    .zona-qr {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:25px;
+        padding:20px;
+        border-radius:13px;
+        background:#F8FAFC;
+        border:1px solid #EAECF0;
+    }
+
+    .qr-contenedor {
+        display:flex;
+        align-items:center;
+        gap:20px;
+    }
+
+    .qr-dinamico {
+        width:145px;
+        height:145px;
+        padding:8px;
+        background:#FFFFFF;
+        border:1px solid #EAECF0;
+        border-radius:10px;
+        object-fit:contain;
+    }
+
+    .qr-info strong {
+        display:block;
+        margin:11px 0 5px;
+        color:#101828;
+        font-size:13px;
+    }
+
+    .qr-info small {
+        display:block;
+        max-width:280px;
+        color:#667085;
+        font-size:10px;
+        line-height:1.5;
+    }
+
+    .estado-abierta {
+        display:inline-flex;
+        align-items:center;
+        gap:6px;
+        padding:6px 9px;
+        border-radius:999px;
+        background:#ECFDF3;
+        color:#039855;
+        font-size:10px;
+        font-weight:700;
+    }
+
+    .estado-abierta span {
+        width:7px;
+        height:7px;
+        border-radius:50%;
+        background:#12B76A;
+    }
+
+    .contador-qr {
+        display:flex;
+        align-items:center;
+        gap:6px;
+        margin-top:12px;
+        color:#12B76A;
+        font-size:12px;
+        font-weight:700;
+    }
+
+    .punto-contador {
+        width:8px;
+        height:8px;
+        border:2px solid #12B76A;
+        border-radius:50%;
+    }
+
+    .acciones-asistencia {
+        display:flex;
+        flex-direction:column;
+        gap:9px;
+        min-width:160px;
+    }
+
+    .boton-secundario,
+    .boton-cerrar,
+    .boton-abrir {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        gap:8px;
+        padding:11px 16px;
+        border-radius:8px;
+        font-size:11px;
+        font-weight:700;
+        text-decoration:none;
+        box-sizing:border-box;
+    }
+
+    .boton-secundario {
+        background:#FFFFFF;
+        border:1px solid #D0D5DD;
+        color:#344054;
+    }
+
+    .boton-cerrar {
+        background:#156FE7;
+        border:1px solid #156FE7;
+        color:#FFFFFF;
+    }
+
+    .boton-cerrar:hover {
+        background:#0F5FCC;
+    }
+
+
+    /* =====================================================
+       ABRIR ASISTENCIA
+    ====================================================== */
+
+    .zona-abrir {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:20px;
+        padding:20px;
+        border-radius:13px;
+        background:#F8FAFC;
+        border:1px solid #EAECF0;
+    }
+
+    .zona-abrir p {
+        margin:7px 0 0;
+        color:#667085;
+        font-size:11px;
+    }
+
+    .estado-cerrada {
+        display:inline-flex;
+        padding:6px 9px;
+        border-radius:999px;
+        background:#F2F4F7;
+        color:#667085;
+        font-size:10px;
+        font-weight:700;
+    }
+
+    .boton-abrir {
+        background:#156FE7;
+        color:#FFFFFF;
+        white-space:nowrap;
+    }
+
+    .boton-abrir:hover {
+        background:#0F5FCC;
+    }
+
+
+    /* =====================================================
+       SIN CLASES
+    ====================================================== */
+
+    .sin-clases-hoy {
+        padding:42px 20px;
+        text-align:center;
+    }
+
+    .sin-clases-icono {
+        width:52px;
+        height:52px;
+        margin:0 auto 13px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        border-radius:13px;
+        background:#F2F4F7;
+    }
+
+    .sin-clases-hoy strong {
+        display:block;
+        margin-bottom:6px;
+        color:#344054;
+        font-size:13px;
+    }
+
+    .sin-clases-hoy p {
+        margin:0 auto 10px;
+        max-width:400px;
+        color:#98A2B3;
+        font-size:11px;
+        line-height:1.5;
+    }
+
+
+    /* =====================================================
+       MÓVIL
+    ====================================================== */
+
     @media (max-width:768px) {
 
-        .resumen-asistencia {
-            grid-template-columns:1fr !important;
+        .cabecera-control {
+            align-items:flex-start;
         }
 
+        .fecha-actual {
+            width:100%;
+            box-sizing:border-box;
+        }
+
+        .resumen-asistencia {
+            grid-template-columns:1fr;
+        }
 
         .tarjeta-semanal {
-            grid-column:span 1 !important;
-            grid-row:span 1 !important;
+            grid-column:span 1;
+            grid-row:span 1;
         }
-
 
         .contenido-semanal {
-            grid-template-columns:1fr !important;
+            grid-template-columns:1fr;
         }
-
 
         .grafica-semanal {
-            padding-right:0 !important;
-            padding-bottom:22px !important;
-
-            border-right:none !important;
-            border-bottom:1px solid #EAECF0 !important;
+            padding-right:0;
+            padding-bottom:22px;
+            border-right:none;
+            border-bottom:1px solid #EAECF0;
         }
-
 
         .promedio-semanal {
-            padding-left:0 !important;
-            padding-top:22px !important;
+            padding-left:0;
+            padding-top:22px;
         }
 
-
-        .fila-alumno {
-            grid-template-columns:1fr 1fr !important;
+        .bloque-doble {
+            grid-template-columns:1fr;
         }
 
+        .cabecera-tarjeta {
+            align-items:flex-start;
+        }
 
-        .fila-alumno > div:first-child {
-            grid-column:1 / -1;
+        .registro {
+            grid-template-columns:minmax(0,1fr) auto;
+        }
+
+        .hora-registro {
+            display:none;
+        }
+
+        .zona-qr {
+            flex-direction:column;
+            align-items:stretch;
+        }
+
+        .qr-contenedor {
+            flex-direction:column;
+            text-align:center;
+        }
+
+        .qr-dinamico {
+            margin:auto;
+        }
+
+        .acciones-asistencia {
+            width:100%;
+        }
+
+        .zona-abrir {
+            flex-direction:column;
+            align-items:stretch;
+        }
+
+        .boton-abrir {
+            width:100%;
+        }
+
+        .proxima-clase {
+            gap:10px;
+        }
+
+        .hora-clase {
+            font-size:10px;
         }
 
     }
@@ -1402,130 +1593,133 @@
 ========================================================== -->
 
 <script>
+document.addEventListener('DOMContentLoaded', function () {
 
-document.addEventListener(
-    'DOMContentLoaded',
-    function () {
+    /* =====================================================
+       FECHA ACTUAL
+    ====================================================== */
 
-        /* =====================================================
-           FECHA
-        ====================================================== */
+    const fechaActual = document.getElementById('fechaActual');
 
-        const fechaActual =
-            document.getElementById(
-                'fechaActual'
-            );
+    if (fechaActual) {
 
+        const ahora = new Date();
 
-        if (fechaActual) {
+        const diasSemana = [
+            'Domingo',
+            'Lunes',
+            'Martes',
+            'Miércoles',
+            'Jueves',
+            'Viernes',
+            'Sábado'
+        ];
 
-            const ahora =
-                new Date();
+        const meses = [
+            'enero',
+            'febrero',
+            'marzo',
+            'abril',
+            'mayo',
+            'junio',
+            'julio',
+            'agosto',
+            'septiembre',
+            'octubre',
+            'noviembre',
+            'diciembre'
+        ];
 
-
-            const diasSemana = [
-                'Domingo',
-                'Lunes',
-                'Martes',
-                'Miércoles',
-                'Jueves',
-                'Viernes',
-                'Sábado'
-            ];
-
-
-            const meses = [
-                'enero',
-                'febrero',
-                'marzo',
-                'abril',
-                'mayo',
-                'junio',
-                'julio',
-                'agosto',
-                'septiembre',
-                'octubre',
-                'noviembre',
-                'diciembre'
-            ];
-
-
-            const nombreDia =
-                diasSemana[
-                    ahora.getDay()
-                ];
-
-
-            const dia =
-                ahora.getDate();
-
-
-            const mes =
-                meses[
-                    ahora.getMonth()
-                ];
-
-
-            const anio =
-                ahora.getFullYear();
-
-
-            fechaActual.textContent =
-                nombreDia +
-                ', ' +
-                dia +
-                ' de ' +
-                mes +
-                ' de ' +
-                anio +
-                '.';
-
-        }
-
-
-        /* =====================================================
-           BARRAS DE ASISTENCIA
-        ====================================================== */
-
-        const barras =
-            document.querySelectorAll(
-                '.barra-asistencia'
-            );
-
-
-        barras.forEach(
-            function (barra) {
-
-                let porcentaje =
-                    parseFloat(
-                        barra.dataset.porcentaje
-                    );
-
-
-                if (isNaN(porcentaje)) {
-                    porcentaje = 0;
-                }
-
-
-                if (porcentaje < 0) {
-                    porcentaje = 0;
-                }
-
-
-                if (porcentaje > 100) {
-                    porcentaje = 100;
-                }
-
-
-                barra.style.width =
-                    porcentaje + '%';
-
-            }
-        );
-
+        fechaActual.textContent =
+            diasSemana[ahora.getDay()] +
+            ', ' +
+            ahora.getDate() +
+            ' de ' +
+            meses[ahora.getMonth()] +
+            ' de ' +
+            ahora.getFullYear() +
+            '.';
     }
-);
 
+
+    /* =====================================================
+       QR DINÁMICO
+    ====================================================== */
+
+    const imagenesQR = document.querySelectorAll(
+        '.qr-dinamico[data-renovar-url]'
+    );
+
+    imagenesQR.forEach(function (imagen) {
+
+        const renovarUrl = imagen.dataset.renovarUrl;
+
+        setInterval(function () {
+
+            fetch(renovarUrl, {
+                cache: 'no-store'
+            })
+            .then(function (response) {
+
+                if (!response.ok) {
+                    throw new Error('Error al renovar el QR');
+                }
+
+                return response.json();
+            })
+            .then(function (data) {
+
+                if (data.ok && data.qr_base64) {
+
+                    imagen.src =
+                        'data:image/png;base64,' +
+                        data.qr_base64;
+                }
+
+            })
+            .catch(function (error) {
+
+                console.error(
+                    'No se ha podido renovar el QR:',
+                    error
+                );
+
+            });
+
+        }, 10000);
+
+    });
+
+
+    /* =====================================================
+       CONTADOR VISUAL DEL QR
+    ====================================================== */
+
+    const contadores = document.querySelectorAll(
+        '.contador-texto'
+    );
+
+    contadores.forEach(function (contador) {
+
+        let segundos = 10;
+
+        setInterval(function () {
+
+            segundos--;
+
+            if (segundos <= 0) {
+                segundos = 10;
+            }
+
+            contador.textContent =
+                '00:' +
+                String(segundos).padStart(2, '0');
+
+        }, 1000);
+
+    });
+
+});
 </script>
 
 {% endblock %}

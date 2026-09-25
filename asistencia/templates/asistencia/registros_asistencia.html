@@ -1,0 +1,840 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}Registros de asistencia | PRESENTE{% endblock %}
+
+{% block content %}
+
+<section class="panel-usuario">
+
+    <div class="panel-contenedor registros-contenedor">
+
+        <!-- =====================================================
+             CABECERA
+        ====================================================== -->
+
+        <div class="cabecera-registros">
+
+            <div>
+
+                <p class="panel-etiqueta">
+                    ÁREA DEL PROFESOR
+                </p>
+
+                <h1>
+                    Registros de asistencia
+                </h1>
+
+                <p class="panel-subtitulo">
+                    Consulta el historial completo de asistencias registradas.
+                </p>
+
+            </div>
+
+
+            <a
+                href="{% url 'control_asistencia' %}"
+                class="volver-asistencia"
+            >
+                ← Volver a asistencia
+            </a>
+
+        </div>
+
+
+        <!-- =====================================================
+             TARJETA PRINCIPAL
+        ====================================================== -->
+
+        <div class="tarjeta-registros">
+
+            <div class="cabecera-tabla">
+
+                <div>
+
+                    <h2>
+                        Todos los registros
+                    </h2>
+
+                    <p>
+                        Historial de presentes, retrasos y ausencias.
+                    </p>
+
+                </div>
+
+                <div class="contador-registros">
+                    {{ registros|length }} registros
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CABECERA COLUMNAS
+            ================================================== -->
+
+            <div class="fila-titulos">
+
+                <span>
+                    Alumno
+                </span>
+
+                <span>
+                    Asignatura
+                </span>
+
+                <span>
+                    Fecha
+                </span>
+
+                <span>
+                    Hora
+                </span>
+
+                <span>
+                    Estado
+                </span>
+
+            </div>
+
+
+            <!-- =================================================
+                 REGISTROS
+            ================================================== -->
+
+            {% for registro in registros %}
+
+                <div class="fila-registro">
+
+                    <!-- ALUMNO -->
+
+                    <div class="alumno-registro">
+
+                        {% if registro.alumno.foto %}
+
+                            <img
+                                src="{{ registro.alumno.foto.url }}"
+                                alt="{{ registro.alumno.nombre }}"
+                            >
+
+                        {% else %}
+
+                            <div class="avatar-registro">
+                                {{ registro.alumno.nombre|first }}
+                            </div>
+
+                        {% endif %}
+
+
+                        <div>
+
+                            <strong>
+                                {{ registro.alumno.nombre }}
+                                {{ registro.alumno.apellidos }}
+                            </strong>
+
+                            <span>
+                                {{ registro.alumno.email }}
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ASIGNATURA -->
+
+                    <div class="dato-registro">
+
+                        <strong>
+                            {{ registro.clase.grupo.asignatura }}
+                        </strong>
+
+                        <span>
+                            {{ registro.clase.grupo.nombre }}
+                        </span>
+
+                    </div>
+
+
+                    <!-- FECHA -->
+
+                    <div class="fecha-registro">
+
+                        <svg
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#667085"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect
+                                x="3"
+                                y="5"
+                                width="18"
+                                height="16"
+                                rx="2"
+                            ></rect>
+
+                            <line
+                                x1="16"
+                                y1="3"
+                                x2="16"
+                                y2="7"
+                            ></line>
+
+                            <line
+                                x1="8"
+                                y1="3"
+                                x2="8"
+                                y2="7"
+                            ></line>
+
+                            <line
+                                x1="3"
+                                y1="11"
+                                x2="21"
+                                y2="11"
+                            ></line>
+                        </svg>
+
+                        {{ registro.clase.fecha|date:"d/m/Y" }}
+
+                    </div>
+
+
+                    <!-- HORA -->
+
+                    <div class="hora-registro">
+
+                        {% if registro.hora_registro %}
+
+                            <svg
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="#667085"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="9"
+                                ></circle>
+
+                                <polyline
+                                    points="12 7 12 12 15 14"
+                                ></polyline>
+                            </svg>
+
+                            {{ registro.hora_registro|time:"H:i" }}
+
+                        {% else %}
+
+                            <span class="sin-hora">
+                                —
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- ESTADO -->
+
+                    <div>
+
+                        {% if registro.estado == 'presente' %}
+
+                            <span class="estado estado-presente">
+
+                                <span class="punto-estado"></span>
+
+                                Presente
+
+                            </span>
+
+                        {% elif registro.estado == 'tarde' %}
+
+                            <span class="estado estado-tarde">
+
+                                <span class="punto-estado"></span>
+
+                                Tarde
+
+                            </span>
+
+                        {% elif registro.estado == 'ausente' %}
+
+                            <span class="estado estado-ausente">
+
+                                <span class="punto-estado"></span>
+
+                                Ausente
+
+                            </span>
+
+                        {% else %}
+
+                            <span class="estado estado-neutro">
+
+                                <span class="punto-estado"></span>
+
+                                {{ registro.get_estado_display }}
+
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
+
+            {% empty %}
+
+                <!-- =============================================
+                     SIN REGISTROS
+                ============================================== -->
+
+                <div class="sin-registros">
+
+                    <div class="sin-registros-icono">
+
+                        <svg
+                            width="31"
+                            height="31"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="#98A2B3"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path
+                                d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
+                            ></path>
+
+                            <circle
+                                cx="9"
+                                cy="7"
+                                r="4"
+                            ></circle>
+
+                            <polyline
+                                points="16 11 18 13 22 9"
+                            ></polyline>
+                        </svg>
+
+                    </div>
+
+                    <strong>
+                        Todavía no hay registros
+                    </strong>
+
+                    <p>
+                        Cuando los alumnos registren su asistencia,
+                        aparecerán aquí.
+                    </p>
+
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+    /* =====================================================
+       CONTENEDOR
+    ====================================================== */
+
+    .registros-contenedor {
+        max-width:1180px;
+    }
+
+
+    /* =====================================================
+       CABECERA
+    ====================================================== */
+
+    .cabecera-registros {
+        display:flex;
+        align-items:flex-end;
+        justify-content:space-between;
+        gap:25px;
+        margin-bottom:28px;
+    }
+
+    .volver-asistencia {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+
+        padding:10px 14px;
+
+        border:1px solid #D0D5DD;
+        border-radius:8px;
+
+        background:#FFFFFF;
+
+        color:#344054;
+
+        font-size:11px;
+        font-weight:700;
+
+        text-decoration:none;
+
+        transition:
+            background .15s ease,
+            border-color .15s ease;
+    }
+
+    .volver-asistencia:hover {
+        background:#F9FAFB;
+        border-color:#98A2B3;
+    }
+
+
+    /* =====================================================
+       TARJETA
+    ====================================================== */
+
+    .tarjeta-registros {
+        overflow:hidden;
+
+        background:#FFFFFF;
+
+        border:1px solid #E5E7EB;
+        border-radius:16px;
+
+        box-shadow:
+            0 5px 18px rgba(16,24,40,.04);
+    }
+
+
+    /* =====================================================
+       CABECERA TARJETA
+    ====================================================== */
+
+    .cabecera-tabla {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:20px;
+
+        padding:22px 24px;
+
+        border-bottom:1px solid #EAECF0;
+    }
+
+    .cabecera-tabla h2 {
+        margin:0 0 5px;
+
+        color:#101828;
+
+        font-size:17px;
+        font-weight:700;
+    }
+
+    .cabecera-tabla p {
+        margin:0;
+
+        color:#667085;
+
+        font-size:11px;
+    }
+
+    .contador-registros {
+        padding:7px 11px;
+
+        border-radius:999px;
+
+        background:#EEF6FF;
+
+        color:#156FE7;
+
+        font-size:10px;
+        font-weight:700;
+
+        white-space:nowrap;
+    }
+
+
+    /* =====================================================
+       CABECERA COLUMNAS
+    ====================================================== */
+
+    .fila-titulos {
+        display:grid;
+
+        grid-template-columns:
+            minmax(250px,1.5fr)
+            minmax(190px,1.2fr)
+            130px
+            100px
+            110px;
+
+        gap:20px;
+
+        padding:11px 24px;
+
+        background:#F9FAFB;
+
+        border-bottom:1px solid #EAECF0;
+
+        color:#667085;
+
+        font-size:10px;
+        font-weight:700;
+
+        text-transform:uppercase;
+
+        letter-spacing:.03em;
+    }
+
+
+    /* =====================================================
+       FILAS
+    ====================================================== */
+
+    .fila-registro {
+        display:grid;
+
+        grid-template-columns:
+            minmax(250px,1.5fr)
+            minmax(190px,1.2fr)
+            130px
+            100px
+            110px;
+
+        gap:20px;
+
+        align-items:center;
+
+        padding:15px 24px;
+
+        border-bottom:1px solid #F0F1F3;
+
+        transition:background .15s ease;
+    }
+
+    .fila-registro:last-child {
+        border-bottom:none;
+    }
+
+    .fila-registro:hover {
+        background:#FCFCFD;
+    }
+
+
+    /* =====================================================
+       ALUMNO
+    ====================================================== */
+
+    .alumno-registro {
+        display:flex;
+        align-items:center;
+        gap:12px;
+
+        min-width:0;
+    }
+
+    .alumno-registro img,
+    .avatar-registro {
+        width:40px;
+        height:40px;
+
+        flex-shrink:0;
+
+        border-radius:50%;
+    }
+
+    .alumno-registro img {
+        object-fit:cover;
+    }
+
+    .avatar-registro {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        background:#EEF2F6;
+
+        color:#475467;
+
+        font-size:13px;
+        font-weight:700;
+    }
+
+    .alumno-registro > div:last-child {
+        min-width:0;
+    }
+
+    .alumno-registro strong {
+        display:block;
+
+        margin-bottom:3px;
+
+        overflow:hidden;
+
+        color:#101828;
+
+        font-size:12px;
+
+        text-overflow:ellipsis;
+        white-space:nowrap;
+    }
+
+    .alumno-registro span {
+        display:block;
+
+        overflow:hidden;
+
+        color:#98A2B3;
+
+        font-size:10px;
+
+        text-overflow:ellipsis;
+        white-space:nowrap;
+    }
+
+
+    /* =====================================================
+       ASIGNATURA
+    ====================================================== */
+
+    .dato-registro {
+        min-width:0;
+    }
+
+    .dato-registro strong {
+        display:block;
+
+        margin-bottom:3px;
+
+        overflow:hidden;
+
+        color:#344054;
+
+        font-size:11px;
+
+        text-overflow:ellipsis;
+        white-space:nowrap;
+    }
+
+    .dato-registro span {
+        display:block;
+
+        overflow:hidden;
+
+        color:#98A2B3;
+
+        font-size:10px;
+
+        text-overflow:ellipsis;
+        white-space:nowrap;
+    }
+
+
+    /* =====================================================
+       FECHA Y HORA
+    ====================================================== */
+
+    .fecha-registro,
+    .hora-registro {
+        display:flex;
+        align-items:center;
+
+        gap:6px;
+
+        color:#475467;
+
+        font-size:11px;
+        font-weight:600;
+    }
+
+    .sin-hora {
+        color:#98A2B3;
+    }
+
+
+    /* =====================================================
+       ESTADOS
+    ====================================================== */
+
+    .estado {
+        display:inline-flex;
+        align-items:center;
+
+        gap:6px;
+
+        padding:6px 9px;
+
+        border-radius:999px;
+
+        font-size:10px;
+        font-weight:700;
+
+        white-space:nowrap;
+    }
+
+    .punto-estado {
+        width:6px;
+        height:6px;
+
+        border-radius:50%;
+
+        background:currentColor;
+    }
+
+    .estado-presente {
+        background:#ECFDF3;
+        color:#039855;
+    }
+
+    .estado-tarde {
+        background:#FFF0F8;
+        color:#E82A91;
+    }
+
+    .estado-ausente {
+        background:#F2F4F7;
+        color:#667085;
+    }
+
+    .estado-neutro {
+        background:#EEF6FF;
+        color:#156FE7;
+    }
+
+
+    /* =====================================================
+       SIN REGISTROS
+    ====================================================== */
+
+    .sin-registros {
+        padding:65px 20px;
+
+        text-align:center;
+    }
+
+    .sin-registros-icono {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        width:58px;
+        height:58px;
+
+        margin:0 auto 14px;
+
+        border-radius:15px;
+
+        background:#F2F4F7;
+    }
+
+    .sin-registros strong {
+        display:block;
+
+        margin-bottom:6px;
+
+        color:#344054;
+
+        font-size:13px;
+    }
+
+    .sin-registros p {
+        margin:0;
+
+        color:#98A2B3;
+
+        font-size:11px;
+    }
+
+
+    /* =====================================================
+       MÓVIL
+    ====================================================== */
+
+    @media (max-width:768px) {
+
+        .cabecera-registros {
+            align-items:flex-start;
+            flex-direction:column;
+        }
+
+        .volver-asistencia {
+            width:100%;
+
+            box-sizing:border-box;
+        }
+
+
+        .cabecera-tabla {
+            align-items:flex-start;
+        }
+
+
+        .fila-titulos {
+            display:none;
+        }
+
+
+        .fila-registro {
+            grid-template-columns:1fr auto;
+
+            gap:13px;
+
+            padding:17px;
+        }
+
+
+        .alumno-registro {
+            grid-column:1;
+        }
+
+
+        .dato-registro {
+            grid-column:1;
+
+            padding-left:52px;
+        }
+
+
+        .fecha-registro {
+            grid-column:1;
+
+            padding-left:52px;
+        }
+
+
+        .hora-registro {
+            grid-column:1;
+
+            padding-left:52px;
+        }
+
+
+        .fila-registro > div:last-child {
+            grid-column:2;
+            grid-row:1;
+
+            align-self:center;
+        }
+
+    }
+
+</style>
+
+{% endblock %}

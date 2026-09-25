@@ -114,6 +114,12 @@ urlpatterns = [
         name='control_asistencia'
     ),
 
+    path(
+        'profesor/asistencia/registros/',
+        views.registros_asistencia,
+        name='registros_asistencia'
+    ),
+
 
     # =====================================================
     # SOPORTE PROFESOR

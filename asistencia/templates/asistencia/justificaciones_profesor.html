@@ -6,9 +6,13 @@
 
 <section class="panel-usuario">
 
-    <div class="panel-contenedor">
+    <div class="panel-contenedor justificaciones-contenedor">
 
-        <div class="panel-cabecera">
+        <!-- =====================================================
+             CABECERA
+        ====================================================== -->
+
+        <div class="panel-cabecera cabecera-justificaciones">
 
             <div>
 
@@ -26,52 +30,410 @@
 
             </div>
 
-            <div class="fecha-panel">
+
+            <div class="fecha-panel fecha-justificaciones">
+
+                <svg
+                    width="17"
+                    height="17"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                    <line x1="16" y1="3" x2="16" y2="7"></line>
+                    <line x1="8" y1="3" x2="8" y2="7"></line>
+                    <line x1="3" y1="11" x2="21" y2="11"></line>
+                </svg>
+
                 {% now "d/m/Y" %}
+
             </div>
 
         </div>
 
 
-        <div class="panel-tarjeta">
+        <!-- =====================================================
+             JUSTIFICACIONES PENDIENTES
+        ====================================================== -->
+
+        <div class="tarjeta-justificaciones">
+
+            <div class="cabecera-tarjeta-justificaciones">
+
+                <div>
+
+                    <h2>
+                        Justificaciones pendientes
+                    </h2>
+
+                    <p>
+                        Solicitudes que todavía necesitan revisión
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="#todas-justificaciones"
+                    class="enlace-ver-todas"
+                >
+                    Ver todas →
+                </a>
+
+            </div>
+
+
+            <div class="lista-pendientes">
+
+                {% for justificacion in justificaciones %}
+
+                    {% if justificacion.estado == 'pendiente' %}
+
+                        <details class="justificacion-pendiente">
+
+                            <summary>
+
+                                <!-- ALUMNO -->
+
+                                <div class="alumno-justificacion">
+
+                                    {% if justificacion.asistencia.alumno.foto %}
+
+                                        <img
+                                            src="{{ justificacion.asistencia.alumno.foto.url }}"
+                                            alt="{{ justificacion.asistencia.alumno.nombre }}"
+                                            class="foto-alumno"
+                                        >
+
+                                    {% else %}
+
+                                        <div class="avatar-alumno">
+                                            {{ justificacion.asistencia.alumno.nombre|first }}
+                                        </div>
+
+                                    {% endif %}
+
+
+                                    <div class="datos-alumno">
+
+                                        <strong>
+                                            {{ justificacion.asistencia.alumno.nombre }}
+                                            {{ justificacion.asistencia.alumno.apellidos }}
+                                        </strong>
+
+                                        <span>
+                                            Ausencia
+                                            {{ justificacion.asistencia.clase.fecha|date:"d/m/Y" }}
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+
+                                <!-- BOTÓN REVISAR -->
+
+                                <span class="boton-revisar">
+                                    Revisar
+                                </span>
+
+                            </summary>
+
+
+                            <!-- =========================================
+                                 DETALLE AL ABRIR "REVISAR"
+                            ========================================== -->
+
+                            <div class="detalle-justificacion">
+
+                                <div class="detalle-grid">
+
+                                    <div class="detalle-dato">
+
+                                        <span>
+                                            Asignatura
+                                        </span>
+
+                                        <strong>
+                                            {{ justificacion.asistencia.clase.grupo.asignatura }}
+                                        </strong>
+
+                                    </div>
+
+
+                                    <div class="detalle-dato">
+
+                                        <span>
+                                            Fecha de ausencia
+                                        </span>
+
+                                        <strong>
+                                            {{ justificacion.asistencia.clase.fecha|date:"d/m/Y" }}
+                                        </strong>
+
+                                    </div>
+
+                                </div>
+
+
+                                <div class="motivo-justificacion">
+
+                                    <span>
+                                        Motivo de la justificación
+                                    </span>
+
+                                    <p>
+                                        {{ justificacion.motivo }}
+                                    </p>
+
+                                </div>
+
+
+                                {% if justificacion.documento %}
+
+                                    <a
+                                        href="{% url 'ver_documento_justificacion' justificacion.id %}"
+                                        target="_blank"
+                                        class="documento-adjunto"
+                                    >
+
+                                        <svg
+                                            width="17"
+                                            height="17"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+                                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                            <polyline points="14 2 14 8 20 8"></polyline>
+                                        </svg>
+
+                                        Ver imagen adjunta
+
+                                    </a>
+
+                                {% endif %}
+
+
+                                <div class="acciones-justificacion">
+
+                                    <a
+                                        href="{% url 'aprobar_justificacion' justificacion.id %}"
+                                        class="boton-aprobar"
+                                    >
+                                        Aprobar
+                                    </a>
+
+
+                                    <a
+                                        href="{% url 'rechazar_justificacion' justificacion.id %}"
+                                        class="boton-rechazar"
+                                    >
+                                        Rechazar
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+                        </details>
+
+                    {% endif %}
+
+                {% empty %}
+
+                    <div class="sin-justificaciones">
+                        No hay justificaciones enviadas.
+                    </div>
+
+                {% endfor %}
+
+
+                {% if not pendientes %}
+
+                    <div class="sin-pendientes">
+
+                        <div class="icono-sin-pendientes">
+
+                            <svg
+                                width="25"
+                                height="25"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M20 6L9 17l-5-5"></path>
+                            </svg>
+
+                        </div>
+
+                        <div>
+                            <strong>
+                                Todo revisado
+                            </strong>
+
+                            <p>
+                                No tienes justificaciones pendientes.
+                            </p>
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             TODAS LAS JUSTIFICACIONES
+        ====================================================== -->
+
+        <div
+            class="tarjeta-historial"
+            id="todas-justificaciones"
+        >
+
+            <div class="cabecera-historial">
+
+                <div>
+
+                    <h2>
+                        Historial de justificaciones
+                    </h2>
+
+                    <p>
+                        Consulta todas las solicitudes recibidas
+                    </p>
+
+                </div>
+
+            </div>
+
 
             {% for justificacion in justificaciones %}
 
-                <div style="
-                    padding:22px 0;
-                    border-bottom:1px solid #e5e7eb;
-                ">
+                <div class="fila-historial">
 
-                    <div style="
-                        display:flex;
-                        justify-content:space-between;
-                        gap:30px;
-                    ">
+                    <!-- ALUMNO -->
+
+                    <div class="alumno-historial">
+
+                        {% if justificacion.asistencia.alumno.foto %}
+
+                            <img
+                                src="{{ justificacion.asistencia.alumno.foto.url }}"
+                                alt="{{ justificacion.asistencia.alumno.nombre }}"
+                            >
+
+                        {% else %}
+
+                            <div class="avatar-historial">
+                                {{ justificacion.asistencia.alumno.nombre|first }}
+                            </div>
+
+                        {% endif %}
+
 
                         <div>
 
-                            <h3 style="margin-bottom:7px;">
-
+                            <strong>
                                 {{ justificacion.asistencia.alumno.nombre }}
                                 {{ justificacion.asistencia.alumno.apellidos }}
+                            </strong>
 
-                            </h3>
-
-                            <p style="
-                                color:#667085;
-                                margin-bottom:6px;
-                            ">
-
-                                {{ justificacion.asistencia.clase.fecha|date:"d/m/Y" }}
-                                ·
+                            <span>
                                 {{ justificacion.asistencia.clase.grupo.asignatura }}
+                            </span>
 
-                            </p>
+                        </div>
 
-                            <p style="
-                                margin-top:14px;
-                                color:#344054;
-                            ">
+                    </div>
+
+
+                    <!-- FECHA -->
+
+                    <div class="fecha-historial">
+
+                        <span>
+                            Fecha de ausencia
+                        </span>
+
+                        <strong>
+                            {{ justificacion.asistencia.clase.fecha|date:"d/m/Y" }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- MOTIVO -->
+
+                    <div class="motivo-historial">
+
+                        <span>
+                            Motivo
+                        </span>
+
+                        <strong>
+                            {{ justificacion.motivo|truncatechars:45 }}
+                        </strong>
+
+                    </div>
+
+
+                    <!-- ESTADO -->
+
+                    <div class="estado-historial">
+
+                        {% if justificacion.estado == 'pendiente' %}
+
+                            <span class="estado-justificacion pendiente">
+                                Pendiente
+                            </span>
+
+                        {% elif justificacion.estado == 'aprobada' %}
+
+                            <span class="estado-justificacion aprobada">
+                                Aprobada
+                            </span>
+
+                        {% else %}
+
+                            <span class="estado-justificacion rechazada">
+                                Rechazada
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <!-- VER -->
+
+                    <details class="detalle-historial">
+
+                        <summary>
+                            Ver
+                        </summary>
+
+                        <div class="desplegable-historial">
+
+                            <strong>
+                                Motivo completo
+                            </strong>
+
+                            <p>
                                 {{ justificacion.motivo }}
                             </p>
 
@@ -81,123 +443,46 @@
                                 <a
                                     href="{% url 'ver_documento_justificacion' justificacion.id %}"
                                     target="_blank"
-                                    style="
-                                        display:inline-block;
-                                        margin-top:12px;
-                                        color:#168653;
-                                        text-decoration:none;
-                                        font-weight:700;
-                                        font-size:14px;
-                                    "
                                 >
-                                    Ver imagen adjunta
+                                    Ver imagen adjunta →
                                 </a>
 
                             {% endif %}
 
-                        </div>
-
-
-                        <div>
 
                             {% if justificacion.estado == 'pendiente' %}
 
-                                <span style="
-                                    padding:7px 12px;
-                                    border-radius:20px;
-                                    background:#fff7e6;
-                                    color:#b7791f;
-                                    font-size:13px;
-                                    font-weight:700;
-                                ">
-                                    Pendiente
-                                </span>
+                                <div class="acciones-historial">
 
-                            {% elif justificacion.estado == 'aprobada' %}
+                                    <a
+                                        href="{% url 'aprobar_justificacion' justificacion.id %}"
+                                        class="boton-aprobar"
+                                    >
+                                        Aprobar
+                                    </a>
 
-                                <span style="
-                                    padding:7px 12px;
-                                    border-radius:20px;
-                                    background:#e3f5e9;
-                                    color:#168653;
-                                    font-size:13px;
-                                    font-weight:700;
-                                ">
-                                    Aprobada
-                                </span>
+                                    <a
+                                        href="{% url 'rechazar_justificacion' justificacion.id %}"
+                                        class="boton-rechazar"
+                                    >
+                                        Rechazar
+                                    </a>
 
-                            {% else %}
-
-                                <span style="
-                                    padding:7px 12px;
-                                    border-radius:20px;
-                                    background:#fff1f1;
-                                    color:#b42318;
-                                    font-size:13px;
-                                    font-weight:700;
-                                ">
-                                    Rechazada
-                                </span>
+                                </div>
 
                             {% endif %}
 
                         </div>
 
-                    </div>
-
-
-                    {% if justificacion.estado == 'pendiente' %}
-
-                        <div style="
-                            display:flex;
-                            gap:12px;
-                            margin-top:20px;
-                        ">
-
-                            <a
-                                href="{% url 'aprobar_justificacion' justificacion.id %}"
-                                style="
-                                    padding:10px 16px;
-                                    border-radius:8px;
-                                    background:#168653;
-                                    color:white;
-                                    text-decoration:none;
-                                    font-weight:700;
-                                    font-size:14px;
-                                "
-                            >
-                                Aprobar
-                            </a>
-
-
-                            <a
-                                href="{% url 'rechazar_justificacion' justificacion.id %}"
-                                style="
-                                    padding:10px 16px;
-                                    border-radius:8px;
-                                    background:#ffffff;
-                                    border:1px solid #d0d5dd;
-                                    color:#b42318;
-                                    text-decoration:none;
-                                    font-weight:700;
-                                    font-size:14px;
-                                "
-                            >
-                                Rechazar
-                            </a>
-
-                        </div>
-
-                    {% endif %}
+                    </details>
 
                 </div>
 
-
             {% empty %}
 
-                <p style="color:#667085;">
+                <div class="sin-justificaciones">
                     No hay justificaciones enviadas.
-                </p>
+                </div>
 
             {% endfor %}
 
@@ -206,5 +491,817 @@
     </div>
 
 </section>
+
+
+<style>
+
+    /* =====================================================
+       GENERAL
+    ====================================================== */
+
+    .justificaciones-contenedor {
+        max-width:1180px;
+    }
+
+    .cabecera-justificaciones {
+        margin-bottom:30px;
+    }
+
+    .fecha-justificaciones {
+        display:flex;
+        align-items:center;
+        gap:8px;
+    }
+
+    .fecha-justificaciones svg {
+        color:#156FE7;
+    }
+
+
+    /* =====================================================
+       TARJETA PENDIENTES
+    ====================================================== */
+
+    .tarjeta-justificaciones {
+        margin-bottom:24px;
+
+        overflow:hidden;
+
+        background:#FFFFFF;
+
+        border:1px solid #E1E7EF;
+        border-radius:16px;
+
+        box-shadow:
+            0 5px 18px rgba(16,24,40,.04);
+    }
+
+
+    .cabecera-tarjeta-justificaciones {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+
+        gap:20px;
+
+        padding:20px 24px;
+
+        border-bottom:1px solid #EDF0F4;
+    }
+
+
+    .cabecera-tarjeta-justificaciones h2 {
+        margin:0 0 4px;
+
+        color:#101828;
+
+        font-size:17px;
+        font-weight:700;
+    }
+
+
+    .cabecera-tarjeta-justificaciones p {
+        margin:0;
+
+        color:#667085;
+
+        font-size:11px;
+    }
+
+
+    .enlace-ver-todas {
+        color:#156FE7;
+
+        font-size:11px;
+        font-weight:700;
+
+        text-decoration:none;
+
+        white-space:nowrap;
+    }
+
+
+    .enlace-ver-todas:hover {
+        text-decoration:underline;
+    }
+
+
+    /* =====================================================
+       JUSTIFICACIÓN PENDIENTE
+    ====================================================== */
+
+    .justificacion-pendiente {
+        border-bottom:1px solid #EDF0F4;
+    }
+
+
+    .justificacion-pendiente:last-child {
+        border-bottom:none;
+    }
+
+
+    .justificacion-pendiente summary {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+
+        gap:20px;
+
+        padding:18px 24px;
+
+        cursor:pointer;
+
+        list-style:none;
+
+        transition:background .15s ease;
+    }
+
+
+    .justificacion-pendiente summary::-webkit-details-marker {
+        display:none;
+    }
+
+
+    .justificacion-pendiente summary:hover {
+        background:#FAFCFF;
+    }
+
+
+    /* =====================================================
+       ALUMNO
+    ====================================================== */
+
+    .alumno-justificacion {
+        display:flex;
+        align-items:center;
+
+        gap:12px;
+
+        min-width:0;
+    }
+
+
+    .foto-alumno,
+    .avatar-alumno {
+        width:42px;
+        height:42px;
+
+        flex-shrink:0;
+
+        border-radius:50%;
+    }
+
+
+    .foto-alumno {
+        object-fit:cover;
+    }
+
+
+    .avatar-alumno {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        background:#EEF4FF;
+
+        color:#156FE7;
+
+        font-size:13px;
+        font-weight:700;
+    }
+
+
+    .datos-alumno {
+        min-width:0;
+    }
+
+
+    .datos-alumno strong {
+        display:block;
+
+        margin-bottom:4px;
+
+        color:#101828;
+
+        font-size:13px;
+        font-weight:700;
+    }
+
+
+    .datos-alumno span {
+        display:block;
+
+        color:#667085;
+
+        font-size:11px;
+    }
+
+
+    /* =====================================================
+       REVISAR
+    ====================================================== */
+
+    .boton-revisar {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+
+        min-width:72px;
+
+        padding:8px 13px;
+
+        border:1px solid #156FE7;
+        border-radius:7px;
+
+        background:#FFFFFF;
+
+        color:#156FE7;
+
+        font-size:11px;
+        font-weight:700;
+
+        transition:
+            background .15s ease,
+            color .15s ease;
+    }
+
+
+    .justificacion-pendiente summary:hover .boton-revisar {
+        background:#156FE7;
+        color:#FFFFFF;
+    }
+
+
+    /* =====================================================
+       DETALLE
+    ====================================================== */
+
+    .detalle-justificacion {
+        padding:
+            4px
+            24px
+            22px
+            78px;
+
+        background:#FAFCFF;
+    }
+
+
+    .detalle-grid {
+        display:grid;
+
+        grid-template-columns:
+            repeat(2,minmax(0,1fr));
+
+        gap:16px;
+
+        margin-bottom:17px;
+    }
+
+
+    .detalle-dato {
+        padding:13px 15px;
+
+        background:#FFFFFF;
+
+        border:1px solid #E5EAF0;
+        border-radius:9px;
+    }
+
+
+    .detalle-dato span,
+    .motivo-justificacion > span {
+        display:block;
+
+        margin-bottom:5px;
+
+        color:#98A2B3;
+
+        font-size:9px;
+        font-weight:700;
+
+        text-transform:uppercase;
+
+        letter-spacing:.04em;
+    }
+
+
+    .detalle-dato strong {
+        color:#344054;
+
+        font-size:11px;
+    }
+
+
+    .motivo-justificacion {
+        margin-bottom:15px;
+    }
+
+
+    .motivo-justificacion p {
+        margin:0;
+
+        color:#344054;
+
+        font-size:12px;
+
+        line-height:1.6;
+    }
+
+
+    /* =====================================================
+       DOCUMENTO
+    ====================================================== */
+
+    .documento-adjunto {
+        display:inline-flex;
+        align-items:center;
+
+        gap:7px;
+
+        margin-bottom:18px;
+
+        color:#156FE7;
+
+        font-size:11px;
+        font-weight:700;
+
+        text-decoration:none;
+    }
+
+
+    .documento-adjunto:hover {
+        text-decoration:underline;
+    }
+
+
+    /* =====================================================
+       BOTONES
+    ====================================================== */
+
+    .acciones-justificacion,
+    .acciones-historial {
+        display:flex;
+
+        gap:10px;
+    }
+
+
+    .boton-aprobar,
+    .boton-rechazar {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+
+        padding:9px 16px;
+
+        border-radius:7px;
+
+        font-size:11px;
+        font-weight:700;
+
+        text-decoration:none;
+    }
+
+
+    .boton-aprobar {
+        background:#156FE7;
+
+        border:1px solid #156FE7;
+
+        color:#FFFFFF;
+    }
+
+
+    .boton-aprobar:hover {
+        background:#0F5FCC;
+    }
+
+
+    .boton-rechazar {
+        background:#FFFFFF;
+
+        border:1px solid #D0D5DD;
+
+        color:#B42318;
+    }
+
+
+    .boton-rechazar:hover {
+        background:#FFF5F5;
+    }
+
+
+    /* =====================================================
+       SIN PENDIENTES
+    ====================================================== */
+
+    .sin-pendientes {
+        display:flex;
+        align-items:center;
+
+        gap:13px;
+
+        padding:24px;
+    }
+
+
+    .icono-sin-pendientes {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        width:42px;
+        height:42px;
+
+        flex-shrink:0;
+
+        border-radius:50%;
+
+        background:#EEF6FF;
+
+        color:#156FE7;
+    }
+
+
+    .sin-pendientes strong {
+        display:block;
+
+        margin-bottom:3px;
+
+        color:#344054;
+
+        font-size:12px;
+    }
+
+
+    .sin-pendientes p {
+        margin:0;
+
+        color:#98A2B3;
+
+        font-size:10px;
+    }
+
+
+    /* =====================================================
+       HISTORIAL
+    ====================================================== */
+
+    .tarjeta-historial {
+        margin-bottom:35px;
+
+        background:#FFFFFF;
+
+        border:1px solid #E1E7EF;
+        border-radius:16px;
+
+        box-shadow:
+            0 5px 18px rgba(16,24,40,.04);
+    }
+
+
+    .cabecera-historial {
+        padding:20px 24px;
+
+        border-bottom:1px solid #EDF0F4;
+    }
+
+
+    .cabecera-historial h2 {
+        margin:0 0 4px;
+
+        color:#101828;
+
+        font-size:16px;
+    }
+
+
+    .cabecera-historial p {
+        margin:0;
+
+        color:#667085;
+
+        font-size:11px;
+    }
+
+
+    .fila-historial {
+        display:grid;
+
+        grid-template-columns:
+            minmax(220px,1.4fr)
+            minmax(120px,.7fr)
+            minmax(200px,1.3fr)
+            95px
+            55px;
+
+        align-items:center;
+
+        gap:20px;
+
+        padding:16px 24px;
+
+        border-bottom:1px solid #EDF0F4;
+    }
+
+
+    .fila-historial:last-child {
+        border-bottom:none;
+    }
+
+
+    .alumno-historial {
+        display:flex;
+        align-items:center;
+
+        gap:11px;
+
+        min-width:0;
+    }
+
+
+    .alumno-historial img,
+    .avatar-historial {
+        width:38px;
+        height:38px;
+
+        flex-shrink:0;
+
+        border-radius:50%;
+    }
+
+
+    .alumno-historial img {
+        object-fit:cover;
+    }
+
+
+    .avatar-historial {
+        display:flex;
+        align-items:center;
+        justify-content:center;
+
+        background:#EEF4FF;
+
+        color:#156FE7;
+
+        font-size:12px;
+        font-weight:700;
+    }
+
+
+    .alumno-historial strong,
+    .fecha-historial strong,
+    .motivo-historial strong {
+        display:block;
+
+        color:#344054;
+
+        font-size:11px;
+    }
+
+
+    .alumno-historial span,
+    .fecha-historial span,
+    .motivo-historial span {
+        display:block;
+
+        margin-bottom:3px;
+
+        color:#98A2B3;
+
+        font-size:9px;
+    }
+
+
+    .alumno-historial div {
+        min-width:0;
+    }
+
+
+    .alumno-historial strong,
+    .alumno-historial span,
+    .motivo-historial strong {
+        overflow:hidden;
+
+        text-overflow:ellipsis;
+
+        white-space:nowrap;
+    }
+
+
+    /* =====================================================
+       ESTADOS
+    ====================================================== */
+
+    .estado-justificacion {
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+
+        padding:6px 9px;
+
+        border-radius:999px;
+
+        font-size:9px;
+        font-weight:700;
+    }
+
+
+    .estado-justificacion.pendiente {
+        background:#EEF6FF;
+
+        color:#156FE7;
+    }
+
+
+    .estado-justificacion.aprobada {
+        background:#ECFDF3;
+
+        color:#039855;
+    }
+
+
+    .estado-justificacion.rechazada {
+        background:#FFF1F1;
+
+        color:#B42318;
+    }
+
+
+    /* =====================================================
+       VER DETALLE HISTORIAL
+    ====================================================== */
+
+    .detalle-historial {
+        position:relative;
+    }
+
+
+    .detalle-historial summary {
+        color:#156FE7;
+
+        cursor:pointer;
+
+        font-size:10px;
+        font-weight:700;
+
+        list-style:none;
+    }
+
+
+    .detalle-historial summary::-webkit-details-marker {
+        display:none;
+    }
+
+
+    .desplegable-historial {
+        grid-column:1 / -1;
+
+        margin-top:14px;
+
+        padding:15px;
+
+        border:1px solid #E5EAF0;
+        border-radius:9px;
+
+        background:#FAFCFF;
+
+        color:#344054;
+
+        font-size:11px;
+    }
+
+
+    .desplegable-historial p {
+        margin:7px 0 10px;
+
+        line-height:1.6;
+    }
+
+
+    .desplegable-historial > a {
+        color:#156FE7;
+
+        font-weight:700;
+
+        text-decoration:none;
+    }
+
+
+    .acciones-historial {
+        margin-top:14px;
+    }
+
+
+    .sin-justificaciones {
+        padding:35px 24px;
+
+        color:#667085;
+
+        font-size:12px;
+
+        text-align:center;
+    }
+
+
+    /* =====================================================
+       MÓVIL
+    ====================================================== */
+
+    @media (max-width:768px) {
+
+        .cabecera-justificaciones {
+            align-items:flex-start;
+            flex-direction:column;
+        }
+
+
+        .fecha-justificaciones {
+            width:100%;
+
+            box-sizing:border-box;
+        }
+
+
+        .cabecera-tarjeta-justificaciones {
+            align-items:flex-start;
+        }
+
+
+        .justificacion-pendiente summary {
+            padding:16px;
+        }
+
+
+        .foto-alumno,
+        .avatar-alumno {
+            width:38px;
+            height:38px;
+        }
+
+
+        .detalle-justificacion {
+            padding:5px 16px 20px;
+        }
+
+
+        .detalle-grid {
+            grid-template-columns:1fr;
+        }
+
+
+        .fila-historial {
+            grid-template-columns:1fr auto;
+
+            gap:12px;
+
+            padding:16px;
+        }
+
+
+        .alumno-historial {
+            grid-column:1;
+        }
+
+
+        .fecha-historial,
+        .motivo-historial {
+            grid-column:1;
+
+            padding-left:49px;
+        }
+
+
+        .estado-historial {
+            grid-column:2;
+            grid-row:1;
+        }
+
+
+        .detalle-historial {
+            grid-column:1 / -1;
+
+            padding-left:49px;
+        }
+
+
+        .acciones-justificacion,
+        .acciones-historial {
+            flex-direction:column;
+        }
+
+
+        .boton-aprobar,
+        .boton-rechazar {
+            width:100%;
+
+            box-sizing:border-box;
+        }
+
+    }
+
+</style>
 
 {% endblock %}
