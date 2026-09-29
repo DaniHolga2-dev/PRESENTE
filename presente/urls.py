@@ -105,7 +105,7 @@ urlpatterns = [
 
 
     # =====================================================
-    # CONTROL GENERAL DE ASISTENCIA
+    # CONTROL GENERAL DE ASISTENCIA - PROFESOR
     # =====================================================
 
     path(
@@ -118,51 +118,6 @@ urlpatterns = [
         'profesor/asistencia/registros/',
         views.registros_asistencia,
         name='registros_asistencia'
-    ),
-
-
-    # =====================================================
-    # INFORMES PROFESOR
-    # =====================================================
-
-    path(
-        'profesor/informes/',
-        views.informes_profesor,
-        name='informes_profesor'
-    ),
-
-
-    # =====================================================
-    # AJUSTES PROFESOR
-    # =====================================================
-
-    path(
-        'profesor/ajustes/',
-        views.ajustes_profesor,
-        name='ajustes_profesor'
-    ),
-
-
-    # =====================================================
-    # SOPORTE PROFESOR
-    # =====================================================
-
-    path(
-        'profesor/soporte/',
-        views.soporte_profesor,
-        name='soporte_profesor'
-    ),
-
-    path(
-        'profesor/soporte/<int:solicitud_id>/aprobar/',
-        views.aprobar_soporte,
-        name='aprobar_soporte'
-    ),
-
-    path(
-        'profesor/soporte/<int:solicitud_id>/rechazar/',
-        views.rechazar_soporte,
-        name='rechazar_soporte'
     ),
 
 
@@ -196,6 +151,51 @@ urlpatterns = [
 
 
     # =====================================================
+    # INFORMES PROFESOR
+    # =====================================================
+
+    path(
+        'profesor/informes/',
+        views.informes_profesor,
+        name='informes_profesor'
+    ),
+
+
+    # =====================================================
+    # SOPORTE PROFESOR
+    # =====================================================
+
+    path(
+        'profesor/soporte/',
+        views.soporte_profesor,
+        name='soporte_profesor'
+    ),
+
+    path(
+        'profesor/soporte/<int:solicitud_id>/aprobar/',
+        views.aprobar_soporte,
+        name='aprobar_soporte'
+    ),
+
+    path(
+        'profesor/soporte/<int:solicitud_id>/rechazar/',
+        views.rechazar_soporte,
+        name='rechazar_soporte'
+    ),
+
+
+    # =====================================================
+    # AJUSTES PROFESOR
+    # =====================================================
+
+    path(
+        'profesor/ajustes/',
+        views.ajustes_profesor,
+        name='ajustes_profesor'
+    ),
+
+
+    # =====================================================
     # ALUMNO
     # =====================================================
 
@@ -212,12 +212,6 @@ urlpatterns = [
     ),
 
     path(
-        'alumno/panel/',
-        views.panel_alumno,
-        name='panel_alumno'
-    ),
-
-    path(
         'alumno/grupo/',
         views.grupo_alumno,
         name='grupo_alumno'
@@ -229,10 +223,15 @@ urlpatterns = [
         name='clases_alumno'
     ),
 
+
+    # =====================================================
+    # ASISTENCIA ALUMNO
+    # =====================================================
+
     path(
-        'alumno/logout/',
-        views.logout_alumno,
-        name='logout_alumno'
+        'alumno/asistencia/',
+        views.asistencia_alumno,
+        name='asistencia_alumno'
     ),
 
 
@@ -248,6 +247,39 @@ urlpatterns = [
 
 
     # =====================================================
+    # INFORMES ALUMNO
+    # =====================================================
+
+    path(
+        'alumno/informes/',
+        views.informes_alumno,
+        name='informes_alumno'
+    ),
+
+
+    # =====================================================
+    # AJUSTES ALUMNO
+    # =====================================================
+
+    path(
+        'alumno/ajustes/',
+        views.ajustes_alumno,
+        name='ajustes_alumno'
+    ),
+
+
+    # =====================================================
+    # LOGOUT ALUMNO
+    # =====================================================
+
+    path(
+        'alumno/logout/',
+        views.logout_alumno,
+        name='logout_alumno'
+    ),
+
+
+    # =====================================================
     # QR
     # =====================================================
 
@@ -259,7 +291,7 @@ urlpatterns = [
 
 
     # =====================================================
-    # SOPORTE
+    # SOPORTE GENERAL / ALUMNO
     # =====================================================
 
     path(
@@ -267,4 +299,5 @@ urlpatterns = [
         views.soporte,
         name='soporte'
     ),
+
 ]

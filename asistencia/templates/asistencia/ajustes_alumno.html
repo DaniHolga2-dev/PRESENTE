@@ -1,0 +1,772 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}
+Ajustes | PRESENTE
+{% endblock %}
+
+{% block content %}
+
+<section class="pagina-ajustes-alumno">
+
+    <!-- CABECERA -->
+
+    <div class="cabecera-ajustes-alumno">
+
+        <p class="etiqueta-ajustes-alumno">
+            ÁREA DEL ALUMNO
+        </p>
+
+        <h1>
+            Ajustes
+        </h1>
+
+        <p>
+            Consulta la información de tu perfil y tu cuenta.
+        </p>
+
+    </div>
+
+
+    <div class="grid-ajustes-alumno">
+
+
+        <!-- =============================================
+             PERFIL
+        ============================================== -->
+
+        <div class="tarjeta-ajustes-alumno">
+
+            <div class="titulo-tarjeta-ajustes">
+
+                <div class="icono-titulo-ajustes">
+                    👤
+                </div>
+
+                <div>
+                    <h2>Mi perfil</h2>
+                    <p>Información personal de tu cuenta.</p>
+                </div>
+
+            </div>
+
+
+            <div class="perfil-ajustes-alumno">
+
+                <div class="foto-ajustes-alumno">
+
+                    {% if alumno.foto %}
+
+                        <img
+                            src="{{ alumno.foto.url }}"
+                            alt="Foto de perfil"
+                        >
+
+                    {% else %}
+
+                        <div class="avatar-sin-foto">
+                            {{ alumno.nombre|first|upper }}
+                        </div>
+
+                    {% endif %}
+
+                </div>
+
+
+                <div class="nombre-ajustes-alumno">
+
+                    <h3>
+                        {{ alumno.nombre }}
+                        {{ alumno.apellidos }}
+                    </h3>
+
+                    <span>
+                        Alumno
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="datos-ajustes-alumno">
+
+                <div class="fila-dato-ajustes">
+
+                    <span class="nombre-dato-ajustes">
+                        Nombre
+                    </span>
+
+                    <strong>
+                        {{ alumno.nombre }}
+                    </strong>
+
+                </div>
+
+
+                <div class="fila-dato-ajustes">
+
+                    <span class="nombre-dato-ajustes">
+                        Apellidos
+                    </span>
+
+                    <strong>
+                        {{ alumno.apellidos }}
+                    </strong>
+
+                </div>
+
+
+                <div class="fila-dato-ajustes">
+
+                    <span class="nombre-dato-ajustes">
+                        Correo electrónico
+                    </span>
+
+                    <strong>
+                        {{ alumno.email }}
+                    </strong>
+
+                </div>
+
+
+                <div class="fila-dato-ajustes">
+
+                    <span class="nombre-dato-ajustes">
+                        Carrera
+                    </span>
+
+                    <strong>
+                        {{ alumno.carrera }}
+                    </strong>
+
+                </div>
+
+
+                <div class="fila-dato-ajustes">
+
+                    <span class="nombre-dato-ajustes">
+                        Curso
+                    </span>
+
+                    <strong>
+                        {{ alumno.curso }}
+                    </strong>
+
+                </div>
+
+
+                <div class="fila-dato-ajustes">
+
+                    <span class="nombre-dato-ajustes">
+                        Grupo
+                    </span>
+
+                    <strong>
+                        {% if alumno.grupo %}
+                            {{ alumno.grupo.nombre }}
+                        {% else %}
+                            Sin grupo
+                        {% endif %}
+                    </strong>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =============================================
+             CUENTA
+        ============================================== -->
+
+        <div class="columna-ajustes-alumno">
+
+
+            <div class="tarjeta-ajustes-alumno tarjeta-cuenta-alumno">
+
+                <div class="titulo-tarjeta-ajustes">
+
+                    <div class="icono-titulo-ajustes">
+                        🔐
+                    </div>
+
+                    <div>
+                        <h2>Cuenta</h2>
+                        <p>Información de acceso a PRESENTE.</p>
+                    </div>
+
+                </div>
+
+
+                <div class="bloque-info-cuenta">
+
+                    <div class="icono-info-cuenta">
+                        ✉
+                    </div>
+
+                    <div>
+
+                        <span>
+                            Correo de acceso
+                        </span>
+
+                        <strong>
+                            {{ alumno.email }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="aviso-ajustes-alumno">
+
+                    <div>
+                        i
+                    </div>
+
+                    <p>
+                        Tu correo electrónico identifica tu cuenta
+                        dentro de PRESENTE.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- GRUPO -->
+
+            <div class="tarjeta-ajustes-alumno">
+
+                <div class="titulo-tarjeta-ajustes">
+
+                    <div class="icono-titulo-ajustes">
+                        👥
+                    </div>
+
+                    <div>
+                        <h2>Grupo actual</h2>
+                        <p>Información académica asociada.</p>
+                    </div>
+
+                </div>
+
+
+                {% if alumno.grupo %}
+
+                    <div class="grupo-ajustes-alumno">
+
+                        <div class="icono-grupo-ajustes">
+                            G
+                        </div>
+
+                        <div>
+
+                            <h3>
+                                {{ alumno.grupo.nombre }}
+                            </h3>
+
+                            <p>
+                                {{ alumno.grupo.asignatura }}
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                {% else %}
+
+                    <div class="sin-grupo-ajustes">
+
+                        <p>
+                            Actualmente no estás asociado a ningún grupo.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- SESIÓN -->
+
+            <div class="tarjeta-ajustes-alumno sesion-ajustes-alumno">
+
+                <div>
+
+                    <h2>
+                        Sesión
+                    </h2>
+
+                    <p>
+                        Cierra tu sesión actual de PRESENTE.
+                    </p>
+
+                </div>
+
+                <a
+                    href="{% url 'logout_alumno' %}"
+                    class="boton-cerrar-sesion-ajustes"
+                >
+                    Cerrar sesión
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+    .pagina-ajustes-alumno {
+        width: 100%;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 45px 30px 70px;
+        box-sizing: border-box;
+    }
+
+
+    /* =============================================
+       CABECERA
+    ============================================== */
+
+    .cabecera-ajustes-alumno {
+        margin-bottom: 28px;
+    }
+
+
+    .etiqueta-ajustes-alumno {
+        margin: 0 0 7px;
+        color: #156fe7;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+    }
+
+
+    .cabecera-ajustes-alumno h1 {
+        margin: 0;
+        color: #101828;
+        font-size: 32px;
+        line-height: 1.1;
+    }
+
+
+    .cabecera-ajustes-alumno > p:last-child {
+        margin: 7px 0 0;
+        color: #667085;
+        font-size: 14px;
+    }
+
+
+    /* =============================================
+       GRID
+    ============================================== */
+
+    .grid-ajustes-alumno {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 20px;
+        align-items: start;
+    }
+
+
+    .columna-ajustes-alumno {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+
+    /* =============================================
+       TARJETAS
+    ============================================== */
+
+    .tarjeta-ajustes-alumno {
+        overflow: hidden;
+        background: #ffffff;
+        border: 1px solid #e4e7ec;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(16, 24, 40, 0.04);
+    }
+
+
+    .titulo-tarjeta-ajustes {
+        min-height: 80px;
+        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        border-bottom: 1px solid #eaecf0;
+        box-sizing: border-box;
+    }
+
+
+    .icono-titulo-ajustes {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #eff6ff;
+        border-radius: 10px;
+        font-size: 18px;
+    }
+
+
+    .titulo-tarjeta-ajustes h2 {
+        margin: 0;
+        color: #101828;
+        font-size: 17px;
+    }
+
+
+    .titulo-tarjeta-ajustes p {
+        margin: 4px 0 0;
+        color: #98a2b3;
+        font-size: 11px;
+    }
+
+
+    /* =============================================
+       PERFIL
+    ============================================== */
+
+    .perfil-ajustes-alumno {
+        padding: 26px 24px;
+        display: flex;
+        align-items: center;
+        gap: 17px;
+        border-bottom: 1px solid #eaecf0;
+    }
+
+
+    .foto-ajustes-alumno {
+        width: 68px;
+        height: 68px;
+        flex-shrink: 0;
+    }
+
+
+    .foto-ajustes-alumno img,
+    .avatar-sin-foto {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+    }
+
+
+    .foto-ajustes-alumno img {
+        display: block;
+        object-fit: cover;
+    }
+
+
+    .avatar-sin-foto {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #156fe7;
+        background: #eff6ff;
+        font-size: 25px;
+        font-weight: 800;
+    }
+
+
+    .nombre-ajustes-alumno h3 {
+        margin: 0;
+        color: #101828;
+        font-size: 19px;
+    }
+
+
+    .nombre-ajustes-alumno span {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 5px 9px;
+        color: #156fe7;
+        background: #eff6ff;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 700;
+    }
+
+
+    /* =============================================
+       DATOS
+    ============================================== */
+
+    .datos-ajustes-alumno {
+        padding: 7px 24px;
+    }
+
+
+    .fila-dato-ajustes {
+        min-height: 58px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+        border-bottom: 1px solid #f0f1f3;
+    }
+
+
+    .fila-dato-ajustes:last-child {
+        border-bottom: none;
+    }
+
+
+    .nombre-dato-ajustes {
+        color: #667085;
+        font-size: 12px;
+    }
+
+
+    .fila-dato-ajustes strong {
+        color: #101828;
+        font-size: 12px;
+        text-align: right;
+    }
+
+
+    /* =============================================
+       CUENTA
+    ============================================== */
+
+    .bloque-info-cuenta {
+        margin: 22px 24px 15px;
+        padding: 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: #f9fafb;
+        border: 1px solid #eaecf0;
+        border-radius: 10px;
+    }
+
+
+    .icono-info-cuenta {
+        width: 36px;
+        height: 36px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #156fe7;
+        background: #eff6ff;
+        border-radius: 9px;
+        font-size: 17px;
+    }
+
+
+    .bloque-info-cuenta span {
+        display: block;
+        color: #98a2b3;
+        font-size: 10px;
+    }
+
+
+    .bloque-info-cuenta strong {
+        display: block;
+        margin-top: 3px;
+        color: #101828;
+        font-size: 12px;
+        overflow-wrap: anywhere;
+    }
+
+
+    .aviso-ajustes-alumno {
+        margin: 0 24px 24px;
+        padding: 13px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        color: #475467;
+        background: #eff6ff;
+        border-radius: 9px;
+    }
+
+
+    .aviso-ajustes-alumno > div {
+        width: 20px;
+        height: 20px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #156fe7;
+        border: 1px solid #93c5fd;
+        border-radius: 50%;
+        font-size: 11px;
+        font-weight: 800;
+    }
+
+
+    .aviso-ajustes-alumno p {
+        margin: 1px 0 0;
+        font-size: 11px;
+        line-height: 1.5;
+    }
+
+
+    /* =============================================
+       GRUPO
+    ============================================== */
+
+    .grupo-ajustes-alumno {
+        padding: 23px 24px;
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+
+
+    .icono-grupo-ajustes {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #156fe7;
+        background: #eff6ff;
+        border-radius: 11px;
+        font-size: 16px;
+        font-weight: 800;
+    }
+
+
+    .grupo-ajustes-alumno h3 {
+        margin: 0;
+        color: #101828;
+        font-size: 14px;
+    }
+
+
+    .grupo-ajustes-alumno p {
+        margin: 4px 0 0;
+        color: #98a2b3;
+        font-size: 11px;
+    }
+
+
+    .sin-grupo-ajustes {
+        padding: 24px;
+        color: #667085;
+        font-size: 12px;
+    }
+
+
+    .sin-grupo-ajustes p {
+        margin: 0;
+    }
+
+
+    /* =============================================
+       SESIÓN
+    ============================================== */
+
+    .sesion-ajustes-alumno {
+        padding: 22px 24px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+    }
+
+
+    .sesion-ajustes-alumno h2 {
+        margin: 0;
+        color: #101828;
+        font-size: 15px;
+    }
+
+
+    .sesion-ajustes-alumno p {
+        margin: 5px 0 0;
+        color: #98a2b3;
+        font-size: 11px;
+    }
+
+
+    .boton-cerrar-sesion-ajustes {
+        flex-shrink: 0;
+        padding: 10px 15px;
+        color: #ffffff;
+        background: #101828;
+        border-radius: 8px;
+        text-decoration: none;
+        font-size: 11px;
+        font-weight: 700;
+        transition:
+            background 0.2s ease,
+            transform 0.2s ease;
+    }
+
+
+    .boton-cerrar-sesion-ajustes:hover {
+        background: #344054;
+        transform: translateY(-1px);
+    }
+
+
+    /* =============================================
+       MÓVIL
+    ============================================== */
+
+    @media (max-width: 768px) {
+
+        .pagina-ajustes-alumno {
+            padding: 25px 16px 45px;
+        }
+
+
+        .cabecera-ajustes-alumno h1 {
+            font-size: 27px;
+        }
+
+
+        .grid-ajustes-alumno {
+            grid-template-columns: 1fr;
+        }
+
+
+        .fila-dato-ajustes {
+            align-items: flex-start;
+            flex-direction: column;
+            gap: 5px;
+            padding: 13px 0;
+        }
+
+
+        .fila-dato-ajustes strong {
+            text-align: left;
+        }
+
+
+        .sesion-ajustes-alumno {
+            align-items: flex-start;
+            flex-direction: column;
+        }
+
+
+        .boton-cerrar-sesion-ajustes {
+            width: 100%;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+    }
+
+</style>
+
+{% endblock %}

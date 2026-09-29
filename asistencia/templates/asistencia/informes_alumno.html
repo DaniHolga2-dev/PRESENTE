@@ -1,0 +1,728 @@
+{% extends 'asistencia/base.html' %}
+
+{% block title %}
+Informes | PRESENTE
+{% endblock %}
+
+{% block content %}
+
+<section class="pagina-panel">
+
+    <div class="cabecera-panel">
+
+        <div>
+
+            <p class="panel-etiqueta">
+                INFORMES
+            </p>
+
+            <h1>
+                Mi informe de asistencia
+            </h1>
+
+            <p class="panel-descripcion">
+                Resumen general de tu asistencia a clase.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="informe-resumen-alumno">
+
+        <div class="tarjeta-informe-alumno">
+
+            <div class="icono-informe-alumno azul">
+                %
+            </div>
+
+            <div>
+                <span class="numero-informe-alumno">
+                    {{ porcentaje_global }}%
+                </span>
+
+                <span class="texto-informe-alumno">
+                    Asistencia total
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="tarjeta-informe-alumno">
+
+            <div class="icono-informe-alumno verde">
+                ✓
+            </div>
+
+            <div>
+                <span class="numero-informe-alumno">
+                    {{ total_presentes }}
+                </span>
+
+                <span class="texto-informe-alumno">
+                    Presentes
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="tarjeta-informe-alumno">
+
+            <div class="icono-informe-alumno rosa">
+                ◷
+            </div>
+
+            <div>
+                <span class="numero-informe-alumno">
+                    {{ total_tardes }}
+                </span>
+
+                <span class="texto-informe-alumno">
+                    Retrasos
+                </span>
+            </div>
+
+        </div>
+
+
+        <div class="tarjeta-informe-alumno">
+
+            <div class="icono-informe-alumno gris">
+                ×
+            </div>
+
+            <div>
+                <span class="numero-informe-alumno">
+                    {{ total_ausencias }}
+                </span>
+
+                <span class="texto-informe-alumno">
+                    Ausencias
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="informe-grid-alumno">
+
+        <div class="bloque-informe-alumno">
+
+            <div class="cabecera-informe-alumno">
+
+                <div>
+                    <h2>
+                        Distribución de asistencia
+                    </h2>
+
+                    <p>
+                        Porcentaje correspondiente a cada estado.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="contenido-distribucion-alumno">
+
+
+                <!-- PRESENTE -->
+
+                <div class="fila-porcentaje-alumno">
+
+                    <div class="cabecera-porcentaje-alumno">
+
+                        <div class="nombre-estado-informe">
+                            <span class="punto-informe verde"></span>
+                            Presente
+                        </div>
+
+                        <strong>
+                            {{ porcentaje_presentes }}%
+                        </strong>
+
+                    </div>
+
+                    <progress
+                        class="barra-progreso-alumno presente"
+                        value="{{ porcentaje_presentes }}"
+                        max="100"
+                    >
+                        {{ porcentaje_presentes }}%
+                    </progress>
+
+                    <div class="detalle-porcentaje-alumno">
+                        {{ total_presentes }} de {{ total_registros }} registros
+                    </div>
+
+                </div>
+
+
+                <!-- TARDE -->
+
+                <div class="fila-porcentaje-alumno">
+
+                    <div class="cabecera-porcentaje-alumno">
+
+                        <div class="nombre-estado-informe">
+                            <span class="punto-informe rosa"></span>
+                            Tarde
+                        </div>
+
+                        <strong>
+                            {{ porcentaje_tardes }}%
+                        </strong>
+
+                    </div>
+
+                    <progress
+                        class="barra-progreso-alumno tarde"
+                        value="{{ porcentaje_tardes }}"
+                        max="100"
+                    >
+                        {{ porcentaje_tardes }}%
+                    </progress>
+
+                    <div class="detalle-porcentaje-alumno">
+                        {{ total_tardes }} de {{ total_registros }} registros
+                    </div>
+
+                </div>
+
+
+                <!-- AUSENTE -->
+
+                <div class="fila-porcentaje-alumno">
+
+                    <div class="cabecera-porcentaje-alumno">
+
+                        <div class="nombre-estado-informe">
+                            <span class="punto-informe gris"></span>
+                            Ausente
+                        </div>
+
+                        <strong>
+                            {{ porcentaje_ausencias }}%
+                        </strong>
+
+                    </div>
+
+                    <progress
+                        class="barra-progreso-alumno ausente"
+                        value="{{ porcentaje_ausencias }}"
+                        max="100"
+                    >
+                        {{ porcentaje_ausencias }}%
+                    </progress>
+
+                    <div class="detalle-porcentaje-alumno">
+                        {{ total_ausencias }} de {{ total_registros }} registros
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="bloque-informe-alumno resumen-final-alumno">
+
+            <div class="cabecera-informe-alumno">
+
+                <div>
+                    <h2>
+                        Resumen
+                    </h2>
+
+                    <p>
+                        Estado actual de tu asistencia.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="contenido-resumen-final">
+
+                <div class="circulo-porcentaje-alumno">
+
+                    <span>
+                        {{ porcentaje_global }}%
+                    </span>
+
+                    <small>
+                        asistencia
+                    </small>
+
+                </div>
+
+
+                <div class="datos-resumen-final">
+
+                    <div>
+                        <span>
+                            Registros totales
+                        </span>
+
+                        <strong>
+                            {{ total_registros }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Asistencias válidas
+                        </span>
+
+                        <strong>
+                            {{ total_presentes|add:total_tardes }}
+                        </strong>
+                    </div>
+
+
+                    <div>
+                        <span>
+                            Ausencias
+                        </span>
+
+                        <strong>
+                            {{ total_ausencias }}
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+    .pagina-panel {
+        width: 100%;
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 45px 30px 70px;
+        box-sizing: border-box;
+    }
+
+
+    .cabecera-panel {
+        margin-bottom: 28px;
+    }
+
+
+    .panel-etiqueta {
+        margin: 0 0 7px;
+        color: #156fe7;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+    }
+
+
+    .cabecera-panel h1 {
+        margin: 0;
+        color: #101828;
+        font-size: 32px;
+        line-height: 1.1;
+    }
+
+
+    .panel-descripcion {
+        margin: 7px 0 0;
+        color: #667085;
+        font-size: 14px;
+    }
+
+
+    /* ==================================================
+       TARJETAS SUPERIORES
+    ================================================== */
+
+    .informe-resumen-alumno {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 16px;
+        margin-bottom: 22px;
+    }
+
+
+    .tarjeta-informe-alumno {
+        min-height: 105px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        background: #ffffff;
+        border: 1px solid #e4e7ec;
+        border-radius: 14px;
+        box-sizing: border-box;
+        box-shadow: 0 3px 10px rgba(16, 24, 40, 0.03);
+    }
+
+
+    .icono-informe-alumno {
+        width: 46px;
+        height: 46px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        font-size: 22px;
+        font-weight: 800;
+    }
+
+
+    .icono-informe-alumno.azul {
+        color: #156fe7;
+        background: #eff6ff;
+    }
+
+
+    .icono-informe-alumno.verde {
+        color: #00a85a;
+        background: #ecfdf3;
+    }
+
+
+    .icono-informe-alumno.rosa {
+        color: #d63384;
+        background: #fff0f6;
+    }
+
+
+    .icono-informe-alumno.gris {
+        color: #667085;
+        background: #f2f4f7;
+    }
+
+
+    .numero-informe-alumno {
+        display: block;
+        color: #101828;
+        font-size: 26px;
+        line-height: 1;
+        font-weight: 800;
+    }
+
+
+    .texto-informe-alumno {
+        display: block;
+        margin-top: 6px;
+        color: #475467;
+        font-size: 12px;
+        font-weight: 600;
+    }
+
+
+    /* ==================================================
+       BLOQUES
+    ================================================== */
+
+    .informe-grid-alumno {
+        display: grid;
+        grid-template-columns: 1.5fr 0.8fr;
+        gap: 20px;
+    }
+
+
+    .bloque-informe-alumno {
+        overflow: hidden;
+        background: #ffffff;
+        border: 1px solid #e4e7ec;
+        border-radius: 14px;
+        box-shadow: 0 4px 14px rgba(16, 24, 40, 0.04);
+    }
+
+
+    .cabecera-informe-alumno {
+        min-height: 78px;
+        padding: 20px 24px;
+        display: flex;
+        align-items: center;
+        border-bottom: 1px solid #eaecf0;
+        box-sizing: border-box;
+    }
+
+
+    .cabecera-informe-alumno h2 {
+        margin: 0;
+        color: #101828;
+        font-size: 18px;
+    }
+
+
+    .cabecera-informe-alumno p {
+        margin: 4px 0 0;
+        color: #98a2b3;
+        font-size: 12px;
+    }
+
+
+    /* ==================================================
+       DISTRIBUCIÓN
+    ================================================== */
+
+    .contenido-distribucion-alumno {
+        padding: 26px 24px 30px;
+    }
+
+
+    .fila-porcentaje-alumno {
+        margin-bottom: 28px;
+    }
+
+
+    .fila-porcentaje-alumno:last-child {
+        margin-bottom: 0;
+    }
+
+
+    .cabecera-porcentaje-alumno {
+        margin-bottom: 9px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        color: #344054;
+        font-size: 13px;
+    }
+
+
+    .nombre-estado-informe {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-weight: 700;
+    }
+
+
+    .punto-informe {
+        width: 8px;
+        height: 8px;
+        display: inline-block;
+        border-radius: 50%;
+    }
+
+
+    .punto-informe.verde {
+        background: #12b76a;
+    }
+
+
+    .punto-informe.rosa {
+        background: #e83e8c;
+    }
+
+
+    .punto-informe.gris {
+        background: #98a2b3;
+    }
+
+
+    /* ==================================================
+       BARRAS PROGRESS
+    ================================================== */
+
+    .barra-progreso-alumno {
+        width: 100%;
+        height: 9px;
+        display: block;
+        overflow: hidden;
+        appearance: none;
+        -webkit-appearance: none;
+        border: none;
+        border-radius: 999px;
+        background: #f2f4f7;
+    }
+
+
+    .barra-progreso-alumno::-webkit-progress-bar {
+        background: #f2f4f7;
+        border-radius: 999px;
+    }
+
+
+    .barra-progreso-alumno::-webkit-progress-value {
+        border-radius: 999px;
+    }
+
+
+    .barra-progreso-alumno::-moz-progress-bar {
+        border-radius: 999px;
+    }
+
+
+    .barra-progreso-alumno.presente::-webkit-progress-value {
+        background: #12b76a;
+    }
+
+
+    .barra-progreso-alumno.tarde::-webkit-progress-value {
+        background: #e83e8c;
+    }
+
+
+    .barra-progreso-alumno.ausente::-webkit-progress-value {
+        background: #98a2b3;
+    }
+
+
+    .barra-progreso-alumno.presente::-moz-progress-bar {
+        background: #12b76a;
+    }
+
+
+    .barra-progreso-alumno.tarde::-moz-progress-bar {
+        background: #e83e8c;
+    }
+
+
+    .barra-progreso-alumno.ausente::-moz-progress-bar {
+        background: #98a2b3;
+    }
+
+
+    .detalle-porcentaje-alumno {
+        margin-top: 7px;
+        color: #98a2b3;
+        font-size: 10px;
+    }
+
+
+    /* ==================================================
+       RESUMEN FINAL
+    ================================================== */
+
+    .contenido-resumen-final {
+        padding: 28px 24px;
+    }
+
+
+    .circulo-porcentaje-alumno {
+        width: 145px;
+        height: 145px;
+        margin: 0 auto 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        background: #eff6ff;
+        border: 12px solid #dbeafe;
+        border-radius: 50%;
+        box-sizing: border-box;
+    }
+
+
+    .circulo-porcentaje-alumno span {
+        color: #156fe7;
+        font-size: 28px;
+        font-weight: 800;
+    }
+
+
+    .circulo-porcentaje-alumno small {
+        margin-top: 2px;
+        color: #667085;
+        font-size: 10px;
+        font-weight: 600;
+    }
+
+
+    .datos-resumen-final > div {
+        padding: 13px 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid #f0f1f3;
+    }
+
+
+    .datos-resumen-final > div:last-child {
+        border-bottom: none;
+    }
+
+
+    .datos-resumen-final span {
+        color: #667085;
+        font-size: 12px;
+    }
+
+
+    .datos-resumen-final strong {
+        color: #101828;
+        font-size: 14px;
+    }
+
+
+    /* ==================================================
+       MÓVIL
+    ================================================== */
+
+    @media (max-width: 768px) {
+
+        .pagina-panel {
+            padding: 25px 16px 45px;
+        }
+
+
+        .cabecera-panel h1 {
+            font-size: 27px;
+        }
+
+
+        .informe-resumen-alumno {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+
+        .informe-grid-alumno {
+            grid-template-columns: 1fr;
+        }
+
+
+        .tarjeta-informe-alumno {
+            min-height: 95px;
+            padding: 15px;
+            gap: 11px;
+        }
+
+
+        .icono-informe-alumno {
+            width: 40px;
+            height: 40px;
+            font-size: 19px;
+        }
+
+
+        .numero-informe-alumno {
+            font-size: 22px;
+        }
+
+    }
+
+
+    @media (max-width: 480px) {
+
+        .informe-resumen-alumno {
+            grid-template-columns: 1fr;
+        }
+
+    }
+
+</style>
+
+{% endblock %}

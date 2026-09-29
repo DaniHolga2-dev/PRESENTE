@@ -21,7 +21,7 @@
             <div>
 
                 <p class="panel-etiqueta">
-                    ÁREA DEL PROFESOR
+                    ÁREA DEL ALUMNO
                 </p>
 
                 <h1>
@@ -29,13 +29,11 @@
                 </h1>
 
                 <p class="panel-subtitulo">
-                    Consulta el seguimiento general de tus alumnos y grupos.
+                    Consulta el seguimiento general de tu asistencia a clase.
                 </p>
 
             </div>
 
-
-            <!-- FECHA -->
 
             <div class="fecha-actual">
 
@@ -107,7 +105,7 @@
                 <div class="cabecera-semanal">
 
                     <strong>
-                        Asistencia semanal (promedio)
+                        Mi asistencia semanal
                     </strong>
 
                     <span>
@@ -191,13 +189,9 @@
                         <div class="dias-grafica">
 
                             <span>Lun</span>
-
                             <span>Mar</span>
-
                             <span>Mié</span>
-
                             <span>Jue</span>
-
                             <span>Vie</span>
 
                         </div>
@@ -208,11 +202,11 @@
                     <div class="promedio-semanal">
 
                         <strong>
-                            {{ porcentaje_global }}%
+                            {{ porcentaje_asistencia }}%
                         </strong>
 
                         <span>
-                            Promedio general
+                            Asistencia general
                         </span>
 
                     </div>
@@ -268,7 +262,7 @@
                     </strong>
 
                     <span class="texto-resumen">
-                        Presentes hoy
+                        Presentes
                     </span>
 
                 </div>
@@ -314,7 +308,7 @@
                     </strong>
 
                     <span class="texto-resumen">
-                        Retrasos hoy
+                        Retrasos
                     </span>
 
                 </div>
@@ -370,11 +364,11 @@
                 <div>
 
                     <strong class="numero-resumen">
-                        {{ total_ausentes }}
+                        {{ total_ausencias }}
                     </strong>
 
                     <span class="texto-resumen">
-                        Ausentes hoy
+                        Ausencias
                     </span>
 
                 </div>
@@ -384,10 +378,10 @@
 
 
             <!-- =================================================
-                 JUSTIFICACIONES
+                 PORCENTAJE
             ================================================== -->
 
-            <div class="tarjeta-resumen tarjeta-justificaciones">
+            <div class="tarjeta-resumen tarjeta-porcentaje">
 
                 <svg
                     width="32"
@@ -400,13 +394,24 @@
                     stroke-linejoin="round"
                 >
 
-                    <path
-                        d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
-                    ></path>
+                    <line
+                        x1="19"
+                        y1="5"
+                        x2="5"
+                        y2="19"
+                    ></line>
 
-                    <polyline
-                        points="14 2 14 8 20 8"
-                    ></polyline>
+                    <circle
+                        cx="6.5"
+                        cy="6.5"
+                        r="2.5"
+                    ></circle>
+
+                    <circle
+                        cx="17.5"
+                        cy="17.5"
+                        r="2.5"
+                    ></circle>
 
                 </svg>
 
@@ -414,19 +419,12 @@
                 <div>
 
                     <strong class="numero-resumen">
-                        {{ justificaciones_pendientes }}
+                        {{ porcentaje_asistencia }}%
                     </strong>
 
                     <span class="texto-resumen">
-                        Justificaciones pendientes
+                        Asistencia total
                     </span>
-
-                    <a
-                        href="{% url 'justificaciones_profesor' %}"
-                        class="enlace-azul enlace-justificaciones"
-                    >
-                        Ver justificantes →
-                    </a>
 
                 </div>
 
@@ -458,54 +456,34 @@
                         </h2>
 
                         <p>
-                            Últimas asistencias registradas
+                            Tus últimas asistencias registradas
                         </p>
 
                     </div>
 
-
-                    <a
-                        href="{% url 'registros_asistencia' %}"
-                        class="enlace-azul"
-                    >
-                        Ver todos →
-                    </a>
-
                 </div>
 
 
-                {% for registro in ultimos_registros %}
+                {% for registro in asistencias|slice:":5" %}
 
                     <div class="registro">
 
 
                         <div class="registro-alumno">
 
-                            {% if registro.alumno.foto %}
-
-                                <img
-                                    src="{{ registro.alumno.foto.url }}"
-                                    alt="{{ registro.alumno.nombre }}"
-                                >
-
-                            {% else %}
-
-                                <div class="avatar">
-                                    {{ registro.alumno.nombre|first }}
-                                </div>
-
-                            {% endif %}
+                            <div class="avatar-asignatura">
+                                {{ registro.clase.grupo.asignatura|first|upper }}
+                            </div>
 
 
                             <div class="datos-registro">
 
                                 <strong>
-                                    {{ registro.alumno.nombre }}
-                                    {{ registro.alumno.apellidos }}
+                                    {{ registro.clase.grupo.asignatura }}
                                 </strong>
 
                                 <span>
-                                    {{ registro.clase.grupo.asignatura }}
+                                    {{ registro.clase.fecha|date:"d/m/Y" }}
                                 </span>
 
                             </div>
@@ -540,7 +518,7 @@
                                 ● Tarde
                             </span>
 
-                        {% elif registro.estado == 'ausente' %}
+                        {% else %}
 
                             <span class="estado estado-ausente">
                                 ● Ausente
@@ -554,18 +532,13 @@
                 {% empty %}
 
                     <div class="vacio">
-                        Todavía no hay registros de asistencia.
+                        Todavía no tienes registros de asistencia.
                     </div>
 
                 {% endfor %}
 
             </div>
-                            {% endfor %}
-
-            </div>
-
-
-            <!-- =================================================
+                        <!-- =================================================
                  PRÓXIMAS CLASES
             ================================================== -->
 
@@ -580,13 +553,14 @@
                         </h2>
 
                         <p>
-                            Clases programadas
+                            Tus próximas clases programadas
                         </p>
 
                     </div>
 
+
                     <a
-                        href="{% url 'clases_profesor' %}"
+                        href="{% url 'clases_alumno' %}"
                         class="enlace-azul"
                     >
                         Ver calendario →
@@ -637,6 +611,7 @@
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                             >
+
                                 <circle
                                     cx="12"
                                     cy="12"
@@ -646,6 +621,7 @@
                                 <polyline
                                     points="12 7 12 12 15 14"
                                 ></polyline>
+
                             </svg>
 
                             {{ clase.hora_inicio|time:"H:i" }}
@@ -654,10 +630,11 @@
 
                     </div>
 
+
                 {% empty %}
 
                     <div class="vacio">
-                        No hay próximas clases programadas.
+                        No tienes próximas clases programadas.
                     </div>
 
                 {% endfor %}
@@ -683,8 +660,7 @@
                     </h2>
 
                     <p>
-                        Abre la asistencia de la clase y permite a los alumnos
-                        registrar su entrada mediante código QR.
+                        Consulta el estado de asistencia de tus clases de hoy.
                     </p>
 
                 </div>
@@ -702,6 +678,7 @@
                         stroke-linecap="round"
                         stroke-linejoin="round"
                     >
+
                         <rect
                             x="3"
                             y="3"
@@ -740,6 +717,7 @@
             </div>
 
 
+
             {% for item in clases_hoy %}
 
                 <div class="clase-hoy">
@@ -763,6 +741,7 @@
                                 stroke-linecap="round"
                                 stroke-linejoin="round"
                             >
+
                                 <rect
                                     x="3"
                                     y="5"
@@ -820,85 +799,173 @@
 
 
                     <!-- =========================================
-                         ASISTENCIA ABIERTA
+                         YA HA REGISTRADO ASISTENCIA
                     ========================================== -->
 
-                    {% if item.clase.asistencia_abierta %}
+                    {% if item.asistencia %}
 
-                        <div class="zona-qr">
+                        <div class="zona-estado-alumno">
 
-                            <div class="qr-contenedor">
+                            <div class="estado-clase-alumno">
 
 
-                                {% if item.qr_base64 %}
+                                {% if item.asistencia.estado == 'presente' %}
 
-                                    <img
-                                        id="qr-{{ item.clase.id }}"
-                                        class="qr-dinamico"
-                                        data-renovar-url="{% url 'renovar_qr' item.clase.id %}"
-                                        src="data:image/png;base64,{{ item.qr_base64 }}"
-                                        alt="Código QR de asistencia"
-                                    >
+                                    <div class="icono-estado-alumno presente">
+
+                                        <svg
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+
+                                            <polyline
+                                                points="20 6 9 17 4 12"
+                                            ></polyline>
+
+                                        </svg>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <span class="estado-abierta">
+                                            <span></span>
+                                            Asistencia registrada
+                                        </span>
+
+                                        <strong>
+                                            Has registrado tu asistencia correctamente
+                                        </strong>
+
+                                        <small>
+                                            Tu estado para esta clase es Presente.
+                                        </small>
+
+                                    </div>
+
+
+                                {% elif item.asistencia.estado == 'tarde' %}
+
+                                    <div class="icono-estado-alumno tarde">
+
+                                        <svg
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+
+                                            <circle
+                                                cx="12"
+                                                cy="12"
+                                                r="9"
+                                            ></circle>
+
+                                            <polyline
+                                                points="12 7 12 12 15 14"
+                                            ></polyline>
+
+                                        </svg>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <span class="estado-tarde-clase">
+                                            Retraso registrado
+                                        </span>
+
+                                        <strong>
+                                            Tu asistencia se ha registrado con retraso
+                                        </strong>
+
+                                        <small>
+                                            El registro se realizó después del margen establecido.
+                                        </small>
+
+                                    </div>
+
+
+                                {% else %}
+
+                                    <div class="icono-estado-alumno ausente">
+
+                                        <svg
+                                            width="24"
+                                            height="24"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
+
+                                            <line
+                                                x1="18"
+                                                y1="6"
+                                                x2="6"
+                                                y2="18"
+                                            ></line>
+
+                                            <line
+                                                x1="6"
+                                                y1="6"
+                                                x2="18"
+                                                y2="18"
+                                            ></line>
+
+                                        </svg>
+
+                                    </div>
+
+
+                                    <div>
+
+                                        <span class="estado-ausente-clase">
+                                            Ausencia registrada
+                                        </span>
+
+                                        <strong>
+                                            Esta clase figura como ausencia
+                                        </strong>
+
+                                        <small>
+                                            Puedes enviar una justificación desde el apartado correspondiente.
+                                        </small>
+
+                                    </div>
 
                                 {% endif %}
 
 
-                                <div class="qr-info">
+                                {% if item.asistencia.hora_registro %}
 
-                                    <span class="estado-abierta">
-                                        <span></span>
-                                        Clase activa
-                                    </span>
+                                    <div class="hora-fichaje-alumno">
 
+                                        <span>
+                                            Hora de registro
+                                        </span>
 
-                                    <strong>
-                                        Escanea el QR para registrar tu asistencia
-                                    </strong>
+                                        <strong>
+                                            {{ item.asistencia.hora_registro|time:"H:i" }}
+                                        </strong>
 
-
-                                    <small>
-                                        QR dinámico. El código se renueva automáticamente.
-                                    </small>
-
-
-                                    <!-- =================================
-                                         BARRA DE DURACIÓN DEL QR
-                                    ================================== -->
-
-                                    <div
-                                        class="temporizador-qr"
-                                        aria-label="Tiempo restante del código QR"
-                                    >
-                                        <div class="temporizador-qr-fondo">
-
-                                            <div
-                                                class="temporizador-qr-barra"
-                                                id="barra-qr-{{ item.clase.id }}"
-                                            ></div>
-
-                                        </div>
                                     </div>
 
-                                </div>
-
-                            </div>
-
-
-                            <div class="acciones-asistencia">
-
-                                <a
-                                    href="{% url 'gestionar_asistencia' item.clase.id %}"
-                                    class="boton-secundario"
-                                >
-                                    Ver asistencia
-                                </a>
-
-                                <a
-                                    href="{% url 'cerrar_asistencia' item.clase.id %}"
-                                    class="boton-cerrar"
-                                >
-                                    Cerrar asistencia
-                                </a>
+                                {% endif %}
 
                             </div>
 
@@ -907,12 +974,141 @@
 
 
                     <!-- =========================================
-                         ASISTENCIA CERRADA
+                         ASISTENCIA ABIERTA - ESPERANDO QR
+                    ========================================== -->
+
+                    {% elif item.clase.asistencia_abierta %}
+
+                        <div class="zona-qr-alumno">
+
+                            <div class="qr-espera-alumno">
+
+                                <div class="icono-escanear">
+
+                                    <svg
+                                        width="34"
+                                        height="34"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="#156FE7"
+                                        stroke-width="1.7"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                    >
+
+                                        <rect
+                                            x="3"
+                                            y="3"
+                                            width="7"
+                                            height="7"
+                                        ></rect>
+
+                                        <rect
+                                            x="14"
+                                            y="3"
+                                            width="7"
+                                            height="7"
+                                        ></rect>
+
+                                        <rect
+                                            x="3"
+                                            y="14"
+                                            width="7"
+                                            height="7"
+                                        ></rect>
+
+                                        <path d="M14 14h3v3h-3z"></path>
+
+                                        <path d="M18 14h3"></path>
+
+                                        <path d="M21 14v3"></path>
+
+                                        <path d="M14 21h3"></path>
+
+                                        <path d="M17 18h4v3"></path>
+
+                                    </svg>
+
+                                </div>
+
+
+                                <div class="info-escanear">
+
+                                    <span class="estado-abierta">
+                                        <span></span>
+                                        Asistencia abierta
+                                    </span>
+
+                                    <strong>
+                                        Escanea el código QR del profesor
+                                    </strong>
+
+                                    <small>
+                                        Utiliza la cámara de tu móvil para escanear el código mostrado en clase.
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="indicador-qr-activo">
+
+                                <span class="pulso-qr"></span>
+
+                                <div>
+
+                                    <strong>
+                                        QR activo
+                                    </strong>
+
+                                    <small>
+                                        Esperando registro
+                                    </small>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+
+                    <!-- =========================================
+                         ASISTENCIA TODAVÍA CERRADA
                     ========================================== -->
 
                     {% else %}
 
-                        <div class="zona-abrir">
+                        <div class="zona-cerrada-alumno">
+
+                            <div class="icono-espera-clase">
+
+                                <svg
+                                    width="25"
+                                    height="25"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="#667085"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="9"
+                                    ></circle>
+
+                                    <polyline
+                                        points="12 7 12 12 15 14"
+                                    ></polyline>
+
+                                </svg>
+
+                            </div>
+
 
                             <div>
 
@@ -920,65 +1116,15 @@
                                     Asistencia cerrada
                                 </span>
 
-                                <p>
-                                    Abre la asistencia para generar el código QR
-                                    de esta clase.
-                                </p>
+                                <strong>
+                                    Esperando al profesor
+                                </strong>
+
+                                <small>
+                                    Cuando el profesor abra la asistencia podrás escanear el código QR.
+                                </small>
 
                             </div>
-
-
-                            <a
-                                href="{% url 'abrir_asistencia' item.clase.id %}"
-                                class="boton-abrir"
-                            >
-
-                                <svg
-                                    width="18"
-                                    height="18"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-                                    <rect
-                                        x="3"
-                                        y="3"
-                                        width="7"
-                                        height="7"
-                                    ></rect>
-
-                                    <rect
-                                        x="14"
-                                        y="3"
-                                        width="7"
-                                        height="7"
-                                    ></rect>
-
-                                    <rect
-                                        x="3"
-                                        y="14"
-                                        width="7"
-                                        height="7"
-                                    ></rect>
-
-                                    <path d="M14 14h3v3h-3z"></path>
-
-                                    <path d="M18 14h3"></path>
-
-                                    <path d="M21 14v3"></path>
-
-                                    <path d="M14 21h3"></path>
-
-                                    <path d="M17 18h4v3"></path>
-
-                                </svg>
-
-                                Abrir asistencia
-
-                            </a>
 
                         </div>
 
@@ -1008,6 +1154,7 @@
                             stroke-linecap="round"
                             stroke-linejoin="round"
                         >
+
                             <rect
                                 x="3"
                                 y="5"
@@ -1043,16 +1190,17 @@
 
 
                     <strong>
-                        No hay clases programadas para hoy
+                        No tienes clases programadas para hoy
                     </strong>
 
                     <p>
-                        Cuando tengas una clase programada para hoy,
-                        podrás abrir la asistencia desde aquí.
+                        Cuando tengas una clase programada aparecerá aquí
+                        su estado de asistencia.
                     </p>
 
+
                     <a
-                        href="{% url 'clases_profesor' %}"
+                        href="{% url 'clases_alumno' %}"
                         class="enlace-azul"
                     >
                         Ver calendario →
@@ -1067,14 +1215,15 @@
     </div>
 
 </section>
-
-
-
 <!-- =========================================================
      CSS
 ========================================================== -->
 
 <style>
+
+    /* =====================================================
+       CABECERA
+    ====================================================== */
 
     .cabecera-control {
         display:flex;
@@ -1103,7 +1252,7 @@
 
 
     /* =====================================================
-       RESUMEN
+       RESUMEN SUPERIOR
     ====================================================== */
 
     .resumen-asistencia {
@@ -1167,6 +1316,7 @@
     .grafica-svg {
         position:relative;
         height:115px;
+
         background:
             linear-gradient(
                 to bottom,
@@ -1225,6 +1375,11 @@
     }
 
 
+
+    /* =====================================================
+       TARJETAS DE ESTADÍSTICAS
+    ====================================================== */
+
     .tarjeta-resumen {
         min-height:122px;
         padding:20px;
@@ -1250,6 +1405,18 @@
     }
 
 
+    .tarjeta-ausencias {
+        background:#FFFFFF;
+        border-color:#E5E7EB;
+    }
+
+
+    .tarjeta-porcentaje {
+        background:#EFF6FF;
+        border-color:#BFDBFE;
+    }
+
+
     .numero-resumen {
         display:block;
         color:#101828;
@@ -1268,14 +1435,9 @@
     }
 
 
-    .enlace-justificaciones {
-        display:inline-block;
-        margin-top:7px;
-        font-size:9px;
-    }
 
-        /* =====================================================
-       BLOQUE DOBLE
+    /* =====================================================
+       ÚLTIMOS REGISTROS + PRÓXIMAS CLASES
     ====================================================== */
 
     .bloque-doble {
@@ -1335,7 +1497,7 @@
 
 
     /* =====================================================
-       REGISTROS
+       ÚLTIMOS REGISTROS
     ====================================================== */
 
     .registro {
@@ -1361,28 +1523,18 @@
     }
 
 
-    .registro-alumno img,
-    .avatar {
+    .avatar-asignatura {
         width:38px;
         height:38px;
-        border-radius:50%;
-        flex-shrink:0;
-    }
-
-
-    .registro-alumno img {
-        object-fit:cover;
-    }
-
-
-    .avatar {
         display:flex;
         align-items:center;
         justify-content:center;
+        flex-shrink:0;
+        border-radius:50%;
         background:#EEF2F6;
         color:#475467;
         font-size:13px;
-        font-weight:700;
+        font-weight:800;
     }
 
 
@@ -1391,19 +1543,19 @@
     }
 
 
-    .registro-alumno strong {
+    .datos-registro strong {
         display:block;
         margin-bottom:3px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
         color:#101828;
         font-size:12px;
     }
 
 
-    .registro-alumno span {
+    .datos-registro span {
         display:block;
-        overflow:hidden;
-        text-overflow:ellipsis;
-        white-space:nowrap;
         color:#98A2B3;
         font-size:10px;
     }
@@ -1444,6 +1596,14 @@
     }
 
 
+    .vacio {
+        padding:40px 20px;
+        text-align:center;
+        color:#98A2B3;
+        font-size:12px;
+    }
+
+
 
     /* =====================================================
        PRÓXIMAS CLASES
@@ -1466,10 +1626,10 @@
     .fecha-clase {
         width:48px;
         flex-shrink:0;
-        text-align:center;
         padding:8px 4px;
         border-radius:10px;
         background:#EEF6FF;
+        text-align:center;
     }
 
 
@@ -1500,6 +1660,9 @@
     .datos-clase strong {
         display:block;
         margin-bottom:4px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
         color:#101828;
         font-size:12px;
     }
@@ -1515,17 +1678,10 @@
         display:flex;
         align-items:center;
         gap:5px;
+        flex-shrink:0;
         color:#475467;
         font-size:11px;
         font-weight:600;
-    }
-
-
-    .vacio {
-        padding:40px 20px;
-        text-align:center;
-        color:#98A2B3;
-        font-size:12px;
     }
 
 
@@ -1536,11 +1692,11 @@
 
     .tarjeta-asistencia-hoy {
         margin-bottom:30px;
+        overflow:hidden;
         background:#FFFFFF;
         border:1px solid #E5E7EB;
         border-radius:16px;
         box-shadow:0 5px 16px rgba(16,24,40,.04);
-        overflow:hidden;
     }
 
 
@@ -1574,9 +1730,9 @@
         display:flex;
         align-items:center;
         justify-content:center;
+        flex-shrink:0;
         border-radius:11px;
         background:#EEF6FF;
-        flex-shrink:0;
     }
 
 
@@ -1605,9 +1761,9 @@
         display:flex;
         align-items:center;
         justify-content:center;
+        flex-shrink:0;
         border-radius:11px;
         background:#EEF6FF;
-        flex-shrink:0;
     }
 
 
@@ -1637,55 +1793,69 @@
 
 
     /* =====================================================
-       QR
+       ASISTENCIA YA REGISTRADA
     ====================================================== */
 
-    .zona-qr {
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:25px;
+    .zona-estado-alumno {
         padding:20px;
+        border:1px solid #EAECF0;
         border-radius:13px;
         background:#F8FAFC;
-        border:1px solid #EAECF0;
     }
 
 
-    .qr-contenedor {
+    .estado-clase-alumno {
         display:flex;
         align-items:center;
-        gap:20px;
+        gap:17px;
     }
 
 
-    .qr-dinamico {
-        width:145px;
-        height:145px;
-        padding:8px;
-        background:#FFFFFF;
-        border:1px solid #EAECF0;
-        border-radius:10px;
-        object-fit:contain;
+    .estado-clase-alumno > div:nth-child(2) {
+        flex:1;
+        min-width:0;
     }
 
 
-    .qr-info {
-        min-width:220px;
+    .icono-estado-alumno {
+        width:48px;
+        height:48px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-shrink:0;
+        border-radius:50%;
     }
 
 
-    .qr-info strong {
+    .icono-estado-alumno.presente {
+        color:#039855;
+        background:#D1FADF;
+    }
+
+
+    .icono-estado-alumno.tarde {
+        color:#E82A91;
+        background:#FCE7F3;
+    }
+
+
+    .icono-estado-alumno.ausente {
+        color:#667085;
+        background:#EAECF0;
+    }
+
+
+    .estado-clase-alumno strong {
         display:block;
-        margin:11px 0 5px;
+        margin:10px 0 4px;
         color:#101828;
         font-size:13px;
     }
 
 
-    .qr-info small {
+    .estado-clase-alumno small {
         display:block;
-        max-width:280px;
         color:#667085;
         font-size:10px;
         line-height:1.5;
@@ -1713,125 +1883,186 @@
     }
 
 
-
-    /* =====================================================
-       BARRA DE DURACIÓN DEL QR
-    ====================================================== */
-
-    .temporizador-qr {
-        width:100%;
-        max-width:280px;
-        margin-top:14px;
-    }
-
-
-    .temporizador-qr-fondo {
-        position:relative;
-        width:100%;
-        height:6px;
-        overflow:hidden;
+    .estado-tarde-clase {
+        display:inline-flex;
+        padding:6px 9px;
         border-radius:999px;
-        background:#E4E7EC;
-    }
-
-
-    .temporizador-qr-barra {
-        width:100%;
-        height:100%;
-        border-radius:999px;
-        background:#156FE7;
-        transform-origin:left center;
-        transform:scaleX(1);
-    }
-
-
-    .temporizador-qr-barra.animando {
-        animation:vaciarQR 5s linear forwards;
-    }
-
-
-    @keyframes vaciarQR {
-
-        from {
-            transform:scaleX(1);
-        }
-
-        to {
-            transform:scaleX(0);
-        }
-
-    }
-
-
-
-    /* =====================================================
-       BOTONES QR
-    ====================================================== */
-
-    .acciones-asistencia {
-        display:flex;
-        flex-direction:column;
-        gap:9px;
-        min-width:160px;
-    }
-
-
-    .boton-secundario,
-    .boton-cerrar,
-    .boton-abrir {
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        gap:8px;
-        padding:11px 16px;
-        border-radius:8px;
-        font-size:11px;
+        background:#FFF0F8;
+        color:#E82A91;
+        font-size:10px;
         font-weight:700;
-        text-decoration:none;
-        box-sizing:border-box;
     }
 
 
-    .boton-secundario {
-        background:#FFFFFF;
-        border:1px solid #D0D5DD;
-        color:#344054;
+    .estado-ausente-clase {
+        display:inline-flex;
+        padding:6px 9px;
+        border-radius:999px;
+        background:#F2F4F7;
+        color:#667085;
+        font-size:10px;
+        font-weight:700;
     }
 
 
-    .boton-cerrar {
-        background:#156FE7;
-        border:1px solid #156FE7;
-        color:#FFFFFF;
+    .hora-fichaje-alumno {
+        min-width:110px;
+        padding:12px 15px;
+        flex-shrink:0;
+        border-left:1px solid #EAECF0;
+        text-align:center;
     }
 
 
-    .boton-cerrar:hover {
-        background:#0F5FCC;
+    .hora-fichaje-alumno span {
+        display:block;
+        margin-bottom:4px;
+        color:#98A2B3;
+        font-size:9px;
+    }
+
+
+    .hora-fichaje-alumno strong {
+        margin:0;
+        color:#101828;
+        font-size:18px;
     }
 
 
 
     /* =====================================================
-       ABRIR ASISTENCIA
+       ASISTENCIA ABIERTA
     ====================================================== */
 
-    .zona-abrir {
+    .zona-qr-alumno {
         display:flex;
         align-items:center;
         justify-content:space-between;
-        gap:20px;
+        gap:25px;
         padding:20px;
+        border:1px solid #B2DDFF;
         border-radius:13px;
-        background:#F8FAFC;
-        border:1px solid #EAECF0;
+        background:#F5FAFF;
     }
 
 
-    .zona-abrir p {
-        margin:7px 0 0;
+    .qr-espera-alumno {
+        display:flex;
+        align-items:center;
+        gap:18px;
+    }
+
+
+    .icono-escanear {
+        width:62px;
+        height:62px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-shrink:0;
+        border-radius:14px;
+        background:#FFFFFF;
+        border:1px solid #D1E9FF;
+    }
+
+
+    .info-escanear strong {
+        display:block;
+        margin:10px 0 4px;
+        color:#101828;
+        font-size:13px;
+    }
+
+
+    .info-escanear small {
+        display:block;
+        max-width:430px;
         color:#667085;
+        font-size:10px;
+        line-height:1.5;
+    }
+
+
+    .indicador-qr-activo {
+        min-width:145px;
+        display:flex;
+        align-items:center;
+        gap:10px;
+        padding:13px 15px;
+        border-radius:10px;
+        background:#FFFFFF;
+        border:1px solid #D1E9FF;
+    }
+
+
+    .pulso-qr {
+        width:10px;
+        height:10px;
+        flex-shrink:0;
+        border-radius:50%;
+        background:#12B76A;
+        box-shadow:0 0 0 0 rgba(18,183,106,.35);
+        animation:pulsoQR 1.7s infinite;
+    }
+
+
+    @keyframes pulsoQR {
+
+        0% {
+            box-shadow:0 0 0 0 rgba(18,183,106,.35);
+        }
+
+        70% {
+            box-shadow:0 0 0 8px rgba(18,183,106,0);
+        }
+
+        100% {
+            box-shadow:0 0 0 0 rgba(18,183,106,0);
+        }
+
+    }
+
+
+    .indicador-qr-activo strong {
+        display:block;
+        margin-bottom:2px;
+        color:#101828;
         font-size:11px;
+    }
+
+
+    .indicador-qr-activo small {
+        display:block;
+        color:#667085;
+        font-size:9px;
+    }
+
+
+
+    /* =====================================================
+       ASISTENCIA CERRADA
+    ====================================================== */
+
+    .zona-cerrada-alumno {
+        display:flex;
+        align-items:center;
+        gap:17px;
+        padding:20px;
+        border:1px solid #EAECF0;
+        border-radius:13px;
+        background:#F8FAFC;
+    }
+
+
+    .icono-espera-clase {
+        width:48px;
+        height:48px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-shrink:0;
+        border-radius:50%;
+        background:#EAECF0;
     }
 
 
@@ -1846,21 +2077,25 @@
     }
 
 
-    .boton-abrir {
-        background:#156FE7;
-        color:#FFFFFF;
-        white-space:nowrap;
+    .zona-cerrada-alumno strong {
+        display:block;
+        margin:10px 0 4px;
+        color:#101828;
+        font-size:13px;
     }
 
 
-    .boton-abrir:hover {
-        background:#0F5FCC;
+    .zona-cerrada-alumno small {
+        display:block;
+        color:#667085;
+        font-size:10px;
+        line-height:1.5;
     }
 
 
 
     /* =====================================================
-       SIN CLASES
+       SIN CLASES HOY
     ====================================================== */
 
     .sin-clases-hoy {
@@ -1890,8 +2125,8 @@
 
 
     .sin-clases-hoy p {
-        margin:0 auto 10px;
         max-width:400px;
+        margin:0 auto 10px;
         color:#98A2B3;
         font-size:11px;
         line-height:1.5;
@@ -1933,16 +2168,15 @@
 
 
         .grafica-semanal {
-            padding-right:0;
             padding-bottom:22px;
-            border-right:none;
             border-bottom:1px solid #EAECF0;
         }
 
 
         .promedio-semanal {
-            padding-left:0;
+            min-height:auto;
             padding-top:22px;
+            border-left:none;
         }
 
 
@@ -1966,51 +2200,6 @@
         }
 
 
-        .zona-qr {
-            flex-direction:column;
-            align-items:stretch;
-        }
-
-
-        .qr-contenedor {
-            flex-direction:column;
-            text-align:center;
-        }
-
-
-        .qr-dinamico {
-            margin:auto;
-        }
-
-
-        .qr-info {
-            width:100%;
-            min-width:0;
-        }
-
-
-        .temporizador-qr {
-            margin-left:auto;
-            margin-right:auto;
-        }
-
-
-        .acciones-asistencia {
-            width:100%;
-        }
-
-
-        .zona-abrir {
-            flex-direction:column;
-            align-items:stretch;
-        }
-
-
-        .boton-abrir {
-            width:100%;
-        }
-
-
         .proxima-clase {
             gap:10px;
         }
@@ -2018,6 +2207,64 @@
 
         .hora-clase {
             font-size:10px;
+        }
+
+
+        .estado-clase-alumno {
+            align-items:flex-start;
+            flex-wrap:wrap;
+        }
+
+
+        .hora-fichaje-alumno {
+            width:100%;
+            padding:13px 0 0;
+            border-left:none;
+            border-top:1px solid #EAECF0;
+            text-align:left;
+        }
+
+
+        .zona-qr-alumno {
+            align-items:stretch;
+            flex-direction:column;
+        }
+
+
+        .qr-espera-alumno {
+            align-items:flex-start;
+        }
+
+
+        .indicador-qr-activo {
+            min-width:0;
+        }
+
+    }
+
+
+    @media (max-width:480px) {
+
+        .qr-espera-alumno {
+            flex-direction:column;
+        }
+
+
+        .icono-escanear {
+            width:52px;
+            height:52px;
+        }
+
+
+        .proxima-clase {
+            align-items:flex-start;
+            flex-wrap:wrap;
+        }
+
+
+        .hora-clase {
+            width:100%;
+            padding-left:62px;
         }
 
     }
@@ -2032,19 +2279,20 @@
 
 <script>
 
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener(
+    'DOMContentLoaded',
+    function () {
+
+        const fechaActual =
+            document.getElementById(
+                'fechaActual'
+            );
 
 
-    /* =====================================================
-       FECHA ACTUAL
-    ====================================================== */
+        if (!fechaActual) {
+            return;
+        }
 
-    const fechaActual = document.getElementById(
-        'fechaActual'
-    );
-
-
-    if (fechaActual) {
 
         const ahora = new Date();
 
@@ -2087,205 +2335,7 @@ document.addEventListener('DOMContentLoaded', function () {
             '.';
 
     }
-
-
-
-    /* =====================================================
-       QR DINÁMICO - 5 SEGUNDOS
-    ====================================================== */
-
-    const DURACION_QR = 5000;
-
-
-    const imagenesQR = document.querySelectorAll(
-        '.qr-dinamico[data-renovar-url]'
-    );
-
-
-    imagenesQR.forEach(function (imagen) {
-
-        const renovarUrl =
-            imagen.dataset.renovarUrl;
-
-
-        const idClase =
-            imagen.id.replace(
-                'qr-',
-                ''
-            );
-
-
-        const barra =
-            document.getElementById(
-                'barra-qr-' + idClase
-            );
-
-
-        let renovando = false;
-
-
-
-        /* ================================================
-           REINICIAR BARRA
-        ================================================= */
-
-        function reiniciarBarra() {
-
-            if (!barra) {
-                return;
-            }
-
-
-            barra.classList.remove(
-                'animando'
-            );
-
-
-            /*
-             * Fuerza al navegador a registrar el estado
-             * inicial antes de volver a ejecutar la
-             * animación.
-             */
-
-            void barra.offsetWidth;
-
-
-            barra.classList.add(
-                'animando'
-            );
-
-        }
-
-
-
-        /* ================================================
-           RENOVAR QR
-        ================================================= */
-
-        function renovarQR() {
-
-            if (renovando) {
-                return;
-            }
-
-
-            renovando = true;
-
-
-            fetch(
-                renovarUrl,
-                {
-                    cache: 'no-store',
-                    headers: {
-                        'X-Requested-With':
-                            'XMLHttpRequest'
-                    }
-                }
-            )
-
-            .then(function (response) {
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        'Error al renovar el QR'
-                    );
-
-                }
-
-
-                return response.json();
-
-            })
-
-            .then(function (data) {
-
-
-                /*
-                 * La asistencia se ha cerrado.
-                 */
-
-                if (
-                    data.cerrada ||
-                    !data.ok
-                ) {
-
-                    return;
-
-                }
-
-
-                /*
-                 * Sustituimos el QR únicamente cuando
-                 * hemos recibido correctamente el nuevo.
-                 */
-
-                if (data.qr_base64) {
-
-                    imagen.src =
-                        'data:image/png;base64,' +
-                        data.qr_base64;
-
-                }
-
-
-                /*
-                 * El nuevo QR acaba de empezar su ciclo.
-                 */
-
-                reiniciarBarra();
-
-            })
-
-            .catch(function (error) {
-
-                console.error(
-                    'No se ha podido renovar el QR:',
-                    error
-                );
-
-
-                /*
-                 * Si existe un error de conexión,
-                 * reiniciamos la barra para no dejarla
-                 * visualmente congelada.
-                 */
-
-                reiniciarBarra();
-
-            })
-
-            .finally(function () {
-
-                renovando = false;
-
-            });
-
-        }
-
-
-
-        /*
-         * Iniciamos la barra correspondiente al QR que
-         * ya ha llegado renderizado desde Django.
-         */
-
-        reiniciarBarra();
-
-
-
-        /*
-         * Cada cinco segundos pedimos un token nuevo.
-         */
-
-        setInterval(
-            renovarQR,
-            DURACION_QR
-        );
-
-    });
-
-});
+);
 
 </script>
 
