@@ -1,4 +1,4 @@
-{{% load static %}
+{% load static %}
 
 <!DOCTYPE html>
 
@@ -29,17 +29,22 @@
         ========================================================= */
 
         :root {
-            --sidebar-ancho: 260px;
-            --sidebar-fondo: #ffffff;
-            --sidebar-borde: #e6ebf2;
-            --sidebar-texto: #5f6f82;
-            --sidebar-texto-fuerte: #17263c;
-            --sidebar-activo-fondo: #eaf8f3;
-            --sidebar-activo-texto: #239d77;
-            --sidebar-hover: #f6f8fb;
-            --sidebar-rojo: #dc5b67;
-            --sidebar-rojo-fondo: #fff0f2;
-        }
+    --sidebar-ancho: 245px;
+
+    --sidebar-fondo: #0d2b55;
+    --sidebar-borde: #173d6d;
+
+    --sidebar-texto: #c8d6e8;
+    --sidebar-texto-fuerte: #ffffff;
+
+    --sidebar-activo-fondo: #17477f;
+    --sidebar-activo-texto: #ffffff;
+
+    --sidebar-hover: #143b6b;
+
+    --sidebar-rojo: #ff8c98;
+    --sidebar-rojo-fondo: #173d6d;
+}
 
         * {
             box-sizing: border-box;
@@ -188,7 +193,7 @@
         }
 
         .sidebar-marca-texto strong {
-            color: #17263c;
+            color: #ffffff;
 
             font-size: 18px;
             font-weight: 900;
@@ -197,17 +202,17 @@
         }
 
         .sidebar-marca-texto span {
-            margin-top: 5px;
+    margin-top: 5px;
 
-            color: #8996a8;
+    color: #a9bdd6;
 
-            font-size: 9px;
+    font-size: 9px;
 
-            letter-spacing: 0.16em;
-        }
+    letter-spacing: 0.16em;
+}
 
         .sidebar-marca-texto span b {
-            color: #239d77;
+            color: #51c99d;
 
             font-weight: 900;
         }
@@ -229,7 +234,7 @@
                 14px
                 12px;
 
-            color: #9aa6b5;
+            color: #8fa9c8;
 
             font-size: 10px;
             font-weight: 800;
@@ -257,7 +262,7 @@
 
             text-decoration: none;
 
-            font-size: 14px;
+            font-size: 13px;
             font-weight: 600;
 
             transition:
@@ -285,13 +290,13 @@
         }
 
         .sidebar-icono {
-            width: 21px;
-            height: 21px;
+            width: 20px;
+            height: 20px;
 
             flex:
                 0
                 0
-                21px;
+                20px;
         }
 
         /* =========================================================
@@ -449,7 +454,7 @@
 
 <body>
 
-{% if request.resolver_match.url_name != 'inicio' and request.session.profesor_id or request.resolver_match.url_name != 'inicio' and request.session.alumno_id %}
+{% if request.session.profesor_id or request.session.alumno_id %}
 
     <!-- =========================================================
          BOTÓN MENÚ MÓVIL
@@ -497,8 +502,8 @@
             <div class="sidebar-marca">
 
                 <a
-                    href="{% url 'inicio' %}"
-                    class="sidebar-marca-enlace"
+                     href="{% url 'inicio' %}"
+                    class="sidebar-enlace {% if request.resolver_match.url_name == 'inicio' %}activo{% endif %}"
                 >
 
                     <div class="sidebar-logo">
@@ -1085,7 +1090,7 @@
      CIERRE DEL LAYOUT CON SIDEBAR
 ========================================================== -->
 
-{% if request.resolver_match.url_name != 'inicio' and request.session.profesor_id or request.resolver_match.url_name != 'inicio' and request.session.alumno_id %}
+{% if request.session.profesor_id or request.session.alumno_id %}
 
         </div>
 

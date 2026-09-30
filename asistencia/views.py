@@ -107,15 +107,15 @@ def generar_qr_base64(url):
 
 
 def inicio(request):
-
-
+    if request.session.get('profesor_id') or request.session.get('alumno_id'):
+        return render(
+            request,
+            'asistencia/inicio_sesion.html'
+        )
 
     return render(
-
         request,
-
         'asistencia/inicio.html'
-
     )
 
 
