@@ -1000,83 +1000,168 @@
         font-size: 10px;
         line-height: 1.4;
     }
-        /* =====================================================
-       TARJETAS DE RESUMEN
-    ====================================================== */
 
-    .tarjeta-resumen {
-        min-height: 126px;
-        padding: 20px;
-        border: 1px solid #E5E7EB;
-        border-radius: 16px;
-        background: #FFFFFF;
-        display: flex;
-        align-items: flex-start;
-        gap: 15px;
-        box-shadow: 0 6px 18px rgba(16,24,40,.05);
-    }
-    .tarjeta-presentes {
+    /* =====================================================
+   TARJETAS DE RESUMEN
+===================================================== */
+
+.tarjeta-resumen {
+    min-height: 150px;
+    padding: 22px 18px;
+    border: 1px solid #E5E7EB;
+    border-radius: 16px;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    text-align: center;
+    box-shadow: 0 6px 18px rgba(16,24,40,.05);
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+.tarjeta-resumen > svg {
+    width: 43px;
+    height: 43px;
+    flex: 0 0 auto;
+    margin-bottom: 2px;
+    transition:
+        transform .25s ease,
+        filter .25s ease;
+}
+
+.tarjeta-resumen > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* PRESENTES */
+
+.tarjeta-presentes {
     background: #ECFDF3;
     border-color: #86E9B6;
-}
-
-.tarjeta-retrasos {
-    background: #FFF1F7;
-    border-color: #FFB4D5;
-}
-
-.tarjeta-ausencias {
-    background: #FFFFFF;
-    border-color: #DDE2E8;
-}
-
-.tarjeta-justificaciones {
-    background: #EFF6FF;
-    border-color: #A9CEFF;
 }
 
 .tarjeta-presentes .numero-resumen {
     color: #039855;
 }
 
+.tarjeta-presentes:hover {
+    transform: translateY(-4px);
+    border-color: #03C26E;
+    box-shadow:
+        0 12px 28px rgba(3,194,110,.16),
+        0 0 22px rgba(3,194,110,.20);
+}
+
+.tarjeta-presentes:hover > svg {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 6px rgba(3,194,110,.35));
+}
+
+/* RETRASOS */
+
+.tarjeta-retrasos {
+    background: #FFF1F7;
+    border-color: #FFB4D5;
+}
+
 .tarjeta-retrasos .numero-resumen {
     color: #D92D8A;
+}
+
+.tarjeta-retrasos:hover {
+    transform: translateY(-4px);
+    border-color: #FF3AA7;
+    box-shadow:
+        0 12px 28px rgba(255,58,167,.15),
+        0 0 22px rgba(255,58,167,.19);
+}
+
+.tarjeta-retrasos:hover > svg {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 6px rgba(255,58,167,.35));
+}
+
+/* AUSENCIAS */
+
+.tarjeta-ausencias {
+    background: #FFFFFF;
+    border-color: #DDE2E8;
 }
 
 .tarjeta-ausencias .numero-resumen {
     color: #344054;
 }
 
+.tarjeta-ausencias:hover {
+    transform: translateY(-4px);
+    border-color: #98A2B3;
+    box-shadow:
+        0 12px 28px rgba(52,64,84,.13),
+        0 0 20px rgba(102,112,133,.16);
+}
+
+.tarjeta-ausencias:hover > svg {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 6px rgba(102,112,133,.30));
+}
+
+/* JUSTIFICACIONES */
+
+.tarjeta-justificaciones {
+    background: #EFF6FF;
+    border-color: #A9CEFF;
+}
+
 .tarjeta-justificaciones .numero-resumen {
     color: #156FE7;
 }
 
-    .tarjeta-resumen > svg {
-        flex: 0 0 auto;
-    }
+.tarjeta-justificaciones:hover {
+    transform: translateY(-4px);
+    border-color: #156FE7;
+    box-shadow:
+        0 12px 28px rgba(21,111,231,.15),
+        0 0 22px rgba(21,111,231,.20);
+}
 
-    .numero-resumen {
-        display: block;
-        margin-bottom: 5px;
-        color: #101828;
-        font-size: 27px;
-        line-height: 1;
-        font-weight: 800;
-    }
+.tarjeta-justificaciones:hover > svg {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 6px rgba(21,111,231,.35));
+}
 
-    .texto-resumen {
-        display: block;
-        color: #667085;
-        font-size: 11px;
-        line-height: 1.4;
-        font-weight: 500;
-    }
+/* CONTENIDO */
 
-    .enlace-justificaciones {
-        display: inline-block;
-        margin-top: 7px;
-        font-size: 10px;
-    }
+.numero-resumen {
+    display: block;
+    margin: 0 0 6px;
+    font-size: 43px;
+    line-height: 1;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+.texto-resumen {
+    display: block;
+    color: #667085;
+    font-size: 13px;
+    line-height: 1.4;
+    font-weight: 600;
+}
+
+.enlace-justificaciones {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 700;
+}
 
 
     /* =====================================================
@@ -1845,7 +1930,152 @@
         }
     }
 
+    /* =====================================================
+   NORMALIZACIÓN TIPOGRÁFICA - CONTROL DE ASISTENCIA
+===================================================== */
+
+/* Fecha superior */
+.fecha-actual {
+    font-size: 14px;
+}
+
+/* Gráfica semanal */
+.cabecera-semanal strong {
+    font-size: 17px;
+}
+
+.cabecera-semanal > span {
+    font-size: 13px;
+}
+
+.dias-grafica {
+    font-size: 13px;
+}
+
+.promedio-semanal span {
+    font-size: 14px;
+}
+
+/* Tarjetas de resumen */
+.texto-resumen {
+    font-size: 15px;
+}
+
+.enlace-justificaciones {
+    font-size: 13px;
+}
+
+/* Cabeceras de tarjetas */
+.cabecera-tarjeta h2,
+.cabecera-asistencia-hoy h2 {
+    font-size: 20px;
+}
+
+.cabecera-tarjeta p,
+.cabecera-asistencia-hoy p {
+    font-size: 14px;
+}
+
+.enlace-azul {
+    font-size: 14px;
+}
+
+/* Últimos registros */
+.datos-registro strong {
+    font-size: 15px;
+}
+
+.datos-registro span {
+    font-size: 13px;
+}
+
+.hora-registro {
+    font-size: 13px;
+}
+
+.estado {
+    font-size: 12px;
+}
+
+/* Próximas clases */
+.fecha-clase span {
+    font-size: 11px;
+}
+
+.fecha-clase strong {
+    font-size: 18px;
+}
+
+.datos-clase strong {
+    font-size: 15px;
+}
+
+.datos-clase span {
+    font-size: 13px;
+}
+
+.hora-clase {
+    font-size: 13px;
+}
+
+/* Asistencia de hoy */
+.etiqueta-hoy {
+    font-size: 11px;
+}
+
+.informacion-clase-hoy h3 {
+    font-size: 17px;
+}
+
+.informacion-clase-hoy p {
+    font-size: 14px;
+}
+
+/* Información del QR */
+.estado-abierta {
+    font-size: 12px;
+}
+
+.qr-info > strong {
+    font-size: 16px;
+}
+
+.qr-info > small {
+    font-size: 13px;
+}
+
+/* Botones */
+.boton-secundario,
+.boton-cerrar,
+.boton-abrir {
+    font-size: 13px;
+}
+
+/* Asistencia cerrada */
+.estado-cerrada {
+    font-size: 13px;
+}
+
+.zona-abrir p {
+    font-size: 13px;
+}
+
+/* Estados sin información */
+.vacio {
+    font-size: 14px;
+}
+
+.sin-clases-hoy strong {
+    font-size: 16px;
+}
+
+.sin-clases-hoy p {
+    font-size: 14px;
+}
+
 </style>
+
+
 
 
 <!-- =========================================================

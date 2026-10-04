@@ -1,2343 +1,1627 @@
 {% extends 'asistencia/base.html' %}
-
-
 {% block title %}Asistencia | PRESENTE{% endblock %}
 
-
 {% block content %}
-
-
 <section class="panel-usuario">
-
     <div class="panel-contenedor" style="max-width:1180px;">
 
-
-        <!-- =====================================================
-             CABECERA
-        ====================================================== -->
-
+        <!-- CABECERA -->
         <div class="cabecera-control">
-
             <div>
-
-                <p class="panel-etiqueta">
-                    ÁREA DEL ALUMNO
-                </p>
-
-                <h1>
-                    Asistencia
-                </h1>
-
+                <p class="panel-etiqueta">ÁREA DEL ALUMNO</p>
+                <h1>Asistencia</h1>
                 <p class="panel-subtitulo">
                     Consulta el seguimiento general de tu asistencia a clase.
                 </p>
-
             </div>
-
 
             <div class="fecha-actual">
-
-                <svg
-                    width="18"
-                    height="18"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#156FE7"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-
-                    <rect
-                        x="3"
-                        y="5"
-                        width="18"
-                        height="16"
-                        rx="2"
-                    ></rect>
-
-                    <line
-                        x1="16"
-                        y1="3"
-                        x2="16"
-                        y2="7"
-                    ></line>
-
-                    <line
-                        x1="8"
-                        y1="3"
-                        x2="8"
-                        y2="7"
-                    ></line>
-
-                    <line
-                        x1="3"
-                        y1="11"
-                        x2="21"
-                        y2="11"
-                    ></line>
-
+                <svg width="18" height="18" viewBox="0 0 24 24"
+                     fill="none" stroke="#156FE7" stroke-width="2"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                    <line x1="16" y1="3" x2="16" y2="7"></line>
+                    <line x1="8" y1="3" x2="8" y2="7"></line>
+                    <line x1="3" y1="11" x2="21" y2="11"></line>
                 </svg>
-
-                <span id="fechaActual">
-                    {% now "d/m/Y" %}
-                </span>
-
+                <span id="fechaActual">{% now "d/m/Y" %}</span>
             </div>
-
         </div>
 
-
-
-        <!-- =====================================================
-             RESUMEN SUPERIOR
-        ====================================================== -->
-
+        <!-- RESUMEN SUPERIOR -->
         <div class="resumen-asistencia">
 
-
-            <!-- =================================================
-                 GRÁFICA
-            ================================================== -->
-
+            <!-- GRÁFICA -->
             <div class="tarjeta-semanal">
-
                 <div class="cabecera-semanal">
-
-                    <strong>
-                        Mi asistencia semanal
-                    </strong>
-
-                    <span>
-                        Esta semana
-                    </span>
-
+                    <strong>Mi asistencia semanal</strong>
+                    <span>Esta semana</span>
                 </div>
 
-
                 <div class="contenido-semanal">
-
                     <div class="grafica-semanal">
-
                         <div class="grafica-svg">
-
-                            <svg
-                                viewBox="0 0 300 100"
-                                preserveAspectRatio="none"
-                            >
-
+                            <svg viewBox="0 0 300 100" preserveAspectRatio="none">
                                 <polyline
                                     points="10,78 75,58 140,48 205,64 290,20"
                                     fill="none"
                                     stroke="#156FE7"
                                     stroke-width="3"
                                     stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                ></polyline>
+                                    stroke-linejoin="round">
+                                </polyline>
 
-
-                                <circle
-                                    cx="10"
-                                    cy="78"
-                                    r="5"
-                                    fill="#156FE7"
-                                ></circle>
-
-
-                                <circle
-                                    cx="75"
-                                    cy="58"
-                                    r="5"
-                                    fill="#FFFFFF"
-                                    stroke="#156FE7"
-                                    stroke-width="3"
-                                ></circle>
-
-
-                                <circle
-                                    cx="140"
-                                    cy="48"
-                                    r="5"
-                                    fill="#FFFFFF"
-                                    stroke="#156FE7"
-                                    stroke-width="3"
-                                ></circle>
-
-
-                                <circle
-                                    cx="205"
-                                    cy="64"
-                                    r="5"
-                                    fill="#FFFFFF"
-                                    stroke="#156FE7"
-                                    stroke-width="3"
-                                ></circle>
-
-
-                                <circle
-                                    cx="290"
-                                    cy="20"
-                                    r="6"
-                                    fill="#156FE7"
-                                ></circle>
-
+                                <circle cx="10" cy="78" r="5" fill="#156FE7"></circle>
+                                <circle cx="75" cy="58" r="5"
+                                        fill="#FFFFFF"
+                                        stroke="#156FE7"
+                                        stroke-width="3"></circle>
+                                <circle cx="140" cy="48" r="5"
+                                        fill="#FFFFFF"
+                                        stroke="#156FE7"
+                                        stroke-width="3"></circle>
+                                <circle cx="205" cy="64" r="5"
+                                        fill="#FFFFFF"
+                                        stroke="#156FE7"
+                                        stroke-width="3"></circle>
+                                <circle cx="290" cy="20" r="6" fill="#156FE7"></circle>
                             </svg>
-
                         </div>
 
-
                         <div class="dias-grafica">
-
                             <span>Lun</span>
                             <span>Mar</span>
                             <span>Mié</span>
                             <span>Jue</span>
                             <span>Vie</span>
-
                         </div>
-
                     </div>
-
 
                     <div class="promedio-semanal">
-
-                        <strong>
-                            {{ porcentaje_asistencia }}%
-                        </strong>
-
-                        <span>
-                            Asistencia general
-                        </span>
-
+                        <strong>{{ porcentaje_asistencia }}%</strong>
+                        <span>Asistencia general</span>
                     </div>
-
                 </div>
-
             </div>
 
-
-
-            <!-- =================================================
-                 PRESENTES
-            ================================================== -->
-
+            <!-- PRESENTES -->
             <div class="tarjeta-resumen tarjeta-presentes">
-
-                <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#03C26E"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-
-                    <path
-                        d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"
-                    ></path>
-
-                    <circle
-                        cx="9"
-                        cy="7"
-                        r="4"
-                    ></circle>
-
-                    <path
-                        d="M22 21v-2a4 4 0 0 0-3-3.87"
-                    ></path>
-
-                    <path
-                        d="M16 3.13a4 4 0 0 1 0 7.75"
-                    ></path>
-
+                <svg width="32" height="32" viewBox="0 0 24 24"
+                     fill="none" stroke="#03C26E" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                    <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
                 </svg>
 
-
                 <div>
-
-                    <strong class="numero-resumen">
-                        {{ total_presentes }}
-                    </strong>
-
-                    <span class="texto-resumen">
-                        Presentes
-                    </span>
-
+                    <strong class="numero-resumen">{{ total_presentes }}</strong>
+                    <span class="texto-resumen">Presentes</span>
                 </div>
-
             </div>
 
-
-
-            <!-- =================================================
-                 RETRASOS
-            ================================================== -->
-
+            <!-- RETRASOS -->
             <div class="tarjeta-resumen tarjeta-retrasos">
-
-                <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#FF3AA7"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="9"
-                    ></circle>
-
-                    <polyline
-                        points="12 7 12 12 15 14"
-                    ></polyline>
-
+                <svg width="32" height="32" viewBox="0 0 24 24"
+                     fill="none" stroke="#FF3AA7" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="9"></circle>
+                    <polyline points="12 7 12 12 15 14"></polyline>
                 </svg>
 
-
                 <div>
-
-                    <strong class="numero-resumen">
-                        {{ total_tardes }}
-                    </strong>
-
-                    <span class="texto-resumen">
-                        Retrasos
-                    </span>
-
+                    <strong class="numero-resumen">{{ total_tardes }}</strong>
+                    <span class="texto-resumen">Retrasos</span>
                 </div>
-
             </div>
 
-
-
-            <!-- =================================================
-                 AUSENCIAS
-            ================================================== -->
-
+            <!-- AUSENCIAS -->
             <div class="tarjeta-resumen tarjeta-ausencias">
-
-                <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#667085"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-
-                    <path
-                        d="M15 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
-                    ></path>
-
-                    <circle
-                        cx="8"
-                        cy="7"
-                        r="4"
-                    ></circle>
-
-                    <line
-                        x1="18"
-                        y1="8"
-                        x2="23"
-                        y2="13"
-                    ></line>
-
-                    <line
-                        x1="23"
-                        y1="8"
-                        x2="18"
-                        y2="13"
-                    ></line>
-
+                <svg width="32" height="32" viewBox="0 0 24 24"
+                     fill="none" stroke="#667085" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="8" cy="7" r="4"></circle>
+                    <line x1="18" y1="8" x2="23" y2="13"></line>
+                    <line x1="23" y1="8" x2="18" y2="13"></line>
                 </svg>
 
-
                 <div>
-
-                    <strong class="numero-resumen">
-                        {{ total_ausencias }}
-                    </strong>
-
-                    <span class="texto-resumen">
-                        Ausencias
-                    </span>
-
+                    <strong class="numero-resumen">{{ total_ausencias }}</strong>
+                    <span class="texto-resumen">Ausencias</span>
                 </div>
-
             </div>
 
-
-
-            <!-- =================================================
-                 PORCENTAJE
-            ================================================== -->
-
+            <!-- PORCENTAJE -->
             <div class="tarjeta-resumen tarjeta-porcentaje">
-
-                <svg
-                    width="32"
-                    height="32"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="#156FE7"
-                    stroke-width="1.8"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                >
-
-                    <line
-                        x1="19"
-                        y1="5"
-                        x2="5"
-                        y2="19"
-                    ></line>
-
-                    <circle
-                        cx="6.5"
-                        cy="6.5"
-                        r="2.5"
-                    ></circle>
-
-                    <circle
-                        cx="17.5"
-                        cy="17.5"
-                        r="2.5"
-                    ></circle>
-
+                <svg width="32" height="32" viewBox="0 0 24 24"
+                     fill="none" stroke="#156FE7" stroke-width="1.8"
+                     stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="19" y1="5" x2="5" y2="19"></line>
+                    <circle cx="6.5" cy="6.5" r="2.5"></circle>
+                    <circle cx="17.5" cy="17.5" r="2.5"></circle>
                 </svg>
 
-
                 <div>
-
-                    <strong class="numero-resumen">
-                        {{ porcentaje_asistencia }}%
-                    </strong>
-
-                    <span class="texto-resumen">
-                        Asistencia total
-                    </span>
-
+                    <strong class="numero-resumen">{{ porcentaje_asistencia }}%</strong>
+                    <span class="texto-resumen">Asistencia total</span>
                 </div>
-
             </div>
-
         </div>
 
-
-
-        <!-- =====================================================
-             ÚLTIMOS REGISTROS + PRÓXIMAS CLASES
-        ====================================================== -->
-
+        <!-- ÚLTIMOS REGISTROS + PRÓXIMAS CLASES -->
         <div class="bloque-doble">
 
-
-            <!-- =================================================
-                 ÚLTIMOS REGISTROS
-            ================================================== -->
-
+            <!-- ÚLTIMOS REGISTROS -->
             <div class="tarjeta-principal">
-
                 <div class="cabecera-tarjeta">
-
                     <div>
-
-                        <h2>
-                            Últimos registros
-                        </h2>
-
-                        <p>
-                            Tus últimas asistencias registradas
-                        </p>
-
+                        <h2>Últimos registros</h2>
+                        <p>Tus últimas asistencias registradas</p>
                     </div>
-
                 </div>
 
-
                 {% for registro in asistencias|slice:":5" %}
-
                     <div class="registro">
-
-
                         <div class="registro-alumno">
-
                             <div class="avatar-asignatura">
                                 {{ registro.clase.grupo.asignatura|first|upper }}
                             </div>
 
-
                             <div class="datos-registro">
-
-                                <strong>
-                                    {{ registro.clase.grupo.asignatura }}
-                                </strong>
-
-                                <span>
-                                    {{ registro.clase.fecha|date:"d/m/Y" }}
-                                </span>
-
+                                <strong>{{ registro.clase.grupo.asignatura }}</strong>
+                                <span>{{ registro.clase.fecha|date:"d/m/Y" }}</span>
                             </div>
-
                         </div>
 
-
                         <span class="hora-registro">
-
                             {% if registro.hora_registro %}
-
                                 {{ registro.hora_registro|time:"H:i" }}
-
                             {% else %}
-
                                 —
-
                             {% endif %}
-
                         </span>
 
-
                         {% if registro.estado == 'presente' %}
-
-                            <span class="estado estado-presente">
-                                ● Presente
-                            </span>
-
+                            <span class="estado estado-presente">● Presente</span>
                         {% elif registro.estado == 'tarde' %}
-
-                            <span class="estado estado-tarde">
-                                ● Tarde
-                            </span>
-
+                            <span class="estado estado-tarde">● Tarde</span>
                         {% else %}
-
-                            <span class="estado estado-ausente">
-                                ● Ausente
-                            </span>
-
+                            <span class="estado estado-ausente">● Ausente</span>
                         {% endif %}
-
                     </div>
-
-
                 {% empty %}
-
                     <div class="vacio">
                         Todavía no tienes registros de asistencia.
                     </div>
-
                 {% endfor %}
-
             </div>
-                        <!-- =================================================
-                 PRÓXIMAS CLASES
-            ================================================== -->
 
+            <!-- PRÓXIMAS CLASES -->
             <div class="tarjeta-principal">
-
                 <div class="cabecera-tarjeta">
-
                     <div>
-
-                        <h2>
-                            Próximas clases
-                        </h2>
-
-                        <p>
-                            Tus próximas clases programadas
-                        </p>
-
+                        <h2>Próximas clases</h2>
+                        <p>Tus próximas clases programadas</p>
                     </div>
 
-
-                    <a
-                        href="{% url 'clases_alumno' %}"
-                        class="enlace-azul"
-                    >
+                    <a href="{% url 'clases_alumno' %}" class="enlace-azul">
                         Ver calendario →
                     </a>
-
                 </div>
 
-
                 {% for clase in proximas_clases %}
-
                     <div class="proxima-clase">
-
                         <div class="fecha-clase">
-
-                            <span>
-                                {{ clase.fecha|date:"D" }}
-                            </span>
-
-                            <strong>
-                                {{ clase.fecha|date:"d" }}
-                            </strong>
-
+                            <span>{{ clase.fecha|date:"D" }}</span>
+                            <strong>{{ clase.fecha|date:"d" }}</strong>
                         </div>
-
 
                         <div class="datos-clase">
-
-                            <strong>
-                                {{ clase.grupo.asignatura }}
-                            </strong>
-
-                            <span>
-                                {{ clase.grupo.nombre }}
-                            </span>
-
+                            <strong>{{ clase.grupo.asignatura }}</strong>
+                            <span>{{ clase.grupo.nombre }}</span>
                         </div>
 
-
                         <div class="hora-clase">
-
-                            <svg
-                                width="15"
-                                height="15"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-
-                                <circle
-                                    cx="12"
-                                    cy="12"
-                                    r="9"
-                                ></circle>
-
-                                <polyline
-                                    points="12 7 12 12 15 14"
-                                ></polyline>
-
+                            <svg width="15" height="15" viewBox="0 0 24 24"
+                                 fill="none" stroke="currentColor" stroke-width="2"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <polyline points="12 7 12 12 15 14"></polyline>
                             </svg>
 
                             {{ clase.hora_inicio|time:"H:i" }}
-
                         </div>
-
                     </div>
-
-
                 {% empty %}
-
                     <div class="vacio">
                         No tienes próximas clases programadas.
                     </div>
-
                 {% endfor %}
-
             </div>
-
         </div>
 
-
-
-        <!-- =====================================================
-             ASISTENCIA DE HOY
-        ====================================================== -->
-
-        <div class="tarjeta-asistencia-hoy">
-
-            <div class="cabecera-asistencia-hoy">
-
+        <!-- ASISTENCIA DE HOY -->
+        <div class="tarjeta-principal tarjeta-asistencia-hoy">
+            <div class="cabecera-tarjeta">
                 <div>
-
-                    <h2>
-                        Asistencia de hoy
-                    </h2>
-
-                    <p>
-                        Consulta el estado de asistencia de tus clases de hoy.
-                    </p>
-
+                    <h2>Asistencia de hoy</h2>
+                    <p>Consulta el estado de asistencia de tus clases de hoy.</p>
                 </div>
 
-
-                <div class="icono-qr">
-
-                    <svg
-                        width="25"
-                        height="25"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="#156FE7"
-                        stroke-width="1.8"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    >
-
-                        <rect
-                            x="3"
-                            y="3"
-                            width="7"
-                            height="7"
-                        ></rect>
-
-                        <rect
-                            x="14"
-                            y="3"
-                            width="7"
-                            height="7"
-                        ></rect>
-
-                        <rect
-                            x="3"
-                            y="14"
-                            width="7"
-                            height="7"
-                        ></rect>
-
+                <div class="icono-cabecera-qr">
+                    <svg width="25" height="25" viewBox="0 0 24 24"
+                         fill="none" stroke="#156FE7" stroke-width="1.8"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="3" width="7" height="7"></rect>
+                        <rect x="14" y="3" width="7" height="7"></rect>
+                        <rect x="3" y="14" width="7" height="7"></rect>
                         <path d="M14 14h3v3h-3z"></path>
-
+                        <path d="M18 18h3v3h-3z"></path>
                         <path d="M18 14h3"></path>
-
-                        <path d="M21 14v3"></path>
-
-                        <path d="M14 21h3"></path>
-
-                        <path d="M17 18h4v3"></path>
-
+                        <path d="M14 18v3"></path>
                     </svg>
-
                 </div>
-
             </div>
 
-
-
-            {% for item in clases_hoy %}
-
-                <div class="clase-hoy">
-
-
-                    <!-- =========================================
-                         INFORMACIÓN DE LA CLASE
-                    ========================================== -->
-
-                    <div class="informacion-clase-hoy">
-
-                        <div class="icono-clase">
-
-                            <svg
-                                width="23"
-                                height="23"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="#156FE7"
-                                stroke-width="1.8"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-
-                                <rect
-                                    x="3"
-                                    y="5"
-                                    width="18"
-                                    height="16"
-                                    rx="2"
-                                ></rect>
-
-                                <line
-                                    x1="16"
-                                    y1="3"
-                                    x2="16"
-                                    y2="7"
-                                ></line>
-
-                                <line
-                                    x1="8"
-                                    y1="3"
-                                    x2="8"
-                                    y2="7"
-                                ></line>
-
-                                <line
-                                    x1="3"
-                                    y1="11"
-                                    x2="21"
-                                    y2="11"
-                                ></line>
-
-                            </svg>
-
-                        </div>
-
-
-                        <div>
-
-                            <span class="etiqueta-hoy">
-                                CLASE DE HOY
-                            </span>
-
-                            <h3>
-                                {{ item.clase.grupo.asignatura }}
-                            </h3>
-
-                            <p>
-                                {{ item.clase.grupo.nombre }}
-                                ·
-                                {{ item.clase.hora_inicio|time:"H:i" }}
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-
-                    <!-- =========================================
-                         YA HA REGISTRADO ASISTENCIA
-                    ========================================== -->
-
-                    {% if item.asistencia %}
-
-                        <div class="zona-estado-alumno">
-
-                            <div class="estado-clase-alumno">
-
-
-                                {% if item.asistencia.estado == 'presente' %}
-
-                                    <div class="icono-estado-alumno presente">
-
-                                        <svg
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-
-                                            <polyline
-                                                points="20 6 9 17 4 12"
-                                            ></polyline>
-
-                                        </svg>
-
-                                    </div>
-
-
-                                    <div>
-
-                                        <span class="estado-abierta">
-                                            <span></span>
-                                            Asistencia registrada
-                                        </span>
-
-                                        <strong>
-                                            Has registrado tu asistencia correctamente
-                                        </strong>
-
-                                        <small>
-                                            Tu estado para esta clase es Presente.
-                                        </small>
-
-                                    </div>
-
-
-                                {% elif item.asistencia.estado == 'tarde' %}
-
-                                    <div class="icono-estado-alumno tarde">
-
-                                        <svg
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-
-                                            <circle
-                                                cx="12"
-                                                cy="12"
-                                                r="9"
-                                            ></circle>
-
-                                            <polyline
-                                                points="12 7 12 12 15 14"
-                                            ></polyline>
-
-                                        </svg>
-
-                                    </div>
-
-
-                                    <div>
-
-                                        <span class="estado-tarde-clase">
-                                            Retraso registrado
-                                        </span>
-
-                                        <strong>
-                                            Tu asistencia se ha registrado con retraso
-                                        </strong>
-
-                                        <small>
-                                            El registro se realizó después del margen establecido.
-                                        </small>
-
-                                    </div>
-
-
-                                {% else %}
-
-                                    <div class="icono-estado-alumno ausente">
-
-                                        <svg
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                        >
-
-                                            <line
-                                                x1="18"
-                                                y1="6"
-                                                x2="6"
-                                                y2="18"
-                                            ></line>
-
-                                            <line
-                                                x1="6"
-                                                y1="6"
-                                                x2="18"
-                                                y2="18"
-                                            ></line>
-
-                                        </svg>
-
-                                    </div>
-
-
-                                    <div>
-
-                                        <span class="estado-ausente-clase">
-                                            Ausencia registrada
-                                        </span>
-
-                                        <strong>
-                                            Esta clase figura como ausencia
-                                        </strong>
-
-                                        <small>
-                                            Puedes enviar una justificación desde el apartado correspondiente.
-                                        </small>
-
-                                    </div>
-
-                                {% endif %}
-
-
-                                {% if item.asistencia.hora_registro %}
-
-                                    <div class="hora-fichaje-alumno">
-
-                                        <span>
-                                            Hora de registro
-                                        </span>
-
-                                        <strong>
-                                            {{ item.asistencia.hora_registro|time:"H:i" }}
-                                        </strong>
-
-                                    </div>
-
-                                {% endif %}
-
+            {% if clases_hoy %}
+                {% for item in clases_hoy %}
+                    <div class="clase-hoy-alumno">
+
+                        <div class="cabecera-clase-hoy">
+                            <div class="icono-clase-hoy">
+                                <svg width="24" height="24" viewBox="0 0 24 24"
+                                     fill="none" stroke="#156FE7" stroke-width="1.8"
+                                     stroke-linecap="round" stroke-linejoin="round">
+                                    <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                                    <line x1="16" y1="3" x2="16" y2="7"></line>
+                                    <line x1="8" y1="3" x2="8" y2="7"></line>
+                                    <line x1="3" y1="11" x2="21" y2="11"></line>
+                                </svg>
                             </div>
 
+                            <div>
+                                <span class="etiqueta-clase-hoy">CLASE DE HOY</span>
+                                <strong class="nombre-clase-hoy">
+                                    {{ item.clase.grupo.asignatura }}
+                                </strong>
+                                <span class="datos-clase-hoy">
+                                    {{ item.clase.grupo.nombre }}
+                                    ·
+                                    {{ item.clase.hora_inicio|time:"H:i" }}
+                                </span>
+                            </div>
                         </div>
 
+                        {% if item.asistencia and item.asistencia.estado != 'ausente' %}
 
+                            <!-- ASISTENCIA YA REGISTRADA -->
+                            <div class="estado-clase-alumno">
+                                <div>
+                                    {% if item.asistencia.estado == 'presente' %}
+                                        <span class="estado estado-presente">
+                                            ● Presente
+                                        </span>
+                                    {% elif item.asistencia.estado == 'tarde' %}
+                                        <span class="estado estado-tarde">
+                                            ● Tarde
+                                        </span>
+                                    {% endif %}
 
-                    <!-- =========================================
-                         ASISTENCIA ABIERTA - ESPERANDO QR
-                    ========================================== -->
+                                    <strong class="mensaje-registrado">
+                                        Asistencia registrada correctamente
+                                    </strong>
 
-                    {% elif item.clase.asistencia_abierta %}
-
-                        <div class="zona-qr-alumno">
-
-                            <div class="qr-espera-alumno">
-
-                                <div class="icono-escanear">
-
-                                    <svg
-                                        width="34"
-                                        height="34"
-                                        viewBox="0 0 24 24"
-                                        fill="none"
-                                        stroke="#156FE7"
-                                        stroke-width="1.7"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                    >
-
-                                        <rect
-                                            x="3"
-                                            y="3"
-                                            width="7"
-                                            height="7"
-                                        ></rect>
-
-                                        <rect
-                                            x="14"
-                                            y="3"
-                                            width="7"
-                                            height="7"
-                                        ></rect>
-
-                                        <rect
-                                            x="3"
-                                            y="14"
-                                            width="7"
-                                            height="7"
-                                        ></rect>
-
-                                        <path d="M14 14h3v3h-3z"></path>
-
-                                        <path d="M18 14h3"></path>
-
-                                        <path d="M21 14v3"></path>
-
-                                        <path d="M14 21h3"></path>
-
-                                        <path d="M17 18h4v3"></path>
-
-                                    </svg>
-
+                                    <small>
+                                        Tu asistencia para esta clase ya ha quedado registrada.
+                                    </small>
                                 </div>
 
+                                <div class="hora-fichaje-alumno">
+                                    <span>HORA DE REGISTRO</span>
+                                    <strong>
+                                        {% if item.asistencia.hora_registro %}
+                                            {{ item.asistencia.hora_registro|time:"H:i:s" }}
+                                        {% else %}
+                                            —
+                                        {% endif %}
+                                    </strong>
+                                </div>
+                            </div>
 
-                                <div class="info-escanear">
+                        {% elif item.clase.asistencia_abierta %}
 
-                                    <span class="estado-abierta">
-                                        <span></span>
-                                        Asistencia abierta
+                            <!-- NUEVO SISTEMA: QR + UBICACIÓN -->
+                            <div class="zona-registro-qr">
+
+                                <div class="registro-qr-info">
+                                    <span class="estado estado-presente">
+                                        ● Asistencia abierta
                                     </span>
 
                                     <strong>
-                                        Escanea el código QR del profesor
+                                        Registrar asistencia mediante QR
                                     </strong>
 
                                     <small>
-                                        Utiliza la cámara de tu móvil para escanear el código mostrado en clase.
+                                        El código se renueva cada 5 segundos.
+                                        Al registrar, PRESENTE comprobará que estás
+                                        cerca del profesor.
                                     </small>
 
+                                    <div class="aviso-ubicacion">
+                                        📍 Se comprobará tu ubicación antes de registrar la asistencia.
+                                    </div>
                                 </div>
+
+                                <div class="qr-alumno-activo">
+                                    {% if item.qr_base64 %}
+                                        <img
+                                            id="qrAlumno{{ item.clase.id }}"
+                                            src="data:image/png;base64,{{ item.qr_base64 }}"
+                                            alt="Código QR de asistencia"
+                                        >
+                                    {% else %}
+                                        <div class="qr-no-disponible">
+                                            QR no disponible
+                                        </div>
+                                    {% endif %}
+
+                                    <div class="barra-tiempo-qr">
+                                        <div class="barra-tiempo-qr-progreso"></div>
+                                    </div>
+
+                                    <small>
+                                        QR válido durante 5 segundos
+                                    </small>
+                                </div>
+
+                                <form
+                                    method="POST"
+                                    action="{% url 'registrar_asistencia' item.clase.token_qr %}"
+                                    class="form-registro-ubicacion"
+                                    data-clase="{{ item.clase.id }}"
+                                    data-url-renovar="{% url 'qr_clase' item.clase.id %}"
+                                    onsubmit="return registrarConUbicacion(event, this)"
+                                >
+                                    {% csrf_token %}
+
+                                    <input
+                                        type="hidden"
+                                        name="latitud_alumno"
+                                        class="latitud-alumno"
+                                    >
+
+                                    <input
+                                        type="hidden"
+                                        name="longitud_alumno"
+                                        class="longitud-alumno"
+                                    >
+
+                                    <input
+                                        type="hidden"
+                                        name="token_qr"
+                                        class="token-qr-alumno"
+                                        value="{{ item.clase.token_qr }}"
+                                    >
+
+                                    <button
+                                        type="submit"
+                                        class="boton-registrar-qr"
+                                    >
+                                        Registrar asistencia mediante QR
+                                    </button>
+
+                                    <small class="estado-ubicacion"></small>
+                                </form>
 
                             </div>
 
+                        {% else %}
 
-                            <div class="indicador-qr-activo">
-
-                                <span class="pulso-qr"></span>
+                            <!-- ASISTENCIA CERRADA -->
+                            <div class="zona-cerrada-alumno">
+                                <div class="icono-espera-clase">
+                                    <svg width="23" height="23" viewBox="0 0 24 24"
+                                         fill="none" stroke="#667085" stroke-width="1.8"
+                                         stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="9"></circle>
+                                        <polyline points="12 7 12 12 15 14"></polyline>
+                                    </svg>
+                                </div>
 
                                 <div>
+                                    <span class="estado-cerrada">
+                                        Asistencia cerrada
+                                    </span>
 
                                     <strong>
-                                        QR activo
+                                        Esperando al profesor
                                     </strong>
 
                                     <small>
-                                        Esperando registro
+                                        Cuando el profesor abra la asistencia,
+                                        podrás registrar tu asistencia mediante QR.
                                     </small>
-
                                 </div>
-
                             </div>
 
-                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
 
-
-
-                    <!-- =========================================
-                         ASISTENCIA TODAVÍA CERRADA
-                    ========================================== -->
-
-                    {% else %}
-
-                        <div class="zona-cerrada-alumno">
-
-                            <div class="icono-espera-clase">
-
-                                <svg
-                                    width="25"
-                                    height="25"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="#667085"
-                                    stroke-width="1.8"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                >
-
-                                    <circle
-                                        cx="12"
-                                        cy="12"
-                                        r="9"
-                                    ></circle>
-
-                                    <polyline
-                                        points="12 7 12 12 15 14"
-                                    ></polyline>
-
-                                </svg>
-
-                            </div>
-
-
-                            <div>
-
-                                <span class="estado-cerrada">
-                                    Asistencia cerrada
-                                </span>
-
-                                <strong>
-                                    Esperando al profesor
-                                </strong>
-
-                                <small>
-                                    Cuando el profesor abra la asistencia podrás escanear el código QR.
-                                </small>
-
-                            </div>
-
-                        </div>
-
-                    {% endif %}
-
-                </div>
-
-
-            {% empty %}
-
-
-                <!-- =============================================
-                     NO HAY CLASES HOY
-                ============================================== -->
+            {% else %}
 
                 <div class="sin-clases-hoy">
-
                     <div class="sin-clases-icono">
-
-                        <svg
-                            width="28"
-                            height="28"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="#98A2B3"
-                            stroke-width="1.7"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-
-                            <rect
-                                x="3"
-                                y="5"
-                                width="18"
-                                height="16"
-                                rx="2"
-                            ></rect>
-
-                            <line
-                                x1="16"
-                                y1="3"
-                                x2="16"
-                                y2="7"
-                            ></line>
-
-                            <line
-                                x1="8"
-                                y1="3"
-                                x2="8"
-                                y2="7"
-                            ></line>
-
-                            <line
-                                x1="3"
-                                y1="11"
-                                x2="21"
-                                y2="11"
-                            ></line>
-
+                        <svg width="25" height="25" viewBox="0 0 24 24"
+                             fill="none" stroke="#667085" stroke-width="1.8"
+                             stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="3" y="5" width="18" height="16" rx="2"></rect>
+                            <line x1="16" y1="3" x2="16" y2="7"></line>
+                            <line x1="8" y1="3" x2="8" y2="7"></line>
+                            <line x1="3" y1="11" x2="21" y2="11"></line>
                         </svg>
-
                     </div>
 
-
-                    <strong>
-                        No tienes clases programadas para hoy
-                    </strong>
+                    <strong>No tienes clases hoy</strong>
 
                     <p>
-                        Cuando tengas una clase programada aparecerá aquí
-                        su estado de asistencia.
+                        Cuando tengas una clase programada para hoy,
+                        aparecerá aquí el acceso al registro de asistencia.
                     </p>
-
-
-                    <a
-                        href="{% url 'clases_alumno' %}"
-                        class="enlace-azul"
-                    >
-                        Ver calendario →
-                    </a>
-
                 </div>
 
-            {% endfor %}
-
+            {% endif %}
         </div>
 
-    </div>
-
+            </div>
 </section>
-<!-- =========================================================
-     CSS
-========================================================== -->
 
 <style>
-
-    /* =====================================================
-       CABECERA
-    ====================================================== */
+    /* =========================================================
+       ESTRUCTURA GENERAL
+    ========================================================= */
 
     .cabecera-control {
         display:flex;
-        align-items:flex-end;
         justify-content:space-between;
-        gap:25px;
-        flex-wrap:wrap;
-        margin-bottom:28px;
+        align-items:flex-start;
+        gap:20px;
+        margin-bottom:22px;
     }
 
+    .cabecera-control h1 {
+        margin:3px 0 5px;
+        color:#101828;
+        font-size:28px;
+        line-height:1.1;
+    }
+
+    .panel-etiqueta {
+        margin:0;
+        color:#156FE7;
+        font-size:10px;
+        font-weight:800;
+        letter-spacing:.12em;
+    }
+
+    .panel-subtitulo {
+        margin:0;
+        color:#667085;
+        font-size:12px;
+    }
 
     .fecha-actual {
         display:flex;
         align-items:center;
-        gap:10px;
-        padding:10px 15px;
-        border:1px solid #E5E7EB;
+        gap:8px;
+        padding:9px 12px;
+        border:1px solid #EAECF0;
         border-radius:9px;
         background:#FFFFFF;
-        color:#101828;
-        font-size:12px;
+        color:#475467;
+        font-size:11px;
         font-weight:600;
-        box-shadow:0 2px 6px rgba(16,24,40,.03);
+        box-shadow:0 2px 7px rgba(16,24,40,.04);
     }
 
-
-
-    /* =====================================================
+    /* =========================================================
        RESUMEN SUPERIOR
-    ====================================================== */
+    ========================================================= */
 
     .resumen-asistencia {
         display:grid;
-        grid-template-columns:repeat(4,minmax(150px,1fr));
-        gap:18px;
-        margin-bottom:26px;
-    }
-
-
-    .tarjeta-semanal {
-        grid-column:span 2;
-        grid-row:span 2;
-        padding:20px 22px;
-        border-radius:16px;
-        background:#FFFFFF;
-        border:1px solid #E5E7EB;
-        box-shadow:0 6px 18px rgba(16,24,40,.05);
-    }
-
-
-    .cabecera-semanal {
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:15px;
+        grid-template-columns:2fr repeat(4, 1fr);
+        gap:14px;
         margin-bottom:20px;
     }
 
+    .tarjeta-semanal,
+    .tarjeta-resumen,
+    .tarjeta-principal {
+        border:1px solid #EAECF0;
+        border-radius:13px;
+        background:#FFFFFF;
+        box-shadow:0 4px 14px rgba(16,24,40,.04);
+    }
+
+    .tarjeta-semanal {
+        padding:16px;
+    }
+
+    .cabecera-semanal {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:12px;
+        margin-bottom:14px;
+    }
 
     .cabecera-semanal strong {
         color:#101828;
-        font-size:14px;
-        font-weight:700;
+        font-size:12px;
     }
 
-
-    .cabecera-semanal > span {
-        padding:6px 10px;
-        border:1px solid #E5E7EB;
-        border-radius:7px;
-        color:#667085;
-        font-size:10px;
-        font-weight:600;
-    }
-
-
-    .contenido-semanal {
-        display:grid;
-        grid-template-columns:minmax(0,1fr) 145px;
-        align-items:center;
-        gap:20px;
-    }
-
-
-    .grafica-semanal {
-        min-width:0;
-    }
-
-
-    .grafica-svg {
-        position:relative;
-        height:115px;
-
-        background:
-            linear-gradient(
-                to bottom,
-                transparent 24%,
-                #F2F4F7 25%,
-                transparent 26%,
-                transparent 49%,
-                #F2F4F7 50%,
-                transparent 51%,
-                transparent 74%,
-                #F2F4F7 75%,
-                transparent 76%
-            );
-    }
-
-
-    .grafica-svg svg {
-        width:100%;
-        height:100%;
-        overflow:visible;
-    }
-
-
-    .dias-grafica {
-        display:flex;
-        justify-content:space-between;
-        margin-top:8px;
+    .cabecera-semanal span {
         color:#98A2B3;
         font-size:9px;
         font-weight:600;
     }
 
-
-    .promedio-semanal {
-        min-height:125px;
+    .contenido-semanal {
         display:flex;
         align-items:center;
-        justify-content:center;
-        flex-direction:column;
-        border-left:1px solid #EAECF0;
+        gap:18px;
+    }
+
+    .grafica-semanal {
+        flex:1;
+        min-width:0;
+    }
+
+    .grafica-svg {
+        height:72px;
+    }
+
+    .grafica-svg svg {
+        display:block;
+        width:100%;
+        height:100%;
+        overflow:visible;
+    }
+
+    .dias-grafica {
+        display:flex;
+        justify-content:space-between;
+        margin-top:5px;
+        color:#98A2B3;
+        font-size:8px;
+        font-weight:600;
+    }
+
+    .promedio-semanal {
+        min-width:82px;
         text-align:center;
     }
 
-
     .promedio-semanal strong {
-        color:#03C26E;
-        font-size:36px;
+        display:block;
+        color:#156FE7;
+        font-size:23px;
         line-height:1;
     }
 
-
     .promedio-semanal span {
-        margin-top:8px;
-        color:#667085;
-        font-size:10px;
+        display:block;
+        margin-top:5px;
+        color:#98A2B3;
+        font-size:8px;
     }
-
-
-
-    /* =====================================================
-       TARJETAS DE ESTADÍSTICAS
-    ====================================================== */
 
     .tarjeta-resumen {
-        min-height:122px;
-        padding:20px;
         display:flex;
-        align-items:center;
-        gap:15px;
-        border:1px solid #E5E7EB;
-        border-radius:14px;
-        background:#FFFFFF;
-        box-shadow:0 4px 12px rgba(16,24,40,.035);
+        flex-direction:column;
+        justify-content:center;
+        gap:13px;
+        min-height:128px;
+        padding:17px;
     }
-
-
-    .tarjeta-presentes {
-        background:#ECFDF3;
-        border-color:#A6F4C5;
-    }
-
-
-    .tarjeta-retrasos {
-        background:#FFF1F7;
-        border-color:#FECDD6;
-    }
-
-
-    .tarjeta-ausencias {
-        background:#FFFFFF;
-        border-color:#E5E7EB;
-    }
-
-
-    .tarjeta-porcentaje {
-        background:#EFF6FF;
-        border-color:#BFDBFE;
-    }
-
 
     .numero-resumen {
         display:block;
         color:#101828;
-        font-size:26px;
+        font-size:22px;
         line-height:1;
-        font-weight:800;
     }
-
 
     .texto-resumen {
         display:block;
-        margin-top:7px;
-        color:#344054;
-        font-size:10px;
-        font-weight:700;
+        margin-top:5px;
+        color:#667085;
+        font-size:9px;
+        font-weight:600;
     }
 
+    .tarjeta-presentes {
+        background:linear-gradient(145deg,#FFFFFF,#F2FFF8);
+    }
 
+    .tarjeta-retrasos {
+        background:linear-gradient(145deg,#FFFFFF,#FFF5FA);
+    }
 
-    /* =====================================================
-       ÚLTIMOS REGISTROS + PRÓXIMAS CLASES
-    ====================================================== */
+    .tarjeta-ausencias {
+        background:linear-gradient(145deg,#FFFFFF,#F8F9FB);
+    }
+
+    .tarjeta-porcentaje {
+        background:linear-gradient(145deg,#FFFFFF,#F3F8FF);
+    }
+
+    /* =========================================================
+       BLOQUES PRINCIPALES
+    ========================================================= */
 
     .bloque-doble {
         display:grid;
-        grid-template-columns:minmax(0,1.55fr) minmax(320px,.85fr);
-        gap:20px;
-        margin-bottom:24px;
+        grid-template-columns:1fr 1fr;
+        gap:18px;
+        margin-bottom:20px;
     }
 
-
     .tarjeta-principal {
-        background:#FFFFFF;
-        border:1px solid #E5E7EB;
-        border-radius:16px;
-        box-shadow:0 5px 16px rgba(16,24,40,.04);
         overflow:hidden;
     }
 
-
     .cabecera-tarjeta {
         display:flex;
-        align-items:center;
         justify-content:space-between;
-        gap:20px;
-        padding:20px 22px 17px;
-        border-bottom:1px solid #EAECF0;
+        align-items:center;
+        gap:15px;
+        padding:17px 20px;
+        border-bottom:1px solid #F2F4F7;
     }
-
 
     .cabecera-tarjeta h2 {
-        margin:0 0 4px;
+        margin:0;
         color:#101828;
-        font-size:16px;
+        font-size:14px;
     }
-
 
     .cabecera-tarjeta p {
-        margin:0;
-        color:#667085;
-        font-size:11px;
+        margin:4px 0 0;
+        color:#98A2B3;
+        font-size:9px;
     }
-
 
     .enlace-azul {
         color:#156FE7;
-        font-size:11px;
-        font-weight:700;
         text-decoration:none;
-        white-space:nowrap;
+        font-size:9px;
+        font-weight:700;
     }
-
 
     .enlace-azul:hover {
         text-decoration:underline;
     }
 
-
-
-    /* =====================================================
+    /* =========================================================
        ÚLTIMOS REGISTROS
-    ====================================================== */
+    ========================================================= */
 
     .registro {
         display:grid;
-        grid-template-columns:minmax(220px,1fr) 65px 90px;
-        gap:15px;
+        grid-template-columns:minmax(0,1fr) 55px 75px;
         align-items:center;
-        padding:14px 22px;
-        border-bottom:1px solid #F0F1F3;
+        gap:12px;
+        padding:13px 20px;
+        border-bottom:1px solid #F2F4F7;
     }
-
 
     .registro:last-child {
-        border-bottom:none;
+        border-bottom:0;
     }
-
 
     .registro-alumno {
         display:flex;
         align-items:center;
-        gap:11px;
         min-width:0;
+        gap:10px;
     }
-
 
     .avatar-asignatura {
-        width:38px;
-        height:38px;
         display:flex;
+        flex:0 0 34px;
+        width:34px;
+        height:34px;
         align-items:center;
         justify-content:center;
-        flex-shrink:0;
-        border-radius:50%;
-        background:#EEF2F6;
-        color:#475467;
-        font-size:13px;
+        border-radius:9px;
+        background:#EEF4FF;
+        color:#156FE7;
+        font-size:12px;
         font-weight:800;
     }
-
 
     .datos-registro {
         min-width:0;
     }
 
-
     .datos-registro strong {
         display:block;
-        margin-bottom:3px;
         overflow:hidden;
+        color:#344054;
+        font-size:10px;
         text-overflow:ellipsis;
         white-space:nowrap;
-        color:#101828;
-        font-size:12px;
     }
-
 
     .datos-registro span {
         display:block;
+        margin-top:3px;
         color:#98A2B3;
-        font-size:10px;
+        font-size:8px;
     }
-
 
     .hora-registro {
-        color:#475467;
-        font-size:11px;
+        color:#667085;
+        font-size:9px;
         font-weight:600;
+        text-align:center;
     }
 
+    /* =========================================================
+       ESTADOS
+    ========================================================= */
 
     .estado {
         display:inline-flex;
+        align-items:center;
         justify-content:center;
-        padding:6px 9px;
+        width:max-content;
+        padding:5px 8px;
         border-radius:999px;
-        font-size:10px;
-        font-weight:700;
+        font-size:8px;
+        font-weight:800;
+        white-space:nowrap;
     }
-
 
     .estado-presente {
         background:#ECFDF3;
         color:#039855;
     }
 
-
     .estado-tarde {
-        background:#FFF0F8;
-        color:#E82A91;
+        background:#FFF0F7;
+        color:#E31B78;
     }
-
 
     .estado-ausente {
         background:#F2F4F7;
         color:#667085;
     }
 
-
-    .vacio {
-        padding:40px 20px;
-        text-align:center;
-        color:#98A2B3;
-        font-size:12px;
-    }
-
-
-
-    /* =====================================================
+    /* =========================================================
        PRÓXIMAS CLASES
-    ====================================================== */
+    ========================================================= */
 
     .proxima-clase {
-        display:flex;
+        display:grid;
+        grid-template-columns:42px minmax(0,1fr) auto;
         align-items:center;
-        gap:14px;
-        padding:15px 20px;
-        border-bottom:1px solid #F0F1F3;
+        gap:12px;
+        padding:13px 20px;
+        border-bottom:1px solid #F2F4F7;
     }
-
 
     .proxima-clase:last-child {
-        border-bottom:none;
+        border-bottom:0;
     }
-
 
     .fecha-clase {
-        width:48px;
-        flex-shrink:0;
-        padding:8px 4px;
-        border-radius:10px;
-        background:#EEF6FF;
-        text-align:center;
+        display:flex;
+        flex-direction:column;
+        width:38px;
+        height:42px;
+        align-items:center;
+        justify-content:center;
+        border-radius:9px;
+        background:#EEF4FF;
+        color:#156FE7;
     }
 
-
     .fecha-clase span {
-        display:block;
-        margin-bottom:2px;
-        color:#156FE7;
-        font-size:9px;
-        font-weight:800;
+        font-size:7px;
+        font-weight:700;
         text-transform:uppercase;
     }
 
-
     .fecha-clase strong {
-        display:block;
-        color:#101828;
-        font-size:19px;
+        margin-top:1px;
+        font-size:14px;
         line-height:1;
     }
 
-
     .datos-clase {
-        flex:1;
         min-width:0;
     }
 
-
     .datos-clase strong {
         display:block;
-        margin-bottom:4px;
         overflow:hidden;
+        color:#344054;
+        font-size:10px;
         text-overflow:ellipsis;
         white-space:nowrap;
-        color:#101828;
-        font-size:12px;
     }
-
 
     .datos-clase span {
-        color:#667085;
-        font-size:10px;
+        display:block;
+        margin-top:3px;
+        color:#98A2B3;
+        font-size:8px;
     }
-
 
     .hora-clase {
         display:flex;
         align-items:center;
         gap:5px;
-        flex-shrink:0;
-        color:#475467;
-        font-size:11px;
+        color:#667085;
+        font-size:9px;
         font-weight:600;
     }
 
-
-
-    /* =====================================================
-       ASISTENCIA DE HOY
-    ====================================================== */
-
-    .tarjeta-asistencia-hoy {
-        margin-bottom:30px;
-        overflow:hidden;
-        background:#FFFFFF;
-        border:1px solid #E5E7EB;
-        border-radius:16px;
-        box-shadow:0 5px 16px rgba(16,24,40,.04);
-    }
-
-
-    .cabecera-asistencia-hoy {
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:20px;
-        padding:21px 23px;
-        border-bottom:1px solid #EAECF0;
-    }
-
-
-    .cabecera-asistencia-hoy h2 {
-        margin:0 0 5px;
-        color:#101828;
-        font-size:17px;
-    }
-
-
-    .cabecera-asistencia-hoy p {
-        margin:0;
-        color:#667085;
-        font-size:11px;
-    }
-
-
-    .icono-qr {
-        width:43px;
-        height:43px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        flex-shrink:0;
-        border-radius:11px;
-        background:#EEF6FF;
-    }
-
-
-    .clase-hoy {
-        padding:22px 23px;
-        border-bottom:1px solid #EAECF0;
-    }
-
-
-    .clase-hoy:last-child {
-        border-bottom:none;
-    }
-
-
-    .informacion-clase-hoy {
-        display:flex;
-        align-items:center;
-        gap:14px;
-        margin-bottom:20px;
-    }
-
-
-    .icono-clase {
-        width:46px;
-        height:46px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        flex-shrink:0;
-        border-radius:11px;
-        background:#EEF6FF;
-    }
-
-
-    .etiqueta-hoy {
-        display:block;
-        margin-bottom:3px;
-        color:#156FE7;
-        font-size:9px;
-        font-weight:800;
-        letter-spacing:.06em;
-    }
-
-
-    .informacion-clase-hoy h3 {
-        margin:0 0 4px;
-        color:#101828;
-        font-size:16px;
-    }
-
-
-    .informacion-clase-hoy p {
-        margin:0;
-        color:#667085;
-        font-size:11px;
-    }
-
-
-
-    /* =====================================================
-       ASISTENCIA YA REGISTRADA
-    ====================================================== */
-
-    .zona-estado-alumno {
-        padding:20px;
-        border:1px solid #EAECF0;
-        border-radius:13px;
-        background:#F8FAFC;
-    }
-
-
-    .estado-clase-alumno {
-        display:flex;
-        align-items:center;
-        gap:17px;
-    }
-
-
-    .estado-clase-alumno > div:nth-child(2) {
-        flex:1;
-        min-width:0;
-    }
-
-
-    .icono-estado-alumno {
-        width:48px;
-        height:48px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        flex-shrink:0;
-        border-radius:50%;
-    }
-
-
-    .icono-estado-alumno.presente {
-        color:#039855;
-        background:#D1FADF;
-    }
-
-
-    .icono-estado-alumno.tarde {
-        color:#E82A91;
-        background:#FCE7F3;
-    }
-
-
-    .icono-estado-alumno.ausente {
-        color:#667085;
-        background:#EAECF0;
-    }
-
-
-    .estado-clase-alumno strong {
-        display:block;
-        margin:10px 0 4px;
-        color:#101828;
-        font-size:13px;
-    }
-
-
-    .estado-clase-alumno small {
-        display:block;
-        color:#667085;
+    .vacio {
+        padding:25px 20px;
+        color:#98A2B3;
         font-size:10px;
-        line-height:1.5;
-    }
-
-
-    .estado-abierta {
-        display:inline-flex;
-        align-items:center;
-        gap:6px;
-        padding:6px 9px;
-        border-radius:999px;
-        background:#ECFDF3;
-        color:#039855;
-        font-size:10px;
-        font-weight:700;
-    }
-
-
-    .estado-abierta span {
-        width:7px;
-        height:7px;
-        border-radius:50%;
-        background:#12B76A;
-    }
-
-
-    .estado-tarde-clase {
-        display:inline-flex;
-        padding:6px 9px;
-        border-radius:999px;
-        background:#FFF0F8;
-        color:#E82A91;
-        font-size:10px;
-        font-weight:700;
-    }
-
-
-    .estado-ausente-clase {
-        display:inline-flex;
-        padding:6px 9px;
-        border-radius:999px;
-        background:#F2F4F7;
-        color:#667085;
-        font-size:10px;
-        font-weight:700;
-    }
-
-
-    .hora-fichaje-alumno {
-        min-width:110px;
-        padding:12px 15px;
-        flex-shrink:0;
-        border-left:1px solid #EAECF0;
         text-align:center;
     }
 
+    /* =========================================================
+       ASISTENCIA DE HOY
+    ========================================================= */
 
-    .hora-fichaje-alumno span {
+    .tarjeta-asistencia-hoy {
+        margin-bottom:22px;
+    }
+
+    .icono-cabecera-qr {
+        display:flex;
+        width:40px;
+        height:40px;
+        align-items:center;
+        justify-content:center;
+        border-radius:10px;
+        background:#EEF4FF;
+    }
+
+    .clase-hoy-alumno {
+        padding:20px;
+        border-bottom:1px solid #F2F4F7;
+    }
+
+    .clase-hoy-alumno:last-child {
+        border-bottom:0;
+    }
+
+    .cabecera-clase-hoy {
+        display:flex;
+        align-items:center;
+        gap:12px;
+        margin-bottom:16px;
+    }
+
+    .icono-clase-hoy {
+        display:flex;
+        flex:0 0 42px;
+        width:42px;
+        height:42px;
+        align-items:center;
+        justify-content:center;
+        border-radius:11px;
+        background:#EEF4FF;
+    }
+
+    .etiqueta-clase-hoy {
         display:block;
-        margin-bottom:4px;
+        margin-bottom:3px;
+        color:#156FE7;
+        font-size:7px;
+        font-weight:800;
+        letter-spacing:.08em;
+    }
+
+    .nombre-clase-hoy {
+        display:block;
+        color:#101828;
+        font-size:12px;
+    }
+
+    .datos-clase-hoy {
+        display:block;
+        margin-top:3px;
         color:#98A2B3;
+        font-size:8px;
+    }
+
+    /* =========================================================
+       ASISTENCIA YA REGISTRADA
+    ========================================================= */
+
+    .estado-clase-alumno {
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        gap:20px;
+        padding:16px;
+        border:1px solid #ABEFC6;
+        border-radius:11px;
+        background:#F6FEF9;
+    }
+
+    .estado-clase-alumno > div:first-child {
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+    }
+
+    .mensaje-registrado {
+        display:block;
+        margin-top:9px;
+        color:#344054;
+        font-size:11px;
+    }
+
+    .estado-clase-alumno small {
+        display:block;
+        margin-top:4px;
+        color:#667085;
         font-size:9px;
     }
 
-
-    .hora-fichaje-alumno strong {
-        margin:0;
-        color:#101828;
-        font-size:18px;
+    .hora-fichaje-alumno {
+        min-width:105px;
+        text-align:right;
     }
 
+    .hora-fichaje-alumno span {
+        display:block;
+        color:#98A2B3;
+        font-size:7px;
+        font-weight:700;
+    }
 
+    .hora-fichaje-alumno strong {
+        display:block;
+        margin-top:4px;
+        color:#039855;
+        font-size:17px;
+    }
 
-    /* =====================================================
-       ASISTENCIA ABIERTA
-    ====================================================== */
+    /* =========================================================
+       NUEVO REGISTRO QR + UBICACIÓN
+    ========================================================= */
 
-    .zona-qr-alumno {
-        display:flex;
+    .zona-registro-qr {
+        display:grid;
+        grid-template-columns:minmax(0,1fr) 190px;
         align-items:center;
-        justify-content:space-between;
-        gap:25px;
+        gap:20px;
         padding:20px;
         border:1px solid #B2DDFF;
         border-radius:13px;
         background:#F5FAFF;
     }
 
-
-    .qr-espera-alumno {
-        display:flex;
-        align-items:center;
-        gap:18px;
-    }
-
-
-    .icono-escanear {
-        width:62px;
-        height:62px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-        flex-shrink:0;
-        border-radius:14px;
-        background:#FFFFFF;
-        border:1px solid #D1E9FF;
-    }
-
-
-    .info-escanear strong {
+    .registro-qr-info strong {
         display:block;
-        margin:10px 0 4px;
+        margin:10px 0 5px;
         color:#101828;
-        font-size:13px;
+        font-size:14px;
     }
 
-
-    .info-escanear small {
+    .registro-qr-info small {
         display:block;
-        max-width:430px;
+        max-width:520px;
         color:#667085;
         font-size:10px;
-        line-height:1.5;
+        line-height:1.55;
     }
 
-
-    .indicador-qr-activo {
-        min-width:145px;
-        display:flex;
-        align-items:center;
-        gap:10px;
-        padding:13px 15px;
-        border-radius:10px;
-        background:#FFFFFF;
+    .aviso-ubicacion {
+        margin-top:12px;
+        padding:10px 12px;
         border:1px solid #D1E9FF;
+        border-radius:9px;
+        background:#FFFFFF;
+        color:#475467;
+        font-size:10px;
+        font-weight:600;
     }
 
-
-    .pulso-qr {
-        width:10px;
-        height:10px;
-        flex-shrink:0;
-        border-radius:50%;
-        background:#12B76A;
-        box-shadow:0 0 0 0 rgba(18,183,106,.35);
-        animation:pulsoQR 1.7s infinite;
+    .qr-alumno-activo {
+        text-align:center;
     }
 
-
-    @keyframes pulsoQR {
-
-        0% {
-            box-shadow:0 0 0 0 rgba(18,183,106,.35);
-        }
-
-        70% {
-            box-shadow:0 0 0 8px rgba(18,183,106,0);
-        }
-
-        100% {
-            box-shadow:0 0 0 0 rgba(18,183,106,0);
-        }
-
-    }
-
-
-    .indicador-qr-activo strong {
+    .qr-alumno-activo img {
         display:block;
-        margin-bottom:2px;
-        color:#101828;
-        font-size:11px;
+        width:160px;
+        height:160px;
+        margin:0 auto;
+        padding:8px;
+        box-sizing:border-box;
+        border:1px solid #EAECF0;
+        border-radius:12px;
+        background:#FFFFFF;
     }
 
-
-    .indicador-qr-activo small {
+    .qr-alumno-activo > small {
         display:block;
+        margin-top:7px;
         color:#667085;
         font-size:9px;
     }
 
+    .qr-no-disponible {
+        display:flex;
+        width:160px;
+        height:160px;
+        margin:0 auto;
+        align-items:center;
+        justify-content:center;
+        border:1px solid #EAECF0;
+        border-radius:12px;
+        background:#FFFFFF;
+        color:#98A2B3;
+        font-size:10px;
+    }
 
+    /* BARRA ROSA DE 5 SEGUNDOS */
+    .barra-tiempo-qr {
+        width:160px;
+        height:5px;
+        margin:9px auto 0;
+        overflow:hidden;
+        border-radius:999px;
+        background:#FCE7F3;
+    }
 
-    /* =====================================================
+    .barra-tiempo-qr-progreso {
+        width:100%;
+        height:100%;
+        border-radius:999px;
+        background:#FF3AA7;
+        transform-origin:left center;
+        animation:tiempoQRAlumno 5s linear infinite;
+    }
+
+    @keyframes tiempoQRAlumno {
+        from {
+            transform:scaleX(1);
+        }
+
+        to {
+            transform:scaleX(0);
+        }
+    }
+
+    .form-registro-ubicacion {
+        grid-column:1 / -1;
+        margin-top:-2px;
+    }
+
+    .boton-registrar-qr {
+        display:inline-flex;
+        min-height:42px;
+        align-items:center;
+        justify-content:center;
+        padding:10px 17px;
+        border:0;
+        border-radius:9px;
+        background:#156FE7;
+        color:#FFFFFF;
+        font-family:inherit;
+        font-size:11px;
+        font-weight:700;
+        cursor:pointer;
+        box-shadow:0 5px 12px rgba(21,111,231,.18);
+        transition:
+            background .18s ease,
+            transform .18s ease,
+            box-shadow .18s ease;
+    }
+
+    .boton-registrar-qr:hover {
+        background:#0F61D5;
+        transform:translateY(-1px);
+        box-shadow:0 7px 16px rgba(21,111,231,.22);
+    }
+
+    .boton-registrar-qr:disabled {
+        opacity:.7;
+        cursor:wait;
+        transform:none;
+    }
+
+    .estado-ubicacion {
+        display:block;
+        min-height:16px;
+        margin-top:7px;
+        color:#667085;
+        font-size:9px;
+    }
+
+    /* =========================================================
        ASISTENCIA CERRADA
-    ====================================================== */
+    ========================================================= */
 
     .zona-cerrada-alumno {
         display:flex;
         align-items:center;
-        gap:17px;
-        padding:20px;
+        gap:12px;
+        padding:15px;
         border:1px solid #EAECF0;
-        border-radius:13px;
-        background:#F8FAFC;
+        border-radius:11px;
+        background:#F9FAFB;
     }
-
 
     .icono-espera-clase {
-        width:48px;
-        height:48px;
         display:flex;
+        flex:0 0 38px;
+        width:38px;
+        height:38px;
         align-items:center;
         justify-content:center;
-        flex-shrink:0;
-        border-radius:50%;
-        background:#EAECF0;
+        border-radius:10px;
+        background:#F2F4F7;
     }
 
+    .zona-cerrada-alumno > div:last-child {
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+    }
 
     .estado-cerrada {
         display:inline-flex;
-        padding:6px 9px;
+        margin-bottom:5px;
+        padding:4px 7px;
         border-radius:999px;
         background:#F2F4F7;
         color:#667085;
-        font-size:10px;
-        font-weight:700;
+        font-size:7px;
+        font-weight:800;
     }
-
 
     .zona-cerrada-alumno strong {
-        display:block;
-        margin:10px 0 4px;
-        color:#101828;
-        font-size:13px;
+        color:#344054;
+        font-size:10px;
     }
-
 
     .zona-cerrada-alumno small {
-        display:block;
-        color:#667085;
-        font-size:10px;
-        line-height:1.5;
+        margin-top:3px;
+        color:#98A2B3;
+        font-size:8px;
     }
 
-
-
-    /* =====================================================
-       SIN CLASES HOY
-    ====================================================== */
+    /* =========================================================
+       SIN CLASES
+    ========================================================= */
 
     .sin-clases-hoy {
-        padding:42px 20px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        padding:35px 20px;
         text-align:center;
     }
 
-
     .sin-clases-icono {
-        width:52px;
-        height:52px;
-        margin:0 auto 13px;
         display:flex;
+        width:45px;
+        height:45px;
         align-items:center;
         justify-content:center;
-        border-radius:13px;
+        margin-bottom:10px;
+        border-radius:12px;
         background:#F2F4F7;
     }
 
-
     .sin-clases-hoy strong {
-        display:block;
-        margin-bottom:6px;
         color:#344054;
-        font-size:13px;
+        font-size:11px;
     }
-
 
     .sin-clases-hoy p {
         max-width:400px;
-        margin:0 auto 10px;
+        margin:5px 0 0;
         color:#98A2B3;
-        font-size:11px;
+        font-size:9px;
         line-height:1.5;
     }
 
-
-
-    /* =====================================================
+    /* =========================================================
        MÓVIL
-    ====================================================== */
+    ========================================================= */
 
     @media (max-width:768px) {
 
         .cabecera-control {
-            align-items:flex-start;
+            flex-direction:column;
         }
-
 
         .fecha-actual {
-            width:100%;
-            box-sizing:border-box;
+            align-self:flex-start;
         }
-
 
         .resumen-asistencia {
-            grid-template-columns:1fr;
+            grid-template-columns:1fr 1fr;
         }
-
 
         .tarjeta-semanal {
-            grid-column:span 1;
-            grid-row:span 1;
+            grid-column:1 / -1;
         }
 
-
-        .contenido-semanal {
-            grid-template-columns:1fr;
+        .tarjeta-resumen {
+            min-height:105px;
         }
-
-
-        .grafica-semanal {
-            padding-bottom:22px;
-            border-bottom:1px solid #EAECF0;
-        }
-
-
-        .promedio-semanal {
-            min-height:auto;
-            padding-top:22px;
-            border-left:none;
-        }
-
 
         .bloque-doble {
             grid-template-columns:1fr;
         }
 
-
-        .cabecera-tarjeta {
-            align-items:flex-start;
-        }
-
-
         .registro {
             grid-template-columns:minmax(0,1fr) auto;
         }
-
 
         .hora-registro {
             display:none;
         }
 
-
         .proxima-clase {
-            gap:10px;
+            grid-template-columns:42px minmax(0,1fr);
         }
-
 
         .hora-clase {
-            font-size:10px;
+            grid-column:2;
         }
-
 
         .estado-clase-alumno {
+            flex-direction:column;
             align-items:flex-start;
-            flex-wrap:wrap;
         }
 
-
         .hora-fichaje-alumno {
-            width:100%;
-            padding:13px 0 0;
-            border-left:none;
-            border-top:1px solid #EAECF0;
             text-align:left;
         }
 
-
-        .zona-qr-alumno {
-            align-items:stretch;
-            flex-direction:column;
+        .zona-registro-qr {
+            grid-template-columns:1fr;
         }
 
-
-        .qr-espera-alumno {
-            align-items:flex-start;
+        .qr-alumno-activo {
+            order:2;
         }
 
-
-        .indicador-qr-activo {
-            min-width:0;
+        .form-registro-ubicacion {
+            order:3;
         }
 
-    }
-
-
-    @media (max-width:480px) {
-
-        .qr-espera-alumno {
-            flex-direction:column;
-        }
-
-
-        .icono-escanear {
-            width:52px;
-            height:52px;
-        }
-
-
-        .proxima-clase {
-            align-items:flex-start;
-            flex-wrap:wrap;
-        }
-
-
-        .hora-clase {
+        .boton-registrar-qr {
             width:100%;
-            padding-left:62px;
         }
-
     }
 
 </style>
 
-
-
-<!-- =========================================================
-     JAVASCRIPT
-========================================================== -->
-
 <script>
+    /* =========================================================
+       BARRA ROSA DEL QR
+    ========================================================= */
 
-document.addEventListener(
-    'DOMContentLoaded',
-    function () {
+    function reiniciarBarraQR(formulario) {
+        const zona = formulario.closest('.zona-registro-qr');
 
-        const fechaActual =
-            document.getElementById(
-                'fechaActual'
-            );
-
-
-        if (!fechaActual) {
+        if (!zona) {
             return;
         }
 
+        const barra = zona.querySelector(
+            '.barra-tiempo-qr-progreso'
+        );
 
-        const ahora = new Date();
+        if (!barra) {
+            return;
+        }
 
+        barra.style.animation = 'none';
 
-        const diasSemana = [
-            'Domingo',
-            'Lunes',
-            'Martes',
-            'Miércoles',
-            'Jueves',
-            'Viernes',
-            'Sábado'
-        ];
+        void barra.offsetWidth;
 
-
-        const meses = [
-            'enero',
-            'febrero',
-            'marzo',
-            'abril',
-            'mayo',
-            'junio',
-            'julio',
-            'agosto',
-            'septiembre',
-            'octubre',
-            'noviembre',
-            'diciembre'
-        ];
-
-
-        fechaActual.textContent =
-            diasSemana[ahora.getDay()] +
-            ', ' +
-            ahora.getDate() +
-            ' de ' +
-            meses[ahora.getMonth()] +
-            ' de ' +
-            ahora.getFullYear() +
-            '.';
-
+        barra.style.animation =
+            'tiempoQRAlumno 5s linear infinite';
     }
-);
 
+
+    /* =========================================================
+       RENOVAR QR DEL ALUMNO
+    ========================================================= */
+
+    async function actualizarQRAlumno(formulario) {
+        const url = formulario.dataset.urlRenovar;
+
+        if (!url) {
+            return;
+        }
+
+        try {
+            const respuesta = await fetch(
+                url,
+                {
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    cache: 'no-store'
+                }
+            );
+
+            if (!respuesta.ok) {
+                return;
+            }
+
+            const datos = await respuesta.json();
+
+            if (!datos.ok) {
+                return;
+            }
+
+            const zona = formulario.closest(
+                '.zona-registro-qr'
+            );
+
+            if (!zona) {
+                return;
+            }
+
+            const imagen = zona.querySelector(
+                '.qr-alumno-activo img'
+            );
+
+            const tokenInput = formulario.querySelector(
+                '.token-qr-alumno'
+            );
+
+
+            /* =============================================
+               CAMBIAR IMAGEN DEL QR
+            ============================================= */
+
+            if (
+                imagen &&
+                datos.qr_base64
+            ) {
+                imagen.src =
+                    'data:image/png;base64,' +
+                    datos.qr_base64;
+            }
+
+
+            /* =============================================
+               ACTUALIZAR TOKEN
+            ============================================= */
+
+            if (
+                datos.token_qr &&
+                tokenInput
+            ) {
+                tokenInput.value =
+                    datos.token_qr;
+
+                formulario.action =
+                    '/asistencia/registrar/' +
+                    datos.token_qr +
+                    '/';
+            }
+
+
+            /* =============================================
+               REINICIAR BARRA ROSA
+            ============================================= */
+
+            reiniciarBarraQR(
+                formulario
+            );
+        }
+
+        catch (error) {
+            console.error(
+                'No se ha podido actualizar el QR:',
+                error
+            );
+        }
+    }
+
+
+    /* =========================================================
+       REGISTRAR ASISTENCIA CON UBICACIÓN
+    ========================================================= */
+
+    function registrarConUbicacion(
+        evento,
+        formulario
+    ) {
+        evento.preventDefault();
+
+        const boton = formulario.querySelector(
+            '.boton-registrar-qr'
+        );
+
+        const estado = formulario.querySelector(
+            '.estado-ubicacion'
+        );
+
+        const inputLatitud = formulario.querySelector(
+            '.latitud-alumno'
+        );
+
+        const inputLongitud = formulario.querySelector(
+            '.longitud-alumno'
+        );
+
+
+        /* =============================================
+           COMPROBAR GEOLOCALIZACIÓN
+        ============================================= */
+
+        if (!navigator.geolocation) {
+            estado.textContent =
+                'Este dispositivo no permite obtener tu ubicación.';
+
+            return false;
+        }
+
+
+        /* =============================================
+           MOSTRAR ESTADO
+        ============================================= */
+
+        boton.disabled = true;
+
+        estado.textContent =
+            'Comprobando tu ubicación...';
+
+
+        /* =============================================
+           SOLICITAR UBICACIÓN DEL ALUMNO
+        ============================================= */
+
+        navigator.geolocation.getCurrentPosition(
+
+            function (posicion) {
+
+                const latitud =
+                    posicion.coords.latitude;
+
+                const longitud =
+                    posicion.coords.longitude;
+
+
+                /* =====================================
+                   GUARDAR COORDENADAS
+                ===================================== */
+
+                inputLatitud.value =
+                    latitud;
+
+                inputLongitud.value =
+                    longitud;
+
+
+                estado.textContent =
+                    'Ubicación obtenida. Registrando asistencia...';
+
+
+                /* =====================================
+                   ENVIAR FORMULARIO A DJANGO
+                ===================================== */
+
+                formulario.submit();
+            },
+
+
+            function (error) {
+
+                boton.disabled = false;
+
+
+                if (
+                    error.code ===
+                    error.PERMISSION_DENIED
+                ) {
+                    estado.textContent =
+                        'Debes permitir el acceso a tu ubicación ' +
+                        'para registrar la asistencia.';
+                }
+
+                else if (
+                    error.code ===
+                    error.POSITION_UNAVAILABLE
+                ) {
+                    estado.textContent =
+                        'Tu ubicación no está disponible ' +
+                        'en este momento.';
+                }
+
+                else if (
+                    error.code ===
+                    error.TIMEOUT
+                ) {
+                    estado.textContent =
+                        'Se ha tardado demasiado en obtener ' +
+                        'tu ubicación. Inténtalo de nuevo.';
+                }
+
+                else {
+                    estado.textContent =
+                        'No se ha podido obtener tu ubicación.';
+                }
+            },
+
+
+            /* =========================================
+               CONFIGURACIÓN DE GEOLOCALIZACIÓN
+            ========================================= */
+
+            {
+                enableHighAccuracy: true,
+                timeout: 12000,
+                maximumAge: 0
+            }
+        );
+
+        return false;
+    }
+
+
+    /* =========================================================
+       INICIAR QR DINÁMICO
+    ========================================================= */
+
+    document.addEventListener(
+        'DOMContentLoaded',
+        function () {
+
+            const formularios =
+                document.querySelectorAll(
+                    '.form-registro-ubicacion'
+                );
+
+
+            formularios.forEach(
+                function (formulario) {
+
+                    /* Barra inicial */
+                    reiniciarBarraQR(
+                        formulario
+                    );
+
+
+                    /* Renovar QR cada 5 segundos */
+                    setInterval(
+                        function () {
+                            actualizarQRAlumno(
+                                formulario
+                            );
+                        },
+                        5000
+                    );
+                }
+            );
+        }
+    );
 </script>
-
 
 {% endblock %}

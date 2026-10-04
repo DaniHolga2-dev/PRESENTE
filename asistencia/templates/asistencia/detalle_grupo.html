@@ -5,29 +5,31 @@
 {% block content %}
 
 <section class="panel-usuario">
-
     <div class="panel-contenedor">
 
-        <div style="margin-bottom:25px;">
+        <!-- VOLVER -->
 
+        <div style="margin-bottom:25px;">
             <a
                 href="{% url 'panel_profesor' %}"
                 style="
                     text-decoration:none;
-                    color:#168653;
-                    font-weight:600;
+                    color:#156FE7;
+                    font-weight:700;
+                    transition:color 0.2s ease;
                 "
+                onmouseover="this.style.color='#105CB1';"
+                onmouseout="this.style.color='#156FE7';"
             >
                 ← Volver a mis grupos
             </a>
-
         </div>
 
 
+        <!-- CABECERA -->
+
         <div class="panel-cabecera">
-
             <div>
-
                 <p class="panel-etiqueta">
                     GRUPO
                 </p>
@@ -39,26 +41,23 @@
                 <p class="panel-subtitulo">
                     {{ grupo.nombre }}
                 </p>
-
             </div>
-
         </div>
 
 
         <div class="panel-grid">
 
-            <!-- ALUMNOS -->
+            <!-- ==================================================
+                 ALUMNOS
+            =================================================== -->
 
             <div class="panel-tarjeta">
 
                 <div class="panel-tarjeta-titulo">
-
                     <h2>
                         Alumnos
                     </h2>
-
                 </div>
-
 
                 {% for alumno in alumnos %}
 
@@ -66,8 +65,10 @@
                         padding:14px 0;
                         border-bottom:1px solid #e5e7eb;
                     ">
-
-                        <strong>
+                        <strong style="
+                            color:#101828;
+                            font-weight:700;
+                        ">
                             {{ alumno.nombre }}
                             {{ alumno.apellidos }}
                         </strong>
@@ -79,7 +80,6 @@
                         ">
                             {{ alumno.email }}
                         </div>
-
                     </div>
 
                 {% empty %}
@@ -93,7 +93,9 @@
             </div>
 
 
-            <!-- CLASES -->
+            <!-- ==================================================
+                 CLASES
+            =================================================== -->
 
             <div class="panel-tarjeta">
 
@@ -101,25 +103,44 @@
                     display:flex;
                     justify-content:space-between;
                     align-items:center;
+                    gap:20px;
                     margin-bottom:25px;
                     padding-bottom:18px;
                     border-bottom:1px solid #e5e7eb;
                 ">
 
-                    <h2>
+                    <h2 style="margin:0;">
                         Clases
                     </h2>
+
+                    <!-- NUEVA CLASE -->
 
                     <a
                         href="{% url 'crear_clase' grupo.id %}"
                         style="
+                            display:inline-block;
                             padding:10px 16px;
                             border-radius:8px;
-                            background:#168653;
-                            color:white;
+                            background:#156FE7;
+                            color:#FFFFFF;
                             text-decoration:none;
                             font-weight:700;
                             font-size:14px;
+                            box-shadow:0 4px 10px rgba(21,111,231,0.18);
+                            transition:
+                                background-color 0.2s ease,
+                                transform 0.2s ease,
+                                box-shadow 0.2s ease;
+                        "
+                        onmouseover="
+                            this.style.backgroundColor='#105CB1';
+                            this.style.transform='translateY(-1px)';
+                            this.style.boxShadow='0 6px 14px rgba(16,92,177,0.22)';
+                        "
+                        onmouseout="
+                            this.style.backgroundColor='#156FE7';
+                            this.style.transform='translateY(0)';
+                            this.style.boxShadow='0 4px 10px rgba(21,111,231,0.18)';
                         "
                     >
                         + Clase
@@ -139,9 +160,13 @@
                         border-bottom:1px solid #e5e7eb;
                     ">
 
-                        <div>
+                        <!-- FECHA -->
 
-                            <strong>
+                        <div>
+                            <strong style="
+                                color:#101828;
+                                font-weight:700;
+                            ">
                                 {{ clase.fecha|date:"d/m/Y" }}
                             </strong>
 
@@ -152,20 +177,37 @@
                             ">
                                 {{ clase.hora_inicio|time:"H:i" }}
                             </div>
-
                         </div>
 
+
+                        <!-- ASISTENCIA -->
 
                         <a
                             href="{% url 'gestionar_asistencia' clase.id %}"
                             style="
-                                padding:8px 13px;
-                                border-radius:7px;
-                                background:#172033;
-                                color:white;
+                                display:inline-block;
+                                padding:9px 14px;
+                                border-radius:8px;
+                                background:#156FE7;
+                                color:#FFFFFF;
                                 text-decoration:none;
                                 font-size:13px;
                                 font-weight:700;
+                                box-shadow:0 4px 10px rgba(21,111,231,0.16);
+                                transition:
+                                    background-color 0.2s ease,
+                                    transform 0.2s ease,
+                                    box-shadow 0.2s ease;
+                            "
+                            onmouseover="
+                                this.style.backgroundColor='#105CB1';
+                                this.style.transform='translateY(-1px)';
+                                this.style.boxShadow='0 6px 14px rgba(16,92,177,0.20)';
+                            "
+                            onmouseout="
+                                this.style.backgroundColor='#156FE7';
+                                this.style.transform='translateY(0)';
+                                this.style.boxShadow='0 4px 10px rgba(21,111,231,0.16)';
                             "
                         >
                             Asistencia
@@ -186,7 +228,6 @@
         </div>
 
     </div>
-
 </section>
 
 {% endblock %}

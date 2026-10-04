@@ -11,7 +11,6 @@
         <div class="panel-cabecera">
 
             <div>
-
                 <p class="panel-etiqueta">
                     ÁREA DEL PROFESOR
                 </p>
@@ -23,7 +22,6 @@
                 <p class="panel-subtitulo">
                     Consulta y gestiona las clases de tus grupos.
                 </p>
-
             </div>
 
         </div>
@@ -31,142 +29,464 @@
 
         <div class="panel-tarjeta">
 
-            <div class="panel-tarjeta-titulo">
+            <form
+                method="POST"
+                action="{% url 'borrar_clases' %}"
+                id="form-borrar-clases"
+            >
 
-                <h2>
-                    Clases programadas
-                </h2>
-
-            </div>
-
-
-            {% for clase in clases %}
-
-                <div style="
-                    display:flex;
-                    justify-content:space-between;
-                    align-items:center;
-                    gap:20px;
-                    padding:18px 0;
-                    border-bottom:1px solid #e5e7eb;
-                    flex-wrap:wrap;
-                ">
-
-                    <div>
-
-                        <strong style="
-                            display:block;
-                            font-size:16px;
-                            margin-bottom:5px;
-                            color:#101828;
-                        ">
-                            {{ clase.grupo.asignatura }}
-                        </strong>
-
-                        <span style="
-                            display:block;
-                            color:#667085;
-                            font-size:14px;
-                            margin-bottom:4px;
-                        ">
-                            {{ clase.grupo.nombre }}
-                        </span>
-
-                        <span style="
-                            color:#667085;
-                            font-size:14px;
-                        ">
-                            {{ clase.fecha|date:"d/m/Y" }}
-                            ·
-                            {{ clase.hora_inicio|time:"H:i" }}
-                        </span>
-
-                    </div>
+                {% csrf_token %}
 
 
-                    <div style="
+                <!-- ==========================================
+                     CABECERA
+                =========================================== -->
+
+                <div
+                    class="panel-tarjeta-titulo"
+                    style="
                         display:flex;
+                        justify-content:space-between;
                         align-items:center;
-                        gap:12px;
+                        gap:20px;
                         flex-wrap:wrap;
-                    ">
+                    "
+                >
 
-                        {% if clase.asistencia_abierta %}
-
-                            <span style="
-                                padding:7px 12px;
-                                border-radius:20px;
-                                background:#E8FFF3;
-                                color:#03A957;
-                                font-size:13px;
-                                font-weight:700;
-                            ">
-                                Abierta
-                            </span>
-
-                        {% else %}
-
-                            <span style="
-                                padding:7px 12px;
-                                border-radius:20px;
-                                background:#f2f4f7;
-                                color:#667085;
-                                font-size:13px;
-                                font-weight:700;
-                            ">
-                                Cerrada
-                            </span>
-
-                        {% endif %}
+                    <h2 style="margin:0;">
+                        Clases programadas
+                    </h2>
 
 
-                        <a
-                            href="{% url 'gestionar_asistencia' clase.id %}"
-                            style="
-                                display:inline-block;
-                                padding:10px 16px;
-                                border-radius:8px;
-                                background:#156FE7;
-                                color:#FFFFFF;
-                                text-decoration:none;
-                                font-size:14px;
-                                font-weight:700;
-                                box-shadow:0 4px 10px rgba(21,111,231,0.18);
-                                transition:
-                                    background-color 0.2s ease,
-                                    transform 0.2s ease,
-                                    box-shadow 0.2s ease;
-                            "
-                            onmouseover="
-                                this.style.backgroundColor='#105CB1';
-                                this.style.transform='translateY(-1px)';
-                                this.style.boxShadow='0 6px 14px rgba(16,92,177,0.22)';
-                            "
-                            onmouseout="
-                                this.style.backgroundColor='#156FE7';
-                                this.style.transform='translateY(0)';
-                                this.style.boxShadow='0 4px 10px rgba(21,111,231,0.18)';
-                            "
-                        >
-                            Gestionar asistencia
-                        </a>
+                    {% if clases %}
 
-                    </div>
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            gap:10px;
+                        ">
+
+                            <button
+                                type="button"
+                                id="btn-activar-borrado"
+                                style="
+                                    border:none;
+                                    padding:10px 16px;
+                                    border-radius:8px;
+                                    background:#FFF1F1;
+                                    color:#C5221F;
+                                    font-size:14px;
+                                    font-weight:700;
+                                    cursor:pointer;
+                                    transition:
+                                        background-color 0.2s ease,
+                                        transform 0.2s ease;
+                                "
+                                onmouseover="
+                                    this.style.backgroundColor='#FFE3E3';
+                                    this.style.transform='translateY(-1px)';
+                                "
+                                onmouseout="
+                                    this.style.backgroundColor='#FFF1F1';
+                                    this.style.transform='translateY(0)';
+                                "
+                            >
+                                Borrar clases
+                            </button>
+
+
+                            <button
+                                type="button"
+                                id="btn-cancelar-borrado"
+                                style="
+                                    display:none;
+                                    border:1px solid #d0d5dd;
+                                    padding:10px 16px;
+                                    border-radius:8px;
+                                    background:#FFFFFF;
+                                    color:#475467;
+                                    font-size:14px;
+                                    font-weight:700;
+                                    cursor:pointer;
+                                "
+                            >
+                                Cancelar
+                            </button>
+
+
+                            <button
+                                type="submit"
+                                id="btn-confirmar-borrado"
+                                style="
+                                    display:none;
+                                    border:none;
+                                    padding:10px 16px;
+                                    border-radius:8px;
+                                    background:#C5221F;
+                                    color:#FFFFFF;
+                                    font-size:14px;
+                                    font-weight:700;
+                                    cursor:pointer;
+                                    box-shadow:0 4px 10px rgba(197,34,31,0.18);
+                                "
+                            >
+                                Eliminar seleccionadas
+                            </button>
+
+                        </div>
+
+                    {% endif %}
 
                 </div>
 
-            {% empty %}
 
-                <p style="color:#667085;">
-                    Todavía no tienes clases programadas.
-                </p>
+                <!-- ==========================================
+                     LISTADO DE CLASES
+                =========================================== -->
 
-            {% endfor %}
+                {% for clase in clases %}
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        gap:20px;
+                        padding:18px 0;
+                        border-bottom:1px solid #e5e7eb;
+                        flex-wrap:wrap;
+                    ">
+
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            gap:15px;
+                        ">
+
+                            <!-- CHECKBOX OCULTO HASTA ACTIVAR BORRADO -->
+
+                            <div
+                                class="selector-borrado"
+                                style="display:none;"
+                            >
+
+                                <input
+                                    type="checkbox"
+                                    name="clases"
+                                    value="{{ clase.id }}"
+                                    class="checkbox-clase"
+                                    style="
+                                        width:19px;
+                                        height:19px;
+                                        cursor:pointer;
+                                        accent-color:#C5221F;
+                                    "
+                                >
+
+                            </div>
+
+
+                            <!-- DATOS DE LA CLASE -->
+
+                            <div>
+
+                                <strong style="
+                                    display:block;
+                                    font-size:16px;
+                                    margin-bottom:5px;
+                                    color:#101828;
+                                ">
+                                    {{ clase.grupo.asignatura }}
+                                </strong>
+
+                                <span style="
+                                    display:block;
+                                    color:#667085;
+                                    font-size:14px;
+                                    margin-bottom:4px;
+                                ">
+                                    {{ clase.grupo.nombre }}
+                                </span>
+
+                                <span style="
+                                    color:#667085;
+                                    font-size:14px;
+                                ">
+                                    {{ clase.fecha|date:"d/m/Y" }}
+                                    ·
+                                    {{ clase.hora_inicio|time:"H:i" }}
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ==================================
+                             ACCIONES
+                        =================================== -->
+
+                        <div style="
+                            display:flex;
+                            align-items:center;
+                            gap:12px;
+                            flex-wrap:wrap;
+                        ">
+
+                            {% if clase.asistencia_abierta %}
+
+                                <span style="
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#E8FFF3;
+                                    color:#03A957;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Abierta
+                                </span>
+
+                            {% else %}
+
+                                <span style="
+                                    padding:7px 12px;
+                                    border-radius:20px;
+                                    background:#f2f4f7;
+                                    color:#667085;
+                                    font-size:13px;
+                                    font-weight:700;
+                                ">
+                                    Cerrada
+                                </span>
+
+                            {% endif %}
+
+
+                            <a
+                                href="{% url 'gestionar_asistencia' clase.id %}"
+                                class="boton-gestionar-asistencia"
+                                style="
+                                    display:inline-block;
+                                    padding:10px 16px;
+                                    border-radius:8px;
+                                    background:#156FE7;
+                                    color:#FFFFFF;
+                                    text-decoration:none;
+                                    font-size:14px;
+                                    font-weight:700;
+                                    box-shadow:0 4px 10px rgba(21,111,231,0.18);
+                                    transition:
+                                        background-color 0.2s ease,
+                                        transform 0.2s ease,
+                                        box-shadow 0.2s ease;
+                                "
+                                onmouseover="
+                                    this.style.backgroundColor='#105CB1';
+                                    this.style.transform='translateY(-1px)';
+                                    this.style.boxShadow='0 6px 14px rgba(16,92,177,0.22)';
+                                "
+                                onmouseout="
+                                    this.style.backgroundColor='#156FE7';
+                                    this.style.transform='translateY(0)';
+                                    this.style.boxShadow='0 4px 10px rgba(21,111,231,0.18)';
+                                "
+                            >
+                                Gestionar asistencia
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                {% empty %}
+
+                    <p style="color:#667085;">
+                        Todavía no tienes clases programadas.
+                    </p>
+
+                {% endfor %}
+
+            </form>
 
         </div>
 
     </div>
 
 </section>
+
+
+<!-- =====================================================
+     MODO BORRAR CLASES
+====================================================== -->
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const botonActivar = document.getElementById(
+        'btn-activar-borrado'
+    );
+
+    const botonCancelar = document.getElementById(
+        'btn-cancelar-borrado'
+    );
+
+    const botonConfirmar = document.getElementById(
+        'btn-confirmar-borrado'
+    );
+
+    const formulario = document.getElementById(
+        'form-borrar-clases'
+    );
+
+    const selectores = document.querySelectorAll(
+        '.selector-borrado'
+    );
+
+    const checkboxes = document.querySelectorAll(
+        '.checkbox-clase'
+    );
+
+    const botonesGestionar = document.querySelectorAll(
+        '.boton-gestionar-asistencia'
+    );
+
+
+    if (!botonActivar) {
+        return;
+    }
+
+
+    // =====================================================
+    // ACTIVAR MODO BORRADO
+    // =====================================================
+
+    botonActivar.addEventListener(
+        'click',
+        function () {
+
+            botonActivar.style.display = 'none';
+
+            botonCancelar.style.display = 'inline-block';
+
+            botonConfirmar.style.display = 'inline-block';
+
+
+            selectores.forEach(
+                function (selector) {
+                    selector.style.display = 'block';
+                }
+            );
+
+
+            botonesGestionar.forEach(
+                function (boton) {
+                    boton.style.display = 'none';
+                }
+            );
+
+        }
+    );
+
+
+    // =====================================================
+    // CANCELAR MODO BORRADO
+    // =====================================================
+
+    botonCancelar.addEventListener(
+        'click',
+        function () {
+
+            botonActivar.style.display = 'inline-block';
+
+            botonCancelar.style.display = 'none';
+
+            botonConfirmar.style.display = 'none';
+
+
+            selectores.forEach(
+                function (selector) {
+                    selector.style.display = 'none';
+                }
+            );
+
+
+            checkboxes.forEach(
+                function (checkbox) {
+                    checkbox.checked = false;
+                }
+            );
+
+
+            botonesGestionar.forEach(
+                function (boton) {
+                    boton.style.display = 'inline-block';
+                }
+            );
+
+        }
+    );
+
+
+    // =====================================================
+    // CONFIRMAR BORRADO
+    // =====================================================
+
+    formulario.addEventListener(
+        'submit',
+        function (event) {
+
+            const seleccionadas = document.querySelectorAll(
+                '.checkbox-clase:checked'
+            );
+
+
+            if (seleccionadas.length === 0) {
+
+                event.preventDefault();
+
+                alert(
+                    'Selecciona al menos una clase para eliminar.'
+                );
+
+                return;
+            }
+
+
+            let mensaje;
+
+            if (seleccionadas.length === 1) {
+
+                mensaje =
+                    '¿Seguro que quieres eliminar esta clase?\n\n' +
+                    'También se eliminarán sus registros de asistencia asociados.';
+
+            } else {
+
+                mensaje =
+                    '¿Seguro que quieres eliminar las ' +
+                    seleccionadas.length +
+                    ' clases seleccionadas?\n\n' +
+                    'También se eliminarán sus registros de asistencia asociados.';
+
+            }
+
+
+            const confirmar = confirm(
+                mensaje
+            );
+
+
+            if (!confirmar) {
+
+                event.preventDefault();
+
+            }
+
+        }
+    );
+
+});
+
+</script>
 
 {% endblock %}

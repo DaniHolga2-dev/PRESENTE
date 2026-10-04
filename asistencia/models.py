@@ -29,6 +29,17 @@ class Profesor(models.Model):
 
 class Grupo(models.Model):
 
+    COLORES = [
+        ('blanco', 'Blanco'),
+        ('rosa', 'Rosa'),
+        ('rojo', 'Rojo'),
+        ('naranja', 'Naranja'),
+        ('azul', 'Azul'),
+        ('verde', 'Verde'),
+        ('amarillo', 'Amarillo'),
+        ('violeta', 'Violeta'),
+    ]
+
     nombre = models.CharField(
         max_length=100
     )
@@ -40,6 +51,12 @@ class Grupo(models.Model):
     profesor = models.ForeignKey(
         Profesor,
         on_delete=models.CASCADE
+    )
+
+    color = models.CharField(
+        max_length=20,
+        choices=COLORES,
+        default='blanco'
     )
 
     def __str__(self):
@@ -103,7 +120,7 @@ class Clase(models.Model):
     )
 
     # Token que se introduce dentro del código QR.
-    # Se irá sustituyendo cada 10 segundos mientras
+    # Se sustituye cada 5 segundos mientras
     # la asistencia permanezca abierta.
     token_qr = models.UUIDField(
         default=uuid.uuid4,
@@ -114,6 +131,20 @@ class Clase(models.Model):
     # Guarda el momento exacto en el que se creó
     # el token QR actualmente válido.
     token_qr_generado_en = models.DateTimeField(
+        blank=True,
+        null=True
+    )
+
+    # Ubicación del profesor en el momento
+    # de abrir la asistencia.
+    # Se utiliza como punto de referencia para
+    # comprobar que el alumno se encuentra cerca.
+    latitud_profesor = models.FloatField(
+        blank=True,
+        null=True
+    )
+
+    longitud_profesor = models.FloatField(
         blank=True,
         null=True
     )

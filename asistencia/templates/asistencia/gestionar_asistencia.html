@@ -5,20 +5,14 @@
 {% block content %}
 
 <section class="panel-usuario">
-
-    <div
-        class="panel-contenedor"
-        style="max-width:1100px;"
-    >
+    <div class="panel-contenedor" style="max-width:1100px;">
 
         <!-- =====================================================
              CABECERA
         ====================================================== -->
 
         <div class="panel-cabecera">
-
             <div>
-
                 <p class="panel-etiqueta">
                     ÁREA DEL PROFESOR
                 </p>
@@ -28,33 +22,19 @@
                 </h1>
 
                 <p class="panel-subtitulo">
-                    {{ clase.grupo.asignatura }}
-                    ·
-                    {{ clase.grupo.nombre }}
+                    {{ clase.grupo.asignatura }} · {{ clase.grupo.nombre }}
                 </p>
-
             </div>
-
         </div>
-
 
         <!-- =====================================================
              INFORMACIÓN DE LA CLASE
         ====================================================== -->
 
-        <div
-            class="panel-tarjeta"
-            style="margin-bottom:22px;"
-        >
-
+        <div class="panel-tarjeta" style="margin-bottom:22px;">
             <div class="panel-tarjeta-titulo">
-
-                <h2>
-                    Clase
-                </h2>
-
+                <h2>Clase</h2>
             </div>
-
 
             <div style="
                 display:grid;
@@ -71,25 +51,17 @@
                     border-radius:12px;
                     background:#FAFAFA;
                 ">
-
-                    <p style="
-                        margin:0 0 7px 0;
-                        font-size:11px;
-                        font-weight:700;
-                        color:#667085;
-                    ">
+                    <p
+                        class="texto-etiqueta"
+                        style="margin:0 0 7px 0;"
+                    >
                         FECHA
                     </p>
 
-                    <strong style="
-                        font-size:16px;
-                        color:#101828;
-                    ">
+                    <strong class="texto-valor">
                         {{ clase.fecha|date:"d/m/Y" }}
                     </strong>
-
                 </div>
-
 
                 <!-- HORA -->
 
@@ -99,25 +71,17 @@
                     border-radius:12px;
                     background:#FAFAFA;
                 ">
-
-                    <p style="
-                        margin:0 0 7px 0;
-                        font-size:11px;
-                        font-weight:700;
-                        color:#667085;
-                    ">
+                    <p
+                        class="texto-etiqueta"
+                        style="margin:0 0 7px 0;"
+                    >
                         HORA DE INICIO
                     </p>
 
-                    <strong style="
-                        font-size:16px;
-                        color:#101828;
-                    ">
+                    <strong class="texto-valor">
                         {{ clase.hora_inicio|time:"H:i" }}
                     </strong>
-
                 </div>
-
 
                 <!-- GRUPO -->
 
@@ -127,25 +91,17 @@
                     border-radius:12px;
                     background:#FAFAFA;
                 ">
-
-                    <p style="
-                        margin:0 0 7px 0;
-                        font-size:11px;
-                        font-weight:700;
-                        color:#667085;
-                    ">
+                    <p
+                        class="texto-etiqueta"
+                        style="margin:0 0 7px 0;"
+                    >
                         GRUPO
                     </p>
 
-                    <strong style="
-                        font-size:16px;
-                        color:#101828;
-                    ">
+                    <strong class="texto-valor">
                         {{ clase.grupo.nombre }}
                     </strong>
-
                 </div>
-
 
                 <!-- ESTADO -->
 
@@ -155,70 +111,52 @@
                     border-radius:12px;
                     background:#FAFAFA;
                 ">
-
-                    <p style="
-                        margin:0 0 7px 0;
-                        font-size:11px;
-                        font-weight:700;
-                        color:#667085;
-                    ">
+                    <p
+                        class="texto-etiqueta"
+                        style="margin:0 0 7px 0;"
+                    >
                         ESTADO
                     </p>
 
                     {% if clase.asistencia_abierta %}
 
-                        <span style="
-                            display:inline-flex;
-                            align-items:center;
-                            gap:7px;
-                            padding:6px 11px;
-                            border-radius:999px;
-                            background:#E3F5E9;
-                            color:#03D26E;
-                            font-size:13px;
-                            font-weight:700;
-                        ">
-                            <i
-                                data-lucide="circle-check"
-                                style="
-                                    width:15px;
-                                    height:15px;
-                                "
-                            ></i>
-                            Abierta
+                        <span
+                            class="texto-estado"
+                            style="
+                                display:inline-flex;
+                                align-items:center;
+                                gap:7px;
+                                padding:7px 12px;
+                                border-radius:999px;
+                                background:#E3F5E9;
+                                color:#03D26E;
+                            "
+                        >
+                            ● Abierta
                         </span>
 
                     {% else %}
 
-                        <span style="
-                            display:inline-flex;
-                            align-items:center;
-                            gap:7px;
-                            padding:6px 11px;
-                            border-radius:999px;
-                            background:#F2F4F7;
-                            color:#667085;
-                            font-size:13px;
-                            font-weight:700;
-                        ">
-                            <i
-                                data-lucide="circle"
-                                style="
-                                    width:13px;
-                                    height:13px;
-                                "
-                            ></i>
-                            Cerrada
+                        <span
+                            class="texto-estado"
+                            style="
+                                display:inline-flex;
+                                align-items:center;
+                                gap:7px;
+                                padding:7px 12px;
+                                border-radius:999px;
+                                background:#F2F4F7;
+                                color:#667085;
+                            "
+                        >
+                            ● Cerrada
                         </span>
 
                     {% endif %}
-
                 </div>
 
             </div>
-
         </div>
-
 
         <!-- =====================================================
              CONTROL + QR
@@ -231,19 +169,12 @@
             margin-bottom:22px;
         ">
 
-
             <!-- CONTROL DE ASISTENCIA -->
 
             <div class="panel-tarjeta">
-
                 <div class="panel-tarjeta-titulo">
-
-                    <h2>
-                        Check-in
-                    </h2>
-
+                    <h2>Check-in</h2>
                 </div>
-
 
                 {% if clase.asistencia_abierta %}
 
@@ -254,59 +185,41 @@
                         border-radius:14px;
                         background:#F3FBF6;
                     ">
-
                         <div style="
                             display:flex;
                             align-items:center;
                             gap:14px;
                             margin-bottom:16px;
                         ">
-
                             <div style="
                                 width:48px;
                                 height:48px;
-                                flex-shrink:0;
                                 border-radius:50%;
                                 background:#E3F5E9;
-                                color:#03D26E;
                                 display:flex;
                                 align-items:center;
                                 justify-content:center;
+                                font-size:22px;
                             ">
-
-                                <i
-                                    data-lucide="circle-check"
-                                    style="
-                                        width:23px;
-                                        height:23px;
-                                    "
-                                ></i>
-
+                                🟢
                             </div>
 
-
                             <div>
-
-                                <strong style="
-                                    display:block;
-                                    color:#101828;
-                                    font-size:16px;
-                                    margin-bottom:3px;
-                                ">
+                                <strong
+                                    class="texto-valor"
+                                    style="
+                                        display:block;
+                                        margin-bottom:3px;
+                                    "
+                                >
                                     Asistencia abierta
                                 </strong>
 
-                                <span style="
-                                    color:#667085;
-                                    font-size:13px;
-                                ">
+                                <span class="texto-secundario">
                                     Los alumnos ya pueden registrar su asistencia.
                                 </span>
-
                             </div>
-
                         </div>
-
 
                         <a
                             href="{% url 'cerrar_asistencia' clase.id %}"
@@ -314,7 +227,6 @@
                                 display:flex;
                                 align-items:center;
                                 justify-content:center;
-                                gap:8px;
                                 width:100%;
                                 box-sizing:border-box;
                                 padding:11px 16px;
@@ -326,21 +238,9 @@
                                 font-weight:700;
                             "
                         >
-
-                            <i
-                                data-lucide="lock"
-                                style="
-                                    width:16px;
-                                    height:16px;
-                                "
-                            ></i>
-
                             Cerrar asistencia
-
                         </a>
-
                     </div>
-
 
                 {% else %}
 
@@ -351,136 +251,139 @@
                         border-radius:14px;
                         background:#FAFAFA;
                     ">
-
                         <div style="
                             display:flex;
                             align-items:center;
                             gap:14px;
                             margin-bottom:16px;
                         ">
-
                             <div style="
                                 width:48px;
                                 height:48px;
-                                flex-shrink:0;
                                 border-radius:50%;
-                                background:#EDF5FF;
-                                color:#156FE7;
+                                background:#F2F4F7;
                                 display:flex;
                                 align-items:center;
                                 justify-content:center;
+                                font-size:22px;
                             ">
-
-                                <i
-                                    data-lucide="lock"
-                                    style="
-                                        width:22px;
-                                        height:22px;
-                                    "
-                                ></i>
-
+                                ⚪
                             </div>
 
-
                             <div>
-
-                                <strong style="
-                                    display:block;
-                                    color:#101828;
-                                    font-size:16px;
-                                    margin-bottom:3px;
-                                ">
+                                <strong
+                                    class="texto-valor"
+                                    style="
+                                        display:block;
+                                        margin-bottom:3px;
+                                    "
+                                >
                                     Asistencia cerrada
                                 </strong>
 
-                                <span style="
-                                    color:#667085;
-                                    font-size:13px;
-                                ">
-                                    Abre el check-in para generar el código QR.
+                                <span class="texto-secundario">
+                                    Abre la asistencia para permitir el acceso mediante QR.
                                 </span>
-
                             </div>
-
                         </div>
 
-
-                        <a
-                            href="{% url 'abrir_asistencia' clase.id %}"
-                            style="
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                gap:8px;
-                                width:100%;
-                                box-sizing:border-box;
-                                padding:11px 16px;
-                                border-radius:9px;
-                                background:#156FE7;
-                                color:#FFFFFF;
-                                text-decoration:none;
-                                font-size:14px;
-                                font-weight:700;
-                            "
+                        <form
+                            id="formAbrirAsistencia"
+                            method="POST"
+                            action="{% url 'abrir_asistencia' clase.id %}"
+                            style="margin:0;"
                         >
+                            {% csrf_token %}
 
-                            <i
-                                data-lucide="qr-code"
+                            <input
+                                type="hidden"
+                                name="latitud_profesor"
+                                id="latitudProfesor"
+                            >
+
+                            <input
+                                type="hidden"
+                                name="longitud_profesor"
+                                id="longitudProfesor"
+                            >
+
+                            <button
+                                type="button"
+                                id="btnAbrirAsistencia"
+                                onclick="abrirAsistenciaConUbicacion()"
                                 style="
-                                    width:16px;
-                                    height:16px;
+                                    display:flex;
+                                    align-items:center;
+                                    justify-content:center;
+                                    width:100%;
+                                    box-sizing:border-box;
+                                    padding:11px 16px;
+                                    border:0;
+                                    border-radius:9px;
+                                    background:#03C26E;
+                                    color:#FFFFFF;
+                                    font-family:inherit;
+                                    font-size:14px;
+                                    font-weight:700;
+                                    cursor:pointer;
                                 "
-                            ></i>
-
-                            Abrir asistencia
-
-                        </a>
-
+                            >
+                                <span id="textoBotonAbrir">
+                                    Abrir asistencia
+                                </span>
+                            </button>
+                        </form>
                     </div>
 
                 {% endif %}
-
             </div>
 
-
-            <!-- CÓDIGO QR -->
+            <!-- =================================================
+                 CÓDIGO QR
+            ================================================== -->
 
             <div class="panel-tarjeta">
-
                 <div class="panel-tarjeta-titulo">
+                    <h2>Código QR</h2>
 
-                    <h2>
-                        Código QR
-                    </h2>
-
+                    {% if clase.asistencia_abierta %}
+                        <span
+                            id="estado-qr-texto"
+                            class="texto-estado"
+                            style="
+                                padding:6px 10px;
+                                border-radius:999px;
+                                background:#E3F5E9;
+                                color:#03C26E;
+                            "
+                        >
+                            QR ACTIVO
+                        </span>
+                    {% endif %}
                 </div>
-
 
                 {% if clase.asistencia_abierta %}
 
                     <div style="
-                        margin-top:22px;
+                        margin-top:20px;
                         text-align:center;
                     ">
-
                         <div
                             id="qr-contenedor"
                             style="
                                 display:inline-flex;
                                 align-items:center;
                                 justify-content:center;
-                                min-height:260px;
-                                min-width:260px;
                                 padding:18px;
-                                border:1px dashed #D0D5DD;
-                                border-radius:14px;
+                                border:1px solid #EAECF0;
+                                border-radius:16px;
                                 background:#FFFFFF;
+                                box-shadow:0 8px 25px rgba(16, 24, 40, 0.06);
                             "
                         >
-
                             <img
                                 id="qr-imagen"
-                                src="{% url 'qr_clase' clase.id %}"
+                                src="{% url 'qr_clase' clase.id %}?t={% now 'U' %}"
                                 alt="Código QR de asistencia"
                                 style="
                                     display:block;
@@ -489,797 +392,813 @@
                                     height:auto;
                                 "
                             >
-
                         </div>
 
+                        <div class="qr-tiempo">
+                            <div
+                                id="qr-tiempo-barra"
+                                class="qr-tiempo-barra"
+                            ></div>
+                        </div>
 
-                        <p style="
-                            margin:16px 0 0 0;
-                            color:#667085;
-                            font-size:12px;
-                            line-height:1.5;
-                        ">
-                            El código se renueva automáticamente
-                            para evitar que se utilicen fotografías antiguas.
-                        </p>
+                        <div class="qr-cuenta">
+                            Nuevo QR en
+                            <strong id="qr-segundos">5</strong>s
+                        </div>
 
-
-                        <div
-                            id="estado-qr"
+                        <p
+                            class="texto-descripcion"
                             style="
-                                margin-top:13px;
-                                display:inline-flex;
-                                align-items:center;
-                                justify-content:center;
-                                gap:6px;
-                                padding:6px 11px;
-                                border-radius:999px;
-                                background:#E8F7EF;
-                                color:#03D26E;
-                                font-size:11px;
-                                font-weight:700;
+                                max-width:390px;
+                                margin:15px auto 0;
                             "
                         >
-
-                            <i
-                                data-lucide="refresh-cw"
-                                style="
-                                    width:13px;
-                                    height:13px;
-                                "
-                            ></i>
-
-                            <span id="estado-qr-texto">
-                                QR ACTIVO
-                            </span>
-
-                        </div>
-
+                            El código cambia automáticamente cada
+                            5 segundos para evitar que pueda utilizarse
+                            una captura antigua.
+                        </p>
                     </div>
 
                 {% else %}
 
                     <div style="
-                        margin-top:22px;
-                        min-height:290px;
+                        min-height:330px;
                         display:flex;
                         flex-direction:column;
                         align-items:center;
                         justify-content:center;
+                        padding:30px;
                         text-align:center;
-                        padding:25px;
-                        border:1px dashed #D0D5DD;
-                        border-radius:14px;
-                        background:#FAFAFA;
                     ">
-
                         <div style="
-                            width:58px;
-                            height:58px;
-                            border-radius:50%;
-                            background:#EDF5FF;
-                            color:#156FE7;
+                            width:64px;
+                            height:64px;
                             display:flex;
                             align-items:center;
                             justify-content:center;
-                            margin-bottom:15px;
+                            margin-bottom:16px;
+                            border-radius:16px;
+                            background:#F2F4F7;
+                            color:#98A2B3;
                         ">
-
-                            <i
-                                data-lucide="qr-code"
-                                style="
-                                    width:27px;
-                                    height:27px;
-                                "
-                            ></i>
-
+                            <svg
+                                width="30"
+                                height="30"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect x="3" y="3" width="7" height="7"></rect>
+                                <rect x="14" y="3" width="7" height="7"></rect>
+                                <rect x="3" y="14" width="7" height="7"></rect>
+                                <path d="M14 14h3v3h-3z"></path>
+                                <path d="M18 18h3v3h-3z"></path>
+                                <path d="M18 14h3"></path>
+                                <path d="M14 18v3"></path>
+                            </svg>
                         </div>
 
-                        <strong style="
-                            display:block;
-                            color:#101828;
-                            font-size:15px;
-                            margin-bottom:7px;
-                        ">
+                        <strong class="texto-nombre-alumno">
                             QR no disponible
                         </strong>
 
-                        <span style="
-                            color:#667085;
-                            font-size:12px;
-                            line-height:1.5;
-                        ">
-                            El código aparecerá automáticamente
-                            cuando abras la asistencia.
-                        </span>
-
+                        <p
+                            class="texto-descripcion"
+                            style="
+                                max-width:310px;
+                                margin:7px 0 0;
+                                color:#98A2B3;
+                            "
+                        >
+                            Abre la asistencia para generar el código QR
+                            de esta clase.
+                        </p>
                     </div>
 
                 {% endif %}
-
             </div>
 
         </div>
-
-
-        <!-- =====================================================
-             LEYENDA DE ESTADOS
+                <!-- =====================================================
+             RESUMEN DE ASISTENCIA
         ====================================================== -->
 
-        <div
-            class="panel-tarjeta"
-            style="margin-bottom:22px;"
-        >
-
+        <div class="panel-tarjeta" style="margin-bottom:22px;">
             <div class="panel-tarjeta-titulo">
-
-                <h2>
-                    Estados de asistencia
-                </h2>
-
+                <h2>Resumen de asistencia</h2>
             </div>
-
 
             <div style="
                 display:grid;
-                grid-template-columns:repeat(auto-fit, minmax(190px, 1fr));
+                grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));
                 gap:14px;
-                margin-top:22px;
+                margin-top:20px;
             ">
 
-                <!-- PRESENTE -->
+                <!-- PRESENTES -->
 
                 <div style="
-                    display:flex;
-                    align-items:center;
-                    gap:12px;
-                    padding:14px;
+                    padding:18px;
+                    border:1px solid #B7E4CA;
                     border-radius:12px;
                     background:#F3FBF6;
-                    border:1px solid #D1EADB;
                 ">
-
-                    <span style="
-                        width:34px;
-                        height:34px;
-                        flex-shrink:0;
+                    <div style="
                         display:flex;
                         align-items:center;
-                        justify-content:center;
-                        color:#03D26E;
+                        gap:12px;
                     ">
-
-                        <i
-                            data-lucide="square-check-big"
-                            style="
-                                width:23px;
-                                height:23px;
-                            "
-                        ></i>
-
-                    </span>
-
-                    <div>
-
-                        <strong style="
-                            display:block;
-                            color:#03D26E;
-                            font-size:13px;
+                        <div style="
+                            width:42px;
+                            height:42px;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            border-radius:10px;
+                            background:#E3F5E9;
+                            color:#03C26E;
                         ">
-                            Presente
-                        </strong>
+                            <svg
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M20 6L9 17l-5-5"></path>
+                            </svg>
+                        </div>
 
-                        <span style="
-                            color:#667085;
-                            font-size:11px;
-                        ">
-                            Dentro de tiempo
-                        </span>
+                        <div>
+                            <strong
+                                class="texto-contador"
+                                style="display:block;"
+                            >
+                                {{ total_presentes }}
+                            </strong>
 
+                            <span class="texto-secundario">
+                                Presentes
+                            </span>
+                        </div>
                     </div>
-
                 </div>
 
-
-                <!-- TARDE -->
+                <!-- TARDES -->
 
                 <div style="
-                    display:flex;
-                    align-items:center;
-                    gap:12px;
-                    padding:14px;
+                    padding:18px;
+                    border:1px solid #FDE68A;
                     border-radius:12px;
-                    background:#FFF0F8;
-                    border:1px solid #FFD0E9;
+                    background:#FFFBEB;
                 ">
-
-                    <span style="
-                        width:34px;
-                        height:34px;
-                        flex-shrink:0;
+                    <div style="
                         display:flex;
                         align-items:center;
-                        justify-content:center;
-                        color:#FF3AA7;
+                        gap:12px;
                     ">
-
-                        <i
-                            data-lucide="clock-3"
-                            style="
-                                width:23px;
-                                height:23px;
-                            "
-                        ></i>
-
-                    </span>
-
-                    <div>
-
-                        <strong style="
-                            display:block;
-                            color:#FF3AA7;
-                            font-size:13px;
+                        <div style="
+                            width:42px;
+                            height:42px;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            border-radius:10px;
+                            background:#FEF3C7;
+                            color:#D97706;
                         ">
-                            Tarde
-                        </strong>
+                            <svg
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle cx="12" cy="12" r="9"></circle>
+                                <path d="M12 7v5l3 2"></path>
+                            </svg>
+                        </div>
 
-                        <span style="
-                            color:#667085;
-                            font-size:11px;
-                        ">
-                            Llegada con retraso
-                        </span>
+                        <div>
+                            <strong
+                                class="texto-contador"
+                                style="display:block;"
+                            >
+                                {{ total_tarde }}
+                            </strong>
 
+                            <span class="texto-secundario">
+                                Retrasos
+                            </span>
+                        </div>
                     </div>
-
                 </div>
 
-
-                <!-- AUSENTE -->
-
-                <div style="
-                    display:flex;
-                    align-items:center;
-                    gap:12px;
-                    padding:14px;
-                    border-radius:12px;
-                    background:#FFF6F5;
-                    border:1px solid #F1D0CD;
-                ">
-
-                    <span style="
-                        width:34px;
-                        height:34px;
-                        flex-shrink:0;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                        color:#B42318;
-                    ">
-
-                        <i
-                            data-lucide="x"
-                            style="
-                                width:25px;
-                                height:25px;
-                            "
-                        ></i>
-
-                    </span>
-
-                    <div>
-
-                        <strong style="
-                            display:block;
-                            color:#B42318;
-                            font-size:13px;
-                        ">
-                            Ausente
-                        </strong>
-
-                        <span style="
-                            color:#667085;
-                            font-size:11px;
-                        ">
-                            No ha registrado entrada
-                        </span>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PENDIENTE -->
+                <!-- AUSENTES -->
 
                 <div style="
-                    display:flex;
-                    align-items:center;
-                    gap:12px;
-                    padding:14px;
+                    padding:18px;
+                    border:1px solid #FECACA;
                     border-radius:12px;
-                    background:#F8F9FB;
-                    border:1px solid #E5E7EB;
+                    background:#FEF2F2;
                 ">
-
-                    <span style="
-                        width:34px;
-                        height:34px;
-                        flex-shrink:0;
+                    <div style="
                         display:flex;
                         align-items:center;
-                        justify-content:center;
-                        color:#667085;
+                        gap:12px;
                     ">
-
-                        <i
-                            data-lucide="hourglass"
-                            style="
-                                width:22px;
-                                height:22px;
-                            "
-                        ></i>
-
-                    </span>
-
-                    <div>
-
-                        <strong style="
-                            display:block;
-                            color:#667085;
-                            font-size:13px;
+                        <div style="
+                            width:42px;
+                            height:42px;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            border-radius:10px;
+                            background:#FEE2E2;
+                            color:#DC2626;
                         ">
-                            Pendiente
-                        </strong>
+                            <svg
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.9"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <path d="M18 6L6 18"></path>
+                                <path d="M6 6l12 12"></path>
+                            </svg>
+                        </div>
 
-                        <span style="
-                            color:#667085;
-                            font-size:11px;
-                        ">
-                            Esperando registro
-                        </span>
+                        <div>
+                            <strong
+                                class="texto-contador"
+                                style="display:block;"
+                            >
+                                {{ total_ausentes }}
+                            </strong>
 
+                            <span class="texto-secundario">
+                                Ausentes
+                            </span>
+                        </div>
                     </div>
-
                 </div>
 
             </div>
-
         </div>
 
-
         <!-- =====================================================
-             REGISTROS DE ALUMNOS
+             REGISTRO DE ALUMNOS
         ====================================================== -->
 
         <div class="panel-tarjeta">
+            <div class="panel-tarjeta-titulo">
+                <div>
+                    <h2>Registro de alumnos</h2>
 
-            <div
-                class="panel-tarjeta-titulo"
-                style="
-                    display:flex;
-                    justify-content:space-between;
-                    align-items:center;
-                    gap:15px;
-                    flex-wrap:wrap;
-                "
-            >
-
-                <h2>
-                    Registro de alumnos
-                </h2>
-
-
-                <span style="
-                    padding:6px 12px;
-                    border-radius:999px;
-                    background:#F2F4F7;
-                    color:#475467;
-                    font-size:12px;
-                    font-weight:700;
-                ">
-                    {{ registros|length }} registrados
-                </span>
-
+                    <p
+                        class="texto-secundario"
+                        style="
+                            margin:5px 0 0;
+                            color:#98A2B3;
+                        "
+                    >
+                        {{ total_alumnos }} alumnos en el grupo
+                    </p>
+                </div>
             </div>
 
-
-            {% for registro in registros %}
-
-                <div style="
-                    display:flex;
-                    align-items:center;
-                    justify-content:space-between;
-                    gap:20px;
-                    padding:17px 4px;
-                    border-bottom:1px solid #EAECF0;
+            <div style="
+                margin-top:20px;
+                overflow-x:auto;
+            ">
+                <table style="
+                    width:100%;
+                    border-collapse:collapse;
+                    min-width:620px;
                 ">
-
-
-                    <!-- ALUMNO -->
-
-                    <div style="
-                        display:flex;
-                        align-items:center;
-                        gap:14px;
-                        min-width:0;
-                    ">
-
-                        {% if registro.alumno.foto %}
-
-                            <img
-                                src="{{ registro.alumno.foto.url }}"
-                                alt="Foto de {{ registro.alumno.nombre }}"
+                    <thead>
+                        <tr style="border-bottom:1px solid #EAECF0;">
+                            <th
+                                class="texto-tabla-cabecera"
                                 style="
-                                    width:48px;
-                                    height:48px;
-                                    border-radius:50%;
-                                    object-fit:cover;
-                                    border:2px solid #F2F4F7;
-                                    flex-shrink:0;
+                                    padding:12px 14px;
+                                    text-align:left;
                                 "
                             >
+                                ALUMNO
+                            </th>
 
-                        {% else %}
+                            <th
+                                class="texto-tabla-cabecera"
+                                style="
+                                    padding:12px 14px;
+                                    text-align:left;
+                                "
+                            >
+                                ESTADO
+                            </th>
 
-                            <div style="
-                                width:48px;
-                                height:48px;
-                                border-radius:50%;
-                                background:#F2F4F7;
-                                display:flex;
-                                align-items:center;
-                                justify-content:center;
-                                color:#475467;
-                                font-weight:700;
-                                flex-shrink:0;
-                            ">
-                                {{ registro.alumno.nombre|first }}
-                            </div>
+                            <th
+                                class="texto-tabla-cabecera"
+                                style="
+                                    padding:12px 14px;
+                                    text-align:left;
+                                "
+                            >
+                                HORA DE REGISTRO
+                            </th>
+                        </tr>
+                    </thead>
 
-                        {% endif %}
+                    <tbody>
+                        {% for registro in registros %}
 
+                            <tr style="border-bottom:1px solid #F2F4F7;">
 
-                        <div style="min-width:0;">
+                                <!-- ALUMNO -->
 
-                            <strong style="
-                                display:block;
-                                color:#101828;
-                                margin-bottom:4px;
-                                font-size:14px;
-                            ">
-                                {{ registro.alumno.nombre }}
-                                {{ registro.alumno.apellidos }}
-                            </strong>
+                                <td style="padding:15px 14px;">
+                                    <div style="
+                                        display:flex;
+                                        align-items:center;
+                                        gap:11px;
+                                    ">
+                                        <div style="
+                                            width:36px;
+                                            height:36px;
+                                            flex:0 0 36px;
+                                            display:flex;
+                                            align-items:center;
+                                            justify-content:center;
+                                            overflow:hidden;
+                                            border-radius:50%;
+                                            background:#EEF4FF;
+                                            color:#356FC0;
+                                            font-size:12px;
+                                            font-weight:800;
+                                        ">
+                                            {% if registro.alumno.foto %}
 
-                            <span style="
-                                color:#667085;
-                                font-size:12px;
-                            ">
-                                {{ registro.alumno.email }}
-                            </span>
+                                                <img
+                                                    src="{{ registro.alumno.foto.url }}"
+                                                    alt="{{ registro.alumno.nombre }}"
+                                                    style="
+                                                        width:100%;
+                                                        height:100%;
+                                                        object-fit:cover;
+                                                    "
+                                                >
 
-                        </div>
+                                            {% else %}
 
-                    </div>
+                                                {{ registro.alumno.nombre|first|upper }}
+                                                {{ registro.alumno.apellidos|first|upper }}
 
+                                            {% endif %}
+                                        </div>
 
-                    <!-- HORA + ESTADO -->
+                                        <div>
+                                            <strong
+                                                class="texto-nombre-alumno"
+                                                style="display:block;"
+                                            >
+                                                {{ registro.alumno.nombre }}
+                                                {{ registro.alumno.apellidos }}
+                                            </strong>
 
-                    <div style="
-                        display:flex;
-                        align-items:center;
-                        justify-content:flex-end;
-                        gap:15px;
-                        flex-wrap:wrap;
-                    ">
+                                            <span
+                                                class="texto-secundario"
+                                                style="
+                                                    display:block;
+                                                    margin-top:2px;
+                                                    color:#98A2B3;
+                                                "
+                                            >
+                                                {{ registro.alumno.email }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
 
-                        {% if registro.hora_registro %}
+                                <!-- ESTADO -->
 
-                            <span style="
-                                color:#667085;
-                                font-size:12px;
-                                font-weight:600;
-                            ">
-                                {{ registro.hora_registro|time:"H:i:s" }}
-                            </span>
+                                <td style="padding:15px 14px;">
 
-                        {% else %}
+                                    {% if registro.estado == 'presente' %}
 
-                            <span style="
-                                color:#98A2B3;
-                                font-size:12px;
-                            ">
-                                —
-                            </span>
+                                        <span
+                                            class="texto-estado"
+                                            style="
+                                                display:inline-flex;
+                                                align-items:center;
+                                                gap:6px;
+                                                padding:7px 11px;
+                                                border-radius:999px;
+                                                background:#E3F5E9;
+                                                color:#03A95C;
+                                            "
+                                        >
+                                            <span style="
+                                                width:6px;
+                                                height:6px;
+                                                border-radius:50%;
+                                                background:#03C26E;
+                                            "></span>
 
-                        {% endif %}
+                                            Presente
+                                        </span>
 
+                                    {% elif registro.estado == 'tarde' %}
 
-                        {% if registro.estado == 'presente' %}
+                                        <span
+                                            class="texto-estado"
+                                            style="
+                                                display:inline-flex;
+                                                align-items:center;
+                                                gap:6px;
+                                                padding:7px 11px;
+                                                border-radius:999px;
+                                                background:#FEF3C7;
+                                                color:#B45309;
+                                            "
+                                        >
+                                            <span style="
+                                                width:6px;
+                                                height:6px;
+                                                border-radius:50%;
+                                                background:#F59E0B;
+                                            "></span>
 
-                            <span style="
-                                display:inline-flex;
-                                align-items:center;
-                                gap:7px;
-                                min-width:105px;
-                                justify-content:center;
-                                padding:7px 12px;
-                                border-radius:999px;
-                                background:#E3F5E9;
-                                color:#03D26E;
-                                font-size:12px;
-                                font-weight:700;
-                            ">
+                                            Tarde
+                                        </span>
 
-                                <i
-                                    data-lucide="square-check-big"
+                                    {% elif registro.estado == 'ausente' %}
+
+                                        <span
+                                            class="texto-estado"
+                                            style="
+                                                display:inline-flex;
+                                                align-items:center;
+                                                gap:6px;
+                                                padding:7px 11px;
+                                                border-radius:999px;
+                                                background:#FEE2E2;
+                                                color:#B42318;
+                                            "
+                                        >
+                                            <span style="
+                                                width:6px;
+                                                height:6px;
+                                                border-radius:50%;
+                                                background:#EF4444;
+                                            "></span>
+
+                                            Ausente
+                                        </span>
+
+                                    {% else %}
+
+                                        <span
+                                            class="texto-estado"
+                                            style="
+                                                display:inline-flex;
+                                                align-items:center;
+                                                gap:6px;
+                                                padding:7px 11px;
+                                                border-radius:999px;
+                                                background:#F2F4F7;
+                                                color:#667085;
+                                            "
+                                        >
+                                            <span style="
+                                                width:6px;
+                                                height:6px;
+                                                border-radius:50%;
+                                                background:#98A2B3;
+                                            "></span>
+
+                                            Pendiente
+                                        </span>
+
+                                    {% endif %}
+                                </td>
+
+                                <!-- HORA -->
+
+                                <td
+                                    class="texto-tabla-dato"
+                                    style="padding:15px 14px;"
+                                >
+                                    {% if registro.hora_registro %}
+
+                                        {{ registro.hora_registro|time:"H:i:s" }}
+
+                                    {% else %}
+
+                                        <span style="color:#98A2B3;">
+                                            —
+                                        </span>
+
+                                    {% endif %}
+                                </td>
+
+                            </tr>
+
+                        {% empty %}
+
+                            <tr>
+                                <td
+                                    colspan="3"
+                                    class="texto-descripcion"
                                     style="
-                                        width:15px;
-                                        height:15px;
+                                        padding:35px 20px;
+                                        text-align:center;
+                                        color:#98A2B3;
                                     "
-                                ></i>
+                                >
+                                    Los alumnos aparecerán aquí cuando
+                                    registren su asistencia.
+                                </td>
+                            </tr>
 
-                                Presente
-
-                            </span>
-
-
-                        {% elif registro.estado == 'tarde' %}
-
-                            <span style="
-                                display:inline-flex;
-                                align-items:center;
-                                gap:7px;
-                                min-width:105px;
-                                justify-content:center;
-                                padding:7px 12px;
-                                border-radius:999px;
-                                background:#FFF0F8;
-                                color:#FF3AA7;
-                                font-size:12px;
-                                font-weight:700;
-                            ">
-
-                                <i
-                                    data-lucide="clock-3"
-                                    style="
-                                        width:15px;
-                                        height:15px;
-                                    "
-                                ></i>
-
-                                Tarde
-
-                            </span>
-
-
-                        {% elif registro.estado == 'ausente' %}
-
-                            <span style="
-                                display:inline-flex;
-                                align-items:center;
-                                gap:7px;
-                                min-width:105px;
-                                justify-content:center;
-                                padding:7px 12px;
-                                border-radius:999px;
-                                background:#FFF1F1;
-                                color:#B42318;
-                                font-size:12px;
-                                font-weight:700;
-                            ">
-
-                                <i
-                                    data-lucide="x"
-                                    style="
-                                        width:16px;
-                                        height:16px;
-                                    "
-                                ></i>
-
-                                Ausente
-
-                            </span>
-
-
-                        {% else %}
-
-                            <span style="
-                                display:inline-flex;
-                                align-items:center;
-                                gap:7px;
-                                min-width:105px;
-                                justify-content:center;
-                                padding:7px 12px;
-                                border-radius:999px;
-                                background:#F2F4F7;
-                                color:#667085;
-                                font-size:12px;
-                                font-weight:700;
-                            ">
-
-                                <i
-                                    data-lucide="hourglass"
-                                    style="
-                                        width:15px;
-                                        height:15px;
-                                    "
-                                ></i>
-
-                                Pendiente
-
-                            </span>
-
-                        {% endif %}
-
-                    </div>
-
-                </div>
-
-
-            {% empty %}
-
-                <div style="
-                    margin-top:22px;
-                    padding:40px 20px;
-                    text-align:center;
-                    border:1px dashed #D0D5DD;
-                    border-radius:14px;
-                    background:#FAFAFA;
-                ">
-
-                    <div style="
-                        width:58px;
-                        height:58px;
-                        margin:0 auto 15px auto;
-                        border-radius:50%;
-                        background:#EDF5FF;
-                        color:#156FE7;
-                        display:flex;
-                        align-items:center;
-                        justify-content:center;
-                    ">
-
-                        <i
-                            data-lucide="users"
-                            style="
-                                width:26px;
-                                height:26px;
-                            "
-                        ></i>
-
-                    </div>
-
-                    <strong style="
-                        display:block;
-                        margin-bottom:7px;
-                        color:#101828;
-                        font-size:15px;
-                    ">
-                        Todavía no hay registros
-                    </strong>
-
-                    <span style="
-                        color:#667085;
-                        font-size:12px;
-                    ">
-                        Los alumnos aparecerán aquí cuando registren su asistencia.
-                    </span>
-
-                </div>
-
-            {% endfor %}
-
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
         </div>
-
 
         <!-- =====================================================
              VOLVER
         ====================================================== -->
 
-        <div style="
-            margin-top:20px;
-        ">
-
+        <div style="margin-top:20px;">
             <a
                 href="{% url 'clases_profesor' %}"
+                class="texto-secundario"
                 style="
                     display:inline-flex;
                     align-items:center;
-                    gap:6px;
+                    gap:7px;
                     color:#667085;
                     text-decoration:none;
-                    font-size:13px;
                     font-weight:600;
                 "
             >
-
-                <i
-                    data-lucide="arrow-left"
-                    style="
-                        width:15px;
-                        height:15px;
-                    "
-                ></i>
+                <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <path d="M19 12H5"></path>
+                    <path d="M12 19l-7-7 7-7"></path>
+                </svg>
 
                 Volver a clases
-
             </a>
-
         </div>
 
     </div>
-
 </section>
+<!-- =====================================================
+     ESTILOS ESPECÍFICOS DEL QR
+===================================================== -->
 
+<style>
+    .qr-tiempo {
+        width: 240px;
+        max-width: 100%;
+        height: 5px;
+        margin: 16px auto 0;
+        overflow: hidden;
+        border-radius: 999px;
+        background: #F2F4F7;
+    }
 
-<!-- =========================================================
-     ACTUALIZACIÓN AUTOMÁTICA DEL QR
-========================================================== -->
+    .qr-tiempo-barra {
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background: #FF3AA7;
+        transform-origin: left center;
+        transition: width 1s linear;
+    }
+
+    .qr-cuenta {
+        margin-top: 8px;
+        font-size: 13px;
+        line-height: 1.4;
+        font-weight: 500;
+        color: #667085;
+    }
+
+    .qr-cuenta strong {
+        color: #172033;
+        font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+        .qr-cuenta {
+            font-size: 12px;
+        }
+    }
+</style>
+
+<!-- =====================================================
+     GEOLOCALIZACIÓN DEL PROFESOR
+===================================================== -->
+
+<script>
+    function abrirAsistenciaConUbicacion() {
+        const boton = document.getElementById('btnAbrirAsistencia');
+        const textoBoton = document.getElementById('textoBotonAbrir');
+        const latitudInput = document.getElementById('latitudProfesor');
+        const longitudInput = document.getElementById('longitudProfesor');
+        const formulario = document.getElementById('formAbrirAsistencia');
+
+        if (!boton || !formulario || !latitudInput || !longitudInput) {
+            return;
+        }
+
+        if (!navigator.geolocation) {
+            alert(
+                'Tu navegador no permite obtener la ubicación. ' +
+                'No se puede abrir la asistencia.'
+            );
+            return;
+        }
+
+        boton.disabled = true;
+        boton.style.opacity = '0.7';
+        boton.style.cursor = 'wait';
+
+        if (textoBoton) {
+            textoBoton.textContent = 'Obteniendo ubicación...';
+        }
+
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                latitudInput.value = position.coords.latitude;
+                longitudInput.value = position.coords.longitude;
+
+                if (textoBoton) {
+                    textoBoton.textContent = 'Abriendo asistencia...';
+                }
+
+                formulario.submit();
+            },
+
+            function(error) {
+                boton.disabled = false;
+                boton.style.opacity = '1';
+                boton.style.cursor = 'pointer';
+
+                if (textoBoton) {
+                    textoBoton.textContent = 'Abrir asistencia';
+                }
+
+                let mensaje =
+                    'No se ha podido obtener tu ubicación. ' +
+                    'Debes permitir el acceso a la ubicación para abrir la asistencia.';
+
+                if (error.code === error.PERMISSION_DENIED) {
+                    mensaje =
+                        'Has rechazado el permiso de ubicación. ' +
+                        'Actívalo en el navegador para poder abrir la asistencia.';
+                } else if (error.code === error.POSITION_UNAVAILABLE) {
+                    mensaje =
+                        'Tu ubicación no está disponible en este momento. ' +
+                        'Comprueba la conexión y vuelve a intentarlo.';
+                } else if (error.code === error.TIMEOUT) {
+                    mensaje =
+                        'Se ha tardado demasiado en obtener tu ubicación. ' +
+                        'Vuelve a intentarlo.';
+                }
+
+                alert(mensaje);
+            },
+
+            {
+                enableHighAccuracy: true,
+                timeout: 15000,
+                maximumAge: 0
+            }
+        );
+    }
+</script>
+
+<!-- =====================================================
+     RENOVACIÓN AUTOMÁTICA DEL QR
+===================================================== -->
 
 {% if clase.asistencia_abierta %}
 
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const qrImagen = document.getElementById('qr-imagen');
+        const qrSegundos = document.getElementById('qr-segundos');
+        const qrBarra = document.getElementById('qr-tiempo-barra');
 
-    document.addEventListener(
-        'DOMContentLoaded',
-        function () {
+        if (!qrImagen) {
+            return;
+        }
 
-            const qrImagen =
-                document.getElementById(
-                    'qr-imagen'
-                );
+        const DURACION_QR = 5;
+        let segundosRestantes = DURACION_QR;
 
-            const estadoQrTexto =
-                document.getElementById(
-                    'estado-qr-texto'
-                );
+        function actualizarContador() {
+            if (qrSegundos) {
+                qrSegundos.textContent = segundosRestantes;
+            }
 
+            if (qrBarra) {
+                const porcentaje =
+                    (segundosRestantes / DURACION_QR) * 100;
 
-            if (!qrImagen) {
+                qrBarra.style.width = porcentaje + '%';
+            }
+        }
+
+        function renovarQR() {
+            fetch(
+                "{% url 'renovar_qr' clase.id %}",
+                {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    },
+                    cache: 'no-store'
+                }
+            )
+            .then(function(response) {
+                if (!response.ok) {
+                    throw new Error(
+                        'No se ha podido renovar el código QR.'
+                    );
+                }
+
+                return response.json();
+            })
+            .then(function(data) {
+                if (!data.ok) {
+                    throw new Error(
+                        data.error || 'Error al renovar el código QR.'
+                    );
+                }
+
+                if (data.qr_base64) {
+                    qrImagen.src =
+                        'data:image/png;base64,' +
+                        data.qr_base64;
+                } else {
+                    qrImagen.src =
+                        "{% url 'qr_clase' clase.id %}?t=" +
+                        new Date().getTime();
+                }
+
+                segundosRestantes = DURACION_QR;
+                actualizarContador();
+            })
+            .catch(function(error) {
+                console.error(error);
+
+                segundosRestantes = DURACION_QR;
+                actualizarContador();
+            });
+        }
+
+        actualizarContador();
+
+        setInterval(function() {
+            segundosRestantes--;
+
+            if (segundosRestantes <= 0) {
+                segundosRestantes = 0;
+                actualizarContador();
+                renovarQR();
                 return;
             }
 
-
-            function actualizarQr() {
-
-                const nuevaUrl =
-                    "{% url 'qr_clase' clase.id %}"
-                    + "?t="
-                    + new Date().getTime();
-
-                qrImagen.src =
-                    nuevaUrl;
-
-
-                if (estadoQrTexto) {
-
-                    estadoQrTexto.textContent =
-                        "QR ACTUALIZADO";
-
-                    setTimeout(
-                        function () {
-
-                            estadoQrTexto.textContent =
-                                "QR ACTIVO";
-
-                        },
-                        1200
-                    );
-
-                }
-
-            }
-
-
-            setInterval(
-                actualizarQr,
-                10000
-            );
-
-        }
-    );
-
+            actualizarContador();
+        }, 1000);
+    });
 </script>
 
 {% endif %}

@@ -783,12 +783,34 @@
 
         <!-- ACCESO -->
 
-        <a
-            href="{% url 'seleccionar_login' %}"
-            class="boton-entrar"
-        >
-            Iniciar sesión
-        </a>
+{% if sesion_profesor %}
+
+    <a
+        href="{% url 'panel_profesor' %}"
+        class="boton-entrar"
+    >
+        Ir a grupos
+    </a>
+
+{% elif sesion_alumno %}
+
+    <a
+        href="{% url 'grupo_alumno' %}"
+        class="boton-entrar"
+    >
+        Ir a mi grupo
+    </a>
+
+{% else %}
+
+    <a
+        href="{% url 'seleccionar_login' %}"
+        class="boton-entrar"
+    >
+        Iniciar sesión
+    </a>
+
+{% endif %}
 
 
     </div>

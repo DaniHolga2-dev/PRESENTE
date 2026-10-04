@@ -39,6 +39,12 @@ urlpatterns = [
     ),
 
     path(
+        'profesor/registro/',
+        views.registro_profesor,
+        name='registro_profesor'
+    ),
+
+    path(
         'profesor/panel/',
         views.panel_profesor,
         name='panel_profesor'
@@ -50,6 +56,11 @@ urlpatterns = [
         name='logout_profesor'
     ),
 
+
+    # =====================================================
+    # GRUPOS PROFESOR
+    # =====================================================
+
     path(
         'profesor/grupos/nuevo/',
         views.crear_grupo,
@@ -60,6 +71,12 @@ urlpatterns = [
         'profesor/grupos/<int:grupo_id>/',
         views.detalle_grupo,
         name='detalle_grupo'
+    ),
+
+    path(
+        'profesor/grupos/<int:grupo_id>/color/',
+        views.cambiar_color_grupo,
+        name='cambiar_color_grupo'
     ),
 
     path(
@@ -77,6 +94,12 @@ urlpatterns = [
         'profesor/clases/',
         views.clases_profesor,
         name='clases_profesor'
+    ),
+
+    path(
+        'profesor/clases/borrar/',
+        views.borrar_clases,
+        name='borrar_clases'
     ),
 
     path(
@@ -105,7 +128,7 @@ urlpatterns = [
 
 
     # =====================================================
-    # CONTROL GENERAL DE ASISTENCIA - PROFESOR
+    # CONTROL DE ASISTENCIA PROFESOR
     # =====================================================
 
     path(
@@ -118,6 +141,17 @@ urlpatterns = [
         'profesor/asistencia/registros/',
         views.registros_asistencia,
         name='registros_asistencia'
+    ),
+
+
+    # =====================================================
+    # NOTIFICACIONES PROFESOR
+    # =====================================================
+
+    path(
+        'profesor/notificaciones/',
+        views.notificaciones_profesor,
+        name='notificaciones_profesor'
     ),
 
 
@@ -223,11 +257,6 @@ urlpatterns = [
         name='clases_alumno'
     ),
 
-
-    # =====================================================
-    # ASISTENCIA ALUMNO
-    # =====================================================
-
     path(
         'alumno/asistencia/',
         views.asistencia_alumno,
@@ -280,8 +309,14 @@ urlpatterns = [
 
 
     # =====================================================
-    # QR
+    # QR Y REGISTRO DE ASISTENCIA
     # =====================================================
+
+    path(
+        'profesor/clases/<int:clase_id>/qr/',
+        views.qr_clase,
+        name='qr_clase'
+    ),
 
     path(
         'asistencia/registrar/<uuid:token>/',
@@ -299,5 +334,4 @@ urlpatterns = [
         views.soporte,
         name='soporte'
     ),
-
 ]
