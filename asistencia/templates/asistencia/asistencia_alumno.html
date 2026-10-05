@@ -2,6 +2,28 @@
 {% block title %}Asistencia | PRESENTE{% endblock %}
 
 {% block content %}
+
+{% if messages %}
+    {% for message in messages %}
+        {% if message.tags == 'success' %}
+            <div class="popup-asistencia" id="popupAsistencia">
+
+                <div class="popup-asistencia-icono">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M20 6L9 17l-5-5"></path>
+                    </svg>
+                </div>
+
+                <div class="popup-asistencia-texto">
+                    <strong>Asistencia confirmada</strong>
+                    <span>Tu asistencia se ha registrado correctamente.</span>
+                </div>
+
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 <section class="panel-usuario">
     <div class="panel-contenedor" style="max-width:1180px;">
 
@@ -1622,6 +1644,24 @@
             );
         }
     );
+
+    
+
+    // Todo el JavaScript que ya tienes...
+
+    const popupAsistencia = document.getElementById('popupAsistencia');
+
+    if (popupAsistencia) {
+        setTimeout(() => {
+            popupAsistencia.classList.add('ocultando');
+
+            setTimeout(() => {
+                popupAsistencia.remove();
+            }, 250);
+        }, 3000);
+    }
+
+
 </script>
 
 {% endblock %}

@@ -1,6 +1,17 @@
 import uuid
 
+from django.core.exceptions import ValidationError
 from django.db import models
+
+
+def validar_foto_perfil(archivo):
+    limite_mb = 1
+    limite_bytes = limite_mb * 1024 * 1024
+
+    if archivo.size > limite_bytes:
+        raise ValidationError(
+            'La foto de perfil no puede superar 1 MB.'
+        )
 
 
 class Profesor(models.Model):
@@ -20,8 +31,9 @@ class Profesor(models.Model):
     foto = models.ImageField(
         upload_to='profesores/',
         blank=True,
-        null=True
-    )
+        null=True,
+        validators=[validar_foto_perfil]
+    )   
 
     def __str__(self):
         return f"{self.nombre} {self.apellidos}"
@@ -92,7 +104,8 @@ class Alumno(models.Model):
     foto = models.ImageField(
         upload_to='alumnos/',
         blank=True,
-        null=True
+        null=True,
+        validators=[validar_foto_perfil]
     )
 
     grupo = models.ForeignKey(
